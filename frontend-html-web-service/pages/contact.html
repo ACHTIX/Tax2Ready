@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax2Ready - Contact</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .font-mali {
+            font-family: 'Mali', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-[#c4bcac] font-mali">
+
+<!-- Header -->
+<header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <!-- โลโก้ / ชื่อเว็บ -->
+        <h1 class="text-2xl text-[#4e342e] font-bold font-mali justify-start">Tax2Ready</h1>
+
+        <!-- เมนูหลัก (Desktop) -->
+        <nav class="hidden md:flex space-x-6">
+            <a href="account.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
+            <a href="home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
+            <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
+            <a href="tax-calculator.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
+            <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
+        </nav>
+
+        <!-- ปุ่ม Login (Desktop) -->
+        <button type="button" onclick="location.href='pages/sign-in-up.html'" class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login</button>
+
+        <!-- เมนูมือถือ (Hamburger Icon) -->
+        <button class="md:hidden text-gray-600" id="mobile-menu-button">
+            ☰
+        </button>
+    </div>
+
+    <!-- เมนูสำหรับมือถือ (ซ่อนอยู่) -->
+    <nav id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 mt-3 bg-[#b49c74] p-4">
+        <a href="account.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
+        <a href="home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
+        <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
+        <a href="tax-calculator.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
+        <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
+
+        <button class="bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+            Login
+        </button>
+    </nav>
+</header>
+
+<!-- template script-->
+<script>
+    // ทำให้เมนูมือถือแสดง / ซ่อน
+    document.getElementById("mobile-menu-button").addEventListener("click", function() {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
+            let page = this.getAttribute('data-page'); // ดึงค่า data-page
+
+            fetch("pages/" + page)  // 📂 โหลดจากโฟลเดอร์ /pages
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('main-container').innerHTML = data; // แสดงผล
+                })
+                .catch(error => console.error('Error loading page:', error));
+        });
+    });
+</script>
+
+<!-- Main Content -->
+<div id="main-container" class="container mx-auto mt-20 p-6">
+    <div class="bg-[#ece4d4] p-6 rounded-xl shadow-lg max-w-5xl mx-auto flex flex-col md:flex-row gap-6">
+        <!-- Profile Information -->
+        <div class="w-full md:w-1/2 space-y-4">
+            <div class="bg-white p-4 rounded-lg shadow-md flex items-center gap-8">
+                <img src="../assets/tipsukanya.jpg" alt="ทิพสุกัญญา นรสิงห์" class="w-20 h-20 rounded-lg">
+                <div>
+                    <p class="text-lg font-bold">ทิพสุภัญญา นรสิงห์</p>
+                    <p class="text-sm text-gray-600">tipsukanya.n@ku.th</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-lg shadow-md flex items-center gap-8">
+                <img src="../assets/chatchada.jpg" alt="ทชัชชฎา เดชครุฑ" class="w-20 h-20 rounded-lg">
+                <div>
+                    <p class="text-lg font-bold">ชัชชฎา เดชครุฑ</p>
+                    <p class="text-sm text-gray-600">chatchada.de@ku.th</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-lg shadow-md flex items-center gap-8">
+                <img src="../assets/Logo_ku.png" alt="มหาวิทยาลัยเกษตรศาสตร์" class="w-20 h-20 rounded-lg">
+                <div>
+                    <p class="text-lg font-bold">มหาวิทยาลัยเกษตรศาสตร์</p>
+                    <p class="text-sm text-gray-600">คณะวิทยาศาสตร์ วิทยาการคอมพิวเตอร์</p>
+                    <p class="text-sm text-gray-600">อาจารย์ พรรณนิภาร์ จันทรไพแสง</p>
+                </div>
+            </div>
+
+            <!-- Rating Section -->
+            <div class="bg-white p-4 rounded-lg shadow-md text-center">
+                <p class="text-2xl font-bold">ให้คะแนนเรา</p>
+                <div class="flex justify-center mt-2 space-x-2">
+                    <span class="text-gray-400 text-5xl cursor-pointer hover:text-yellow-500">★</span>
+                    <span class="text-gray-400 text-5xl cursor-pointer hover:text-yellow-500">★</span>
+                    <span class="text-gray-400 text-5xl cursor-pointer hover:text-yellow-500">★</span>
+                    <span class="text-gray-400 text-5xl cursor-pointer hover:text-yellow-500">★</span>
+                    <span class="text-gray-400 text-5xl cursor-pointer hover:text-yellow-500">★</span>
+                </div>
+                <p class="text-lg mt-2">รบกวนให้คะแนนระบบของเรา</p>
+            </div>
+<!--            &lt;!&ndash; Star Rating Section &ndash;&gt;-->
+<!--            <div class="bg-white p-4 rounded-lg shadow-md text-center w-full md:w-[48%] mt-6 md:mt-0 md:absolute md:bottom-0 md:left-0">-->
+<!--                <p class="text-2xl font-bold">ให้คะแนนเรา</p>-->
+<!--                <div class="flex justify-center mt-2 space-x-2" id="star-rating">-->
+<!--                    <span class="text-gray-400 text-5xl cursor-pointer" data-rate="1">★</span>-->
+<!--                    <span class="text-gray-400 text-5xl cursor-pointer" data-rate="2">★</span>-->
+<!--                    <span class="text-gray-400 text-5xl cursor-pointer" data-rate="3">★</span>-->
+<!--                    <span class="text-gray-400 text-5xl cursor-pointer" data-rate="4">★</span>-->
+<!--                    <span class="text-gray-400 text-5xl cursor-pointer" data-rate="5">★</span>-->
+<!--                </div>-->
+<!--                <p class="text-lg mt-2">รบกวนให้คะแนนระบบของเรา</p>-->
+<!--            </div>-->
+
+            <script>
+                document.querySelectorAll("#star-rating span").forEach(star => {
+                    star.addEventListener("click", function() {
+                        let stars = parseInt(this.getAttribute("data-rate"));
+                        document.querySelectorAll("#star-rating span").forEach((s, index) => {
+                            s.style.color = index < stars ? "gold" : "gray";
+                        });
+                    });
+                });
+            </script>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-bold mb-4">ติดต่อเรา</h2>
+            <form>
+                <div class="mb-4">
+                    <label class="block text-gray-700">ชื่อของคุณ</label>
+                    <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-[#4e342e]">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700">เบอร์โทร</label>
+                    <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-[#4e342e]">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700">อีเมลของคุณ</label>
+                    <input type="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-[#4e342e]">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700">เรื่องที่ต้องการติดต่อ</label>
+                    <textarea class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-[#4e342e]" rows="4"></textarea>
+                </div>
+
+                            </form>
+
+            <!-- ปุ่มเปิดป๊อปอัพ -->
+            <div class="flex justify-center">
+                <button id="openPopup" type="button" class="flex items-center justify-center bg-[#4e342e] text-white py-2 px-4 rounded-lg hover:bg-[#8d6e63]">ยืนยัน</button>
+            </div>
+
+            <!-- ป๊อปอัพ -->
+            <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+                <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center">
+                    <h2 class="text-xl font-bold mb-4">ยืนยันการดำเนินการ</h2>
+                    <p class="mb-4">คุณแน่ใจหรือไม่ว่าต้องการดำเนินการนี้?</p>
+                    <div class="flex justify-center space-x-4">
+                        <button id="confirm" type="button" class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600">ยืนยัน</button>
+                        <button id="cancel" type="button" class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600">ยกเลิก</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript สำหรับควบคุมป๊อปอัพ -->
+<script>
+    document.getElementById("openPopup").addEventListener("click", function(event) {
+        event.preventDefault();
+        document.getElementById("popup").classList.remove("hidden");
+    });
+
+    document.getElementById("cancel").addEventListener("click", function(event) {
+        event.preventDefault();
+        document.getElementById("popup").classList.add("hidden");
+    });
+
+    document.getElementById("confirm").addEventListener("click", function(event) {
+        event.preventDefault();
+        alert("ดำเนินการสำเร็จ!");
+        document.getElementById("popup").classList.add("hidden");
+    });
+</script>
+
+
+
+</body>
+</html>

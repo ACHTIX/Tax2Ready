@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax2Ready - Contact</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .font-mali {
+            font-family: 'Mali', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-[#c4bcac] font-mali">
+
+<header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <h1 class="text-2xl text-[#4e342e] font-bold font-mali">Tax2Ready</h1>
+        <nav class="hidden md:flex space-x-6">
+            <a href="account.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
+            <a href="home.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
+            <a href="#" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
+            <a href="tax-calculator.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
+            <a href="contact.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">ติดต่อ</a>
+        </nav>
+        <button type="button" onclick="location.href='pages/sign-in-up.html'" class="hidden md:block bg-[#4e342e] text-white px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login</button>
+    </div>
+</header>
+
+<div id="main-container" class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
+    <div class="w-full md:w-1/2 space-y-4">
+        <div class="bg-white p-4 rounded-lg shadow-md flex items-center gap-8">
+            <img src="../assets/tipsukanya.jpg" alt="ทิพสุกัญญา นรสิงห์" class="w-20 h-20 rounded-lg">
+            <div>
+                <p class="text-lg font-bold">ทิพสุภัญญา นรสิงห์</p>
+                <p class="text-sm text-gray-600">tipsukanya.n@ku.th</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("mobile-menu-button").addEventListener("click", function() {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+</script>
+
+</body>
+</html>
