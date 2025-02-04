@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .font-mali { font-family: 'Mali', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#c4bcac] min-h-screen flex items-center justify-center">
+
+
+<!-- Header -->
+<header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <!-- โลโก้ / ชื่อเว็บ -->
+        <h1 class="text-2xl text-[#4e342e] font-bold font-mali justify-start">Tax2Ready</h1>
+
+        <!-- เมนูหลัก (Desktop) -->
+        <nav class="hidden md:flex space-x-6">
+            <a href="account.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
+            <a href="home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
+            <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
+            <a href="tax-calculator.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
+            <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
+        </nav>
+
+        <!-- ปุ่ม Login (Desktop) -->
+        <button type="button" onclick="location.href='pages/sign-in-up.html'" class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login</button>
+
+        <!-- เมนูมือถือ (Hamburger Icon) -->
+        <button class="md:hidden text-gray-600" id="mobile-menu-button">
+            ☰
+        </button>
+    </div>
+
+    <!-- เมนูสำหรับมือถือ (ซ่อนอยู่) -->
+    <nav id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 mt-3 bg-[#b49c74] p-4">
+        <a href="account.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
+        <a href="home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
+        <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
+        <a href="tax-calculator.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
+        <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
+
+        <button class="bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+            Login
+        </button>
+    </nav>
+</header>
+
+<!-- template script-->
+<script>
+    // ทำให้เมนูมือถือแสดง / ซ่อน
+    document.getElementById("mobile-menu-button").addEventListener("click", function() {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
+            let page = this.getAttribute('data-page'); // ดึงค่า data-page
+
+            fetch("pages/" + page)  // 📂 โหลดจากโฟลเดอร์ /pages
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('main-container').innerHTML = data; // แสดงผล
+                })
+                .catch(error => console.error('Error loading page:', error));
+        });
+    });
+</script>
+
+<!-- Container (Login & Register) -->
+<div x-data="{ isLogin: true }"
+     id="main-container" class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center md:text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20"
+     :class="isLogin ? 'md:flex-row' : 'md:flex-row-reverse'">
+
+    <!-- ฟอร์ม Login & Register -->
+    <div class="w-full md:w-1/2 p-4 border-t md:border-t-0">
+
+    <!-- ฟอร์มเข้าสู่ระบบ -->
+        <div x-show="isLogin">
+            <h2 class="text-xl font-bold text-[#4e342e] font-mali">เข้าสู่ระบบ</h2>
+            <form class="mt-4">
+                <input type="text" placeholder="ชื่อผู้ใช้ *" required class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
+                <input type="password" placeholder="รหัสผ่าน *" required class="w-full px-4 py-2 border rounded-lg mt-3 focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
+                <button type="submit" class="w-full bg-[#4e342e] text-white font-mali px-4 py-2 mt-4 rounded-lg hover:bg-[#8d6e63]">เข้าสู่ระบบ</button>
+            <button @click="isLogin = false" class="block w-full bg-[#b49c74] text-white font-mali px-4 py-2 mt-2 rounded-lg hover:bg-[#a3885c]">ลงทะเบียน</button>
+            <a href="#" class="block mt-2 text-[#4e342e] font-mali hover:text-[#8d6e63] hover:underline">ลืมรหัสผ่าน?</a>
+            </form>
+        </div>
+
+        <!-- ฟอร์มลงทะเบียน -->
+        <div x-show="!isLogin">
+            <h2 class="text-xl font-bold text-[#4e342e] font-mali">ลงทะเบียน</h2>
+            <form class="mt-4">
+                <input type="text" placeholder="ชื่อ *" required class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
+                <input type="text" placeholder="นามสกุล *" required class="w-full px-4 py-2 border rounded-lg mt-3 focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
+                <input type="text" placeholder="ชื่อผู้ใช้ *" required class="w-full px-4 py-2 border rounded-lg mt-3 focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
+                <input type="email" placeholder="E-mail *" required class="w-full px-4 py-2 border rounded-lg mt-3 focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
+                <input type="date" required class="w-full px-4 py-2 border rounded-lg mt-3 focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
+                <input type="tel" placeholder="เบอร์โทร *" required class="w-full px-4 py-2 border rounded-lg mt-3 focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
+                <select class="w-full px-4 py-2 border rounded-lg mt-3 focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
+                    <option value="male">ชาย</option>
+                    <option value="female">หญิง</option>
+                    <option value="other">อื่นๆ</option>
+                </select>
+                <button type="submit" class="w-full bg-[#4e342e] text-white font-mali px-4 py-2 mt-4 rounded-lg hover:bg-[#8d6e63]">ลงทะเบียน</button>
+            </form>
+            <a @click="isLogin = true" href="#" class="block mt-2 text-[#4e342e] font-mali hover:text-[#8d6e63] hover:underline">มีบัญชีอยู่แล้ว?</a>
+        </div>
+    </div>
+
+    <!-- รูปหมา (จะสลับฝั่งตาม isLogin) -->
+    <div class="w-full md:w-1/2 p-4 flex justify-center">
+        <img src="../assets/TD_icon.png" alt="EasyTax" class="w-70 h-70 object-cover">
+    </div>
+
+</div>
+</body>
+</html>
