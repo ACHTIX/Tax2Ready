@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tax2Ready - Contact</title>
+    <title>User Profile</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -12,39 +12,526 @@
         }
     </style>
 </head>
-<body class="bg-[#c4bcac] font-mali">
+<body class="flex items-center justify-center min-h-screen bg-[#c4bcac]">
 
-<header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
+<!-- Header -->
+<header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0 z-10">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <!-- โลโก้ / ชื่อเว็บ -->
         <h1 class="text-2xl text-[#4e342e] font-bold font-mali">Tax2Ready</h1>
+
+        <!-- เมนูหลัก (Desktop) -->
         <nav class="hidden md:flex space-x-6">
-            <a href="account.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
-            <a href="home.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
-            <a href="#" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
-            <a href="tax-calculator.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
-            <a href="contact.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">ติดต่อ</a>
+            <a href="account.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
+            <a href="home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
+            <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
+            <a href="tax-calculator.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
+            <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
         </nav>
-        <button type="button" onclick="location.href='pages/sign-in-up.html'" class="hidden md:block bg-[#4e342e] text-white px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login</button>
+
+        <!-- ปุ่ม Login (Desktop) -->
+        <button type="button" onclick="location.href='pages/sign-in-up.html'" class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login</button>
+
+        <!-- เมนูมือถือ (Hamburger Icon) -->
+        <button class="md:hidden text-gray-600" id="mobile-menu-button">
+            ☰
+        </button>
     </div>
+
+    <!-- เมนูสำหรับมือถือ (ซ่อนอยู่) -->
+    <nav id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 mt-3 bg-[#b49c74] p-4">
+        <a href="account.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
+        <a href="home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
+        <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
+        <a href="tax-calculator.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
+        <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
+
+        <button class="bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+            Login
+        </button>
+    </nav>
 </header>
 
+<!-- Main Container -->
 <div id="main-container" class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
-    <div class="w-full md:w-1/2 space-y-4">
-        <div class="bg-white p-4 rounded-lg shadow-md flex items-center gap-8">
-            <img src="../assets/tipsukanya.jpg" alt="ทิพสุกัญญา นรสิงห์" class="w-20 h-20 rounded-lg">
-            <div>
-                <p class="text-lg font-bold">ทิพสุภัญญา นรสิงห์</p>
-                <p class="text-sm text-gray-600">tipsukanya.n@ku.th</p>
+    <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
+
+        <!-- User Profile Section -->
+        <!-- เปลี่ยนจาก w-2/5 h-[550px] เป็น w-full md:w-1/2 h-auto md:h-[550px] เพื่อให้เหมาะกับมือถือ -->
+        <div class="w-full md:w-1/2 h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md gap-6">
+            <h2 class="text-2xl font-bold text-[#4e342e] font-mali text-center">โปรไฟล์ผู้ใช้</h2>
+            <div class="mt-4 text-xl text-left">
+                <p class="text-[#4e342e] font-mali"><strong>ชื่อ:</strong> <span id="user-name">-</span></p>
+                <p class="text-[#4e342e] font-mali"><strong>นามสกุล:</strong> <span id="user-lastname">-</span></p>
+                <p class="text-[#4e342e] font-mali"><strong>ชื่อผู้ใช้:</strong> <span id="user-username">-</span></p>
+                <p class="text-[#4e342e] font-mali"><strong>E-mail:</strong> <span id="user-email">-</span></p>
+                <p class="text-[#4e342e] font-mali"><strong>วันเกิด:</strong> <span id="user-birthday">-</span></p>
+                <p class="text-[#4e342e] font-mali"><strong>เบอร์โทร:</strong> <span id="user-phone">-</span></p>
+                <p class="text-[#4e342e] font-mali"><strong>เพศ:</strong> <span id="user-gender">-</span></p>
             </div>
+            <!-- ปุ่มแก้ไขโปรไฟล์ -->
+            <button onclick="openEditProfile()" class="w-full bg-[#4e342e] text-white font-mali px-4 py-2 mt-4 rounded-lg hover:bg-[#8d6e63]">
+                แก้ไขโปรไฟล์
+            </button>
+
+            <!-- Modal แก้ไขโปรไฟล์ -->
+            <!-- เปลี่ยนความกว้างของ Modal ให้เป็น responsive ด้วย w-11/12 md:w-[400px] -->
+            <div id="editProfileModal" class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 hidden">
+                <div class="bg-white p-6 rounded-lg shadow-lg w-11/12 md:w-[400px]">
+                    <h3 class="text-xl font-bold text-[#4e342e] mb-4 text-center">แก้ไขโปรไฟล์</h3>
+
+                    <div class="space-y-2">
+                        <label class="block text-[#4e342e] font-mali">ชื่อ</label>
+                        <input id="edit-name" type="text" class="w-full border border-gray-300 rounded-lg p-2" placeholder="ชื่อของคุณ">
+
+                        <label class="block text-[#4e342e] font-mali">นามสกุล</label>
+                        <input id="edit-lastname" type="text" class="w-full border border-gray-300 rounded-lg p-2" placeholder="นามสกุลของคุณ">
+
+                        <label class="block text-[#4e342e] font-mali">E-mail</label>
+                        <input id="edit-email" type="email" class="w-full border border-gray-300 rounded-lg p-2" placeholder="example@mail.com">
+
+                        <label class="block text-[#4e342e] font-mali">เบอร์โทร</label>
+                        <input id="edit-phone" type="text" class="w-full border border-gray-300 rounded-lg p-2" placeholder="เบอร์โทรศัพท์ของคุณ">
+                    </div>
+
+                    <div class="flex justify-between mt-4">
+                        <button onclick="closeEditProfile()" class="bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-500">
+                            ยกเลิก
+                        </button>
+                        <button onclick="saveProfile()" class="bg-[#4e342e] text-white px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+                            บันทึก
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- เส้นกั้น -->
+            <hr class="border-t border-gray-300 my-4">
+
+            <!-- Toggle Switch + ปุ่มข้อมูล -->
+            <div class="flex items-center justify-between w-full">
+                <!-- หัวข้อ -->
+                <h2 class="text-lg font-bold text-[#4e342e] font-mali flex items-center">
+                    เปิดเพื่อรับแจ้งเตือนผ่าน E-mail
+                </h2>
+
+                <!-- ปุ่มข้อมูล + Toggle Switch -->
+                <div class="flex items-center space-x-3">
+                    <!-- ปุ่มข้อมูล -->
+                    <button id="infoButton" class="w-7 h-7 bg-[#4e342e] text-white rounded-full flex items-center justify-center font-bold text-lg hover:bg-[#8d6e63]">
+                        ?
+                    </button>
+
+                    <!-- Toggle Switch -->
+                    <div class="flex items-center space-x-2">
+                        <span class="text-lg font-semibold text-gray-700 font-mali">ปิด</span>
+                        <div id="toggleSwitch" class="w-14 h-8 flex items-center bg-gray-300 rounded-full p-1 cursor-pointer transition-all duration-300" onclick="toggleSwitch()">
+                            <div id="toggleCircle" class="w-6 h-6 bg-white rounded-full shadow-md transition-all duration-300"></div>
+                        </div>
+                        <span class="text-lg font-semibold text-gray-700 font-mali">เปิด</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Popup อธิบาย -->
+            <div id="infoPopup" class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 hidden">
+                <div class="bg-white p-6 rounded-lg shadow-lg w-11/12 md:w-[350px] text-center">
+                    <h3 class="text-lg font-bold text-[#4e342e] mb-3">แจ้งเตือนการยื่นภาษี</h3>
+                    <p class="text-gray-700 font-mali">
+                        เปิดการแจ้งเตือนเพื่อรับการเตือนเมื่อใกล้ถึงเวลายื่นภาษีของคุณ พร้อมทั้งข้อมูลการลดหย่อนภาษีรายการพิเศษแบบปีต่อปี เพียง ปีละ 29 บาทเท่านั้น
+                    </p>
+                    <button onclick="closePopup()" class="mt-4 bg-[#4e342e] text-white px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+                        ปิด
+                    </button>
+                </div>
+            </div>
+
+            <!-- ปุ่มออกจากระบบ -->
+            <button onclick="logoutUser()" class="w-full bg-red-600 text-white font-mali px-4 py-2 mt-4 rounded-lg hover:bg-red-700">
+                ออกจากระบบ
+            </button>
+
+            <script>
+                function logoutUser() {
+                    // ทำการ Logout เช่น เคลียร์ Session หรือ Redirect ไปหน้า Login
+                    alert("คุณได้ออกจากระบบแล้ว");
+                    window.location.href = "/login"; // แก้ไข URL ให้เป็นหน้าล็อกอินของคุณ
+                }
+            </script>
+
+
+            <script>
+                function openEditProfile() {
+                    document.getElementById("editProfileModal").classList.remove("hidden");
+
+                    // ดึงค่าจากโปรไฟล์ปัจจุบันมาใส่ในฟอร์ม
+                    document.getElementById("edit-name").value = document.getElementById("user-name").textContent;
+                    document.getElementById("edit-lastname").value = document.getElementById("user-lastname").textContent;
+                    document.getElementById("edit-email").value = document.getElementById("user-email").textContent;
+                    document.getElementById("edit-phone").value = document.getElementById("user-phone").textContent;
+                }
+
+                function closeEditProfile() {
+                    document.getElementById("editProfileModal").classList.add("hidden");
+                }
+
+                function saveProfile() {
+                    // ดึงค่าจากฟอร์มที่แก้ไข
+                    let newName = document.getElementById("edit-name").value;
+                    let newLastName = document.getElementById("edit-lastname").value;
+                    let newEmail = document.getElementById("edit-email").value;
+                    let newPhone = document.getElementById("edit-phone").value;
+
+                    // อัปเดตข้อมูลในหน้าโปรไฟล์
+                    document.getElementById("user-name").textContent = newName;
+                    document.getElementById("user-lastname").textContent = newLastName;
+                    document.getElementById("user-email").textContent = newEmail;
+                    document.getElementById("user-phone").textContent = newPhone;
+
+                    // ปิด Modal
+                    closeEditProfile();
+                }
+
+                let isOn = false;
+
+                function toggleSwitch() {
+                    const switchElement = document.getElementById("toggleSwitch");
+                    const circleElement = document.getElementById("toggleCircle");
+
+                    isOn = !isOn;
+
+                    if (isOn) {
+                        switchElement.classList.remove("bg-gray-300");
+                        switchElement.classList.add("bg-green-500");
+                        circleElement.classList.add("translate-x-6");
+                    } else {
+                        switchElement.classList.remove("bg-green-500");
+                        switchElement.classList.add("bg-gray-300");
+                        circleElement.classList.remove("translate-x-6");
+                    }
+                }
+
+                function openPopup() {
+                    document.getElementById("infoPopup").classList.remove("hidden");
+                }
+
+                function closePopup() {
+                    document.getElementById("infoPopup").classList.add("hidden");
+                }
+
+                document.getElementById("infoButton").addEventListener("click", openPopup);
+            </script>
+        </div>
+
+
+
+        <!-- Income Information Section -->
+        <!-- เปลี่ยนจาก w-2/5 h-[550px] เป็น w-full md:w-1/2 h-auto md:h-[550px] -->
+        <div class="w-full md:w-1/2 h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md flex flex-col justify-between">
+            <h2 class="text-2xl font-bold text-[#4e342e] font-mali text-center">ข้อมูลลดหย่อนภาษี</h2>
+
+            <div id="income-section" class="flex-1 mt-4">
+                <!-- Title -->
+                <h3 id="category-title" class="font-bold text-[#4e342e] text-center text-xl font-mali mb-2">รายได้</h3>
+
+                <!-- Dynamic Content -->
+                <ul id="category-content" class="list-disc pl-6 text-left text-[#4e342e] font-mali space-y-1">
+                    <!-- รายการจะถูกเพิ่มผ่าน JavaScript -->
+                </ul>
+            </div>
+
+            <!-- ปุ่มแก้ไข -->
+            <button id="editIncomeButton" class="w-full bg-[#4e342e] text-white font-mali px-4 py-2 mt-4 mb-6 rounded-lg hover:bg-[#8d6e63]">
+                แก้ไขข้อมูล
+            </button>
+
+            <!-- ปุ่มเลื่อนหน้า -->
+            <div class="mt-auto flex justify-between items-center w-full">
+                <button id="prevPage" class="px-4 py-2 bg-[#a3885c] text-white rounded-lg hover:bg-[#8d6e63]">
+                    <<
+                </button>
+                <span id="page-indicator" class="text-[#4e342e]">2 / 6</span>
+                <button id="nextPage" class="px-4 py-2 bg-[#a3885c] text-white rounded-lg hover:bg-[#8d6e63]">
+                    >>
+                </button>
+            </div>
+
+            <!-- Popup แก้ไขข้อมูล -->
+            <!-- เปลี่ยนความกว้างให้เป็น responsive ด้วย w-11/12 md:w-[500px] -->
+            <div id="editIncomePopup" class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 hidden">
+                <div class="bg-white p-6 rounded-lg shadow-lg w-11/12 md:w-[500px] text-center">
+                    <h3 id="popup-title" class="text-lg font-bold text-[#4e342e] mb-3">แก้ไขข้อมูล</h3>
+
+                    <!-- ฟอร์มแก้ไขข้อมูล (Responsive: 1 คอลัมน์บนมือถือ, 2 คอลัมน์บนเดสก์ท็อป) -->
+                    <div id="edit-form" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                        <!-- ฟิลด์แก้ไขจะถูกเพิ่มผ่าน JavaScript -->
+                    </div>
+
+                    <!-- ปุ่มบันทึก / ปิด -->
+                    <div class="flex justify-between mt-4">
+                        <button onclick="saveIncome()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+                            บันทึก
+                        </button>
+                        <button onclick="closeIncomePopup()" class="bg-[#4e342e] text-white px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+                            ปิด
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                // ข้อมูลแต่ละหมวดหมู่
+                const categories = [
+                    {
+                        title: "รายได้",
+                        items: [
+                            "เงินเดือนประจำปี",
+                            "ค่าจ้าง เบี้ยประชุม ค่านายหน้า ค่าธรรมเนียม",
+                            "เงินได้อื่นๆ",
+                            "เงินได้ทรัพย์สินทางปัญญา",
+                            "ดอกเบี้ย/เงินปันผล",
+                            "รายได้วิชาชีพแพทย์",
+                            "วิชาชีพอิสระอื่นๆ",
+                            "รับเหมาแบบจัดหาสัมภาระ"
+                        ]
+                    },
+                    {
+                        title: "ค่าเช่า",
+                        items: [
+                            "ค่าเช่าทรัพย์สิน (ตามจริง)",
+                            "ค่าเช่าบ้าน สิ่งปลูกสร้าง",
+                            "ค่าเช่าที่ดินการเกษตร",
+                            "ค่าเช่าที่ดินมิใช่การเกษตร",
+                            "ค่าเช่าทรัพย์สินอย่างอื่น",
+                            "ยานพาหนะ"
+                        ]
+                    },
+                    {
+                        title: "ครอบครัว",
+                        items: [
+                            "ลดหย่อนส่วนบุคคล",
+                            "สถานะสมรส (ค่าลดหย่อนคู่สมรส)",
+                            "ค่าลดหย่อนฝากครรภ์/คลอดบุตร",
+                            "บุตรบุญธรรม (คน)",
+                            "บุตรผู้เยาว์ (คน)",
+                            "บิดา-มารดาตัวเอง(คน)",
+                            "ลดหย่อนบิดา/มารดาคู่สมรส(คน)"
+                        ]
+                    },
+                    {
+                        title: "ประกันและเงินบริจาค",
+                        items: [
+                            "ประกันสุขภาพ",
+                            "ค่าเบี้ยประกันชีวิตแบบ 10 ปีขึ้นไป",
+                            "เบี้ยประกันสุขภาพบิดามารดา",
+                            "ค่าเบี้ยประกันชีวิตแบบบำนาญ",
+                            "ค่าบริจาคการศึกษา",
+                            "เงินบริจาคทั่วไป",
+                            "เงินบริจาคพรรคการเมือง"
+                        ]
+                    },
+                    {
+                        title: "ลงทุน",
+                        items: [
+                            "ลงทุน ThaiESG ได้สูงสุด",
+                            "ลงทุน SSF + RMF ได้สูงสุด",
+                            "ลงทุน SSF อย่างเดียวได้สูงสุด",
+                            "ลงทุน RMF อย่างเดียวได้สูงสุด"
+                        ]
+                    },
+                    {
+                        title: "ลดหย่อนภาษีอื่นๆ",
+                        items: [
+                            "อุปการะผู้พิการ (คน)",
+                            "ประกันสังคม",
+                            "เงินสมทบกองทุนสำรองเลี้ยงชีพ",
+                            "กองทุนบำเหน็จบำนาญข้าราชการ (%)",
+                            "ดอกเบี้ยเงินกู้ซื้อบ้าน",
+                            "ค่าลดหย่อนพิเศษอื่นๆ"
+                        ]
+                    }
+                ];
+
+                let currentPage = 0;
+
+                function renderPage() {
+                    document.getElementById("category-title").textContent = categories[currentPage].title;
+                    const contentList = document.getElementById("category-content");
+                    contentList.innerHTML = "";
+
+                    categories[currentPage].items.forEach(item => {
+                        const li = document.createElement("li");
+                        li.textContent = item;
+                        contentList.appendChild(li);
+                    });
+
+                    document.getElementById("page-indicator").textContent = `${currentPage + 1} / ${categories.length}`;
+                }
+
+                document.getElementById("prevPage").addEventListener("click", function() {
+                    if (currentPage > 0) {
+                        currentPage--;
+                        renderPage();
+                    }
+                });
+
+                document.getElementById("nextPage").addEventListener("click", function() {
+                    if (currentPage < categories.length - 1) {
+                        currentPage++;
+                        renderPage();
+                    }
+                });
+
+                function openEditPopup() {
+                    document.getElementById("popup-title").textContent = `แก้ไข ${categories[currentPage].title}`;
+                    const form = document.getElementById("edit-form");
+                    form.innerHTML = "";
+
+                    categories[currentPage].items.forEach((item, index) => {
+                        const fieldWrapper = document.createElement("div");
+
+                        const label = document.createElement("label");
+                        label.textContent = item;
+                        label.classList.add("text-[#4e342e]", "font-mali", "block");
+
+                        const input = document.createElement("input");
+                        input.type = "number";  // กรองให้กรอกแค่ตัวเลข
+                        input.id = `edit-input-${index}`;
+                        input.classList.add("w-full", "p-2", "border", "rounded-lg");
+                        input.setAttribute("oninput", "validateNumber(this)");
+
+                        fieldWrapper.appendChild(label);
+                        fieldWrapper.appendChild(input);
+                        form.appendChild(fieldWrapper);
+                    });
+
+                    document.getElementById("editIncomePopup").classList.remove("hidden");
+                }
+
+                function closeIncomePopup() {
+                    document.getElementById("editIncomePopup").classList.add("hidden");
+                }
+
+                function saveIncome() {
+                    const dataList = document.getElementById("data-list");
+                    dataList.innerHTML = ""; // เคลียร์ข้อมูลเก่า
+
+                    categories[currentPage].items.forEach((item, index) => {
+                        const inputValue = document.getElementById(`edit-input-${index}`).value;
+
+                        if (inputValue.trim() === "") {
+                            alert(`กรุณากรอกข้อมูลให้ครบทุกช่อง!`);
+                            return;
+                        }
+
+                        // สร้าง container สำหรับแต่ละรายการ
+                        const listItem = document.createElement("li");
+                        listItem.classList.add("flex", "justify-between", "border-b", "pb-1");
+
+                        // ส่วนของชื่อรายการ
+                        const itemName = document.createElement("span");
+                        itemName.textContent = item;
+
+                        // ส่วนของค่าที่กรอก
+                        const itemValue = document.createElement("span");
+                        itemValue.textContent = `${inputValue} บาท`;
+                        itemValue.classList.add("text-right", "font-bold");
+
+                        // ใส่ลงไปใน li
+                        listItem.appendChild(itemName);
+                        listItem.appendChild(itemValue);
+
+                        dataList.appendChild(listItem);
+                    });
+
+                    closeIncomePopup();
+                }
+
+                function validateNumber(input) {
+                    input.value = input.value.replace(/[^0-9]/g, ''); // กรองให้เหลือแต่ตัวเลข
+                }
+
+                document.getElementById("editIncomeButton").addEventListener("click", openEditPopup);
+
+                renderPage();
+            </script>
+
+            <script>
+                document.getElementById("user-name").textContent = "สมชาย";
+                document.getElementById("user-lastname").textContent = "ใจดี";
+                document.getElementById("user-username").textContent = "somchai123";
+                document.getElementById("user-email").textContent = "somchai@example.com";
+                document.getElementById("user-birthday").textContent = "01/01/2000";
+                document.getElementById("user-phone").textContent = "0812345678";
+                document.getElementById("user-gender").textContent = "ชาย";
+            </script>
         </div>
     </div>
-</div>
 
-<script>
-    document.getElementById("mobile-menu-button").addEventListener("click", function() {
-        document.getElementById("mobile-menu").classList.toggle("hidden");
-    });
-</script>
+    <!-- Script สำหรับ Mobile Menu -->
+    <script>
+        // ทำให้เมนูมือถือแสดง / ซ่อน
+        document.getElementById("mobile-menu-button").addEventListener("click", function() {
+            document.getElementById("mobile-menu").classList.toggle("hidden");
+        });
 
+        // ตัวอย่างโค้ดสำหรับโหลดหน้า (หากมีการใช้งาน nav-link แบบ dynamic)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
+                let page = this.getAttribute('data-page'); // ดึงค่า data-page
+
+                fetch("pages/" + page)  // 📂 โหลดจากโฟลเดอร์ /pages
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById('main-container').innerHTML = data; // แสดงผล
+                    })
+                    .catch(error => console.error('Error loading page:', error));
+            });
+        });
+    </script>
 </body>
 </html>
+
+
+
+<!--&lt;!&ndash; ปุ่มเลื่อนหน้า &ndash;&gt;-->
+<!--<div class="mt-auto flex justify-between items-center w-full">-->
+<!--    <button id="prevPage" class="px-4 py-2 bg-[#a3885c] text-white rounded-lg hover:bg-[#8d6e63]">-->
+<!--        <<-->
+<!--    </button>-->
+<!--    <span id="page-indicator" class="text-[#4e342e]">2 / 6</span>-->
+<!--    <button id="nextPage" class="px-4 py-2 bg-[#a3885c] text-white rounded-lg hover:bg-[#8d6e63]">-->
+<!--        >>-->
+<!--    </button>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    function renderPage() {-->
+<!--        document.getElementById("category-title").textContent = categories[currentPage].title;-->
+<!--        const contentList = document.getElementById("category-content");-->
+<!--        contentList.innerHTML = "";-->
+
+<!--        categories[currentPage].items.forEach(item => {-->
+<!--            const li = document.createElement("li");-->
+<!--            li.textContent = item;-->
+<!--            contentList.appendChild(li);-->
+<!--        });-->
+
+<!--        document.getElementById("page-indicator").textContent = `${currentPage + 1} / ${categories.length}`;-->
+<!--    }-->
+
+<!--    document.getElementById("prevPage").addEventListener("click", function() {-->
+<!--        if (currentPage > 0) {-->
+<!--            currentPage&#45;&#45;;-->
+<!--            renderPage();-->
+<!--        }-->
+<!--    });-->
+
+<!--    document.getElementById("nextPage").addEventListener("click", function() {-->
+<!--        if (currentPage < categories.length - 1) {-->
+<!--            currentPage++;-->
+<!--            renderPage();-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->

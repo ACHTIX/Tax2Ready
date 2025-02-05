@@ -225,132 +225,92 @@
 
 
 
-    <!-- Income Information Section -->
-        <!-- เปลี่ยนจาก w-2/5 h-[550px] เป็น w-full md:w-1/2 h-auto md:h-[550px] -->
+        <!-- Income Information Section -->
         <div class="w-full md:w-1/2 h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md flex flex-col justify-between">
-            <h2 class="text-2xl font-bold text-[#4e342e] font-mali text-center">ข้อมูลลดหย่อนภาษี</h2>
+            <h2 class="text-2xl font-bold text-[#4e342e] font-mali text-center">ประวัติผลลัพธ์</h2>
 
-            <div id="income-section" class="flex-1 mt-4">
-                <!-- Title -->
-                <h3 id="category-title" class="font-bold text-[#4e342e] text-center text-xl font-mali mb-2">รายได้</h3>
-
-                <!-- Dynamic Content -->
-                <ul id="category-content" class="list-disc pl-6 text-left text-[#4e342e] font-mali space-y-1">
-                    <!-- รายการจะถูกเพิ่มผ่าน JavaScript -->
-                </ul>
+            <!-- รายการผลลัพธ์ -->
+            <div id="history-container" class="flex flex-col space-y-4 mt-4 overflow-auto max-h-[400px] ">
+                <!-- รายการจะถูกเพิ่มที่นี่ -->
             </div>
-
-            <!-- ปุ่มแก้ไข -->
-            <button id="editIncomeButton" class="w-full bg-[#4e342e] text-white font-mali px-4 py-2 mt-4 mb-6 rounded-lg hover:bg-[#8d6e63]">
-                แก้ไขข้อมูล
-            </button>
 
             <!-- ปุ่มเลื่อนหน้า -->
             <div class="mt-auto flex justify-between items-center w-full">
                 <button id="prevPage" class="px-4 py-2 bg-[#a3885c] text-white rounded-lg hover:bg-[#8d6e63]">
                     <<
                 </button>
-                <span id="page-indicator" class="text-[#4e342e]">2 / 6</span>
+                <span id="page-indicator" class="text-[#4e342e]">1 / 1</span>
                 <button id="nextPage" class="px-4 py-2 bg-[#a3885c] text-white rounded-lg hover:bg-[#8d6e63]">
                     >>
                 </button>
             </div>
-
-    <!-- Popup แก้ไขข้อมูล -->
-        <!-- เปลี่ยนความกว้างให้เป็น responsive ด้วย w-11/12 md:w-[500px] -->
-        <div id="editIncomePopup" class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 hidden">
-            <div class="bg-white p-6 rounded-lg shadow-lg w-11/12 md:w-[500px] text-center">
-                <h3 id="popup-title" class="text-lg font-bold text-[#4e342e] mb-3">แก้ไขข้อมูล</h3>
-
-                <!-- ฟอร์มแก้ไขข้อมูล (Responsive: 1 คอลัมน์บนมือถือ, 2 คอลัมน์บนเดสก์ท็อป) -->
-                <div id="edit-form" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-                    <!-- ฟิลด์แก้ไขจะถูกเพิ่มผ่าน JavaScript -->
-                </div>
-
-                <!-- ปุ่มบันทึก / ปิด -->
-                <div class="flex justify-between mt-4">
-                    <button onclick="saveIncome()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
-                        บันทึก
-                    </button>
-                    <button onclick="closeIncomePopup()" class="bg-[#4e342e] text-white px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
-                        ปิด
-                    </button>
-                </div>
-            </div>
         </div>
 
+<!-- ไฟล์ประวัติ -->
         <script>
-            // ข้อมูลแต่ละหมวดหมู่
-            const categories = [
-                {
-                    title: "รายได้",
-                    items: [
-                        "เงินเดือนประจำปี",
-                        "ค่าจ้าง เบี้ยประชุม ค่านายหน้า ค่าธรรมเนียม",
-                        "เงินได้อื่นๆ",
-                        "เงินได้ทรัพย์สินทางปัญญา",
-                        "ดอกเบี้ย/เงินปันผล",
-                        "รายได้วิชาชีพแพทย์",
-                        "วิชาชีพอิสระอื่นๆ",
-                        "รับเหมาแบบจัดหาสัมภาระ"
-                    ]
-                },
-                {
-                    title: "ค่าเช่า",
-                    items: [
-                        "ค่าเช่าทรัพย์สิน (ตามจริง)",
-                        "ค่าเช่าบ้าน สิ่งปลูกสร้าง",
-                        "ค่าเช่าที่ดินการเกษตร",
-                        "ค่าเช่าที่ดินมิใช่การเกษตร",
-                        "ค่าเช่าทรัพย์สินอย่างอื่น",
-                        "ยานพาหนะ"
-                    ]
-                },
-                {
-                    title: "ครอบครัว",
-                    items: [
-                        "ลดหย่อนส่วนบุคคล",
-                        "สถานะสมรส (ค่าลดหย่อนคู่สมรส)",
-                        "ค่าลดหย่อนฝากครรภ์/คลอดบุตร",
-                        "บุตรบุญธรรม (คน)",
-                        "บุตรผู้เยาว์ (คน)",
-                        "บิดา-มารดาตัวเอง(คน)",
-                        "ลดหย่อนบิดา/มารดาคู่สมรส(คน)"
-                    ]
-                },
-                {
-                    title: "ประกันและเงินบริจาค",
-                    items: [
-                        "ประกันสุขภาพ",
-                        "ค่าเบี้ยประกันชีวิตแบบ 10 ปีขึ้นไป",
-                        "เบี้ยประกันสุขภาพบิดามารดา",
-                        "ค่าเบี้ยประกันชีวิตแบบบำนาญ",
-                        "ค่าบริจาคการศึกษา",
-                        "เงินบริจาคทั่วไป",
-                        "เงินบริจาคพรรคการเมือง"
-                    ]
-                },
-                {
-                    title: "ลงทุน",
-                    items: [
-                        "ลงทุน ThaiESG ได้สูงสุด",
-                        "ลงทุน SSF + RMF ได้สูงสุด",
-                        "ลงทุน SSF อย่างเดียวได้สูงสุด",
-                        "ลงทุน RMF อย่างเดียวได้สูงสุด"
-                    ]
-                },
-                {
-                    title: "ลดหย่อนภาษีอื่นๆ",
-                    items: [
-                        "อุปการะผู้พิการ (คน)",
-                        "ประกันสังคม",
-                        "เงินสมทบกองทุนสำรองเลี้ยงชีพ",
-                        "กองทุนบำเหน็จบำนาญข้าราชการ (%)",
-                        "ดอกเบี้ยเงินกู้ซื้อบ้าน",
-                        "ค่าลดหย่อนพิเศษอื่นๆ"
-                    ]
-                }
+            const results = [
+                { name: "Tax Result 09/68", date: "2025-02-12", url: "https://www.rd.go.th/fileadmin/tax_pdf/pit/2568/201267PIT93.pdf" },
+                { name: "Tax Result 08/68", date: "2025-02-04", url: "https://www.rd.go.th/fileadmin/tax_pdf/pit/2568/201267PIT93.pdf" },
+                { name: "Tax Result 07/68", date: "2025-02-04", url: "https://www.rd.go.th/fileadmin/tax_pdf/pit/2568/201267PIT93.pdf" },
+                { name: "Tax Result 06/68", date: "2025-02-01", url: "https://www.rd.go.th/fileadmin/tax_pdf/pit/2568/201267PIT93.pdf" },
+                { name: "Tax Result 05/68", date: "2025-01-04", url: "https://www.rd.go.th/fileadmin/tax_pdf/pit/2568/201267PIT93.pdf" },
+                { name: "Tax Result 04/67", date: "2024-12-19", url: "https://www.rd.go.th/fileadmin/tax_pdf/pit/2568/201267PIT93.pdf" },
+                { name: "Tax Result 03/67", date: "2024-10-10", url: "https://www.rd.go.th/fileadmin/tax_pdf/pit/2568/201267PIT93.pdf" },
+                { name: "Tax Result 02/67", date: "2024-04-15", url: "https://www.rd.go.th/fileadmin/tax_pdf/pit/2568/201267PIT93.pdf" },
+                { name: "Tax Result 01/66", date: "2023-12-01", url: "https://www.rd.go.th/fileadmin/tax_pdf/pit/2568/201267PIT93.pdf" }
             ];
+
+            const itemsPerPage = 5;
+            let currentPage = 1;
+
+            function renderPage() {
+                const container = document.getElementById("history-container");
+                container.innerHTML = "";
+
+                const start = (currentPage - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
+                const paginatedResults = results.slice(start, end);
+
+                paginatedResults.forEach(item => {
+                    const div = document.createElement("div");
+                    div.classList.add(
+                        "flex", "justify-between", "items-center", "p-4",
+                        "bg-[]", "rounded-lg", "shadow-md",
+                        "cursor-pointer" ,"hover:bg-[#c4bcac]",
+                        "font-mali" , "hover:underline"
+                    );
+                    div.onclick = () => window.open(item.url, "_blank"); // เปิด PDF เมื่อกดที่กล่อง
+
+                    div.innerHTML = `
+                <span class="text-[#4e342e] font-semibold">${item.name}</span>
+                <span class="text-sm text-gray-600">${item.date}</span>
+            `;
+                    container.appendChild(div);
+                });
+
+                document.getElementById("page-indicator").textContent = `${currentPage} / ${Math.ceil(results.length / itemsPerPage)}`;
+            }
+
+            document.getElementById("prevPage").addEventListener("click", () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderPage();
+                }
+            });
+
+            document.getElementById("nextPage").addEventListener("click", () => {
+                if (currentPage < Math.ceil(results.length / itemsPerPage)) {
+                    currentPage++;
+                    renderPage();
+                }
+            });
+
+            // โหลดหน้าแรก
+            document.addEventListener("DOMContentLoaded", renderPage);
+        </script>
+
+<!-- รันหน้าประวัติผลลัพท์ -->
+        <script>
 
             let currentPage = 0;
 
@@ -382,80 +342,10 @@
                 }
             });
 
-            function openEditPopup() {
-                document.getElementById("popup-title").textContent = `แก้ไข ${categories[currentPage].title}`;
-                const form = document.getElementById("edit-form");
-                form.innerHTML = "";
-
-                categories[currentPage].items.forEach((item, index) => {
-                    const fieldWrapper = document.createElement("div");
-
-                    const label = document.createElement("label");
-                    label.textContent = item;
-                    label.classList.add("text-[#4e342e]", "font-mali", "block");
-
-                    const input = document.createElement("input");
-                    input.type = "number";  // กรองให้กรอกแค่ตัวเลข
-                    input.id = `edit-input-${index}`;
-                    input.classList.add("w-full", "p-2", "border", "rounded-lg");
-                    input.setAttribute("oninput", "validateNumber(this)");
-
-                    fieldWrapper.appendChild(label);
-                    fieldWrapper.appendChild(input);
-                    form.appendChild(fieldWrapper);
-                });
-
-                document.getElementById("editIncomePopup").classList.remove("hidden");
-            }
-
-            function closeIncomePopup() {
-                document.getElementById("editIncomePopup").classList.add("hidden");
-            }
-
-            function saveIncome() {
-                const dataList = document.getElementById("data-list");
-                dataList.innerHTML = ""; // เคลียร์ข้อมูลเก่า
-
-                categories[currentPage].items.forEach((item, index) => {
-                    const inputValue = document.getElementById(`edit-input-${index}`).value;
-
-                    if (inputValue.trim() === "") {
-                        alert(`กรุณากรอกข้อมูลให้ครบทุกช่อง!`);
-                        return;
-                    }
-
-                    // สร้าง container สำหรับแต่ละรายการ
-                    const listItem = document.createElement("li");
-                    listItem.classList.add("flex", "justify-between", "border-b", "pb-1");
-
-                    // ส่วนของชื่อรายการ
-                    const itemName = document.createElement("span");
-                    itemName.textContent = item;
-
-                    // ส่วนของค่าที่กรอก
-                    const itemValue = document.createElement("span");
-                    itemValue.textContent = `${inputValue} บาท`;
-                    itemValue.classList.add("text-right", "font-bold");
-
-                    // ใส่ลงไปใน li
-                    listItem.appendChild(itemName);
-                    listItem.appendChild(itemValue);
-
-                    dataList.appendChild(listItem);
-                });
-
-                closeIncomePopup();
-            }
-
-            function validateNumber(input) {
-                input.value = input.value.replace(/[^0-9]/g, ''); // กรองให้เหลือแต่ตัวเลข
-            }
-
-            document.getElementById("editIncomeButton").addEventListener("click", openEditPopup);
-
             renderPage();
         </script>
 
+<!-- ตัวอย่างข้อมูลผู้ใช้ -->
         <script>
             document.getElementById("user-name").textContent = "สมชาย";
             document.getElementById("user-lastname").textContent = "ใจดี";
