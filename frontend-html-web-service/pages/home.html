@@ -24,14 +24,51 @@
         <h1 class="text-2xl text-[#4e342e] font-bold font-mali justify-start">Tax2Ready</h1>
 
         <!-- เมนูหลัก (Desktop) -->
-        <nav class="hidden md:flex space-x-6">
+        <nav class="hidden md:flex space-x-6 relative">
             <a href="account.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
             <a href="home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
-            <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
+
+            <!-- Dropdown for 'เรียนรู้เพิ่มเติม' -->
+            <div class="relative group">
+                <button id="learn-more-btn"
+                        class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline focus:outline-none">
+                    เรียนรู้เพิ่มเติม
+                </button>
+                <div id="learn-more-menu" class="absolute hidden bg-[#b49c74] mt-2 w-60 rounded-lg shadow-lg z-10 p-2">
+                    <ul>
+                        <li><a href="study/tax-intro.html"
+                               class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63]">1. ภาษีคืออะไร?</a></li>
+                        <li><a href="study/why-pay-tax.html"
+                               class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63]">2. ทำไมเราต้องจ่ายภาษี?</a>
+                        </li>
+                        <li><a href="study/tax-types.html"
+                               class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63]">3. ภาษีมีกี่ประเภท?</a></li>
+                        <li><a href="study/no-tax-consequence.html"
+                               class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63]">4.
+                            ไม่จ่ายภาษีจะเกิดอะไรขึ้น?</a></li>
+                        <li><a href="study/who-pays-tax.html"
+                               class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63]">5.
+                            ใครบ้างที่ต้องเริ่มจ่ายภาษี?</a></li>
+                        <li><a href="study/income-tax.html"
+                               class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63]">6. รายได้ที่ต้องเสียภาษี?</a>
+                        </li>
+                        <li><a href="study/tax-deductions.html"
+                               class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63]">7. สิทธิ์ลดหย่อนภาษี?</a></li>
+                        <li><a href="study/tax-frequency.html"
+                               class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63]">8. ต้องจ่ายภาษีบ่อยแค่ไหน?</a>
+                        </li>
+                        <li><a href="study/how-to-pay-tax.html"
+                               class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63]">9. มีวิธีจ่ายภาษีอย่างไร?</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
             <a href="tax-calculator.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
             <a href="contact.html"
                class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
         </nav>
+
 
         <!-- ปุ่ม Login (Desktop) -->
         <button type="button" onclick="location.href='pages/sign-in-up.html'"
@@ -49,7 +86,34 @@
         <a href="account.html"
            class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
         <a href="home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
-        <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
+
+        <a href="#" id="learn-more-btn-mobile" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
+        <ul id="learn-more-menu-mobile" class="hidden flex-col space-y-2 bg-[#b49c74] p-2 rounded-lg">
+            <li><a href="study/tax-intro.html"
+                   class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">1. ภาษีคืออะไร?</a></li>
+            <li><a href="study/why-pay-tax.html"
+                   class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">2. ทำไมเราต้องจ่ายภาษี?</a>
+            </li>
+            <li><a href="study/tax-types.html"
+                   class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">3. ภาษีมีกี่ประเภท?</a></li>
+            <li><a href="study/no-tax-consequence.html"
+                   class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">4.
+                ไม่จ่ายภาษีจะเกิดอะไรขึ้น?</a></li>
+            <li><a href="study/who-pays-tax.html"
+                   class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">5.
+                ใครบ้างที่ต้องเริ่มจ่ายภาษี?</a></li>
+            <li><a href="study/income-tax.html"
+                   class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">6. รายได้ที่ต้องเสียภาษี?</a>
+            </li>
+            <li><a href="study/tax-deductions.html"
+                   class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">7. สิทธิ์ลดหย่อนภาษี?</a></li>
+            <li><a href="study/tax-frequency.html"
+                   class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">8. ต้องจ่ายภาษีบ่อยแค่ไหน?</a>
+            </li>
+            <li><a href="study/how-to-pay-tax.html"
+                   class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">9. มีวิธีจ่ายภาษีอย่างไร?</a>
+            </li>
+        </ul>
         <a href="tax-calculator.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
         <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
 
@@ -66,6 +130,50 @@
     document.getElementById("mobile-menu-button").addEventListener("click", function () {
         document.getElementById("mobile-menu").classList.toggle("hidden");
     });
+
+    // เมนูเรียนรู้เพิ่มเติม desktop
+    document.getElementById("learn-more-btn").addEventListener("click", function () {
+        document.getElementById("learn-more-menu").classList.toggle("hidden");
+    });
+
+    // เมนูเรียนรู้เพิ่มเติม mobile
+    document.getElementById("learn-more-btn-mobile").addEventListener("click", function () {
+        document.getElementById("learn-more-menu-mobile").classList.toggle("hidden");
+    });
+
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function (event) {
+            event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
+            let page = this.getAttribute('data-page'); // ดึงค่า data-page
+
+            fetch("pages/" + page)  // 📂 โหลดจากโฟลเดอร์ /pages
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('main-container').innerHTML = data; // แสดงผล
+                })
+                .catch(error => console.error('Error loading page:', error));
+        });
+    });
+</script>
+
+<!-- template script-->
+<script>
+    // ทำให้เมนูมือถือแสดง / ซ่อน
+    document.getElementById("mobile-menu-button").addEventListener("click", function () {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+
+    // เมนูเรียนรู้เพิ่มเติม desktop
+    document.getElementById("learn-more-btn").addEventListener("click", function () {
+        document.getElementById("learn-more-menu").classList.toggle("hidden");
+    });
+
+    // เมนูเรียนรู้เพิ่มเติม mobile
+    document.getElementById("learn-more-btn-mobile").addEventListener("click", function () {
+        document.getElementById("learn-more-menu-mobile").classList.toggle("hidden");
+    });
+
 
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function (event) {
@@ -85,15 +193,16 @@
 <!-- Main Container -->
 <div id="main-container"
      class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
+
+    <!-- กล่องหลัก -->
     <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
 
         <div class="w-full md:w-1/2 h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md gap-6 flex flex-col justify-between">
-            <!-- เนื้อหา -->
-            <div id="content-1" class="flex flex-col items-center justify-center text-center h-full gap-4">
-                <h1 class="text-3xl font-mali font-bold">ทำไมเราทุกคนต้องจ่ายภาษี</h1>
-                <p class="text-l font-mali text-center">
-                    Tax2Ready
-                    เป็นแพลตฟอร์มที่ออกแบบมาเพื่อช่วยให้บุคคลธรรมดาที่มีรายได้แบบมั่นคงหรือผู้ที่มีรายได้แบบไม่มั่งคง
+            <div id="content-1" class="content-box flex flex-col items-center justify-center text-center gap-6 h-full">
+                <img src="../assets/money-bag.png" alt="EasyTax" class="w-40 h-40 object-cover mx-auto">
+                <h1 class="text-3xl font-mali font-bold">ภาษีง่ายนิดเดียว</h1>
+                <p class="text-l font-mali text-center leading-relaxed max-w-[85%] md:max-w-[75%]">
+                    Tax2Ready เป็นแพลตฟอร์มที่ออกแบบมาเพื่อช่วยให้บุคคลธรรมดาที่มีรายได้แบบมั่นคงหรือผู้ที่มีรายได้แบบไม่มั่นคง
                     ตามภงด90 และ ภงด91 ซึ่งระบบนี้จะช่วยตั้งแต่สอนว่าภาษีคืออะไรไปจนถึงคำนวณ
                     และสร้างฟอร์มพร้อมสำหรับการยื่นภาษี
                     และเนื่องจากว่าเราพยายามออกแบบให้เข้าใจง่ายที่สุดเพื่อให้ทุกคนสามารถเข้าใจได้มากที่สุด
@@ -101,10 +210,27 @@
             </div>
         </div>
 
+        <!-- กล่องขวา -->
         <div class="w-full md:w-1/2 h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md gap-6 flex flex-col justify-between">
-
+            <div id="content-2" class="content-box"></div>
+            <img src="../assets/think_icon.png" alt="thinking" class="w-40 h-40 object-cover mx-auto">
+            <h1 class="text-3xl font-mali font-bold text-center mb-4">คำถามที่พบบ่อย</h1>
+            <ol class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 text-l font-mali text-left">
+                <li><a href="study/tax-intro.html" class="text-[#4e342e] hover:text-[#8d6e63] hover:underline">1. ภาษีคืออะไร?</a></li>
+                <li><a href="study/why-pay-tax.html" class="text-[#4e342e] hover:text-[#8d6e63] hover:underline">2. ทำไมเราต้องจ่ายภาษี?</a></li>
+                <li><a href="study/tax-types.html" class="text-[#4e342e] hover:text-[#8d6e63] hover:underline">3. ภาษีมีกี่ประเภท?</a></li>
+                <li><a href="study/no-tax-consequence.html" class="text-[#4e342e] hover:text-[#8d6e63] hover:underline">4. ไม่จ่ายภาษีจะเกิดอะไรขึ้น?</a></li>
+                <li><a href="study/who-pays-tax.html" class="text-[#4e342e] hover:text-[#8d6e63] hover:underline">5. ใครบ้างที่ต้องเริ่มจ่ายภาษี?</a></li>
+                <li><a href="study/income-tax.html" class="text-[#4e342e] hover:text-[#8d6e63] hover:underline">6. รายได้ที่ต้องเสียภาษี?</a></li>
+                <li><a href="study/tax-deductions.html" class="text-[#4e342e] hover:text-[#8d6e63] hover:underline">7. สิทธิ์ลดหย่อนภาษี?</a></li>
+                <li><a href="study/tax-frequency.html" class="text-[#4e342e] hover:text-[#8d6e63] hover:underline">8. ต้องจ่ายภาษีบ่อยแค่ไหน?</a></li>
+                <li class="col-span-1 md:col-span-2"><a href="study/how-to-pay-tax.html" class="text-[#4e342e] hover:text-[#8d6e63] hover:underline">9. มีวิธีจ่ายภาษีอย่างไร?</a></li>
+            </ol>
+            <button type="button" onclick="location.href='pages/study/tax-intro.html'"
+                    class="block w-full md:w-auto text-center bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63] mt-auto">
+                เริ่มต้นการเรียนรู้
+            </button>
         </div>
-
     </div>
 </div>
 </body>
