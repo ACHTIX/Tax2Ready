@@ -6,13 +6,15 @@
     <title>Tax2Ready - Contact</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../assets/TD_web_icon.png">
     <style>
         .font-mali {
             font-family: 'Mali', sans-serif;
         }
     </style>
 </head>
-<body class="bg-[#c4bcac] font-mali">
+<body class="font-mali flex items-center justify-center min-h-screen bg-[#c4bcac]">
+<script src="../js/script.js"></script>
 
 <!-- Header -->
 <header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
@@ -30,7 +32,7 @@
         </nav>
 
         <!-- ปุ่ม Login (Desktop) -->
-        <button type="button" onclick="location.href='pages/sign-in-up.html'" class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login</button>
+        <button type="button" onclick="location.href='sign-in-up.html'" class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login</button>
 
         <!-- เมนูมือถือ (Hamburger Icon) -->
         <button class="md:hidden text-gray-600" id="mobile-menu-button">
@@ -46,7 +48,7 @@
         <a href="tax-calculator.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
         <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
 
-        <button class="bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+        <button type="button" onclick="location.href='sign-in-up.html'" class="bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
             Login
         </button>
     </nav>
@@ -75,23 +77,24 @@
 </script>
 
 <!-- Main Content -->
-<div id="main-container" class="container mx-auto mt-20 p-6">
-    <div class="bg-[#ece4d4] p-6 rounded-xl shadow-lg max-w-5xl mx-auto flex flex-col md:flex-row gap-6">
-        <!-- Profile Information -->
+<div id="main-container"
+     class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
+    <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
+       <!-- Profile Information -->
         <div class="w-full md:w-1/2 space-y-4">
             <div class="bg-white p-4 rounded-lg shadow-md flex items-center gap-8">
                 <img src="../assets/tipsukanya.jpg" alt="ทิพสุกัญญา นรสิงห์" class="w-20 h-20 rounded-lg">
                 <div>
-                    <p class="text-lg font-bold">ทิพสุภัญญา นรสิงห์</p>
-                    <p class="text-sm text-gray-600">tipsukanya.n@ku.th</p>
+                    <p class="text-lg font-bold">ทิพสุกัญญา นรสิงห์</p>
+<!--                    <p class="text-sm text-gray-600">chatchada.de@ku.th</p>-->
                 </div>
             </div>
 
             <div class="bg-white p-4 rounded-lg shadow-md flex items-center gap-8">
-                <img src="../assets/chatchada.jpg" alt="ทชัชชฎา เดชครุฑ" class="w-20 h-20 rounded-lg">
+                <img src="../assets/chatchada.jpg" alt="ชัชชฎา เดชครุฑ" class="w-20 h-20 rounded-lg">
                 <div>
                     <p class="text-lg font-bold">ชัชชฎา เดชครุฑ</p>
-                    <p class="text-sm text-gray-600">chatchada.de@ku.th</p>
+<!--                    <p class="text-sm text-gray-600">chatchada.de@ku.th</p>-->
                 </div>
             </div>
 
@@ -100,7 +103,7 @@
                 <div>
                     <p class="text-lg font-bold">มหาวิทยาลัยเกษตรศาสตร์</p>
                     <p class="text-sm text-gray-600">คณะวิทยาศาสตร์ วิทยาการคอมพิวเตอร์</p>
-                    <p class="text-sm text-gray-600">อาจารย์ พรรณนิภาร์ จันทรไพแสง</p>
+                    <p class="text-sm text-gray-600">อาจารย์ พรรณภัทร์ จันทรไพแสง</p>
                 </div>
             </div>
 
@@ -142,30 +145,30 @@
         </div>
 
         <!-- Contact Form -->
-        <div class="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-md">
+        <div class="w-full md:w-1/2 h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md flex flex-col justify-between">
             <h2 class="text-xl font-bold mb-4">ติดต่อเรา</h2>
             <form>
                 <div class="mb-4">
-                    <label class="block text-gray-700">ชื่อของคุณ</label>
+                    <label class="block text-gray-700 text-start">ชื่อของคุณ</label>
                     <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-[#4e342e]">
                 </div>
 
-                <div class="mb-4">
-                    <label class="block text-gray-700">เบอร์โทร</label>
+                <div class="mb-4 gap-4">
+                    <label class="block text-gray-700 text-start">เบอร์โทร</label>
                     <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-[#4e342e]">
                 </div>
 
-                <div class="mb-4">
-                    <label class="block text-gray-700">อีเมลของคุณ</label>
+                <div class="mb-4 gap-4">
+                    <label class="block text-gray-700 text-start">อีเมลของคุณ</label>
                     <input type="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-[#4e342e]">
                 </div>
 
-                <div class="mb-4">
-                    <label class="block text-gray-700">เรื่องที่ต้องการติดต่อ</label>
+                <div class="mb-4 gap-4">
+                    <label class="block text-gray-700 text-start">เรื่องที่ต้องการติดต่อ</label>
                     <textarea class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-[#4e342e]" rows="4"></textarea>
                 </div>
 
-                            </form>
+            </form>
 
             <!-- ปุ่มเปิดป๊อปอัพ -->
             <div class="flex justify-center">

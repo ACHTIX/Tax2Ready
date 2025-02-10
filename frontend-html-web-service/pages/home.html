@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Tax2Ready</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../assets/TD_web_icon.png">
     <style>
         .font-mali {
             font-family: 'Mali', sans-serif;
         }
     </style>
 </head>
+
 <body class="flex items-center justify-center min-h-screen bg-[#c4bcac]">
+<script src="../js/script.js"></script>
 
 <!-- Header -->
 <header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
@@ -26,11 +29,14 @@
             <a href="home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
             <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
             <a href="tax-calculator.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
-            <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
+            <a href="contact.html"
+               class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
         </nav>
 
         <!-- ปุ่ม Login (Desktop) -->
-        <button type="button" onclick="location.href='pages/sign-in-up.html'" class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login</button>
+        <button type="button" onclick="location.href='pages/sign-in-up.html'"
+                class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login
+        </button>
 
         <!-- เมนูมือถือ (Hamburger Icon) -->
         <button class="md:hidden text-gray-600" id="mobile-menu-button">
@@ -40,13 +46,15 @@
 
     <!-- เมนูสำหรับมือถือ (ซ่อนอยู่) -->
     <nav id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 mt-3 bg-[#b49c74] p-4">
-        <a href="account.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
+        <a href="account.html"
+           class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
         <a href="home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
         <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
         <a href="tax-calculator.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
         <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
 
-        <button class="bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+        <button type="button" onclick="location.href='pages/sign-in-up.html'"
+                class="bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
             Login
         </button>
     </nav>
@@ -55,12 +63,12 @@
 <!-- template script-->
 <script>
     // ทำให้เมนูมือถือแสดง / ซ่อน
-    document.getElementById("mobile-menu-button").addEventListener("click", function() {
+    document.getElementById("mobile-menu-button").addEventListener("click", function () {
         document.getElementById("mobile-menu").classList.toggle("hidden");
     });
 
     document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function(event) {
+        link.addEventListener('click', function (event) {
             event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
             let page = this.getAttribute('data-page'); // ดึงค่า data-page
 
@@ -74,8 +82,30 @@
     });
 </script>
 
-<div id="main-container" class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center md:text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
-    <h1> หน้าแรก </h1>
+<!-- Main Container -->
+<div id="main-container"
+     class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
+    <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
+
+        <div class="w-full md:w-1/2 h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md gap-6 flex flex-col justify-between">
+            <!-- เนื้อหา -->
+            <div id="content-1" class="flex flex-col items-center justify-center text-center h-full gap-4">
+                <h1 class="text-3xl font-mali font-bold">ทำไมเราทุกคนต้องจ่ายภาษี</h1>
+                <p class="text-l font-mali text-center">
+                    Tax2Ready
+                    เป็นแพลตฟอร์มที่ออกแบบมาเพื่อช่วยให้บุคคลธรรมดาที่มีรายได้แบบมั่นคงหรือผู้ที่มีรายได้แบบไม่มั่งคง
+                    ตามภงด90 และ ภงด91 ซึ่งระบบนี้จะช่วยตั้งแต่สอนว่าภาษีคืออะไรไปจนถึงคำนวณ
+                    และสร้างฟอร์มพร้อมสำหรับการยื่นภาษี
+                    และเนื่องจากว่าเราพยายามออกแบบให้เข้าใจง่ายที่สุดเพื่อให้ทุกคนสามารถเข้าใจได้มากที่สุด
+                </p>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/2 h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md gap-6 flex flex-col justify-between">
+
+        </div>
+
+    </div>
 </div>
 </body>
 </html>

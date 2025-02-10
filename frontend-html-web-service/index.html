@@ -6,6 +6,7 @@
     <title>Tax2Ready</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/TD_web_icon.png">
     <style>
         .font-mali {
             font-family: 'Mali', sans-serif;
@@ -14,6 +15,7 @@
 </head>
 
 <body class="flex items-center justify-center min-h-screen bg-[#c4bcac]">
+<script src="js/script.js"></script>
 
 <!-- Header -->
 <header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
@@ -27,11 +29,14 @@
             <a href="pages/home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
             <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
             <a href="pages/tax-calculator.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
-            <a href="pages/contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
+            <a href="pages/contact.html"
+               class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
         </nav>
 
         <!-- ปุ่ม Login (Desktop) -->
-        <button type="button" onclick="location.href='pages/sign-in-up.html'" class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login</button>
+        <button type="button" onclick="location.href='pages/sign-in-up.html'"
+                class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login
+        </button>
 
         <!-- เมนูมือถือ (Hamburger Icon) -->
         <button class="md:hidden text-gray-600" id="mobile-menu-button">
@@ -41,13 +46,15 @@
 
     <!-- เมนูสำหรับมือถือ (ซ่อนอยู่) -->
     <nav id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 mt-3 bg-[#b49c74] p-4">
-        <a href="pages/account.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
+        <a href="pages/account.html"
+           class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
         <a href="pages/home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
         <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
         <a href="pages/tax-calculator.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
         <a href="pages/contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
 
-        <button class="bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+        <button type="button" onclick="location.href='pages/sign-in-up.html'"
+                class="bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
             Login
         </button>
     </nav>
@@ -56,12 +63,12 @@
 <!-- template script-->
 <script>
     // ทำให้เมนูมือถือแสดง / ซ่อน
-    document.getElementById("mobile-menu-button").addEventListener("click", function() {
+    document.getElementById("mobile-menu-button").addEventListener("click", function () {
         document.getElementById("mobile-menu").classList.toggle("hidden");
     });
 
     document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function(event) {
+        link.addEventListener('click', function (event) {
             event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
             let page = this.getAttribute('data-page'); // ดึงค่า data-page
 
@@ -76,25 +83,43 @@
 </script>
 
 <!-- Container หลัก -->
-<div id="main-container" class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center md:text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
+<div id="main-container"
+     class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center md:text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
+    <!-- กรอบซ้าย -->
+    <div class="w-full md:w-1/2 p-4 flex flex-col justify-between text-center gap-2">
+        <div class="w-full h-full md:h-[550px] bg-white p-6 rounded-lg shadow-md flex flex-col">
+            <!-- เนื้อหา -->
+            <div id="content-1" class="flex flex-col items-center justify-center text-center h-full gap-4">
+                <img src="assets/money-bag.png" alt="EasyTax" class="w-30 h-40 object-cover mx-auto gap-4">
+                <h1 class="text-3xl font-mali font-bold">ภาษีง่ายนิดเดียว</h1>
+                <p class="text-l font-mali text-center">
+                    Tax2Ready
+                    เป็นแพลตฟอร์มที่ออกแบบมาเพื่อช่วยให้บุคคลธรรมดาที่มีรายได้แบบมั่นคงหรือผู้ที่มีรายได้แบบไม่มั่งคง
+                    ตามภงด90 และ ภงด91 ซึ่งระบบนี้จะช่วยตั้งแต่สอนว่าภาษีคืออะไรไปจนถึงคำนวณ
+                    และสร้างฟอร์มพร้อมสำหรับการยื่นภาษี
+                    และเนื่องจากว่าเราพยายามออกแบบให้เข้าใจง่ายที่สุดเพื่อให้ทุกคนสามารถเข้าใจได้มากที่สุด
+                </p>
+            </div>
+        </div>
+    </div>
 
-    <div class="w-full md:w-1/2 p-4 flex flex-col md:flex-row justify-space-around items-center text-center space-y-4 md:space-y-0 md:space-x-6">
-
-        <!-- รูปภาพ -->
-        <img src="assets/money-bag.png" alt="EasyTax" class="w-40 h-40 justify-space-between object-cover">
-
-        <!-- เนื้อหา 1 (เริ่มต้น) -->
-        <div id="content-1">
-            <h1 class="text-xl font-mali font-bold">ภาษีง่ายนิดเดียว</h1>
-            <p class="text-l font-mali ">
-                Tax2Ready เป็นแพลตฟอร์มที่ออกแบบมาเพื่อช่วยให้บุคคลธรรมดาสามารถจัดการภาษีได้ง่ายและสะดวกมากขึ้น
-            </p>
-            <h3 class="text-l font-bold font-mali"> 📌 ทำไมต้องใช้ Tax2Ready? </h3>
-            <ul>
-                <li class="text-m font-mali">✅ ใช้งานง่าย – เหมาะสำหรับบุคคลทั่วไป</li>
-                <li class="text-m font-mali">✅ สะดวกและรวดเร็ว – มีเครื่องมือช่วยคำนวณ</li>
-                <li class="text-m font-mali">✅ ช่วยให้วางแผนภาษีได้ดีขึ้น</li>
-            </ul>
+    <!-- กรอบขวา -->
+    <div class="w-full md:w-1/2 p-4 flex flex-col justify-between text-center">
+        <div class="w-full h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md flex flex-col justify-center items-center h-full gap-4">
+            <img src="assets/think_icon.png" alt="thinking" class="w-40 h-40 object-cover mx-auto gap-4">
+            <h1 class="text-2xl font-mali font-bold">คำถามที่พบบ่อย ?</h1>
+            <ol class="text-xxxxl font-mali text-left">
+                <li>1. ภาษีคืออะไร?</li>
+                <li>2. ทำไมเราต้องจ่ายภาษี?</li>
+                <li>3. ภาษีมีกี่ประเภท?</li>
+                <li>4. ถ้าไม่จ่ายภาษีจะเกิดอะไรขึ้น?</li>
+                <li>5. ใครบ้างที่ต้องเริ่มจ่ายภาษี?</li>
+                <li>6. รายได้ประเภทใดต้องเสียภาษี?</li>
+                <li>7. สิทธิ์ลดหย่อนภาษีมีอะไรบ้าง?</li>
+                <li>8. ต้องจ่ายภาษีบ่อยแค่ไหน?</li>
+                <li>9. มีวิธีจ่ายภาษีอย่างไร?</li>
+            </ol>
+            <button type="button" onclick="location.href='pages/home.html'" class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">เริ่มต้นการเรียนรู้</button>
         </div>
     </div>
 </div>

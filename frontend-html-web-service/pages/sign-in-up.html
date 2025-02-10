@@ -7,11 +7,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../assets/TD_web_icon.png">
     <style>
         .font-mali { font-family: 'Mali', sans-serif; }
     </style>
 </head>
 <body class="bg-[#c4bcac] min-h-screen flex items-center justify-center">
+<script src="../js/script.js"></script>
 
 
 <!-- Header -->
@@ -30,7 +32,7 @@
         </nav>
 
         <!-- ปุ่ม Login (Desktop) -->
-        <button type="button" onclick="location.href='pages/sign-in-up.html'" class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login</button>
+        <button type="button" onclick="location.href='sign-in-up.html'" class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login</button>
 
         <!-- เมนูมือถือ (Hamburger Icon) -->
         <button class="md:hidden text-gray-600" id="mobile-menu-button">
@@ -46,7 +48,7 @@
         <a href="tax-calculator.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
         <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
 
-        <button class="bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+        <button type="button" onclick="location.href='sign-in-up.html'" class="bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
             Login
         </button>
     </nav>
@@ -82,17 +84,36 @@
     <!-- ฟอร์ม Login & Register -->
     <div class="w-full md:w-1/2 p-4 border-t md:border-t-0">
 
-    <!-- ฟอร์มเข้าสู่ระบบ -->
+        <!-- ฟอร์มเข้าสู่ระบบ -->
         <div x-show="isLogin">
             <h2 class="text-xl font-bold text-[#4e342e] font-mali">เข้าสู่ระบบ</h2>
-            <form class="mt-4">
-                <input type="text" placeholder="ชื่อผู้ใช้ *" required class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
-                <input type="password" placeholder="รหัสผ่าน *" required class="w-full px-4 py-2 border rounded-lg mt-3 focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
+            <form id="loginForm" class="mt-4">
+                <input type="text" id="username" placeholder="ชื่อผู้ใช้ *" required class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
+                <input type="password" id="password" placeholder="รหัสผ่าน *" required class="w-full px-4 py-2 border rounded-lg mt-3 focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
                 <button type="submit" class="w-full bg-[#4e342e] text-white font-mali px-4 py-2 mt-4 rounded-lg hover:bg-[#8d6e63]">เข้าสู่ระบบ</button>
+            </form>
             <button @click="isLogin = false" class="block w-full bg-[#b49c74] text-white font-mali px-4 py-2 mt-2 rounded-lg hover:bg-[#a3885c]">ลงทะเบียน</button>
             <a href="#" class="block mt-2 text-[#4e342e] font-mali hover:text-[#8d6e63] hover:underline">ลืมรหัสผ่าน?</a>
-            </form>
         </div>
+
+        <!-- คุมหน้า admin -->
+        <script>
+            document.getElementById("loginForm").addEventListener("submit", function(event) {
+                event.preventDefault(); // ป้องกันการรีโหลดหน้าเว็บ
+
+                // รับค่าจากช่องกรอก
+                var username = document.getElementById("username").value;
+                var password = document.getElementById("password").value;
+
+                // ตรวจสอบเงื่อนไข
+                if (username === "ADMIN" && password === "1234567890") {
+                    window.location.href = "admin.html"; // ส่งไปยังหน้า admin.html
+                } else {
+                    alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง!"); // แจ้งเตือนเมื่อข้อมูลไม่ตรงกัน
+                }
+            });
+        </script>
+
 
         <!-- ฟอร์มลงทะเบียน -->
         <div x-show="!isLogin">
