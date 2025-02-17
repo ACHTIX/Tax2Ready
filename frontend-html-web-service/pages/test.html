@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax2Ready - รายการย่อย</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Mali Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Icon -->
+    <link rel="icon" type="image/png" href="../assets/TD_web_icon.png">
+    <style>
+        .font-mali {
+            font-family: 'Mali', sans-serif;
+        }
+        /* กรณีต้องการซ่อนด้วยคลาส hidden (Tailwind) */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-[#c4bcac] font-mali">
+
+<!-- Header (Nav) -->
+<header class="bg-[#b49c74] shadow-md w-full py-4 px-6">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <!-- โลโก้ / ชื่อเว็บ -->
+        <h1 class="text-2xl text-[#4e342e] font-bold">Tax2Ready</h1>
+
+        <!-- เมนูหลัก (Desktop) -->
+        <nav class="hidden md:flex space-x-6 relative">
+            <a href="account.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
+            <a href="home.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
+
+            <!-- Dropdown for 'เรียนรู้เพิ่มเติม' -->
+            <div class="relative group">
+                <button id="learn-more-btn"
+                        class="text-[#f7efda] hover:text-[#4e342e] hover:underline focus:outline-none">
+                    เรียนรู้เพิ่มเติม
+                </button>
+                <div id="learn-more-menu" class="absolute hidden bg-[#b49c74] mt-2 w-60 rounded-lg shadow-lg z-10 p-2">
+                    <ul>
+                        <li><a href="1tax-intro.html"
+                               class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">1. ภาษีคืออะไร?</a></li>
+                        <li><a href="2why-pay-tax.html"
+                               class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">2. ทำไมเราต้องจ่ายภาษี?</a></li>
+                        <li><a href="3no-tax-consequence.html"
+                               class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">3. ไม่จ่ายภาษีจะเกิดอะไรขึ้น?</a></li>
+                        <li><a href="4who-pays-tax.html"
+                               class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">4. ใครบ้างที่ต้องเริ่มจ่ายภาษี?</a></li>
+                        <li><a href="5income-tax.html"
+                               class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">5. รายได้ที่ต้องเสียภาษี?</a></li>
+                        <li><a href="6tax-deductions.html"
+                               class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">6. สิทธิ์ลดหย่อนภาษี?</a></li>
+                        <li><a href="7tax-frequency.html"
+                               class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">7. ต้องจ่ายภาษีบ่อยแค่ไหน?</a></li>
+                        <li><a href="8how-to-pay-tax.html"
+                               class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">8. มีวิธีจ่ายภาษีอย่างไร?</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <a href="tax-calculator.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
+            <a href="contact.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">ติดต่อ</a>
+        </nav>
+
+        <!-- ปุ่ม Login (Desktop) -->
+        <button type="button" onclick="location.href='sign-in-up.html'"
+                class="hidden md:block bg-[#4e342e] text-white px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+            Login
+        </button>
+
+        <!-- เมนูมือถือ (Hamburger Icon) -->
+        <button class="md:hidden text-gray-600" id="mobile-menu-button">
+            ☰
+        </button>
+    </div>
+
+    <!-- เมนูมือถือ (ซ่อนอยู่) -->
+    <nav id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 mt-3 bg-[#b49c74] p-4">
+        <a href="account.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
+        <a href="home.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
+
+        <a href="#" id="learn-more-btn-mobile" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">
+            เรียนรู้เพิ่มเติม
+        </a>
+        <ul id="learn-more-menu-mobile" class="hidden flex-col space-y-2 bg-[#b49c74] p-2 rounded-lg">
+            <li><a href="1tax-intro.html"
+                   class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">1. ภาษีคืออะไร?</a></li>
+            <li><a href="2why-pay-tax.html"
+                   class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">2. ทำไมเราต้องจ่ายภาษี?</a></li>
+            <li><a href="3no-tax-consequence.html"
+                   class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">3. ไม่จ่ายภาษีจะเกิดอะไรขึ้น?</a></li>
+            <li><a href="4who-pays-tax.html"
+                   class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">4. ใครบ้างที่ต้องเริ่มจ่ายภาษี?</a></li>
+            <li><a href="5income-tax.html"
+                   class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">5. รายได้ที่ต้องเสียภาษี?</a></li>
+            <li><a href="6tax-deductions.html"
+                   class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">6. สิทธิ์ลดหย่อนภาษี?</a></li>
+            <li><a href="7tax-frequency.html"
+                   class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">7. ต้องจ่ายภาษีบ่อยแค่ไหน?</a></li>
+            <li><a href="8how-to-pay-tax.html"
+                   class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">8. มีวิธีจ่ายภาษีอย่างไร?</a></li>
+        </ul>
+
+        <a href="tax-calculator.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
+        <a href="contact.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">ติดต่อ</a>
+
+        <button type="button" onclick="location.href='sign-in-up.html'"
+                class="bg-[#4e342e] text-white px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+            Login
+        </button>
+    </nav>
+</header>
+
+<!-- Container หลัก -->
+<div class="flex-1 flex items-center justify-center mt-24">
+    <div class="w-full max-w-4xl bg-[#ece4d4] p-6 rounded-xl shadow-lg border border-gray-300">
+        <h2 class="text-3xl text-[#4e342e] font-bold mb-6 text-center">กรอกข้อมูลเงินได้</h2>
+
+        <!-- ตารางหลัก -->
+        <table class="w-full border border-collapse text-left mb-4">
+            <thead class="bg-[#f7efda]">
+            <tr>
+                <th class="border p-2">รายการหลัก</th>
+                <th class="border p-2">เงินได้ทั้งหมด</th>
+                <th class="border p-2">ภาษี ณ ที่จ่าย</th>
+                <th class="border p-2">ระบุข้อมูล</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 1) รายได้จากเงินเดือน -->
+            <tr>
+                <td class="border p-2">รายได้จากเงินเดือน</td>
+                <td class="border p-2 font-semibold text-blue-600" id="salaryTotalIncome">0.00</td>
+                <td class="border p-2 font-semibold text-blue-600" id="salaryTotalTax">0.00</td>
+                <td class="border p-2 text-center">
+                    <button
+                            class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                            onclick="toggleSubItems('salarySubTable')"
+                    >
+                        ระบุข้อมูล
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+            <!-- ตารางย่อย (รายได้จากเงินเดือน) -->
+            <tbody id="salarySubTable" class="hidden">
+            <tr class="bg-gray-50">
+                <td class="border p-2 pl-6">
+                    - เงินเดือนหรือเงินได้ตามสัญญาจ้างแรงงาน (มาตรา 40(1))
+                </td>
+                <td class="border p-2">
+                    <input
+                            type="number"
+                            class="w-full border p-1 subIncome"
+                            data-parent="salary"
+                            placeholder="0.00"
+                    >
+                </td>
+                <td class="border p-2">
+                    <input
+                            type="number"
+                            class="w-full border p-1 subTax"
+                            data-parent="salary"
+                            placeholder="0.00"
+                    >
+                </td>
+                <td class="border p-2 text-center">
+                    <span class="text-gray-500">ย่อย</span>
+                </td>
+            </tr>
+            <tr class="bg-gray-50">
+                <td class="border p-2 pl-6">
+                    - เงินได้ที่นายจ้างจ่ายให้ครั้งเดียวเพราะเหตุออกจากงาน (ไม่นำไปรวมภาษี)
+                </td>
+                <td class="border p-2">
+                    <input
+                            type="number"
+                            class="w-full border p-1 subIncome"
+                            data-parent="salary"
+                            placeholder="0.00"
+                    >
+                </td>
+                <td class="border p-2">
+                    <input
+                            type="number"
+                            class="w-full border p-1 subTax"
+                            data-parent="salary"
+                            placeholder="0.00"
+                    >
+                </td>
+                <td class="border p-2 text-center">
+                    <span class="text-gray-500">ย่อย</span>
+                </td>
+            </tr>
+            </tbody>
+
+            <tbody>
+            <!-- 2) รายได้จากฟรีแลนซ์, รับจ้างทั่วไป -->
+            <tr>
+                <td class="border p-2">รายได้จากฟรีแลนซ์, รับจ้างทั่วไป</td>
+                <td class="border p-2 font-semibold text-blue-600" id="freelanceTotalIncome">0.00</td>
+                <td class="border p-2 font-semibold text-blue-600" id="freelanceTotalTax">0.00</td>
+                <td class="border p-2 text-center">
+                    <button
+                            class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                            onclick="toggleSubItems('freelanceSubTable')"
+                    >
+                        ระบุข้อมูล
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+            <!-- ตารางย่อย (รายได้จากฟรีแลนซ์) -->
+            <tbody id="freelanceSubTable" class="hidden">
+            <tr class="bg-gray-50">
+                <td class="border p-2 pl-6">
+                    - ค่าจ้างออกแบบ, รับจ้างเขียนบทความ, ฯลฯ
+                </td>
+                <td class="border p-2">
+                    <input
+                            type="number"
+                            class="w-full border p-1 subIncome"
+                            data-parent="freelance"
+                            placeholder="0.00"
+                    >
+                </td>
+                <td class="border p-2">
+                    <input
+                            type="number"
+                            class="w-full border p-1 subTax"
+                            data-parent="freelance"
+                            placeholder="0.00"
+                    >
+                </td>
+                <td class="border p-2 text-center">
+                    <span class="text-gray-500">ย่อย</span>
+                </td>
+            </tr>
+            <tr class="bg-gray-50">
+                <td class="border p-2 pl-6">
+                    - รายได้อื่น ๆ จากงานอิสระ
+                </td>
+                <td class="border p-2">
+                    <input
+                            type="number"
+                            class="w-full border p-1 subIncome"
+                            data-parent="freelance"
+                            placeholder="0.00"
+                    >
+                </td>
+                <td class="border p-2">
+                    <input
+                            type="number"
+                            class="w-full border p-1 subTax"
+                            data-parent="freelance"
+                            placeholder="0.00"
+                    >
+                </td>
+                <td class="border p-2 text-center">
+                    <span class="text-gray-500">ย่อย</span>
+                </td>
+            </tr>
+            </tbody>
+
+            <tbody>
+            <!-- 3) รายได้จากทรัพย์สิน, การทำธุรกิจ, อาชีพอิสระ -->
+            <tr>
+                <td class="border p-2">รายได้จากทรัพย์สิน, การทำธุรกิจ, อาชีพอิสระ</td>
+                <td class="border p-2 font-semibold text-blue-600" id="businessTotalIncome">0.00</td>
+                <td class="border p-2 font-semibold text-blue-600" id="businessTotalTax">0.00</td>
+                <td class="border p-2 text-center">
+                    <button
+                            class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                            onclick="toggleSubItems('businessSubTable')"
+                    >
+                        ระบุข้อมูล
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+            <!-- ตารางย่อย (รายได้จากธุรกิจ) -->
+            <tbody id="businessSubTable" class="hidden">
+            <tr class="bg-gray-50">
+                <td class="border p-2 pl-6">
+                    - ตัวอย่างเช่น ค่าเช่า, ค่าลิขสิทธิ์, ค่ากู๊ดวิล
+                </td>
+                <td class="border p-2">
+                    <input
+                            type="number"
+                            class="w-full border p-1 subIncome"
+                            data-parent="business"
+                            placeholder="0.00"
+                    >
+                </td>
+                <td class="border p-2">
+                    <input
+                            type="number"
+                            class="w-full border p-1 subTax"
+                            data-parent="business"
+                            placeholder="0.00"
+                    >
+                </td>
+                <td class="border p-2 text-center">
+                    <span class="text-gray-500">ย่อย</span>
+                </td>
+            </tr>
+            </tbody>
+
+            <tbody>
+            <!-- 4) รายได้จากการลงทุน -->
+            <tr>
+                <td class="border p-2">รายได้จากการลงทุน</td>
+                <td class="border p-2 font-semibold text-blue-600" id="investTotalIncome">0.00</td>
+                <td class="border p-2 font-semibold text-blue-600" id="investTotalTax">0.00</td>
+                <td class="border p-2 text-center">
+                    <button
+                            class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                            onclick="toggleSubItems('investSubTable')"
+                    >
+                        ระบุข้อมูล
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+            <!-- ตารางย่อย (รายได้จากการลงทุน) -->
+            <tbody id="investSubTable" class="hidden">
+            <tr class="bg-gray-50">
+                <td class="border p-2 pl-6">
+                    - ดอกเบี้ย, เงินปันผล, กำไรจากการซื้อขายหลักทรัพย์ ฯลฯ
+                </td>
+                <td class="border p-2">
+                    <input
+                            type="number"
+                            class="w-full border p-1 subIncome"
+                            data-parent="invest"
+                            placeholder="0.00"
+                    >
+                </td>
+                <td class="border p-2">
+                    <input
+                            type="number"
+                            class="w-full border p-1 subTax"
+                            data-parent="invest"
+                            placeholder="0.00"
+                    >
+                </td>
+                <td class="border p-2 text-center">
+                    <span class="text-gray-500">ย่อย</span>
+                </td>
+            </tr>
+            </tbody>
+
+            <tbody>
+            <!-- 5) รายได้จากมรดกหรือได้รับมา -->
+            <tr>
+                <td class="border p-2">รายได้จากมรดกหรือได้รับมา</td>
+                <td class="border p-2 font-semibold text-blue-600" id="inheritTotalIncome">0.00</td>
+                <td class="border p-2 font-semibold text-blue-600" id="inheritTotalTax">0.00</td>
+                <td class="border p-2 text-center">
+                    <button
+                            class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                            onclick="toggleSubItems('inheritSubTable')"
+                    >
+                        ระบุข้อมูล
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+            <!-- ตารางย่อย (รายได้จากมรดก) -->
+            <tbody id="inheritSubTable" class="hidden">
+            <tr class="bg-gray-50">
+                <td class="border p-2 pl-6">
+                    - มรดก, ทรัพย์สินที่ได้รับมา
+                </td>
+                <td class="border p-2">
+                    <input
+                            type="number"
+                            class="w-full border p-1 subIncome"
+                            data-parent="inherit"
+                            placeholder="0.00"
+                    >
+                </td>
+                <td class="border p-2">
+                    <input
+                            type="number"
+                            class="w-full border p-1 subTax"
+                            data-parent="inherit"
+                            placeholder="0.00"
+                    >
+                </td>
+                <td class="border p-2 text-center">
+                    <span class="text-gray-500">ย่อย</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- ปุ่มบันทึก หรือดำเนินการต่อ -->
+        <div class="text-right">
+            <button
+                    class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                    onclick="saveAllData()"
+            >
+                บันทึกข้อมูล
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script>
+    // 1) เมนูมือถือ
+    document.getElementById("mobile-menu-button").addEventListener("click", function () {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+
+    // 2) Dropdown 'เรียนรู้เพิ่มเติม' (Desktop)
+    document.getElementById("learn-more-btn").addEventListener("click", function (event) {
+        event.stopPropagation(); // ป้องกัน dropdown ปิดเมื่อคลิกที่อื่น
+        document.getElementById("learn-more-menu").classList.toggle("hidden");
+    });
+    document.addEventListener("click", function () {
+        document.getElementById("learn-more-menu").classList.add("hidden");
+    });
+
+    // 3) Dropdown 'เรียนรู้เพิ่มเติม' (Mobile)
+    document.getElementById("learn-more-btn-mobile").addEventListener("click", function () {
+        document.getElementById("learn-more-menu-mobile").classList.toggle("hidden");
+    });
+
+    // ---------- Toggle Sub-table ----------
+    function toggleSubItems(subTableId) {
+        const subTable = document.getElementById(subTableId);
+        subTable.classList.toggle('hidden');
+    }
+
+    // ---------- Auto Calculate Sub-items ----------
+    document.addEventListener('input', function (e) {
+        // หากช่อง input มี class subIncome หรือ subTax => อัปเดตยอดรวม
+        if (e.target.classList.contains('subIncome') || e.target.classList.contains('subTax')) {
+            updateMainTotals();
+        }
+    });
+
+    function updateMainTotals() {
+        // อัปเดต "รายได้จากเงินเดือน" (parent="salary")
+        let totalSalaryIncome = 0;
+        let totalSalaryTax = 0;
+        const salaryIncomes = document.querySelectorAll('.subIncome[data-parent="salary"]');
+        const salaryTaxes = document.querySelectorAll('.subTax[data-parent="salary"]');
+
+        salaryIncomes.forEach(inp => {
+            totalSalaryIncome += parseFloat(inp.value) || 0;
+        });
+        salaryTaxes.forEach(inp => {
+            totalSalaryTax += parseFloat(inp.value) || 0;
+        });
+        document.getElementById('salaryTotalIncome').textContent = totalSalaryIncome.toFixed(2);
+        document.getElementById('salaryTotalTax').textContent = totalSalaryTax.toFixed(2);
+
+        // อัปเดต "รายได้จากฟรีแลนซ์" (parent="freelance")
+        let totalFreelanceIncome = 0;
+        let totalFreelanceTax = 0;
+        const freelanceIncomes = document.querySelectorAll('.subIncome[data-parent="freelance"]');
+        const freelanceTaxes = document.querySelectorAll('.subTax[data-parent="freelance"]');
+
+        freelanceIncomes.forEach(inp => {
+            totalFreelanceIncome += parseFloat(inp.value) || 0;
+        });
+        freelanceTaxes.forEach(inp => {
+            totalFreelanceTax += parseFloat(inp.value) || 0;
+        });
+        document.getElementById('freelanceTotalIncome').textContent = totalFreelanceIncome.toFixed(2);
+        document.getElementById('freelanceTotalTax').textContent = totalFreelanceTax.toFixed(2);
+
+        // อัปเดต "รายได้จากธุรกิจ" (parent="business")
+        let totalBusinessIncome = 0;
+        let totalBusinessTax = 0;
+        const businessIncomes = document.querySelectorAll('.subIncome[data-parent="business"]');
+        const businessTaxes = document.querySelectorAll('.subTax[data-parent="business"]');
+
+        businessIncomes.forEach(inp => {
+            totalBusinessIncome += parseFloat(inp.value) || 0;
+        });
+        businessTaxes.forEach(inp => {
+            totalBusinessTax += parseFloat(inp.value) || 0;
+        });
+        document.getElementById('businessTotalIncome').textContent = totalBusinessIncome.toFixed(2);
+        document.getElementById('businessTotalTax').textContent = totalBusinessTax.toFixed(2);
+
+        // อัปเดต "รายได้จากการลงทุน" (parent="invest")
+        let totalInvestIncome = 0;
+        let totalInvestTax = 0;
+        const investIncomes = document.querySelectorAll('.subIncome[data-parent="invest"]');
+        const investTaxes = document.querySelectorAll('.subTax[data-parent="invest"]');
+
+        investIncomes.forEach(inp => {
+            totalInvestIncome += parseFloat(inp.value) || 0;
+        });
+        investTaxes.forEach(inp => {
+            totalInvestTax += parseFloat(inp.value) || 0;
+        });
+        document.getElementById('investTotalIncome').textContent = totalInvestIncome.toFixed(2);
+        document.getElementById('investTotalTax').textContent = totalInvestTax.toFixed(2);
+
+        // อัปเดต "รายได้จากมรดก" (parent="inherit")
+        let totalInheritIncome = 0;
+        let totalInheritTax = 0;
+        const inheritIncomes = document.querySelectorAll('.subIncome[data-parent="inherit"]');
+        const inheritTaxes = document.querySelectorAll('.subTax[data-parent="inherit"]');
+
+        inheritIncomes.forEach(inp => {
+            totalInheritIncome += parseFloat(inp.value) || 0;
+        });
+        inheritTaxes.forEach(inp => {
+            totalInheritTax += parseFloat(inp.value) || 0;
+        });
+        document.getElementById('inheritTotalIncome').textContent = totalInheritIncome.toFixed(2);
+        document.getElementById('inheritTotalTax').textContent = totalInheritTax.toFixed(2);
+    }
+
+    // ---------- เมื่อกดปุ่ม "บันทึกข้อมูล" ----------
+    function saveAllData() {
+        // ตัวอย่าง: คุณอาจส่งข้อมูลไป Backend หรือเก็บลง Local Storage ฯลฯ
+        alert("บันทึกข้อมูลเรียบร้อย (ตัวอย่าง)");
+    }
+</script>
+
+</body>
+</html>

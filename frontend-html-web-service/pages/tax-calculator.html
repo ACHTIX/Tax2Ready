@@ -11,10 +11,12 @@
         .font-mali {
             font-family: 'Mali', sans-serif;
         }
+        .edit-link {
+            @apply text-green-600 underline cursor-pointer;
+        }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen bg-[#c4bcac]">
-<script src="../js/script.js"></script>
 
 <!-- Header -->
 <header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
@@ -55,7 +57,7 @@
                 </div>
             </div>
 
-            <a href="tax-calculator.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
+            <a href="tax-personal.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
             <a href="contact.html"
                class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
         </nav>
@@ -98,7 +100,7 @@
             <li><a href="8how-to-pay-tax.html"
                    class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">8. มีวิธีจ่ายภาษีอย่างไร?</a></li>
         </ul>
-        <a href="tax-calculator.html"
+        <a href="tax-personal.html"
            class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
         <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
 
@@ -116,9 +118,28 @@
         document.getElementById("mobile-menu").classList.toggle("hidden");
     });
 
+    document.addEventListener("DOMContentLoaded", function() {
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener("click", function() {
+                mobileMenu.classList.toggle("hidden");
+            });
+        } else {
+            console.error("Mobile menu button or menu not found!");
+        }
+    });
+
+
     // เมนูเรียนรู้เพิ่มเติม desktop
-    document.getElementById("learn-more-btn").addEventListener("click", function () {
+    document.getElementById("learn-more-btn").addEventListener("click", function (event) {
+        event.stopPropagation(); // ป้องกัน dropdown ปิดเมื่อคลิกที่อื่น
         document.getElementById("learn-more-menu").classList.toggle("hidden");
+    });
+
+    document.addEventListener("click", function () {
+        document.getElementById("learn-more-menu").classList.add("hidden");
     });
 
     // เมนูเรียนรู้เพิ่มเติม mobile
@@ -142,18 +163,153 @@
     });
 </script>
 
-<div id="main-container"
-     class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center md:text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
+<!-- Main Container -->
+<div id="main-container" class="w-full max-w-sm md:max-w-[1100px] p-6 gap-3 flex flex-col md:flex-row justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
     <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
+        <div class="w-full h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md flex flex-col justify-between font-mali">
 
-        <div class="w-full md:w-1/2 h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md gap-6 flex flex-col justify-between">
-            <h1> กรอกเพื่อคำนวณ </h1>
-        </div>
+            <!-- หน้า Main (ไม่ซ่อน) -->
+            <div id="page-Main">
+                <h1 class="text-4xl font-semibold text-[#4e342e] text-center mb-4">กรอกข้อมูลเงินได้</h1>
 
-        <div class="w-full md:w-1/2 h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md gap-6 flex flex-col justify-between">
+                <!-- ตัวอย่างตารางข้อมูล 5 รายการ -->
+                <table class="w-full border border-collapse text-left mb-4">
+                    <thead>
+                    <tr class="bg-[#f7efda]">
+                        <th class="border p-2">รายการ</th>
+                        <th class="border p-2">เงินได้ทั้งหมด</th>
+                        <th class="border p-2">ภาษี ณ ที่จ่าย</th>
+                        <th class="border p-2">ระบุข้อมูล</th>
+                    </tr>
+                    </thead>
+                    <tbody id="incomeTableBody">
+                    <tr>
+                        <td class="desc border p-2">รายได้จากเงินเดือน</td>
+                        <td class="income border p-2">0.00</td>
+                        <td class="tax border p-2">0.00</td>
+                        <td class="border p-2">
+                            <span class="edit-link hover:text-[#4e342e] hover:underline" onclick="editRow(0)">ระบุข้อมูล</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="desc border p-2">รายได้จากฟรีแลนซ์, รับจ้างทั่วไป</td>
+                        <td class="income border p-2">0.00</td>
+                        <td class="tax border p-2">0.00</td>
+                        <td class="border p-2">
+                            <span class="edit-link hover:text-[#4e342e] hover:underline" onclick="editRow(1)">ระบุข้อมูล</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="desc border p-2">รายได้จากทรัพย์สิน, การทำธุรกิจ, อาชีพอิสระ</td>
+                        <td class="income border p-2">0.00</td>
+                        <td class="tax border p-2">0.00</td>
+                        <td class="border p-2">
+                            <span class="edit-link hover:text-[#4e342e] hover:underline" onclick="editRow(2)">ระบุข้อมูล</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="desc border p-2">รายได้จากการลงทุน</td>
+                        <td class="income border p-2">0.00</td>
+                        <td class="tax border p-2">0.00</td>
+                        <td class="border p-2">
+                            <span class="edit-link hover:text-[#4e342e] hover:underline" onclick="editRow(3)">ระบุข้อมูล</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="desc border p-2">รายได้จากมรดกหรือได้รับมา</td>
+                        <td class="income border p-2">0.00</td>
+                        <td class="tax border p-2">0.00</td>
+                        <td class="border p-2">
+                            <span class="edit-link hover:text-[#4e342e] hover:underline" onclick="editRow(4)">ระบุข้อมูล</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Container สำหรับแก้ไขข้อมูล -->
+            <div id="editContainer" class="hidden">
+                <h3 class="text-2xl font-semibold text-[#4e342e] text-center mb-4">ระบุ/แก้ไขข้อมูล</h3>
+                <form id="editForm" onsubmit="saveData(event)" class="space-y-4">
+                    <div>
+                        <label for="descInput" class="block mb-1">รายการ:</label>
+                        <input type="text" id="descInput" name="desc" class="w-full border p-2">
+                    </div>
+                    <div>
+                        <label for="incomeInput" class="block mb-1">เงินได้ทั้งหมด:</label>
+                        <input type="text" id="incomeInput" name="income" class="w-full border p-2">
+                    </div>
+                    <div>
+                        <label for="taxInput" class="block mb-1">ภาษี ณ ที่จ่าย:</label>
+                        <input type="text" id="taxInput" name="tax" class="w-full border p-2">
+                    </div>
+                    <input type="hidden" id="rowIndexInput" name="rowIndex">
+                    <div class="flex space-x-4">
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">บันทึก</button>
+                        <button type="button" class="bg-gray-400 text-white px-4 py-2 rounded" onclick="cancelEdit()">ยกเลิก</button>
+                    </div>
+                </form>
+            </div>
 
         </div>
     </div>
 </div>
+
+<!-- Scripts สำหรับสลับตาราง + แก้ไขข้อมูล -->
+<script>
+    // ---------------- Edit Data Logic ----------------
+    function editRow(rowIndex) {
+        // ซ่อนหน้า Main (ตาราง)
+        document.getElementById('page-Main').classList.add('hidden');
+        // แสดง container สำหรับแก้ไข
+        document.getElementById('editContainer').classList.remove('hidden');
+
+        // เลือกตารางและแถว
+        const tableBody = document.getElementById('incomeTableBody');
+        const row = tableBody.rows[rowIndex];
+
+        // ดึงค่าในแต่ละคอลัมน์
+        const desc = row.querySelector('.desc').innerText;
+        const income = row.querySelector('.income').innerText;
+        const tax = row.querySelector('.tax').innerText;
+
+        // ใส่ลงในฟอร์ม
+        document.getElementById('descInput').value = desc;
+        document.getElementById('incomeInput').value = income;
+        document.getElementById('taxInput').value = tax;
+        document.getElementById('rowIndexInput').value = rowIndex;
+    }
+
+    function saveData(event) {
+        event.preventDefault();
+
+        // อ่านค่าจากฟอร์ม
+        const desc = document.getElementById('descInput').value;
+        const income = document.getElementById('incomeInput').value;
+        const tax = document.getElementById('taxInput').value;
+        const rowIndex = document.getElementById('rowIndexInput').value;
+
+        // อัปเดตข้อมูลในตาราง
+        const tableBody = document.getElementById('incomeTableBody');
+        const row = tableBody.rows[rowIndex];
+
+        row.querySelector('.desc').innerText = desc;
+        row.querySelector('.income').innerText = income;
+        row.querySelector('.tax').innerText = tax;
+
+        // ซ่อนฟอร์มแก้ไข
+        document.getElementById('editContainer').classList.add('hidden');
+        // แสดงหน้า Main (ตาราง) กลับ
+        document.getElementById('page-Main').classList.remove('hidden');
+    }
+
+    function cancelEdit() {
+        // ยกเลิก -> ซ่อนฟอร์มแก้ไข
+        document.getElementById('editContainer').classList.add('hidden');
+        // แสดงหน้า Main (ตาราง) กลับ
+        document.getElementById('page-Main').classList.remove('hidden');
+    }
+</script>
+
 </body>
 </html>
