@@ -163,71 +163,71 @@
      class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
     <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
         <div class="w-full h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md flex flex-col justify-between font-mali">
+            <!-- หัวข้อใหญ่ -->
+            <h2 class="text-2xl md:text-3xl font-bold text-[#4e342e] text-center mb-4">
+                ยื่นแบบแสดงรายการภาษีเงินได้บุคคลธรรมดา ก.ย.90/91
+            </h2>
+
             <!-- สถานะการกรอก -->
-            <div class="flex justify-center space-x-4 mt-20">
+            <div class="flex justify-center space-x-8">
+                    <!-- STEP 1: กรอกข้อมูลผู้เสียภาษี (กำลังกรอก) -->
+                    <a href="tax-personal.html"
+                       class="flex flex-col items-center w-32 cursor-pointer"
+                       title="ขั้นตอนที่ 1: กรอกข้อมูลผู้เสียภาษี">
+                        <div class="bg-[#b49c74] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">
+                            1
+                        </div>
+                        <div class="border border-t-0 border-[#b49c74] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">
+                            ข้อมูลผู้เสียภาษี
+                        </div>
+                        <span class="text-xs text-[#4e342e] mt-1">กำลังกรอก</span>
+                    </a>
 
-                <!-- STEP 1: กรอกข้อมูลผู้เสียภาษี (ตัวอย่าง: กรอกแล้ว) -->
-                <a href="tax-personal.html"
-                   class="flex flex-col items-center w-32 cursor-pointer"
-                   title="ขั้นตอนที่ 1: กรอกข้อมูลผู้เสียภาษี">
-                    <!-- ส่วนแสดงสถานะด้านบน (Completed) -->
-                    <div class="bg-[#4e342e] text-[#f7efda] w-full text-center py-2 rounded-t-md font-mali font-bold">
-                        ✓
-                    </div>
-                    <!-- ชื่อขั้นตอนด้านล่าง -->
-                    <div class="border border-t-0 border-[#4e342e] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">
-                        ข้อมูลผู้เสียภาษี
-                    </div>
-                    <!-- คำอธิบายสถานะ (จะใส่หรือไม่ใส่ก็ได้) -->
-                    <span class="text-xs text-green-700 mt-1">กรอกแล้ว</span>
-                </a>
+                    <!-- STEP 2: กรอกเงินได้ (ยังไม่กรอก) -->
+                    <a href="tax-calculator.html"
+                       class="flex flex-col items-center w-32 cursor-pointer"
+                       title="ขั้นตอนที่ 2: กรอกเงินได้">
+                        <div class="bg-[#f7efda] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">
+                            2
+                        </div>
+                        <div class="border border-t-0 border-[#f7efda] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">
+                            ข้อมูลเงินได้
+                        </div>
+                        <span class="text-xs text-gray-600 mt-1">ยังไม่กรอก</span>
+                    </a>
 
-                <!-- STEP 2: กรอกเงินได้ (ตัวอย่าง: กำลังกรอก) -->
-                <a href="tax-calculator.html"
-                   class="flex flex-col items-center w-32 cursor-pointer"
-                   title="ขั้นตอนที่ 2: กรอกเงินได้">
-                    <div class="bg-[#b49c74] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">
-                        2
-                    </div>
-                    <div class="border border-t-0 border-[#b49c74] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">
-                        ข้อมูลเงินได้
-                    </div>
-                    <span class="text-xs text-[#4e342e] mt-1">กำลังกรอก</span>
-                </a>
+                    <!-- STEP 3: สิทธิ์ลดหย่อน (ยังไม่กรอก) -->
+                    <a href="tax-deduction.html"
+                       class="flex flex-col items-center w-32 cursor-pointer"
+                       title="ขั้นตอนที่ 3: สิทธิ์ลดหย่อน">
+                        <div class="bg-[#f7efda] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">
+                            3
+                        </div>
+                        <div class="border border-t-0 border-[#f7efda] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">
+                            สิทธิ์ลดหย่อน
+                        </div>
+                        <span class="text-xs text-gray-600 mt-1">ยังไม่กรอก</span>
+                    </a>
 
-                <!-- STEP 3: กรอกค่าลดหย่อน (ตัวอย่าง: ยังไม่กรอก) -->
-                <a href="tax-deduction.html"
-                   class="flex flex-col items-center w-32 cursor-pointer"
-                   title="ขั้นตอนที่ 3: กรอกค่าลดหย่อน">
-                    <div class="bg-[#f7efda] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">
-                        3
-                    </div>
-                    <div class="border border-t-0 border-[#f7efda] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">
-                        สิทธิ์ลดหย่อน
-                    </div>
-                    <span class="text-xs text-gray-600 mt-1">ยังไม่กรอก</span>
-                </a>
-
-                <!-- STEP 4: ตรวจสอบข้อมูล (ตัวอย่าง: ยังไม่กรอก) -->
-                <a href="result.html"
-                   class="flex flex-col items-center w-32 cursor-pointer"
-                   title="ขั้นตอนที่ 4: ตรวจสอบข้อมูล">
-                    <div class="bg-[#f7efda] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">
-                        4
-                    </div>
-                    <div class="border border-t-0 border-[#f7efda] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">
-                        ตรวจสอบข้อมูล
-                    </div>
-                    <span class="text-xs text-gray-600 mt-1">ยังไม่กรอก</span>
-                </a>
-
-            </div>
+                    <!-- STEP 4: ตรวจสอบข้อมูล (ยังไม่กรอก) -->
+                    <a href="result.html"
+                       class="flex flex-col items-center w-32 cursor-pointer"
+                       title="ขั้นตอนที่ 4: ตรวจสอบข้อมูล">
+                        <div class="bg-[#f7efda] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">
+                            4
+                        </div>
+                        <div class="border border-t-0 border-[#f7efda] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">
+                            ตรวจสอบข้อมูล
+                        </div>
+                        <span class="text-xs text-gray-600 mt-1">ยังไม่กรอก</span>
+                    </a>
+                </div>
 
 
-            <!-- สร้าง 6 หน้าแบบฟอร์ม -->
+                <!-- สร้าง 6 หน้าแบบฟอร์ม -->
             <div class="form-page overflow-y-auto text-start">
                 <div class="mt-6 bg-white p-6 rounded-lg">
-                    <h3 class="text-2xl font-semibold text-[#4e342e] text-center mb-4">ข้อมูลผู้มีเงินได้</h3>
+                    <h3 class="text-2xl font-semibold text-[#4e342e] text-center mb-4">ข้อมูลส่วนตัว</h3>
                     <div>
                         <label class="text-gray-700">เลขประจำตัวผู้เสียภาษีอากร:</label>
                         <a href="#" onclick="toggleExample('exampleWPT5'); return false;">❓</a>

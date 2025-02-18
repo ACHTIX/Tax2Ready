@@ -1,75 +1,79 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Template</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="../assets/TD_web_icon.png">
-  <style>
-    .font-mali {
-      font-family: 'Mali', sans-serif;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../assets/TD_web_icon.png">
+    <style>
+        .font-mali {
+            font-family: 'Mali', sans-serif;
+        }
+    </style>
 </head>
 <body class="flex items-center justify-center min-h-screen bg-[#c4bcac]">
 <script src="../js/script.js"></script>
 
 <!-- Header -->
 <header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
-  <div class="max-w-6xl mx-auto flex justify-between items-center">
-    <!-- โลโก้ / ชื่อเว็บ -->
-    <h1 class="text-2xl text-[#4e342e] font-bold font-mali flex justify-center">Tax2Ready For Admin</h1>
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <!-- โลโก้ / ชื่อเว็บ -->
+        <h1 class="text-2xl text-[#4e342e] font-bold font-mali flex justify-center">Tax2Ready For Admin</h1>
 
-    <!-- เมนูหลัก (Desktop) -->
-    <nav class="hidden md:flex space-x-6">
-<!--      <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำร้อง</a>-->
-<!--      <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ตั้งค่าอัตราภาษี</a>-->
+        <!-- เมนูหลัก (Desktop) -->
+        <nav class="hidden md:flex space-x-6">
+            <!--      <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำร้อง</a>-->
+            <!--      <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ตั้งค่าอัตราภาษี</a>-->
+        </nav>
+
+        <!-- ปุ่ม Login (Desktop) -->
+        <button type="button" onclick="location.href='#'"
+                class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">คำร้อง
+        </button>
+
+        <!-- เมนูมือถือ (Hamburger Icon) -->
+        <button class="md:hidden text-gray-600" id="mobile-menu-button">
+            ☰
+        </button>
+    </div>
+
+    <!-- เมนูสำหรับมือถือ (ซ่อนอยู่) -->
+    <nav id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 mt-3 bg-[#b49c74] p-4">
+        <!--    <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำร้อง</a>-->
+        <!--    <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ตั้งค่าอัตราภาษี</a>-->
+        <button type="button" onclick="location.href='#'"
+                class="bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+            คำร้อง
+        </button>
     </nav>
-
-    <!-- ปุ่ม Login (Desktop) -->
-    <button type="button" onclick="location.href='#'" class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">คำร้อง</button>
-
-    <!-- เมนูมือถือ (Hamburger Icon) -->
-    <button class="md:hidden text-gray-600" id="mobile-menu-button">
-      ☰
-    </button>
-  </div>
-
-  <!-- เมนูสำหรับมือถือ (ซ่อนอยู่) -->
-  <nav id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 mt-3 bg-[#b49c74] p-4">
-<!--    <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำร้อง</a>-->
-<!--    <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ตั้งค่าอัตราภาษี</a>-->
-    <button type="button" onclick="location.href='#'" class="bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
-      คำร้อง
-    </button>
-  </nav>
 </header>
 
 <!-- template script-->
 <script>
-  // ทำให้เมนูมือถือแสดง / ซ่อน
-  document.getElementById("mobile-menu-button").addEventListener("click", function() {
-    document.getElementById("mobile-menu").classList.toggle("hidden");
-  });
-
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', function(event) {
-      event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
-      let page = this.getAttribute('data-page'); // ดึงค่า data-page
-
-      fetch("pages/" + page)  // 📂 โหลดจากโฟลเดอร์ /pages
-              .then(response => response.text())
-              .then(data => {
-                document.getElementById('main-container').innerHTML = data; // แสดงผล
-              })
-              .catch(error => console.error('Error loading page:', error));
+    // ทำให้เมนูมือถือแสดง / ซ่อน
+    document.getElementById("mobile-menu-button").addEventListener("click", function () {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
     });
-  });
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function (event) {
+            event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
+            let page = this.getAttribute('data-page'); // ดึงค่า data-page
+
+            fetch("pages/" + page)  // 📂 โหลดจากโฟลเดอร์ /pages
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('main-container').innerHTML = data; // แสดงผล
+                })
+                .catch(error => console.error('Error loading page:', error));
+        });
+    });
 </script>
 
-<div id="main-container" class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center md:text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
+<div id="main-container"
+     class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center md:text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
 
 </div>
 </body>

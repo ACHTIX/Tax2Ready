@@ -14,7 +14,6 @@
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen bg-[#c4bcac]">
-<script src="../js/script.js"></script>
 
 <!-- Header -->
 <header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
@@ -63,7 +62,8 @@
                 </div>
             </div>
 
-            <a href="tax-personal.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
+            <a href="tax-personal.html"
+               class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
             <a href="contact.html"
                class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
         </nav>
@@ -71,7 +71,8 @@
 
         <!-- ปุ่ม Login (Desktop) -->
         <button type="button" onclick="location.href='sign-in-up.html'"
-                class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login
+                class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+            Login
         </button>
 
         <!-- เมนูมือถือ (Hamburger Icon) -->
@@ -125,90 +126,60 @@
     </nav>
 </header>
 
-<!-- template script-->
-<script>
-    // ทำให้เมนูมือถือแสดง / ซ่อน
-    document.getElementById("mobile-menu-button").addEventListener("click", function () {
-        document.getElementById("mobile-menu").classList.toggle("hidden");
-    });
-
-    // เมนูเรียนรู้เพิ่มเติม desktop
-    document.getElementById("learn-more-btn").addEventListener("click", function () {
-        document.getElementById("learn-more-menu").classList.toggle("hidden");
-    });
-
-    // เมนูเรียนรู้เพิ่มเติม mobile
-    document.getElementById("learn-more-btn-mobile").addEventListener("click", function () {
-        document.getElementById("learn-more-menu-mobile").classList.toggle("hidden");
-    });
-
-
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function (event) {
-            event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
-            let page = this.getAttribute('data-page'); // ดึงค่า data-page
-
-            fetch("pages/" + page)  // 📂 โหลดจากโฟลเดอร์ /pages
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('main-container').innerHTML = data; // แสดงผล
-                })
-                .catch(error => console.error('Error loading page:', error));
-        });
-    });
-</script>
-
 <!-- Main Container -->
 <div id="main-container"
      class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
+
     <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
         <div class="w-full h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md flex flex-col justify-between font-mali">
-            <!-- สถานะการกรอก -->
-            <div class="flex justify-center space-x-4 mt-20">
 
-                <!-- STEP 1: กรอกข้อมูลผู้เสียภาษี (ตัวอย่าง: กรอกแล้ว) -->
+            <!-- หัวข้อใหญ่ -->
+            <h2 class="text-2xl md:text-3xl font-bold text-[#4e342e] text-center mb-4">
+                กรอกข้อมูลสิทธิ์ค่าลดหย่อน
+            </h2>
+
+            <!-- สถานะการกรอก -->
+            <div class="flex justify-center space-x-4 mb-6">
+                <!-- STEP 1: กรอกข้อมูลผู้เสียภาษี (กรอกแล้ว) -->
                 <a href="tax-personal.html"
                    class="flex flex-col items-center w-32 cursor-pointer"
                    title="ขั้นตอนที่ 1: กรอกข้อมูลผู้เสียภาษี">
-                    <!-- ส่วนแสดงสถานะด้านบน (Completed) -->
                     <div class="bg-[#4e342e] text-[#f7efda] w-full text-center py-2 rounded-t-md font-mali font-bold">
                         ✓
                     </div>
-                    <!-- ชื่อขั้นตอนด้านล่าง -->
                     <div class="border border-t-0 border-[#4e342e] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">
                         ข้อมูลผู้เสียภาษี
                     </div>
-                    <!-- คำอธิบายสถานะ (จะใส่หรือไม่ใส่ก็ได้) -->
                     <span class="text-xs text-green-700 mt-1">กรอกแล้ว</span>
                 </a>
 
-                <!-- STEP 2: กรอกเงินได้ (ตัวอย่าง: กำลังกรอก) -->
+                <!-- STEP 2: กรอกเงินได้ (กรอกแล้ว) -->
                 <a href="tax-calculator.html"
                    class="flex flex-col items-center w-32 cursor-pointer"
                    title="ขั้นตอนที่ 2: กรอกเงินได้">
+                    <div class="bg-[#4e342e] text-[#f7efda] w-full text-center py-2 rounded-t-md font-mali font-bold">
+                        ✓
+                    </div>
+                    <div class="border border-t-0 border-[#4e342e] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">
+                        ข้อมูลเงินได้
+                    </div>
+                    <span class="text-xs text-green-700 mt-1">กรอกแล้ว</span>
+                </a>
+
+                <!-- STEP 3: สิทธิ์ลดหย่อน (กำลังกรอก) -->
+                <a href="tax-deduction.html"
+                   class="flex flex-col items-center w-32 cursor-pointer"
+                   title="ขั้นตอนที่ 3: สิทธิ์ลดหย่อน">
                     <div class="bg-[#b49c74] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">
-                        2
+                        3
                     </div>
                     <div class="border border-t-0 border-[#b49c74] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">
-                        ข้อมูลเงินได้
+                        สิทธิ์ลดหย่อน
                     </div>
                     <span class="text-xs text-[#4e342e] mt-1">กำลังกรอก</span>
                 </a>
 
-                <!-- STEP 3: กรอกค่าลดหย่อน (ตัวอย่าง: ยังไม่กรอก) -->
-                <a href="tax-deduction.html"
-                   class="flex flex-col items-center w-32 cursor-pointer"
-                   title="ขั้นตอนที่ 3: กรอกค่าลดหย่อน">
-                    <div class="bg-[#f7efda] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">
-                        3
-                    </div>
-                    <div class="border border-t-0 border-[#f7efda] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">
-                        สิทธิ์ลดหย่อน
-                    </div>
-                    <span class="text-xs text-gray-600 mt-1">ยังไม่กรอก</span>
-                </a>
-
-                <!-- STEP 4: ตรวจสอบข้อมูล (ตัวอย่าง: ยังไม่กรอก) -->
+                <!-- STEP 4: ตรวจสอบข้อมูล (ยังไม่กรอก) -->
                 <a href="result.html"
                    class="flex flex-col items-center w-32 cursor-pointer"
                    title="ขั้นตอนที่ 4: ตรวจสอบข้อมูล">
@@ -220,143 +191,575 @@
                     </div>
                     <span class="text-xs text-gray-600 mt-1">ยังไม่กรอก</span>
                 </a>
-
             </div>
 
-
-            <!-- สร้าง 6 หน้าแบบฟอร์ม -->
-            <div class="form-page overflow-y-auto text-start">
-                <div class="mt-6 bg-white p-6 rounded-lg">
-                    <h3 class="text-2xl font-semibold text-[#4e342e] text-center mb-4">ข้อมูลผู้มีเงินได้</h3>
-                    <div>
-                        <label class="text-gray-700">เลขประจำตัวผู้เสียภาษีอากร:</label>
-                        <a href="#" onclick="toggleExample('exampleWPT5'); return false;">❓</a>
-                        <input type="text" class="w-full border p-2 mb-4">
-                        <p id="exampleWPT5" class="hidden text-gray-700 mt-2">
-                            เลขประจำตัวผู้เสียภาษีอากร คือ หมายเลข 13 หลัก ที่กรมสรรพากรออกให้ บุคคลหรือองค์กร
-                            เพื่อใช้ระบุว่าใครเป็นผู้เสียภาษี</p>
-                    </div>
-
-                    <label class="block mb-2">ชื่อ - นามสกุล:</label>
-                    <input type="text" class="w-full border p-2 mb-4">
-
-                    <label class="block mb-2">วันเกิด:</label>
-                    <input type="date" class="w-full border p-2 mb-4">
-
-                    <label class="block mb-2">สถานะ:</label>
-                    <select id="marital-status" class="w-full border p-2 mb-4">
-                        <option value="single">โสด</option>
-                        <option value="married">สมรส</option>
-                        <option value="widowed">หม้าย</option>
-                    </select>
+            <!-- ฟอร์ม 5 ตาราง (กลุ่มลดหย่อน) -->
+            <form id="deductionForm" class="flex flex-col justify-center items-center overflow-auto">
+                <!-- กลุ่มที่ 1 -->
+                <div id="group-1" class="space-y-4 overflow-auto">
+                    <h3 class="text-lg font-bold text-[#4e342e]">
+                        กลุ่มที่ 1: ค่าอุปการะส่วนตัวและครอบครัว
+                    </h3>
+                    <table class="w-full text-left border-collapse">
+                        <!-- แถว ลดหย่อนผู้มีเงินได้ (บาท) -->
+                        <tr>
+                            <td class="py-2 w-1/3">ลดหย่อนผู้มีเงินได้ (บาท):</td>
+                            <td class="py-2 w-2/3">
+                                <input
+                                        type="text"
+                                        class="border rounded p-1 w-full"
+                                        value="60,000"
+                                        readonly
+                                />
+                            </td>
+                        </tr>
+                        <!-- แถว ค่าลดหย่อนผู้สูงอายุ (บาท) -->
+                        <tr>
+                            <td class="py-2">ค่าลดหย่อนผู้สูงอายุ (บาท):</td>
+                            <td class="py-2">
+                                <div class="flex gap-2">
+                                    <!-- ช่องกรอกมูลค่าเงิน -->
+                                    <input
+                                            type="text"
+                                            class="border rounded p-1 w-1/2"
+                                            placeholder="0"
+                                            pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                            onkeypress="return checkDecimal(this, event)"
+                                            oninput="validateCommaNumber(this)"
+                                    />
+                                    <!-- ช่องกรอกจำนวนคน -->
+                                    <input
+                                            type="number"
+                                            class="border rounded p-1 w-1/2"
+                                            placeholder="จำนวนคน"
+                                            min="0"
+                                    />
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- แถว ค่าอุปการะบิดา/มารดา (บาท) -->
+                        <tr>
+                            <td class="py-2">ค่าอุปการะบิดา/มารดา (บาท):</td>
+                            <td class="py-2">
+                                <div class="flex gap-2">
+                                    <!-- ช่องกรอกมูลค่าเงิน -->
+                                    <input
+                                            type="text"
+                                            class="border rounded p-1 w-1/2"
+                                            placeholder="0"
+                                            pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                            onkeypress="return checkDecimal(this, event)"
+                                            oninput="validateCommaNumber(this)"
+                                    />
+                                    <!-- ช่องกรอกจำนวนคน -->
+                                    <input
+                                            type="number"
+                                            class="border rounded p-1 w-1/2"
+                                            placeholder="จำนวนคน"
+                                            min="0"
+                                    />
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- แถว ค่าเลี้ยงดูบุตร (บาท) -->
+                        <tr>
+                            <td class="py-2">ค่าเลี้ยงดูบุตร (บาท):</td>
+                            <td class="py-2">
+                                <div class="flex gap-2">
+                                    <!-- ช่องกรอกมูลค่าเงิน -->
+                                    <input
+                                            type="text"
+                                            class="border rounded p-1 w-1/2"
+                                            placeholder="0"
+                                            pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                            onkeypress="return checkDecimal(this, event)"
+                                            oninput="validateCommaNumber(this)"
+                                    />
+                                    <!-- ช่องกรอกจำนวนคน -->
+                                    <input
+                                            type="number"
+                                            class="border rounded p-1 w-1/2"
+                                            placeholder="จำนวนคน"
+                                            min="0"
+                                    />
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- แถว อุปการะคนพิการ/ทุพพลภาพ (บาท) -->
+                        <tr>
+                            <td class="py-2">อุปการะคนพิการ/ทุพพลภาพ (บาท):</td>
+                            <td class="py-2">
+                                <div class="flex gap-2">
+                                    <!-- ช่องกรอกมูลค่าเงิน -->
+                                    <input
+                                            type="text"
+                                            class="border rounded p-1 w-1/2"
+                                            placeholder="0"
+                                            pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                            onkeypress="return checkDecimal(this, event)"
+                                            oninput="validateCommaNumber(this)"
+                                    />
+                                    <!-- ช่องกรอกจำนวนคน -->
+                                    <input
+                                            type="number"
+                                            class="border rounded p-1 w-1/2"
+                                            placeholder="จำนวนคน"
+                                            min="0"
+                                    />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-                <div>
 
-                    <!-- แบบฟอร์มคู่สมรส (ซ่อนเริ่มต้น) -->
-                    <div id="spouse-form" class="mt-6 bg-white p-6 rounded-lg hidden">
-                        <h3 class="text-2xl font-semibold text-[#4e342e] text-center mb-4">ข้อมูลคู่สมรส</h3>
 
-                        <label class="block mb-2">เลขประจำตัวผู้เสียภาษีอากรของคู่สมรส:</label>
-                        <input type="text" class="w-full border p-2 mb-4">
 
-                        <label class="block mb-2">ชื่อ - นามสกุล:</label>
-                        <input type="text" class="w-full border p-2 mb-4">
 
-                        <label class="block mb-2">วันเกิดของคู่สมรส:</label>
-                        <input type="date" class="w-full border p-2 mb-4">
-                    </div>
+                <!-- กลุ่มที่ 2 -->
+                <div id="group-2" class="hidden space-y-4 overflow-auto">
+                    <h3 class="text-lg font-bold text-[#4e342e]">กลุ่มที่ 2: ค่าลดหย่อนอื่นๆ สำหรับออมและการลงทุน</h3>
+                    <table class="w-full text-left border-collapse">
+                        <tr>
+                            <td class="py-2">เบี้ยประกันชีวิต (ทั่วไป) (บาท):</td>
+                            <td>
+                                <input
+                                        type="text"
+                                        class="border rounded p-1 w-full"
+                                        placeholder="0"
+                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                        onkeypress="return checkDecimal(this, event)"
+                                        oninput="validateCommaNumber(this)"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2">เบี้ยประกันสุขภาพ (บาท):</td>
+                            <td>
+                                <input
+                                        type="text"
+                                        class="border rounded p-1 w-full"
+                                        placeholder="0"
+                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                        onkeypress="return checkDecimal(this, event)"
+                                        oninput="validateCommaNumber(this)"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2">เบี้ยประกันชีวิตแบบบำนาญ (บาท):</td>
+                            <td>
+                                <input
+                                        type="text"
+                                        class="border rounded p-1 w-full"
+                                        placeholder="0"
+                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                        onkeypress="return checkDecimal(this, event)"
+                                        oninput="validateCommaNumber(this)"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2">กองทุนสำรองเลี้ยงชีพ/กบข. (บาท):</td>
+                            <td>
+                                <input
+                                        type="text"
+                                        class="border rounded p-1 w-full"
+                                        placeholder="0"
+                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                        onkeypress="return checkDecimal(this, event)"
+                                        oninput="validateCommaNumber(this)"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2">กองทุนรวมเพื่อการเลี้ยงชีพ (RMF) (บาท):</td>
+                            <td>
+                                <input
+                                        type="text"
+                                        class="border rounded p-1 w-full"
+                                        placeholder="0"
+                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                        onkeypress="return checkDecimal(this, event)"
+                                        oninput="validateCommaNumber(this)"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2">กองทุน SSF (บาท):</td>
+                            <td>
+                                <input
+                                        type="text"
+                                        class="border rounded p-1 w-full"
+                                        placeholder="0"
+                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                        onkeypress="return checkDecimal(this, event)"
+                                        oninput="validateCommaNumber(this)"
+                                />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
-                    <!-- Modal แจ้งเตือน สำหรับข้อมูลคู่สมรส -->
-                    <div id="alertModal"
-                         class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-                        <div class="bg-white rounded-lg shadow-lg p-6 w-[350px] text-center">
-                            <p class="text-lg text-gray-800 font-semibold">
-                                ท่านต้องการที่จะบันทึกข้อมูลคู่สมรสหรือไม่?</p>
-                            <div class="flex justify-center gap-4 mt-4">
-                                <button id="no-spouse" class="px-4 py-2 bg-gray-400 text-white rounded-lg shadow">
-                                    ไม่บันทึก
-                                </button>
-                                <button id="yes-spouse" class="px-4 py-2 bg-green-500 text-white rounded-lg shadow">
-                                    ต้องการบันทึก
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <!-- กลุ่มที่ 3 -->
+                <div id="group-3" class="hidden space-y-4 overflow-auto">
+                    <h3 class="text-lg font-bold text-[#4e342e]">กลุ่มที่ 3: ค่าลดหย่อนบางส่วน จากสินทรัพย์และมาตรการนโยบายภาครัฐ</h3>
+                    <table class="w-full text-left border-collapse">
+                        <tr>
+                            <td class="py-2">ดอกเบี้ยเงินกู้ยืม เพื่อที่อยู่อาศัย (บาท):</td>
+                            <td>
+                                <input
+                                        type="text"
+                                        class="border rounded p-1 w-full"
+                                        placeholder="0"
+                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                        onkeypress="return checkDecimal(this, event)"
+                                        oninput="validateCommaNumber(this)"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2">เงินบริจาคพรรคการเมือง (บาท):</td>
+                            <td>
+                                <input
+                                        type="text"
+                                        class="border rounded p-1 w-full"
+                                        placeholder="0"
+                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                        onkeypress="return checkDecimal(this, event)"
+                                        oninput="validateCommaNumber(this)"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2">ค่าโครงการและค่าผ่าตัดทำหมัน (บาท):</td>
+                            <td>
+                                <input
+                                        type="text"
+                                        class="border rounded p-1 w-full"
+                                        placeholder="0"
+                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                        onkeypress="return checkDecimal(this, event)"
+                                        oninput="validateCommaNumber(this)"
+                                />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
-                    <!-- ปุ่มบันทึกข้อมูลทั้งหมด -->
-                    <button id="saveButton" class="w-full mt-4 px-4 py-2 bg-[#4e342e] text-white rounded-lg shadow">
-                        บันทึก
-                    </button>
+                <!-- กลุ่มที่ 4 -->
+                <div id="group-4" class="hidden space-y-4 overflow-auto">
+                    <h3 class="text-lg font-bold text-[#4e342e]">กลุ่มที่ 4: ช่องเพิ่มเติม (เพิ่มตามมาตรการพิเศษ)</h3>
+                    <table class="w-full text-left border-collapse">
+                        <tr>
+                            <td class="py-2">
+                                ค่าซื้อสินค้าหรือบริการ ช้อปดีมีคืน
+                                <br/><span class="text-sm text-gray-600">(ใช้ได้ถึง 15 ก.พ. 2566)</span>
+                            </td>
+                            <td>
+                                <input
+                                        type="text"
+                                        class="border rounded p-1 w-full"
+                                        placeholder="0"
+                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                        onkeypress="return checkDecimal(this, event)"
+                                        oninput="validateCommaNumber(this)"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2">ค่าซื้อสินค้าเพื่อการศึกษา/กีฬา/หนังสือ (บาท):</td>
+                            <td>
+                                <input
+                                        type="text"
+                                        class="border rounded p-1 w-full"
+                                        placeholder="0"
+                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                        onkeypress="return checkDecimal(this, event)"
+                                        oninput="validateCommaNumber(this)"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2">ค่าซื้อสินค้า OTOP (บาท):</td>
+                            <td>
+                                <input
+                                        type="text"
+                                        class="border rounded p-1 w-full"
+                                        placeholder="0"
+                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                        onkeypress="return checkDecimal(this, event)"
+                                        oninput="validateCommaNumber(this)"
+                                />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
-                    <!-- Modal แจ้งเตือน สำหรับการยืนยันการบันทึกข้อมูล -->
-                    <div id="saveModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-                        <div class="bg-white rounded-lg shadow-lg p-6 w-[350px] text-center">
-                            <p class="text-lg text-gray-800 font-semibold">คุณต้องการบันทึกข้อมูลทั้งหมดหรือไม่?</p>
-                            <div class="flex justify-center gap-4 mt-4">
-                                <button id="cancelSave" class="px-4 py-2 bg-gray-400 text-white rounded-lg shadow">
-                                    ยกเลิก
-                                </button>
-                                <button id="confirmSave" class="px-4 py-2 bg-green-500 text-white rounded-lg shadow">
-                                    บันทึก
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <!-- กลุ่มที่ 5 -->
+                <div id="group-5" class="hidden space-y-4 overflow-auto">
+                    <h3 class="text-lg font-bold text-[#4e342e]">กลุ่มที่ 5: เงินบริจาค</h3>
+                    <table class="w-full text-left border-collapse">
+                        <tr>
+                            <td class="py-2">เงินบริจาคสนับสนุนการศึกษา/สถาบันการกุศล (บาท):</td>
+                            <td>
+                                <input
+                                        type="text"
+                                        class="border rounded p-1 w-full"
+                                        placeholder="0"
+                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                        onkeypress="return checkDecimal(this, event)"
+                                        oninput="validateCommaNumber(this)"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2">เงินบริจาคอื่น ๆ (บาท):</td>
+                            <td>
+                                <input
+                                        type="text"
+                                        class="border rounded p-1 w-full"
+                                        placeholder="0"
+                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                        onkeypress="return checkDecimal(this, event)"
+                                        oninput="validateCommaNumber(this)"
+                                />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
-                    <script>
-                        // Function สำหรับสลับการแสดงผลของข้อความตัวอย่าง
-                        function toggleExample(id) {
-                            var element = document.getElementById(id);
-                            if (element.classList.contains("hidden")) {
-                                element.classList.remove("hidden");
-                            } else {
-                                element.classList.add("hidden");
+                <script>
+                    // ฟังก์ชันตรวจสอบให้พิมพ์ได้เฉพาะตัวเลข, เครื่องหมายจุลภาค และจุด
+                    // พร้อมจำกัดไม่ให้พิมพ์ทศนิยมเกิน 2 ตำแหน่ง
+                    function checkDecimal(input, event) {
+                        // อนุญาตคีย์ควบคุม (Backspace, Delete, ลูกศร, Tab)
+                        if (
+                            event.ctrlKey || event.metaKey ||
+                            event.key === "Backspace" || event.key === "Delete" ||
+                            event.key === "ArrowLeft" || event.key === "ArrowRight" ||
+                            event.key === "Tab"
+                        ) {
+                            return true;
+                        }
+
+                        // อนุญาตให้พิมพ์เฉพาะตัวเลข, คอมมา, จุด
+                        const allowed = /[\d,\.]/;
+                        if (!allowed.test(event.key)) {
+                            event.preventDefault();
+                            return false;
+                        }
+
+                        // หากเป็นจุด (.) ให้แน่ใจว่ามีแค่จุดเดียว
+                        if (event.key === ".") {
+                            if (input.value.indexOf(".") !== -1) {
+                                event.preventDefault();
+                                return false;
                             }
                         }
 
-                        // แสดง Modal เมื่อเลือก "สมรส"
-                        document.getElementById("marital-status").addEventListener("change", function () {
-                            let status = this.value;
-                            if (status === "married") {
-                                document.getElementById("alertModal").classList.remove("hidden");
-                            } else {
-                                document.getElementById("spouse-form").classList.add("hidden");
+                        // หากมีจุดแล้ว ตรวจสอบจำนวนทศนิยมไม่เกิน 2 ตัว
+                        if (/\d/.test(event.key) && input.value.indexOf(".") !== -1) {
+                            let parts = input.value.split(".");
+                            if (parts[1].length >= 2 && input.selectionStart > input.value.indexOf(".")) {
+                                event.preventDefault();
+                                return false;
                             }
-                        });
+                        }
+                        return true;
+                    }
 
-                        // ปิด Modal และไม่แสดงแบบฟอร์มคู่สมรส
-                        document.getElementById("no-spouse").addEventListener("click", function () {
-                            document.getElementById("alertModal").classList.add("hidden");
-                            document.getElementById("spouse-form").classList.add("hidden");
-                        });
+                    // ฟังก์ชันตรวจสอบรูปแบบด้วย regex
+                    function validateCommaNumber(input) {
+                        let value = input.value;
+                        // Regex: 1-3 หลักแรก ตามด้วยกลุ่มที่มีเครื่องหมายจุลภาคและ 3 หลัก, และอาจมีจุดกับตัวเลขไม่เกิน 2 หลัก
+                        const regex = /^\d{1,3}(,\d{3})*(\.\d{0,2})?$/;
+                        if (value === "" || regex.test(value)) {
+                            input.setCustomValidity("");
+                        } else {
+                            input.setCustomValidity("รูปแบบไม่ถูกต้อง (ตัวอย่าง: 000,000,000.00)");
+                        }
+                    }
+                </script>
 
-                        // แสดงแบบฟอร์มคู่สมรส เมื่อเลือกบันทึกข้อมูลคู่สมรส
-                        document.getElementById("yes-spouse").addEventListener("click", function () {
-                            document.getElementById("alertModal").classList.add("hidden");
-                            document.getElementById("spouse-form").classList.remove("hidden");
-                        });
 
-                        // เมื่อกดปุ่ม "บันทึก" สำหรับข้อมูลทั้งหมด
-                        document.getElementById("saveButton").addEventListener("click", function () {
-                            document.getElementById("saveModal").classList.remove("hidden");
-                        });
+                <!-- ปุ่มย้อนกลับ / ถัดไป / บันทึก -->
+                <div class="flex justify-between w-full mt-6">
+                    <!-- ปุ่มย้อนกลับ -->
+                    <button
+                            type="button"
+                            id="prevBtn"
+                            class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 disabled:opacity-50"
+                            disabled
+                    >
+                        ย้อนกลับ
+                    </button>
 
-                        // ยกเลิกการบันทึกข้อมูลทั้งหมด
-                        document.getElementById("cancelSave").addEventListener("click", function () {
-                            document.getElementById("saveModal").classList.add("hidden");
-                        });
+                    <!-- ปุ่มถัดไป/บันทึก -->
+                    <div class="flex flex-col items-end">
+                        <!-- ปุ่มถัดไป (จะซ่อนใน step สุดท้าย) -->
+                        <button
+                                type="button"
+                                id="nextBtn"
+                                class="bg-[#4e342e] text-white px-4 py-2 rounded hover:bg-[#8d6e63]"
+                        >
+                            ถัดไป
+                        </button>
 
-                        // ยืนยันการบันทึกข้อมูลทั้งหมดและเปลี่ยนหน้าไปยัง tax-calculator.html
-                        document.getElementById("confirmSave").addEventListener("click", function () {
-                            window.location.href = "tax-calculator.html";
-                        });
-                    </script>
+                        <!-- ปุ่มบันทึกข้อมูลทั้งหมด (จะซ่อนใน step อื่นๆ) -->
+                        <button
+                                type="button"
+                                id="saveButton"
+                                class="hidden w-full max-w-xs px-4 py-2 bg-[#4e342e] text-white rounded-lg shadow"
+                        >
+                            บันทึก
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
+
+<!-- Modal แจ้งเตือน สำหรับการยืนยันการบันทึกข้อมูล -->
+<div
+        id="saveModal"
+        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
+>
+    <div class="bg-white rounded-lg shadow-lg p-6 w-[350px] text-center">
+        <p class="text-lg text-gray-800 font-semibold">
+            คุณต้องการบันทึกข้อมูลทั้งหมดหรือไม่?
+        </p>
+        <div class="flex justify-center gap-4 mt-4">
+            <button
+                    id="cancelSave"
+                    class="px-4 py-2 bg-gray-400 text-white rounded-lg shadow"
+            >
+                ยกเลิก
+            </button>
+            <button
+                    id="confirmSave"
+                    class="px-4 py-2 bg-green-500 text-white rounded-lg shadow"
+            >
+                บันทึก
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- รวม Script ทั้งหมดไว้ด้านล่าง -->
+<script>
+    // ---- เมนูมือถือ แสดง / ซ่อน ----
+    document.getElementById("mobile-menu-button").addEventListener("click", function () {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+
+    // ---- เมนูเรียนรู้เพิ่มเติม desktop ----
+    document.getElementById("learn-more-btn").addEventListener("click", function () {
+        document.getElementById("learn-more-menu").classList.toggle("hidden");
+    });
+
+    // ---- เมนูเรียนรู้เพิ่มเติม mobile ----
+    document.getElementById("learn-more-btn-mobile").addEventListener("click", function () {
+        document.getElementById("learn-more-menu-mobile").classList.toggle("hidden");
+    });
+
+    // --------------------------------------------------
+    //             จัดการการแสดงผล 5 กลุ่ม
+    // --------------------------------------------------
+    const totalGroups = 5;
+    let currentGroup = 1;
+
+    const prevBtn     = document.getElementById("prevBtn");
+    const nextBtn     = document.getElementById("nextBtn");
+    const saveButton  = document.getElementById("saveButton");  // ปุ่มบันทึก
+    const saveModal   = document.getElementById("saveModal");   // โมดัล
+    const cancelSave  = document.getElementById("cancelSave");
+    const confirmSave = document.getElementById("confirmSave");
+
+    // ฟังก์ชันโชว์/ซ่อนกลุ่ม
+    function showGroup(groupNumber) {
+        // ซ่อนทุกกลุ่มก่อน
+        for (let i = 1; i <= totalGroups; i++) {
+            document.getElementById(`group-${i}`).classList.add("hidden");
+        }
+        // แสดงเฉพาะกลุ่มที่ต้องการ
+        document.getElementById(`group-${groupNumber}`).classList.remove("hidden");
+
+        // จัดการปุ่มย้อนกลับ
+        prevBtn.disabled = (groupNumber === 1);
+
+        // ถ้าเป็นกลุ่มสุดท้าย ให้ซ่อนปุ่มถัดไป แล้วโชว์ปุ่มบันทึก
+        if (groupNumber === totalGroups) {
+            nextBtn.classList.add("hidden");
+            saveButton.classList.remove("hidden");
+        } else {
+            nextBtn.classList.remove("hidden");
+            saveButton.classList.add("hidden");
+        }
+    }
+
+    // ตรวจสอบว่าอินพุตเป็นตัวเลขหรือไม่ (อนุญาตให้เว้นว่างได้)
+    function validateCurrentGroup() {
+        const inputs = document.querySelectorAll(`#group-${currentGroup} input[type="number"]`);
+        for (let input of inputs) {
+            if (input.value !== "") {
+                // ถ้ากรอกแล้ว แต่ไม่ใช่ตัวเลข (isNaN) ให้ return false
+                if (isNaN(parseFloat(input.value))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    // ปุ่มย้อนกลับ
+    prevBtn.addEventListener("click", () => {
+        if (currentGroup > 1) {
+            currentGroup--;
+            showGroup(currentGroup);
+        }
+    });
+
+    // ปุ่มถัดไป
+    nextBtn.addEventListener("click", () => {
+        // ตรวจสอบอินพุตก่อน
+        if (!validateCurrentGroup()) {
+            alert("กรุณากรอกเฉพาะตัวเลข (หรือเว้นว่าง) ในทุกช่องของกลุ่มนี้");
+            return;
+        }
+        // ไปหน้าถัดไป
+        if (currentGroup < totalGroups) {
+            currentGroup++;
+            showGroup(currentGroup);
+        }
+    });
+
+    // ---------------------------
+    // ปุ่ม "บันทึก" -> เปิด Modal
+    // ---------------------------
+    saveButton.addEventListener("click", () => {
+        // ตรวจสอบอินพุตกลุ่มสุดท้าย
+        if (!validateCurrentGroup()) {
+            alert("กรุณากรอกเฉพาะตัวเลข (หรือเว้นว่าง) ในทุกช่องของกลุ่มนี้");
+            return;
+        }
+        // ถ้าผ่านการตรวจสอบ -> แสดง Modal
+        saveModal.classList.remove('hidden');
+    });
+
+    // เมื่อคลิก "ยกเลิก" -> ซ่อน Modal
+    cancelSave.addEventListener('click', () => {
+        saveModal.classList.add('hidden');
+    });
+
+    // เมื่อคลิก "บันทึก" ใน Modal -> ไปหน้า result.html (หรือทำอย่างอื่นก่อน)
+    confirmSave.addEventListener('click', () => {
+        window.location.href = 'result.html';
+    });
+
+    // เริ่มต้นแสดงกลุ่มแรก
+    showGroup(currentGroup);
+</script>
+
 </body>
 </html>
-
-
