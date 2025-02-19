@@ -10,21 +10,24 @@
         .font-mali {
             font-family: 'Mali', sans-serif;
         }
+        /* ซ่อน Modal เริ่มต้น */
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen bg-[#c4bcac]">
+<body class="flex items-center justify-center min-h-screen bg-[#c4bcac] font-mali">
 
 <!-- Header -->
-<header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
+<header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0 z-10">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <h1 class="text-2xl text-[#4e342e] font-bold font-mali justify-start">
+        <h1 class="text-2xl text-[#4e342e] font-bold justify-start">
             Tax2Ready
         </h1>
-
         <nav class="hidden md:flex space-x-6 relative">
             <a
                     href="http://localhost:63342/Tax2Ready/frontend-html-web-service/pages/tax-calculator.html"
-                    class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]"
+                    class="hidden md:block bg-[#4e342e] text-white px-4 py-2 rounded-lg hover:bg-[#8d6e63]"
             >
                 ย้อนกลับ
             </a>
@@ -35,15 +38,485 @@
 <!-- Main Container -->
 <div id="main-container"
      class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
+
     <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
+        <!-- ส่วนฟอร์ม -->
+        <div class="w-full h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md gap-6 flex flex-col justify-start overflow-y-auto">
 
-        <div class="w-full h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md gap-6 flex flex-col justify-between">
+            <h2 class="text-4xl font-bold text-center mb-4">ค่าชดเชยออกจากงาน (ไม่รวมภาษี)</h2>
 
+            <!-- ฟอร์มหลัก -->
+            <form class="w-full text-left">
+                <!-- เลือกประเภทผู้มีเงินได้/เงินไม่มีเจ้าของ -->
+                <div class="mb-4">
+                    <p class="font-semibold mb-2">ข้อมูลผู้มีเงินได้</p>
+                    <label class="inline-flex items-center">
+                        <input type="radio" name="incomeType" value="owner" class="mr-2" checked />
+                        <span>ผู้มีเงินได้</span>
+                    </label>
+                </div>
+
+                <div class="flex items-start space-x-4">
+                    <!-- ชื่อนายจ้าง -->
+                    <div>
+                        <label class="font-semibold mr-2" for="employerName">ชื่อนายจ้าง</label>
+                        <input
+                                type="text"
+                                id="employerName"
+                                name="employerName"
+                                placeholder="กรอกชื่อนายจ้าง"
+                                class="border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+
+                    <!-- จำนวนปีที่ทำงาน -->
+                    <div class="flex items-center">
+                        <label class="font-semibold mr-2" for="workingYears">จำนวนปีที่ทำงาน</label>
+                        <input
+                                type="number"
+                                id="workingYears"
+                                name="workingYears"
+                                min="0"
+                                placeholder="0"
+                                class="border border-gray-300 rounded px-3 py-2 w-24 mr-2"
+                        />
+                        <span>ปี</span>
+                    </div>
+                </div>
+
+                <!-- ก. การคำนวณเงินได้ -->
+                <div class="mb-6">
+                    <h3 class="font-semibold underline mb-2">ก. การคำนวณเงินได้</h3>
+
+                    <!-- เงินบำเหน็จฯ ข้าราชการ -->
+                    <div class="mb-2">
+                        <label class="block mb-1">เงินบำเหน็จฯ ข้าราชการ</label>
+                        <input
+                                type="number"
+                                name="govPension"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+
+                    <!-- กองทุนสำรองเลี้ยงชีพ -->
+                    <div class="mb-2">
+                        <label class="block mb-1">กองทุนสำรองเลี้ยงชีพ</label>
+                        <input
+                                type="number"
+                                name="providentFund"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+
+                    <!-- กบข. -->
+                    <div class="mb-2">
+                        <label class="block mb-1">กองทุนบำเหน็จบำนาญข้าราชการ (กบข.)</label>
+                        <input
+                                type="number"
+                                name="gpf"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+
+                    <!-- กองทุนรวมเพื่อการเลี้ยงชีพ -->
+                    <div class="mb-2">
+                        <label class="block mb-1">กองทุนรวมเพื่อการเลี้ยงชีพ</label>
+                        <input
+                                type="number"
+                                name="retirementMutualFund"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+
+                    <!-- เงินชดเชยตามกฎหมายแรงงาน -->
+                    <div class="mb-2">
+                        <label class="block mb-1">เงินชดเชยตามกฎหมายแรงงาน (หลังหักยกเว้นแล้ว)</label>
+                        <input
+                                type="number"
+                                name="compensation"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+
+                    <!-- รวม (1.+2.+3.) -->
+                    <div class="mb-2">
+                        <label class="block mb-1">รวม (1.+2.+3.)</label>
+                        <input
+                                type="number"
+                                name="sum123"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+
+                    <!-- เงินได้ที่จ่ายให้ครั้งเดียว... -->
+                    <div class="mb-2">
+                        <label class="block mb-1">เงินได้ที่จ่ายให้ครั้งเดียวที่มีวิธีการคำนวณต่างไปจาก 1.</label>
+                        <input
+                                type="number"
+                                name="lumpsumDifferent"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+
+                    <!-- รวมทั้งสิ้น (4.+5.) -->
+                    <div class="mb-2">
+                        <label class="block mb-1">รวมทั้งสิ้น (4.+5.)</label>
+                        <input
+                                type="number"
+                                name="sum45"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+
+                    <!-- หักได้รับยกเว้น 190,000 บาท -->
+                    <div class="mb-2">
+                        <label class="block mb-1">หักได้รับยกเว้น 190,000 บาท</label>
+                        <input
+                                type="number"
+                                name="exemption"
+                                value="190000"
+                                readonly
+                                class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100"
+                        />
+                    </div>
+
+                    <!-- คงเหลือ -->
+                    <div class="mb-2">
+                        <label class="block mb-1">คงเหลือ</label>
+                        <input
+                                type="number"
+                                name="remainingIncome"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+                </div>
+
+                <!-- ข. การคำนวณค่าใช้จ่าย -->
+                <div class="mb-6">
+                    <h3 class="font-semibold underline mb-2">ข. การคำนวณค่าใช้จ่าย</h3>
+
+                    <!-- Dropdown เลือกวิธีคำนวณเงินเดือน -->
+                    <div class="mb-2">
+                        <label class="block mb-1" for="salaryCalcMethod">เงินเดือนรับจากนายจ้างคำนวณจาก</label>
+                        <select
+                                name="salaryCalcMethod"
+                                id="salaryCalcMethod"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        >
+                            <option value="">-- เลือกวิธีคำนวณ --</option>
+                            <option value="method1">เดือนสุดท้าย</option>
+                            <option value="method2">เฉลี่ย 3 เดือน</option>
+                            <option value="method3">หากไม่เกิน 10 เดือน ฯลฯ</option>
+                        </select>
+                    </div>
+
+                    <!-- จำนวนเงินได้ที่ถือเป็นฐาน -->
+                    <div class="mb-2">
+                        <label class="block mb-1">จำนวนเงินได้ที่ถือเป็นฐาน</label>
+                        <input
+                                type="number"
+                                name="baseIncome"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+
+                    <!-- ค่าใช้จ่ายส่วนแรก -->
+                    <div class="mb-2">
+                        <label class="block mb-1">ค่าใช้จ่ายส่วนแรก</label>
+                        <input
+                                type="number"
+                                name="expensePart1"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+
+                    <!-- คงเหลือ (ฐาน - ค่าใช้จ่ายส่วนแรก) -->
+                    <div class="mb-2">
+                        <label class="block mb-1">คงเหลือ (หลังหักค่าใช้จ่ายส่วนแรก)</label>
+                        <input
+                                type="number"
+                                name="remainingAfterPart1"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+
+                    <!-- ค่าใช้จ่าย ส่วนที่ 2 ร้อยละ 50 -->
+                    <div class="mb-2">
+                        <label class="block mb-1">ค่าใช้จ่าย ส่วนที่ 2 (50%)</label>
+                        <input
+                                type="number"
+                                name="expensePart2"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+
+                    <!-- รวมค่าใช้จ่ายที่หักได้ทั้งหมด -->
+                    <div class="mb-2">
+                        <label class="block mb-1">รวมค่าใช้จ่ายที่หักได้ทั้งหมด</label>
+                        <input
+                                type="number"
+                                name="totalExpense"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+                </div>
+
+                <!-- ค. การคำนวณภาษี -->
+                <div class="mb-6">
+                    <h3 class="font-semibold underline mb-2">ค. การคำนวณภาษี</h3>
+
+                    <div class="mb-2">
+                        <label class="block mb-1">เงินได้พึงประเมิน (ยกมาจาก ก. 8.)</label>
+                        <input
+                                type="number"
+                                name="taxableIncome"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="block mb-1">หัก ค่าใช้จ่าย (ยกมาจาก ข. 6.)</label>
+                        <input
+                                type="number"
+                                name="taxDeduction"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="block mb-1">เงินได้สุทธิ (1.-2.)</label>
+                        <input
+                                type="number"
+                                name="netIncome"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="block mb-1">ภาษีคำนวณจากเงินได้สุทธิตาม 3.</label>
+                        <input
+                                type="number"
+                                name="calculatedTax"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="block mb-1">ภาษีเงินได้หัก ณ ที่จ่าย</label>
+                        <input
+                                type="number"
+                                name="withheldTax"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="block mb-1">ภาษีที่ต้องชำระเพิ่มเติม (ถ้า 4. มากกว่า 5.)</label>
+                        <input
+                                type="number"
+                                name="additionalTax"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="block mb-1">ภาษีที่ชำระไว้เกิน (ถ้า 5. มากกว่า 4.)</label>
+                        <input
+                                type="number"
+                                name="overpaidTax"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                class="w-full border border-gray-300 rounded px-3 py-2"
+                        />
+                    </div>
+                </div>
+
+                <!-- ปุ่มคำนวณและล้างค่า -->
+                <div class="flex gap-4">
+                    <button
+                            type="button"
+                            class="bg-[#4e342e] text-white px-4 py-2 rounded hover:bg-[#8d6e63]"
+                            onclick="alert('ยังไม่ได้ผูกการคำนวณจริง')"
+                    >
+                        คำนวณ
+                    </button>
+                    <button
+                            type="reset"
+                            class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
+                    >
+                        ล้างค่า
+                    </button>
+                </div>
+            </form>
+
+            <!-- สรุปการคำนวณภาษี (แสดงผลลัพธ์) -->
+            <div class="mt-6 text-left">
+                <h3 class="font-semibold mb-2">สรุปการคำนวณภาษี</h3>
+                <p>เงินได้สุทธิ: -</p>
+                <p>ภาษีตามอัตราเงินได้สุทธิ: -</p>
+                <p>ภาษีที่ชำระไว้แล้ว: -</p>
+                <p>ภาษีที่ต้องชำระเพิ่ม/ชำระไว้เกิน: -</p>
+            </div>
+
+            <!-- ปุ่มบันทึกข้อมูลทั้งหมด -->
+            <button id="saveButton" class="w-full mt-4 px-4 py-2 bg-[#4e342e] text-white rounded-lg shadow">
+                บันทึก
+            </button>
+
+            <!-- Modal แจ้งเตือน สำหรับการยืนยันการบันทึกข้อมูล -->
+            <div id="saveModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+                <div class="bg-white rounded-lg shadow-lg p-6 w-[350px] text-center">
+                    <p class="text-lg text-gray-800 font-semibold">คุณต้องการบันทึกข้อมูลทั้งหมดหรือไม่?</p>
+                    <div class="flex justify-center gap-4 mt-4">
+                        <button id="cancelSave" class="px-4 py-2 bg-gray-400 text-white rounded-lg shadow">
+                            ยกเลิก
+                        </button>
+                        <button id="confirmSave" class="px-4 py-2 bg-green-500 text-white rounded-lg shadow">
+                            บันทึก
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ลิงก์ดูรายละเอียดการคำนวณ -->
+            <div class="mt-4">
+                <a href="#" id="calculationLink" class="text-blue-600 underline hover:text-blue-800">
+                    ดูรายละเอียดการคำนวณ
+                </a>
+            </div>
         </div>
-
     </div>
 </div>
+
+<!-- Modal รายละเอียดการคำนวณ -->
+<div id="calculationModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20">
+    <div class="bg-white p-6 rounded shadow-md w-full max-w-3xl relative text-left">
+        <!-- ปุ่มปิด Modal -->
+        <button id="closeModal" class="absolute top-2 right-2 text-gray-600 text-xl hover:text-gray-800">
+            ❌
+        </button>
+        <h2 class="text-xl font-bold mb-4">รายละเอียดการคำนวณ</h2>
+        <div class="space-y-2">
+            <p>ผู้มีเงินได้</p>
+            <p>เงินได้ทั้งหมดของเงินเดือนหรือเงินได้ตามสัญญาจ้างแรงงาน (มาตรา 40(1))</p>
+            <p>หัก: เงินที่ได้รับการยกเว้นในกรณีผู้สูงอายุ (อายุ 65 ปีขึ้นไป)</p>
+            <p>คงเหลือ: เงินได้ที่นำไปคำนวณภาษี</p>
+            <p>รายการเงินได้ที่ได้รับการยกเว้น</p>
+            <ul class="list-disc list-inside ml-4">
+                <li>(1) เงินสะสมกองทุนสำรองเลี้ยงชีพ (ส่วนที่เกิน 10,000 บาท)</li>
+                <li>(2) เงินสะสมใน กบข.</li>
+                <li>(3) เงินสะสมกองทุนสงเคราะห์ครูโรงเรียนเอกชน</li>
+                <li>(4) เงินค่าชดเชยที่ได้รับตามกฎหมายแรงงาน
+                    <small>(กรณีนำมารวมคำนวณภาษี)</small>
+                </li>
+            </ul>
+            <p>รวม: เงินได้ที่ได้รับการยกเว้น</p>
+            <p>เงินได้ทั้งหมดของการรับจ้าง (ฟรีแลนซ์, ค่าตำแหน่ง, เบี้ยประชุม หรือค่านายหน้า) (มาตรา 40(2))</p>
+            <p>หัก: เงินที่ได้รับการยกเว้นในกรณีผู้สูงอายุ (65 ปีขึ้นไป)</p>
+            <p>คงเหลือ: เงินได้ที่นำไปคำนวณภาษี</p>
+            <p>คงเหลือ: เงินได้ก่อนหักค่าใช้จ่าย</p>
+            <p>หัก: ค่าใช้จ่าย 50% (ไม่เกิน 100,000 บาท)</p>
+            <p>คงเหลือ: เงินได้หลังหักค่าใช้จ่าย</p>
+            <p>ภาษีหัก ณ ที่จ่าย</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // เมื่อกดปุ่ม "บันทึก" สำหรับข้อมูลทั้งหมด
+    document.getElementById("saveButton").addEventListener("click", function () {
+        document.getElementById("saveModal").classList.remove("hidden");
+    });
+
+    // ยืนยันการบันทึกข้อมูลทั้งหมดและเปลี่ยนหน้าไปยัง tax-calculator.html
+    document.getElementById("confirmSave").addEventListener("click", function () {
+        window.location.href = "../tax-calculator.html";
+    });
+
+    // อ้างอิงองค์ประกอบที่ถูกต้องตาม ID ใน HTML
+    const openModalBtn = document.getElementById('calculationLink');
+    const closeModalBtn = document.getElementById('closeModal');
+    const calculationModal = document.getElementById('calculationModal');
+
+    // เมื่อคลิก "ดูรายละเอียดการคำนวณ" => เปิด Modal
+    openModalBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // ป้องกันการเปลี่ยนหน้า
+        calculationModal.classList.remove('hidden');
+    });
+
+    // เมื่อคลิกปุ่มปิด (❌) => ปิด Modal
+    closeModalBtn.addEventListener('click', () => {
+        calculationModal.classList.add('hidden');
+    });
+
+    // เมื่อคลิกบริเวณพื้นหลัง (overlay) => ปิด Modal
+    calculationModal.addEventListener('click', (e) => {
+        if (e.target === calculationModal) {
+            calculationModal.classList.add('hidden');
+        }
+    });
+</script>
+
 </body>
 </html>
-
-
