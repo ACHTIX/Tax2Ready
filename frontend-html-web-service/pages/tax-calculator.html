@@ -129,57 +129,37 @@
     </nav>
 </header>
 
-<!-- template script-->
-<script>
-    // ทำให้เมนูมือถือแสดง / ซ่อน
-    document.getElementById("mobile-menu-button").addEventListener("click", function () {
-        document.getElementById("mobile-menu").classList.toggle("hidden");
-    });
+<!--&lt;!&ndash; template script&ndash;&gt;-->
+<!--<script>-->
+<!--    document.addEventListener("DOMContentLoaded", function () {-->
+<!--        // Dropdown 'เรียนรู้เพิ่มเติม' (Desktop)-->
+<!--        const learnMoreBtn = document.getElementById("learn-more-btn");-->
+<!--        const learnMoreMenu = document.getElementById("learn-more-menu");-->
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const mobileMenuButton = document.getElementById("mobile-menu-button");
-        const mobileMenu = document.getElementById("mobile-menu");
+<!--        learnMoreBtn.addEventListener("click", function (event) {-->
+<!--            event.stopPropagation();-->
+<!--            learnMoreMenu.classList.toggle("hidden");-->
+<!--        });-->
 
-        if (mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener("click", function () {
-                mobileMenu.classList.toggle("hidden");
-            });
-        } else {
-            console.error("Mobile menu button or menu not found!");
-        }
-    });
+<!--        document.addEventListener("click", function () {-->
+<!--            learnMoreMenu.classList.add("hidden");-->
+<!--        });-->
 
+<!--        // Dropdown 'เรียนรู้เพิ่มเติม' (Mobile)-->
+<!--        const learnMoreBtnMobile = document.getElementById("learn-more-btn-mobile");-->
+<!--        const learnMoreMenuMobile = document.getElementById("learn-more-menu-mobile");-->
 
-    // เมนูเรียนรู้เพิ่มเติม desktop
-    document.getElementById("learn-more-btn").addEventListener("click", function (event) {
-        event.stopPropagation(); // ป้องกัน dropdown ปิดเมื่อคลิกที่อื่น
-        document.getElementById("learn-more-menu").classList.toggle("hidden");
-    });
+<!--        learnMoreBtnMobile.addEventListener("click", function (event) {-->
+<!--            event.stopPropagation();-->
+<!--            learnMoreMenuMobile.classList.toggle("hidden");-->
+<!--        });-->
 
-    document.addEventListener("click", function () {
-        document.getElementById("learn-more-menu").classList.add("hidden");
-    });
+<!--        document.addEventListener("click", function () {-->
+<!--            learnMoreMenuMobile.classList.add("hidden");-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
 
-    // เมนูเรียนรู้เพิ่มเติม mobile
-    document.getElementById("learn-more-btn-mobile").addEventListener("click", function () {
-        document.getElementById("learn-more-menu-mobile").classList.toggle("hidden");
-    });
-
-
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function (event) {
-            event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
-            let page = this.getAttribute('data-page'); // ดึงค่า data-page
-
-            fetch("pages/" + page)  // 📂 โหลดจากโฟลเดอร์ /pages
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('main-container').innerHTML = data; // แสดงผล
-                })
-                .catch(error => console.error('Error loading page:', error));
-        });
-    });
-</script>
 
 <!-- Main Container -->
 <div id="main-container"
@@ -301,11 +281,12 @@
                         </td>
                         <td class="border p-2 text-center">
                             <a
-                                    href="/frontend-html-web-service/pages/income-cal/1income_salary_40_1.html"
+                                    href="income-cal/1income_salary_40_1.html"
                                     class="text-black-500 px-3 py-1 rounded hover:text-blue-600 hover:underline"
                             >
                                 ระบุข้อมูล
                             </a>
+
                         </td>
                     </tr>
                     <tr class="bg-gray-50">
@@ -330,7 +311,7 @@
                         </td>
                         <td class="border p-2 text-center">
                             <a
-                                    href="/frontend-html-web-service/pages/income-cal/2income_severance_40_1.html"
+                                    href="income-cal/2income_severance_40_1.html"
                                     class="text-black-500 px-3 py-1 rounded hover:text-blue-600 hover:underline"
                             >
                                 ระบุข้อมูล
@@ -379,7 +360,7 @@
                         </td>
                         <td class="border p-2 text-center">
                             <a
-                                    href="/frontend-html-web-service/pages/income-cal/3income_freelance_40_2.html"
+                                    href="income-cal/3income_freelance_40_2.html"
                                     class="text-black-500 px-3 py-1 rounded hover:text-blue-600 hover:underline"
                             >
                                 ระบุข้อมูล
@@ -428,7 +409,7 @@
                         </td>
                         <td class="border p-2 text-center">
                             <a
-                                    href="/frontend-html-web-service/pages/income-cal/4income_royalty_40_3.html"
+                                    href="income-cal/4income_royalty_40_3.html"
                                     class="text-black-500 px-3 py-1 rounded hover:text-blue-600 hover:underline"
                             >
                                 ระบุข้อมูล
@@ -457,7 +438,7 @@
                         </td>
                         <td class="border p-2 text-center">
                             <a
-                                    href="/frontend-html-web-service/pages/income-cal/5income_rent_40_5.html"
+                                    href="income-cal/5income_rent_40_5.html"
                                     class="text-black-500 px-3 py-1 rounded hover:text-blue-600 hover:underline"
                             >
                                 ระบุข้อมูล
@@ -486,7 +467,7 @@
                         </td>
                         <td class="border p-2 text-center">
                             <a
-                                    href="/frontend-html-web-service/pages/income-cal/6income_professional_40_6.html"
+                                    href="income-cal/6income_professional_40_6.html"
                                     class="text-black-500 px-3 py-1 rounded hover:text-blue-600 hover:underline"
                             >
                                 ระบุข้อมูล
@@ -515,7 +496,7 @@
                         </td>
                         <td class="border p-2 text-center">
                             <a
-                                    href="/frontend-html-web-service/pages/income-cal/7income_contractor_40_7.html"
+                                    href="income-cal/7income_contractor_40_7.html"
                                     class="text-black-500 px-3 py-1 rounded hover:text-blue-600 hover:underline"
                             >
                                 ระบุข้อมูล
@@ -544,7 +525,7 @@
                         </td>
                         <td class="border p-2 text-center">
                             <a
-                                    href="/frontend-html-web-service/pages/income-cal/8income_business_40_8.html"
+                                    href="income-cal/8income_business_40_8.html"
                                     class="text-black-500 px-3 py-1 rounded hover:text-blue-600 hover:underline"
                             >
                                 ระบุข้อมูล
@@ -573,7 +554,7 @@
                         </td>
                         <td class="border p-2 text-center">
                             <a
-                                    href="/frontend-html-web-service/pages/income-cal/9income_real_estate_40_8.html"
+                                    href="income-cal/9income_real_estate_40_8.html"
                                     class="text-black-500 px-3 py-1 rounded hover:text-blue-600 hover:underline"
                             >
                                 ระบุข้อมูล
@@ -623,7 +604,7 @@
                         </td>
                         <td class="border p-2 text-center">
                             <a
-                                    href="/frontend-html-web-service/pages/income-cal/10income_interest_crypto_40_4.html"
+                                    href="income-cal/10income_interest_crypto_40_4.html"
                                     class="text-black-500 px-3 py-1 rounded hover:text-blue-600 hover:underline"
                             >
                                 ระบุข้อมูล
@@ -653,7 +634,7 @@
                         </td>
                         <td class="border p-2 text-center">
                             <a
-                                    href="/frontend-html-web-service/pages/income-cal/11income_dividends_40_4b.html"
+                                    href="income-cal/11income_dividends_40_4b.html"
                                     class="text-black-500 px-3 py-1 rounded hover:text-blue-600 hover:underline"
                             >
                                 ระบุข้อมูล
@@ -683,7 +664,7 @@
                         </td>
                         <td class="border p-2 text-center">
                             <a
-                                    href="/frontend-html-web-service/pages/income-cal/12income_exempt_tax.html"
+                                    href="income-cal/12income_exempt_tax.html"
                                     class="text-black-500 px-3 py-1 rounded hover:text-blue-600 hover:underline"
                             >
                                 ระบุข้อมูล
@@ -713,7 +694,7 @@
                         </td>
                         <td class="border p-2 text-center">
                             <a
-                                    href="/frontend-html-web-service/pages/income-cal/13income_rmf.html"
+                                    href="income-cal/13income_rmf.html"
                                     class="text-black-500 px-3 py-1 rounded hover:text-blue-600 hover:underline"
                             >
                                 ระบุข้อมูล
@@ -743,7 +724,7 @@
                         </td>
                         <td class="border p-2 text-center">
                             <a
-                                    href="/frontend-html-web-service/pages/income-cal/14income_ltf.html"
+                                    href="income-cal/14income_ltf.html"
                                     class="text-black-500 px-3 py-1 rounded hover:text-blue-600 hover:underline"
                             >
                                 ระบุข้อมูล
@@ -773,7 +754,7 @@
                         </td>
                         <td class="border p-2 text-center">
                             <a
-                                    href="/frontend-html-web-service/pages/income-cal/15income_ssf.html"
+                                    href="income-cal/15income_ssf.html"
                                     class="text-black-500 px-3 py-1 rounded hover:text-blue-600 hover:underline"
                             >
                                 ระบุข้อมูล
@@ -822,7 +803,7 @@
                         </td>
                         <td class="border p-2 text-center">
                             <a
-                                    href="/frontend-html-web-service/pages/income-cal/16income_donation_40_8.html"
+                                    href="income-cal/16income_donation_40_8.html"
                                     class="text-black-500 px-3 py-1 rounded hover:text-blue-600 hover:underline"
                             >
                                 ระบุข้อมูล
