@@ -1,31 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="UTF-8">
-<title>Freelance Income and Commissions (Section 40(2))</title>
 <head>
     <meta charset="UTF-8">
+    <title>Super Savings Fund (SSF)</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Long-Term Equity Fund (LTF)</title>
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Mali -->
+    <link
+            href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap"
+            rel="stylesheet"
+    />
+
     <style>
         .font-mali {
             font-family: 'Mali', sans-serif;
         }
     </style>
 </head>
+
 <body class="flex items-center justify-center min-h-screen bg-[#c4bcac]">
 
 <!-- Header -->
 <header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <h1 class="text-2xl text-[#4e342e] font-bold font-mali justify-start">
+        <h1 class="text-2xl text-[#4e342e] font-bold font-mali">
             Tax2Ready
         </h1>
 
         <nav class="hidden md:flex space-x-6 relative">
             <a
-                    href="http://localhost:63342/Tax2Ready/frontend-html-web-service/pages/tax-calculator.html"
+                    href="../tax-calculator.html"
                     class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]"
             >
                 ย้อนกลับ
@@ -37,15 +44,158 @@
 <!-- Main Container -->
 <div id="main-container"
      class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
+
     <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
+        <!-- กล่องด้านใน -->
+        <div class="w-full h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md gap-2 flex flex-col justify-start items-stretch font-mali">
+            <!-- เริ่มส่วนของเงินปันผล -->
+            <h2 class="font-bold text-2xl text-center mb-4">
+                กองทุนเพื่อการออม (SSF)
+            </h2>
 
-        <div class="w-full h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md gap-6 flex flex-col justify-between">
+            <!-- แถวที่ 1: เงินค่าขาย / ราคาทุน -->
+            <div class="flex flex-wrap gap-4">
+                <!-- เงินค่าขาย -->
+                <div class="flex-1 flex flex-col min-w-[200px]">
+                    <label for="salePrice" class="font-bold mb-1 text-[#4e342e] text-start">
+                        เงินค่าขาย
+                    </label>
+                    <input
+                            type="number"
+                            id="salePrice"
+                            name="salePrice"
+                            placeholder="ระบุเงินค่าขาย"
+                            class="p-2 border border-gray-300 rounded"
+                    />
+                </div>
+                <!-- ราคาทุน -->
+                <div class="flex-1 flex flex-col min-w-[200px]">
+                    <label for="costPrice" class="font-bold mb-1 text-[#4e342e] text-start">
+                        ราคาทุน
+                    </label>
+                    <input
+                            type="number"
+                            id="costPrice"
+                            name="costPrice"
+                            placeholder="ระบุราคาทุน"
+                            class="p-2 border border-gray-300 rounded"
+                    />
+                </div>
+            </div>
 
+            <!-- แถวที่ 2: จำนวนเงินส่วนต่างกำไร/ขาดทุน / ไม่มีกำไร/ขาดทุน -->
+            <div class="flex flex-wrap gap-4 mt-4">
+                <!-- จำนวนเงินส่วนต่างกำไร/ขาดทุน -->
+                <div class="flex-1 flex flex-col min-w-[200px]">
+                    <label for="profitLoss" class="font-bold mb-1 text-[#4e342e] text-start">
+                        จำนวนเงินส่วนต่างที่เป็นกำไร/ขาดทุน
+                    </label>
+                    <input
+                            type="number"
+                            id="profitLoss"
+                            name="profitLoss"
+                            placeholder="ระบุส่วนต่างกำไร/ขาดทุน"
+                            class="p-2 border border-gray-300 rounded"
+                    />
+                </div>
+                <!-- ไม่มีกำไร/ขาดทุน -->
+                <div class="flex items-center gap-2 min-w-[200px] mt-6">
+                    <input
+                            type="checkbox"
+                            id="noProfitLoss"
+                            name="noProfitLoss"
+                            class="w-4 h-4"
+                    />
+                    <label for="noProfitLoss" class="text-[#4e342e]">
+                        ไม่มีกำไร/ขาดทุน
+                    </label>
+                </div>
+            </div>
+
+            <!-- แถวที่ 3: ภาษีหัก ณ ที่จ่าย / หักค่าใช้จ่าย -->
+            <div class="flex flex-wrap gap-4 mt-4">
+                <!-- ภาษีหัก ณ ที่จ่าย -->
+                <div class="flex-1 flex flex-col min-w-[200px]">
+                    <label for="withheldTax" class="font-bold mb-1 text-[#4e342e] text-start">
+                        ภาษีหัก ณ ที่จ่าย
+                    </label>
+                    <input
+                            type="number"
+                            id="withheldTax"
+                            name="withheldTax"
+                            placeholder="ระบุภาษีหัก ณ ที่จ่าย"
+                            class="p-2 border border-gray-300 rounded"
+                    />
+                </div>
+                <!-- หักค่าใช้จ่าย -->
+                <div class="flex-1 flex flex-col min-w-[200px]">
+                    <label for="expenseDeduction" class="font-bold mb-1 text-[#4e342e] text-start">
+                        หักค่าใช้จ่าย
+                    </label>
+                    <input
+                            type="number"
+                            id="expenseDeduction"
+                            name="expenseDeduction"
+                            placeholder="ระบุค่าใช้จ่าย"
+                            class="p-2 border border-gray-300 rounded"
+                    />
+                </div>
+            </div>
+
+            <!-- แถวที่ 4: เลขผู้จ่ายเงินได้ -->
+            <div class="flex flex-col mt-4">
+                <label for="payerId" class="font-bold mb-1 text-[#4e342e] text-start">
+                    เลขผู้จ่ายเงินได้
+                    <span
+                            class="ml-1 cursor-help text-blue-600"
+                            title="หมายถึงเลขประจำตัวผู้จ่าย เช่น เลขประจำตัวผู้เสียภาษีหรือเลขนิติบุคคล"
+                    >
+              ?
+            </span>
+                </label>
+                <input
+                        type="text"
+                        id="payerId"
+                        name="payerId"
+                        placeholder="ระบุเลขผู้จ่ายเงินได้"
+                        class="p-2 border border-gray-300 rounded"
+                />
+            </div>
+
+            <!-- ปุ่มบันทึกข้อมูลทั้งหมด -->
+            <button id="saveButton" class="w-full mt-4 px-4 py-2 bg-[#4e342e] text-white rounded-lg shadow">
+                บันทึก
+            </button>
+
+            <!-- Modal แจ้งเตือน สำหรับการยืนยันการบันทึกข้อมูล -->
+            <div id="saveModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+                <div class="bg-white rounded-lg shadow-lg p-6 w-[350px] text-center">
+                    <p class="text-lg text-gray-800 font-semibold">คุณต้องการบันทึกข้อมูลทั้งหมดหรือไม่?</p>
+                    <div class="flex justify-center gap-4 mt-4">
+                        <button id="cancelSave" class="px-4 py-2 bg-gray-400 text-white rounded-lg shadow">
+                            ยกเลิก
+                        </button>
+                        <button id="confirmSave" class="px-4 py-2 bg-green-500 text-white rounded-lg shadow">
+                            บันทึก
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-
+        <!-- ปิดกล่องด้านใน -->
     </div>
 </div>
+
+<script>
+    // เมื่อกดปุ่ม "บันทึก" สำหรับข้อมูลทั้งหมด
+    document.getElementById("saveButton").addEventListener("click", function () {
+        document.getElementById("saveModal").classList.remove("hidden");
+    });
+
+    // ยืนยันการบันทึกข้อมูลทั้งหมดและเปลี่ยนหน้าไปยัง tax-calculator.html
+    document.getElementById("confirmSave").addEventListener("click", function () {
+        window.location.href = "../tax-calculator.html";
+    });
+</script>
 </body>
 </html>
-
-

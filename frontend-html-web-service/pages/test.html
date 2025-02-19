@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8" />
+    <title>ส่วนของเงินปันผล</title>
+    <style>
+        /* ตัวอย่างการจัดเลย์เอาต์แบบ 2 คอลัมน์ ด้วย Flexbox */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-right: 1rem;
+            min-width: 200px; /* ป้องกันคอลัมน์หดจนเกินไป */
+        }
+        .col:last-child {
+            margin-right: 0;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        input[type="text"],
+        input[type="number"] {
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        /* สไตล์เพิ่มเติมเพื่อความสวยงาม */
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.8rem; /* เพื่อให้ตำแหน่งตรงกับ label ด้านบน */
+        }
+        .question-mark {
+            margin-left: 0.3rem;
+            cursor: help; /* แสดงว่าเป็นข้อมูลเสริม */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="section-title">ส่วนของเงินปันผล</div>
+
+    <!-- แถวที่ 1: เงินค่าขาย / ราคาทุน -->
+    <div class="row">
+        <div class="col">
+            <label for="salePrice">เงินค่าขาย</label>
+            <input
+                    type="number"
+                    id="salePrice"
+                    name="salePrice"
+                    placeholder="ระบุเงินค่าขาย"
+            />
+        </div>
+        <div class="col">
+            <label for="costPrice">ราคาทุน</label>
+            <input
+                    type="number"
+                    id="costPrice"
+                    name="costPrice"
+                    placeholder="ระบุราคาทุน"
+            />
+        </div>
+    </div>
+
+    <!-- แถวที่ 2: จำนวนเงินส่วนต่างที่เป็นกำไร/ขาดทุน / ไม่มีกำไร/ขาดทุน -->
+    <div class="row">
+        <div class="col">
+            <label for="profitLoss">จำนวนเงินส่วนต่างที่เป็นกำไร/ขาดทุน</label>
+            <input
+                    type="number"
+                    id="profitLoss"
+                    name="profitLoss"
+                    placeholder="ระบุส่วนต่างกำไร/ขาดทุน"
+            />
+        </div>
+        <div class="col checkbox-row">
+            <input
+                    type="checkbox"
+                    id="noProfitLoss"
+                    name="noProfitLoss"
+            />
+            <label for="noProfitLoss" style="margin: 0;">ไม่มีกำไร/ขาดทุน</label>
+        </div>
+    </div>
+
+    <!-- แถวที่ 3: ภาษีหัก ณ ที่จ่าย / หักค่าใช้จ่าย -->
+    <div class="row">
+        <div class="col">
+            <label for="withheldTax">ภาษีหัก ณ ที่จ่าย</label>
+            <input
+                    type="number"
+                    id="withheldTax"
+                    name="withheldTax"
+                    placeholder="ระบุภาษีหัก ณ ที่จ่าย"
+            />
+        </div>
+        <div class="col">
+            <label for="expenseDeduction">หักค่าใช้จ่าย</label>
+            <input
+                    type="number"
+                    id="expenseDeduction"
+                    name="expenseDeduction"
+                    placeholder="ระบุค่าใช้จ่าย"
+            />
+        </div>
+    </div>
+
+    <!-- แถวที่ 4: เลขผู้จ่ายเงินได้ -->
+    <div class="row">
+        <div class="col">
+            <label for="payerId">
+                เลขผู้จ่ายเงินได้
+                <span
+                        class="question-mark"
+                        title="หมายถึงเลขประจำตัวผู้จ่าย เช่น เลขประจำตัวผู้เสียภาษีหรือเลขนิติบุคคล"
+                >
+          ?
+        </span>
+            </label>
+            <input
+                    type="text"
+                    id="payerId"
+                    name="payerId"
+                    placeholder="ระบุเลขผู้จ่ายเงินได้"
+            />
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
