@@ -21,60 +21,221 @@
     <div class="max-w-6xl mx-auto flex justify-between items-center">
         <!-- โลโก้ / ชื่อเว็บ -->
         <h1 class="text-2xl text-[#4e342e] font-bold font-mali flex justify-center">Tax2Ready For Admin</h1>
-
-        <!-- เมนูหลัก (Desktop) -->
-        <nav class="hidden md:flex space-x-6">
-            <!--      <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำร้อง</a>-->
-            <!--      <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ตั้งค่าอัตราภาษี</a>-->
-        </nav>
-
-        <!-- ปุ่ม Login (Desktop) -->
-        <button type="button" onclick="location.href='#'"
-                class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">คำร้อง
-        </button>
-
-        <!-- เมนูมือถือ (Hamburger Icon) -->
-        <button class="md:hidden text-gray-600" id="mobile-menu-button">
-            ☰
-        </button>
     </div>
-
-    <!-- เมนูสำหรับมือถือ (ซ่อนอยู่) -->
-    <nav id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 mt-3 bg-[#b49c74] p-4">
-        <!--    <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำร้อง</a>-->
-        <!--    <a href="#" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ตั้งค่าอัตราภาษี</a>-->
-        <button type="button" onclick="location.href='#'"
-                class="bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
-            คำร้อง
-        </button>
-    </nav>
 </header>
 
-<!-- template script-->
+<!-- สคริปต์ควบคุมเมนูมือถือ -->
 <script>
-    // ทำให้เมนูมือถือแสดง / ซ่อน
     document.getElementById("mobile-menu-button").addEventListener("click", function () {
         document.getElementById("mobile-menu").classList.toggle("hidden");
     });
-
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function (event) {
-            event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
-            let page = this.getAttribute('data-page'); // ดึงค่า data-page
-
-            fetch("pages/" + page)  // 📂 โหลดจากโฟลเดอร์ /pages
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('main-container').innerHTML = data; // แสดงผล
-                })
-                .catch(error => console.error('Error loading page:', error));
-        });
-    });
 </script>
 
+<!-- Main Container -->
 <div id="main-container"
-     class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center md:text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
+     class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
+    <!-- ใช้ flex แบ่งเป็น 2 ส่วน: รายการคำร้อง (ซ้าย) และ รายละเอียด (ขวา) -->
+    <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
+        <!-- ส่วนแสดงรายการคำร้อง -->
+        <div class="w-full h-[563px] md:w-1/2 bg-white p-6 rounded-lg shadow-md flex flex-col font-mali">
+            <h2 class="text-2xl font-bold text-[#4e342e] text-center">รายการคำร้อง</h2>
 
+            <!-- Container สำหรับรายการ -->
+            <div id="message-container" class="flex flex-col space-y-4 mt-4 overflow-auto max-h-[400px]">
+                <!-- รายการคำร้องจะถูกสร้างด้วย JS -->
+            </div>
+
+            <!-- ปุ่มเปลี่ยนหน้า -->
+            <div class="mt-auto flex justify-between items-center w-full pt-4">
+                <button id="prevPage" class="px-4 py-2 bg-[#a3885c] text-white rounded-lg hover:bg-[#8d6e63]">
+                    &lt;&lt;
+                </button>
+                <span id="page-indicator" class="text-[#4e342e]">1 / 1</span>
+                <button id="nextPage" class="px-4 py-2 bg-[#a3885c] text-white rounded-lg hover:bg-[#8d6e63]">
+                    &gt;&gt;
+                </button>
+            </div>
+        </div>
+
+        <!-- ส่วนแสดงรายละเอียด (ฟอร์ม) -->
+        <div class="w-full h-[563px] md:w-1/2 bg-white p-6 rounded-lg shadow-md font-mali overflow-auto">
+            <h2 class="text-2xl font-bold text-[#4e342e] text-center">รายละเอียดคำร้อง</h2>
+
+            <!-- ฟอร์มแสดงข้อมูล (Read-only) -->
+            <div class="flex flex-col space-y-4 mt-4 text-left">
+                <div>
+                    <label class="block mb-1 font-semibold text-gray-700">ชื่อของคุณ</label>
+                    <input type="text" id="detail-name"
+                           class="w-full border border-gray-300 rounded p-2 bg-gray-100"
+                           readonly>
+                </div>
+                <div>
+                    <label class="block mb-1 font-semibold text-gray-700">เบอร์โทร</label>
+                    <input type="text" id="detail-phone"
+                           class="w-full border border-gray-300 rounded p-2 bg-gray-100"
+                           readonly>
+                </div>
+                <div>
+                    <label class="block mb-1 font-semibold text-gray-700">อีเมลของคุณ</label>
+                    <input type="text" id="detail-email"
+                           class="w-full border border-gray-300 rounded p-2 bg-gray-100"
+                           readonly>
+                </div>
+                <div>
+                    <label class="block mb-1 font-semibold text-gray-700">เรื่องที่ต้องการติดต่อ</label>
+                    <textarea id="detail-message"
+                              class="w-full border border-gray-300 rounded p-2 bg-gray-100"
+                              rows="3" readonly></textarea>
+                </div>
+                <div>
+                    <label class="block mb-1 font-semibold text-gray-700">วันเวลา</label>
+                    <input type="text" id="detail-date"
+                           class="w-full border border-gray-300 rounded p-2 bg-gray-100"
+                           readonly>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    // ตัวอย่างข้อมูลจำลอง
+    const requestsData = [
+        {
+            id: 1,
+            name: 'สมชาย ใจดี',
+            phone: '080-000-0000',
+            email: 'somchai@example.com',
+            message: 'ขอข้อมูลเพิ่มเติมเกี่ยวกับการคำนวณภาษี',
+            submittedDate: '2025-02-12 09:30'
+        },
+        {
+            id: 2,
+            name: 'สมหญิง จริงจัง',
+            phone: '081-111-1111',
+            email: 'somying@example.com',
+            message: 'ต้องการความช่วยเหลือด้านเอกสาร',
+            submittedDate: '2025-02-10 14:15'
+        },
+        {
+            id: 3,
+            name: 'สมหวัง ตั้งใจ',
+            phone: '082-222-2222',
+            email: 'somwang@example.com',
+            message: 'สอบถามข้อมูลเกี่ยวกับการยื่นภาษีออนไลน์',
+            submittedDate: '2025-02-11 11:45'
+        },
+        {
+            id: 4,
+            name: 'สมปอง ลองดี',
+            phone: '083-333-3333',
+            email: 'sompong@example.com',
+            message: 'ต้องการคำแนะนำในการกรอกเอกสารภาษี',
+            submittedDate: '2025-02-09 10:00'
+        },
+        {
+            id: 5,
+            name: 'สมหญิง จริงจัง',
+            phone: '081-111-1111',
+            email: 'somying@example.com',
+            message: 'ขออัปเดตข้อมูลส่วนตัว',
+            submittedDate: '2025-02-10 14:20'
+        },
+        {
+            id: 6,
+            name: 'สมใจ รวยทรัพย์',
+            phone: '084-444-4444',
+            email: 'somjai@example.com',
+            message: 'สอบถามอัตราภาษีใหม่ล่าสุด',
+            submittedDate: '2025-02-13 16:05'
+        },
+        {
+            id: 7,
+            name: 'สมบัติ มั่งมี',
+            phone: '085-555-5555',
+            email: 'sombat@example.com',
+            message: 'ต้องการทราบวิธีการยื่นขอคืนภาษี',
+            submittedDate: '2025-02-08 09:00'
+        },
+        {
+            id: 8,
+            name: 'สมศรี มีสุข',
+            phone: '086-666-6666',
+            email: 'somsri@example.com',
+            message: 'สอบถามเกี่ยวกับขั้นตอนการผ่อนชำระภาษี',
+            submittedDate: '2025-02-14 15:30'
+        }
+    ];
+
+    const itemsPerPage = 4;
+    let currentPage = 1;
+
+    // ฟังก์ชันแสดงรายละเอียดในฟอร์ม (ไม่ใช้ Pop-up)
+    function showDetail(item) {
+        document.getElementById("detail-name").value = item.name;
+        document.getElementById("detail-phone").value = item.phone;
+        document.getElementById("detail-email").value = item.email;
+        document.getElementById("detail-message").value = item.message;
+        document.getElementById("detail-date").value = item.submittedDate;
+    }
+
+    // ฟังก์ชันแสดงรายการในหน้า
+    function renderPage() {
+        const container = document.getElementById("message-container");
+        container.innerHTML = "";
+
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const paginatedResults = requestsData.slice(start, end);
+
+        paginatedResults.forEach(item => {
+            const div = document.createElement("div");
+            div.classList.add(
+                "flex", "justify-between", "items-center", "p-4",
+                "bg-gray-100", "rounded-lg", "shadow-md",
+                "cursor-pointer", "hover:bg-[#c4bcac]",
+                "font-mali", "hover:underline"
+            );
+            // แสดงเฉพาะชื่อ + วันเวลา
+            div.innerHTML = `
+          <div>
+            <span class="text-[#4e342e] font-semibold">${item.name}</span><br>
+            <small class="text-sm text-gray-600">${item.submittedDate}</small>
+          </div>
+        `;
+            // เมื่อคลิกที่กล่อง จะแสดงรายละเอียดในฟอร์มขวามือ
+            div.addEventListener("click", () => {
+                showDetail(item);
+            });
+            container.appendChild(div);
+        });
+
+        // อัปเดตตัวบอกหน้าปัจจุบัน
+        document.getElementById("page-indicator").textContent = `${currentPage} / ${Math.ceil(requestsData.length / itemsPerPage)}`;
+    }
+
+    // ปุ่มเปลี่ยนหน้า
+    document.getElementById("prevPage").addEventListener("click", () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderPage();
+        }
+    });
+
+    document.getElementById("nextPage").addEventListener("click", () => {
+        if (currentPage < Math.ceil(requestsData.length / itemsPerPage)) {
+            currentPage++;
+            renderPage();
+        }
+    });
+
+    // โหลดหน้าแรก
+    document.addEventListener("DOMContentLoaded", () => {
+        renderPage();
+
+        // หากต้องการให้ฟอร์มเริ่มต้นแสดงข้อมูลรายการแรก
+        // showDetail(requestsData[0]);
+    });
+</script>
 </body>
 </html>
