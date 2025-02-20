@@ -1,151 +1,697 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
+<meta charset="UTF-8">
+<title>Dividends from Stocks and Mutual Funds (Section 40(4)(b))</title>
 <head>
-    <meta charset="UTF-8" />
-    <title>ส่วนของเงินปันผล</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dividends from Stocks and Mutual Funds (Section 40(4)(b))</title>
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Mali Font -->
+    <link
+            href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap"
+            rel="stylesheet"
+    />
     <style>
-        /* ตัวอย่างการจัดเลย์เอาต์แบบ 2 คอลัมน์ ด้วย Flexbox */
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-        }
-        .section-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-        }
-        .col {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            margin-right: 1rem;
-            min-width: 200px; /* ป้องกันคอลัมน์หดจนเกินไป */
-        }
-        .col:last-child {
-            margin-right: 0;
-        }
-        label {
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-        input[type="text"],
-        input[type="number"] {
-            padding: 0.5rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        /* สไตล์เพิ่มเติมเพื่อความสวยงาม */
-        .checkbox-row {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 1.8rem; /* เพื่อให้ตำแหน่งตรงกับ label ด้านบน */
-        }
-        .question-mark {
-            margin-left: 0.3rem;
-            cursor: help; /* แสดงว่าเป็นข้อมูลเสริม */
+        .font-mali {
+            font-family: 'Mali', sans-serif;
         }
     </style>
 </head>
-<body>
 
-<div class="container">
-    <div class="section-title">ส่วนของเงินปันผล</div>
+<body class="flex items-center justify-center min-h-screen bg-[#c4bcac] text-black font-mali">
 
-    <!-- แถวที่ 1: เงินค่าขาย / ราคาทุน -->
-    <div class="row">
-        <div class="col">
-            <label for="salePrice">เงินค่าขาย</label>
-            <input
-                    type="number"
-                    id="salePrice"
-                    name="salePrice"
-                    placeholder="ระบุเงินค่าขาย"
-            />
-        </div>
-        <div class="col">
-            <label for="costPrice">ราคาทุน</label>
-            <input
-                    type="number"
-                    id="costPrice"
-                    name="costPrice"
-                    placeholder="ระบุราคาทุน"
-            />
-        </div>
+<!-- Header -->
+<header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <h1 class="text-2xl text-[#4e342e] font-bold font-mali justify-start">
+            Tax2Ready
+        </h1>
+        <nav class="hidden md:flex space-x-6 relative">
+            <a
+                    href="../tax-calculator.html"
+                    class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]"
+            >
+                ย้อนกลับ
+            </a>
+        </nav>
     </div>
+</header>
 
-    <!-- แถวที่ 2: จำนวนเงินส่วนต่างที่เป็นกำไร/ขาดทุน / ไม่มีกำไร/ขาดทุน -->
-    <div class="row">
-        <div class="col">
-            <label for="profitLoss">จำนวนเงินส่วนต่างที่เป็นกำไร/ขาดทุน</label>
-            <input
-                    type="number"
-                    id="profitLoss"
-                    name="profitLoss"
-                    placeholder="ระบุส่วนต่างกำไร/ขาดทุน"
-            />
-        </div>
-        <div class="col checkbox-row">
-            <input
-                    type="checkbox"
-                    id="noProfitLoss"
-                    name="noProfitLoss"
-            />
-            <label for="noProfitLoss" style="margin: 0;">ไม่มีกำไร/ขาดทุน</label>
-        </div>
-    </div>
+<!-- Main Container -->
+<div
+        id="main-container"
+        class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20"
+>
+    <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
+        <!-- ใส่โค้ดทั้งหมดของเราลงในคอนเทนเนอร์สีขาวด้านใน -->
+        <div class="w-full h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md gap-6 flex flex-col justify-start overflow-y-auto">
 
-    <!-- แถวที่ 3: ภาษีหัก ณ ที่จ่าย / หักค่าใช้จ่าย -->
-    <div class="row">
-        <div class="col">
-            <label for="withheldTax">ภาษีหัก ณ ที่จ่าย</label>
-            <input
-                    type="number"
-                    id="withheldTax"
-                    name="withheldTax"
-                    placeholder="ระบุภาษีหัก ณ ที่จ่าย"
-            />
-        </div>
-        <div class="col">
-            <label for="expenseDeduction">หักค่าใช้จ่าย</label>
-            <input
-                    type="number"
-                    id="expenseDeduction"
-                    name="expenseDeduction"
-                    placeholder="ระบุค่าใช้จ่าย"
-            />
-        </div>
-    </div>
+            <!-- เงินปันผลจากหุ้นและกองทุนรวม -->
+            <h2 class="font-bold text-2xl text-center mb-4">
+                เงินปันผลจากหุ้นและกองทุนรวม
+            </h2>
 
-    <!-- แถวที่ 4: เลขผู้จ่ายเงินได้ -->
-    <div class="row">
-        <div class="col">
-            <label for="payerId">
-                เลขผู้จ่ายเงินได้
-                <span
-                        class="question-mark"
-                        title="หมายถึงเลขประจำตัวผู้จ่าย เช่น เลขประจำตัวผู้เสียภาษีหรือเลขนิติบุคคล"
+            <!-- (1) ส่วนค้นหา -->
+            <div class="flex flex-col md:flex-row items-end md:items-end justify-end gap-2 mb-4">
+                <label for="searchInput" class="whitespace-nowrap">ค้นหา (ชื่อบริษัท หรือ เลขผู้จ่ายเงินได้):</label>
+                <div class="flex gap-2">
+                    <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="กรอกคำค้น..."
+                            class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-gray-400"
+                    />
+                    <button
+                            onclick="handleSearch()"
+                            class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700"
+                    >
+                        ค้นหา
+                    </button>
+                </div>
+            </div>
+
+            <!-- (2) ปุ่มลบหลายรายการที่เลือก -->
+            <div class="mb-2">
+                <button
+                        id="deleteSelectedBtn"
+                        onclick="deleteSelectedItems()"
+                        class="hidden bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700"
                 >
-          ?
-        </span>
-            </label>
-            <input
-                    type="text"
-                    id="payerId"
-                    name="payerId"
-                    placeholder="ระบุเลขผู้จ่ายเงินได้"
-            />
+                    ลบรายการที่เลือก
+                </button>
+            </div>
+
+            <!-- (3) ตารางแสดงรายการ -->
+            <div class="overflow-x-auto mb-4">
+                <table class="w-full border-collapse">
+                    <thead>
+                    <tr class="bg-gray-200">
+                        <th class="border border-gray-300 p-2">
+                            <input
+                                    type="checkbox"
+                                    class="checkbox-all"
+                                    id="selectAllCheckbox"
+                                    onclick="toggleSelectAll()"
+                            />
+                        </th>
+                        <th class="border border-gray-300 p-2">ลำดับ</th>
+                        <th class="border border-gray-300 p-2">ชื่อบริษัท</th>
+                        <th class="border border-gray-300 p-2">เลขผู้จ่ายเงินได้</th>
+                        <th class="border border-gray-300 p-2">จำนวนเงินปันผล</th>
+                        <th class="border border-gray-300 p-2">ประเภทเงินปันผล</th>
+                        <th class="border border-gray-300 p-2">อัตราภาษี</th>
+                        <th class="border border-gray-300 p-2">จัดการ</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+
+<!--            &lt;!&ndash; (4) ปุ่มสลับหน้า (Pagination) &ndash;&gt;-->
+<!--            <div class="flex flex-col md:flex-row items-start md:items-center justify-start gap-2 mb-4">-->
+<!--                <div class="flex items-center gap-2">-->
+<!--                    <label for="itemsPerPageSelect" class="whitespace-nowrap">แสดงต่อหน้า:</label>-->
+<!--                    <select-->
+<!--                            id="itemsPerPageSelect"-->
+<!--                            onchange="changeItemsPerPage()"-->
+<!--                            class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-gray-400"-->
+<!--                    >-->
+<!--                        <option value="10">10 / หน้า</option>-->
+<!--                        <option value="20">20 / หน้า</option>-->
+<!--                        <option value="30">30 / หน้า</option>-->
+<!--                        <option value="40">40 / หน้า</option>-->
+<!--                        <option value="50">50 / หน้า</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--                <div class="flex items-center gap-2">-->
+<!--                    <button-->
+<!--                            onclick="prevPage()"-->
+<!--                            class="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400"-->
+<!--                    >-->
+<!--                        ก่อนหน้า-->
+<!--                    </button>-->
+<!--                    <span id="currentPageInfo" class="font-semibold">หน้า 1</span>-->
+<!--                    <button-->
+<!--                            onclick="nextPage()"-->
+<!--                            class="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400"-->
+<!--                    >-->
+<!--                        ถัดไป-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; (5) ส่วนสรุปผลรวม &ndash;&gt;-->
+<!--            <div id="summarySection" class="bg-gray-50 p-4 border border-gray-300 rounded mb-4 text-left">-->
+<!--                <div class="mb-1">รวมเงินปันผล/ส่วนแบ่งกำไรจากหุ้น: <span id="totalStock">0.00</span> บาท</div>-->
+<!--                <div class="mb-1">รวมเงินปันผล/ส่วนแบ่งกำไรจากกองทุน: <span id="totalFund">0.00</span> บาท</div>-->
+<!--                <div class="mb-1">รายได้ที่หัก ณ ที่จ่าย: <span id="totalTaxWithheld">0.00</span> บาท</div>-->
+<!--            </div>-->
+
+            <!-- (6) ฟอร์มเพิ่ม/แก้ไขรายการ -->
+            <div class="p-4 border border-gray-300 rounded">
+                <h2 class="text-lg font-semibold mb-4">เพิ่ม / แก้ไข รายการปันผล / ส่วนแบ่งกำไร</h2>
+
+                <!-- ประเภทเงินปันผล (หุ้น/กองทุน) -->
+                <div class="mb-4 flex items-center gap-4">
+                    <span>ประเภทเงินปันผล:</span>
+                    <label class="flex items-center gap-1 cursor-pointer">
+                        <input
+                                type="radio"
+                                name="dividendType"
+                                id="typeStock"
+                                value="หุ้น"
+                                checked
+                                onclick="handleDividendTypeChange()"
+                        />
+                        หุ้น
+                    </label>
+                    <label class="flex items-center gap-1 cursor-pointer">
+                        <input
+                                type="radio"
+                                name="dividendType"
+                                id="typeFund"
+                                value="กองทุน"
+                                onclick="handleDividendTypeChange()"
+                        />
+                        กองทุน
+                    </label>
+                </div>
+
+                <!-- จัดให้อยู่สองคอลัมน์ -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <!-- แถวที่ 1: ชื่อบริษัท และ เลขผู้จ่ายเงินได้ -->
+                    <div class="flex flex-col">
+                        <label for="companyName" class="mb-1">ชื่อบริษัท</label>
+                        <input
+                                type="text"
+                                id="companyName"
+                                placeholder="เลือกชื่อบริษัท"
+                                class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-gray-400"
+                        />
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="taxId" class="mb-1">เลขผู้จ่ายเงินได้</label>
+                        <input
+                                type="text"
+                                id="taxId"
+                                placeholder="กรอกเลขเมื่อไม่พบชื่อบริษัท"
+                                class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-gray-400"
+                        />
+
+                    </div>
+
+                    <!-- แถวที่ 2: จำนวนเงินปันผล และ อัตราภาษี -->
+                    <div class="flex flex-col">
+                        <label for="amount" class="mb-1">จำนวนเงินปันผล/ส่วนแบ่งกำไร</label>
+                        <input
+                                type="number"
+                                id="amount"
+                                placeholder="0.00"
+                                step="0.01"
+                                class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-gray-400"
+                        />
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="taxRate" class="mb-1">อัตราภาษี</label>
+                        <select
+                                id="taxRate"
+                                class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-gray-400"
+                        >
+                            <!-- ตัวเลือกภาษีจะถูกสร้าง/แก้ไขโดย handleDividendTypeChange() -->
+                        </select>
+                    </div>
+                </div>
+
+
+                <!-- ปุ่มยกเลิกและบันทึก -->
+                <div class="flex gap-4 items-center md:items-center justify-center">
+                    <button
+                            onclick="cancelForm()"
+                            class="bg-gray-400 text-white px-4 py-1 rounded hover:bg-gray-500"
+                    >
+                        ยกเลิก
+                    </button>
+                    <button
+                            onclick="saveItem()"
+                            class="bg-green-600 text-white px-4 py-1 rounded hover:bg-green-700"
+                    >
+                        บันทึก
+                    </button>
+                </div>
+            </div>
+
+            <!-- (4) ปุ่มสลับหน้า (Pagination) -->
+            <div class="flex flex-col md:flex-row items-center md:items-center justify-center gap-2 mb-4">
+                <div class="flex items-center gap-2">
+                    <label for="itemsPerPageSelect" class="whitespace-nowrap">แสดงต่อหน้า:</label>
+                    <select
+                            id="itemsPerPageSelect"
+                            onchange="changeItemsPerPage()"
+                            class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-gray-400"
+                    >
+                        <option value="10">10 / หน้า</option>
+                        <option value="20">20 / หน้า</option>
+                        <option value="30">30 / หน้า</option>
+                        <option value="40">40 / หน้า</option>
+                        <option value="50">50 / หน้า</option>
+                    </select>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button
+                            onclick="prevPage()"
+                            class="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400"
+                    >
+                        ก่อนหน้า
+                    </button>
+                    <span id="currentPageInfo" class="font-semibold">หน้า 1</span>
+                    <button
+                            onclick="nextPage()"
+                            class="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400"
+                    >
+                        ถัดไป
+                    </button>
+                </div>
+            </div>
+
+            <!-- (5) ส่วนสรุปผลรวม -->
+            <div id="summarySection" class="bg-gray-50 p-4 border border-gray-300 rounded mb-4 text-left">
+                <div class="mb-1">รวมเงินปันผล/ส่วนแบ่งกำไรจากหุ้น: <span id="totalStock">0.00</span> บาท</div>
+                <div class="mb-1">รวมเงินปันผล/ส่วนแบ่งกำไรจากกองทุน: <span id="totalFund">0.00</span> บาท</div>
+                <div class="mb-1">รายได้ที่หัก ณ ที่จ่าย: <span id="totalTaxWithheld">0.00</span> บาท</div>
+            </div>
+
         </div>
     </div>
 </div>
+
+<!-- Script ส่วนท้าย -->
+<script>
+    // =========================
+    // ตัวแปรหลัก
+    // =========================
+    let dataList = [];           // เก็บรายการทั้งหมด
+    let currentPage = 1;         // หน้าปัจจุบัน
+    let itemsPerPage = 10;       // จำนวนรายการต่อหน้า
+    let filteredList = [];       // รายการที่ผ่านการค้นหา (ถ้าไม่ได้ค้นหา จะเท่ากับ dataList)
+    let idEdit = null;           // เก็บไอดีรายการที่กำลังแก้ไข (ถ้ามี)
+
+    // ตัวเลือกอัตราภาษีทั้งหมด (สำหรับ "หุ้น")
+    const allTaxRates = [
+        "ร้อยละ 35",
+        "ร้อยละ 30",
+        "ร้อยละ 25",
+        "ร้อยละ 23",
+        "ร้อยละ 20",
+        "ร้อยละ 15",
+        "ร้อยละ 12.5",
+        "ร้อยละ 11.5",
+        "ร้อยละ 10",
+        "ร้อยละ 3",
+        "ร้อยละ 1.5",
+        "ยังไม่ได้รับเครดิตภาษี",
+        "ยกเว้นภาษี"
+    ];
+
+    // =========================
+    // ฟังก์ชันเริ่มต้น
+    // =========================
+    window.onload = function() {
+        // ใส่ค่าเริ่มต้นใน dropdown (หุ้น)
+        populateTaxRateOptionsForStock();
+
+        // ทดสอบด้วยข้อมูลตัวอย่าง
+        const sampleData = [
+            {
+                id: 1,
+                companyName: "ABC จำกัด",
+                taxId: "9-5940-20026-99-9",
+                amount: 23.00,
+                dividendType: "หุ้น",
+                taxRate: "ร้อยละ 35"
+            },
+            {
+                id: 2,
+                companyName: "AUCODIN",
+                taxId: "1-1111-11111-11-1",
+                amount: 34.00,
+                dividendType: "กองทุน",
+                taxRate: "ยังไม่ได้รับเครดิตภาษี"
+            }
+        ];
+        dataList = sampleData.slice();
+        filteredList = dataList.slice();
+        renderTable();
+    };
+
+    // =========================
+    // สร้าง option สำหรับ "หุ้น"
+    // =========================
+    function populateTaxRateOptionsForStock() {
+        const taxRateSelect = document.getElementById("taxRate");
+        taxRateSelect.innerHTML = allTaxRates
+            .map(rate => `<option value="${rate}">${rate}</option>`)
+            .join("");
+    }
+
+    // =========================
+    // ฟังก์ชัน render ตาราง
+    // =========================
+    function renderTable() {
+        const tableBody = document.getElementById("tableBody");
+        tableBody.innerHTML = "";
+
+        // ถ้ายังไม่ได้ค้นหาอะไร filteredList จะเป็น dataList
+        if (filteredList.length === 0 && document.getElementById("searchInput").value.trim() === "") {
+            filteredList = dataList.slice();
+        }
+
+        // คำนวณ start, end ของหน้าปัจจุบัน
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const pageItems = filteredList.slice(startIndex, endIndex);
+
+        // สร้าง row ในตาราง
+        pageItems.forEach((item, index) => {
+            const row = document.createElement("tr");
+
+            // checkbox
+            const tdCheckbox = document.createElement("td");
+            tdCheckbox.className = "border border-gray-300 p-2";
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.className = "checkbox-item";
+            checkbox.dataset.id = item.id;
+            tdCheckbox.appendChild(checkbox);
+            row.appendChild(tdCheckbox);
+
+            // ลำดับ
+            const tdIndex = document.createElement("td");
+            tdIndex.className = "border border-gray-300 p-2";
+            tdIndex.textContent = startIndex + index + 1;
+            row.appendChild(tdIndex);
+
+            // ชื่อบริษัท
+            const tdCompany = document.createElement("td");
+            tdCompany.className = "border border-gray-300 p-2";
+            tdCompany.textContent = item.companyName;
+            row.appendChild(tdCompany);
+
+            // เลขผู้จ่ายเงินได้
+            const tdTaxId = document.createElement("td");
+            tdTaxId.className = "border border-gray-300 p-2";
+            tdTaxId.textContent = item.taxId;
+            row.appendChild(tdTaxId);
+
+            // จำนวนเงินปันผล
+            const tdAmount = document.createElement("td");
+            tdAmount.className = "border border-gray-300 p-2";
+            tdAmount.textContent = item.amount.toFixed(2);
+            row.appendChild(tdAmount);
+
+            // ประเภทเงินปันผล
+            const tdType = document.createElement("td");
+            tdType.className = "border border-gray-300 p-2";
+            tdType.textContent = item.dividendType;
+            row.appendChild(tdType);
+
+            // อัตราภาษี
+            const tdTaxRate = document.createElement("td");
+            tdTaxRate.className = "border border-gray-300 p-2";
+            tdTaxRate.textContent = item.taxRate;
+            row.appendChild(tdTaxRate);
+
+            // จัดการ (แก้ไข, ลบ)
+            const tdActions = document.createElement("td");
+            tdActions.className = "border border-gray-300 p-2";
+
+            // ปุ่มแก้ไข
+            const editIcon = document.createElement("span");
+            editIcon.textContent = "📝";
+            editIcon.title = "แก้ไขรายการ";
+            editIcon.className = "cursor-pointer mr-2";
+            editIcon.onclick = () => editItem(item.id);
+
+            // ปุ่มลบ
+            const deleteIcon = document.createElement("span");
+            deleteIcon.textContent = "❌";
+            deleteIcon.title = "ลบรายการนี้";
+            deleteIcon.className = "cursor-pointer text-red-500";
+            deleteIcon.onclick = () => deleteItem(item.id);
+
+            tdActions.appendChild(editIcon);
+            tdActions.appendChild(deleteIcon);
+            row.appendChild(tdActions);
+
+            tableBody.appendChild(row);
+        });
+
+        // อัปเดตสถานะ checkbox selectAll
+        document.getElementById("selectAllCheckbox").checked = false;
+
+        // อัปเดต summary
+        updateSummary();
+
+        // อัปเดตเลขหน้า
+        document.getElementById("currentPageInfo").textContent = `หน้า ${currentPage}`;
+    }
+
+    // =========================
+    // ฟังก์ชันเพิ่ม/บันทึกข้อมูล
+    // =========================
+    function saveItem() {
+        const companyName = document.getElementById("companyName").value.trim();
+        const taxId = document.getElementById("taxId").value.trim();
+        const amount = parseFloat(document.getElementById("amount").value) || 0;
+        const dividendType = document.querySelector('input[name="dividendType"]:checked').value;
+        let taxRate = document.getElementById("taxRate").value;
+
+        // ถ้าเลือกกองทุน => บังคับเป็น "ยังไม่ได้รับเครดิตภาษี"
+        if (dividendType === "กองทุน") {
+            taxRate = "ยังไม่ได้รับเครดิตภาษี";
+        }
+
+        // ตรวจสอบฟิลด์บังคับ
+        if (!companyName || !taxId) {
+            alert("กรุณากรอกชื่อบริษัทและเลขผู้จ่ายเงินได้ให้ครบถ้วน");
+            return;
+        }
+
+        // ถ้ามี idEdit แสดงว่าเป็นโหมดแก้ไข
+        if (idEdit !== null) {
+            const indexToEdit = dataList.findIndex(item => item.id === idEdit);
+            if (indexToEdit !== -1) {
+                dataList[indexToEdit].companyName = companyName;
+                dataList[indexToEdit].taxId = taxId;
+                dataList[indexToEdit].amount = amount;
+                dataList[indexToEdit].dividendType = dividendType;
+                dataList[indexToEdit].taxRate = taxRate;
+            }
+            idEdit = null;
+        } else {
+            // เพิ่มรายการใหม่
+            const newItem = {
+                id: Date.now(),
+                companyName,
+                taxId,
+                amount,
+                dividendType,
+                taxRate
+            };
+            dataList.push(newItem);
+        }
+
+        // เคลียร์ฟอร์ม
+        cancelForm();
+
+        // รีเฟรชตาราง
+        filteredList = dataList.slice();
+        renderTable();
+    }
+
+    // =========================
+    // ฟังก์ชันแก้ไขรายการ
+    // =========================
+    function editItem(id) {
+        const item = dataList.find(d => d.id === id);
+        if (!item) return;
+
+        document.getElementById("companyName").value = item.companyName;
+        document.getElementById("taxId").value = item.taxId;
+        document.getElementById("amount").value = item.amount;
+
+        if (item.dividendType === "หุ้น") {
+            document.getElementById("typeStock").checked = true;
+        } else {
+            document.getElementById("typeFund").checked = true;
+        }
+
+        // ถ้าเป็นกองทุน -> บังคับ dropdown
+        if (item.dividendType === "กองทุน") {
+            document.getElementById("taxRate").innerHTML = `<option value="ยังไม่ได้รับเครดิตภาษี">ยังไม่ได้รับเครดิตภาษี</option>`;
+        } else {
+            // ถ้าเป็นหุ้น -> แสดงตัวเลือกทั้งหมด
+            populateTaxRateOptionsForStock();
+        }
+
+        document.getElementById("taxRate").value = item.taxRate;
+        idEdit = id;
+    }
+
+    // =========================
+    // ฟังก์ชันลบรายการเดี่ยว
+    // =========================
+    function deleteItem(id) {
+        if (!confirm("ยืนยันลบรายการนี้หรือไม่?")) return;
+        dataList = dataList.filter(item => item.id !== id);
+        filteredList = dataList.slice();
+        renderTable();
+    }
+
+    // =========================
+    // ฟังก์ชันลบหลายรายการ
+    // =========================
+    function deleteSelectedItems() {
+        if (!confirm("ยืนยันลบรายการที่เลือกทั้งหมดหรือไม่?")) return;
+
+        const checkboxes = document.querySelectorAll(".checkbox-item:checked");
+        const idsToDelete = Array.from(checkboxes).map(cb => Number(cb.dataset.id));
+
+        dataList = dataList.filter(item => !idsToDelete.includes(item.id));
+        filteredList = dataList.slice();
+
+        // ซ่อนปุ่มลบหลายรายการ
+        document.getElementById("deleteSelectedBtn").classList.add("hidden");
+        renderTable();
+    }
+
+    // =========================
+    // ฟังก์ชันเคลียร์ฟอร์ม (ยกเลิก)
+    // =========================
+    function cancelForm() {
+        document.getElementById("companyName").value = "";
+        document.getElementById("taxId").value = "";
+        document.getElementById("amount").value = "";
+        document.getElementById("typeStock").checked = true;
+        populateTaxRateOptionsForStock(); // คืนค่าตัวเลือกภาษีสำหรับหุ้น
+        idEdit = null;
+    }
+
+    // =========================
+    // ฟังก์ชันค้นหา
+    // =========================
+    function handleSearch() {
+        const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
+        if (keyword === "") {
+            filteredList = dataList.slice();
+        } else {
+            filteredList = dataList.filter(item =>
+                item.companyName.toLowerCase().includes(keyword) ||
+                item.taxId.toLowerCase().includes(keyword)
+            );
+        }
+        currentPage = 1;
+        renderTable();
+    }
+
+    // =========================
+    // toggle select all
+    // =========================
+    function toggleSelectAll() {
+        const selectAllCheckbox = document.getElementById("selectAllCheckbox");
+        const checkboxes = document.querySelectorAll(".checkbox-item");
+        checkboxes.forEach(cb => {
+            cb.checked = selectAllCheckbox.checked;
+        });
+        showOrHideDeleteSelectedBtn();
+    }
+
+    // =========================
+    // แสดง/ซ่อน ปุ่มลบหลายรายการ
+    // =========================
+    document.addEventListener("change", function(e) {
+        if (e.target && e.target.classList.contains("checkbox-item")) {
+            showOrHideDeleteSelectedBtn();
+        }
+    });
+
+    function showOrHideDeleteSelectedBtn() {
+        const checkboxes = document.querySelectorAll(".checkbox-item:checked");
+        if (checkboxes.length > 0) {
+            document.getElementById("deleteSelectedBtn").classList.remove("hidden");
+        } else {
+            document.getElementById("deleteSelectedBtn").classList.add("hidden");
+        }
+    }
+
+    // =========================
+    // ฟังก์ชันเปลี่ยนประเภทเงินปันผล
+    // =========================
+    function handleDividendTypeChange() {
+        const typeStock = document.getElementById("typeStock").checked;
+        const taxRateSelect = document.getElementById("taxRate");
+
+        if (typeStock) {
+            // ถ้าเป็นหุ้น ให้แสดงตัวเลือกทั้งหมด
+            populateTaxRateOptionsForStock();
+        } else {
+            // ถ้าเป็นกองทุน => บังคับเป็น "ยังไม่ได้รับเครดิตภาษี" เท่านั้น
+            taxRateSelect.innerHTML = `<option value="ยังไม่ได้รับเครดิตภาษี">ยังไม่ได้รับเครดิตภาษี</option>`;
+        }
+    }
+
+    // =========================
+    // เปลี่ยนจำนวนรายการต่อหน้า
+    // =========================
+    function changeItemsPerPage() {
+        const select = document.getElementById("itemsPerPageSelect");
+        itemsPerPage = parseInt(select.value);
+        currentPage = 1;
+        renderTable();
+    }
+
+    // =========================
+    // ก่อนหน้า / ถัดไป
+    // =========================
+    function prevPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            renderTable();
+        }
+    }
+
+    function nextPage() {
+        const totalPages = Math.ceil(filteredList.length / itemsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderTable();
+        }
+    }
+
+    // =========================
+    // อัปเดตสรุปผลรวม
+    // =========================
+    function updateSummary() {
+        let totalStock = 0;
+        let totalFund = 0;
+        let totalTaxWithheld = 0;
+
+        dataList.forEach(item => {
+            if (item.dividendType === "หุ้น") {
+                totalStock += item.amount;
+            } else if (item.dividendType === "กองทุน") {
+                totalFund += item.amount;
+            }
+            // ตัวอย่าง: สมมติรายได้ที่หัก ณ ที่จ่าย = 10% ของ amount
+            totalTaxWithheld += item.amount * 0.1;
+        });
+
+        document.getElementById("totalStock").textContent = totalStock.toFixed(2);
+        document.getElementById("totalFund").textContent = totalFund.toFixed(2);
+        document.getElementById("totalTaxWithheld").textContent = totalTaxWithheld.toFixed(2);
+    }
+</script>
 
 </body>
 </html>
