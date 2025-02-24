@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="../assets/TD_web_icon.png">
+    <script src="../config.js"></script>
     <style>
         .font-mali {
             font-family: 'Mali', sans-serif;
@@ -71,7 +72,7 @@
 
         <!-- ปุ่ม Login (Desktop) -->
         <button type="button" onclick="location.href='sign-in-up.html'"
-                class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+                class="loginButton opacity-100 hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
             Login
         </button>
 
@@ -120,7 +121,7 @@
         <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
 
         <button type="button" onclick="location.href='sign-in-up.html'"
-                class="bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+                class="loginButton opacity-100 bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
             Login
         </button>
     </nav>
@@ -759,6 +760,35 @@
 
     // เริ่มต้นแสดงกลุ่มแรก
     showGroup(currentGroup);
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const token = 'Bearer ' + localStorage.getItem('jwt_token');
+
+        fetch(window.CONFIG.BASE_PATH+'/users/is-valid', {
+            method: 'GET',
+            headers: {
+                'Authorization': token
+            }
+        })
+            .then(response => {
+                document.querySelectorAll('.loginButton').forEach(button => {
+                    if (response.status === 200) {
+                        button.classList.add('opacity-0', 'pointer-events-none');  // Make button invisible
+                        button.classList.remove('opacity-100'); // Ensure it does not appear
+                    } else {
+                        button.classList.remove('opacity-0', 'pointer-events-none'); // Make button visible
+                        button.classList.add('opacity-100');
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.querySelectorAll('.loginButton').forEach(button => {
+                    button.classList.remove('opacity-0', 'pointer-events-none'); // Ensure button remains visible on error
+                    button.classList.add('opacity-100');
+                });
+            });
+    });
 </script>
 
 </body>

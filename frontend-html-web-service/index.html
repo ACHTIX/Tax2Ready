@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="assets/TD_web_icon.png">
+    <script src="config.js"></script>
     <style>
         .font-mali {
             font-family: 'Mali', sans-serif;
@@ -142,6 +143,7 @@
                 .catch(error => console.error('Error loading page:', error));
         });
     });
+    console.log("Base Path:", window.CONFIG.BASE_PATH);
 </script>
 
 <!-- Main Container -->

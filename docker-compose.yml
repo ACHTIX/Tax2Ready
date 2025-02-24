@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:latest
+    container_name: tax_ready_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: tax_ready
+    ports:
+      - "5444:5432"
+    networks:
+      - tax_network
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+networks:
+  tax_network:
+    driver: bridge
+
+volumes:
+  db_data:

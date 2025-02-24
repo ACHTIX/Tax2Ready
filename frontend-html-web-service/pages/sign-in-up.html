@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="../assets/TD_web_icon.png">
+    <script src="../config.js"></script>
     <style>
         .font-mali {
             font-family: 'Mali', sans-serif;
@@ -45,10 +46,11 @@
                 </div>
             </div>
             <a href="tax-personal.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
-            <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
+            <a href ="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
         </nav>
         <!-- ปุ่ม Login (Desktop) -->
-        <button type="button" onclick="location.href='sign-in-up.html'" class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login</button>
+        <button type="button" onclick="location.href='sign-in-up.html'"
+                class="loginButton opacity-100 hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login</button>
         <!-- เมนูมือถือ (Hamburger Icon) -->
         <button class="md:hidden text-gray-600" id="mobile-menu-button">☰</button>
     </div>
@@ -70,40 +72,9 @@
         </ul>
         <a href="tax-personal.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
         <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
-        <button type="button" onclick="location.href='sign-in-up.html'" class="bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login</button>
+        <button type="button" onclick="location.href='sign-in-up.html'" class="loginButton opacity-100 bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login</button>
     </nav>
 </header>
-
-<!-- template script-->
-<script>
-    // ทำให้เมนูมือถือแสดง / ซ่อน
-    document.getElementById("mobile-menu-button").addEventListener("click", function () {
-        document.getElementById("mobile-menu").classList.toggle("hidden");
-    });
-
-    // เมนูเรียนรู้เพิ่มเติม desktop
-    document.getElementById("learn-more-btn").addEventListener("click", function () {
-        document.getElementById("learn-more-menu").classList.toggle("hidden");
-    });
-
-    // เมนูเรียนรู้เพิ่มเติม mobile
-    document.getElementById("learn-more-btn-mobile").addEventListener("click", function () {
-        document.getElementById("learn-more-menu-mobile").classList.toggle("hidden");
-    });
-
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function (event) {
-            event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
-            let page = this.getAttribute('data-page'); // ดึงค่า data-page
-            fetch("pages/" + page)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('main-container').innerHTML = data;
-                })
-                .catch(error => console.error('Error loading page:', error));
-        });
-    });
-</script>
 
 <!-- Container (Login & Register) -->
 <div x-data="{ isLogin: true }"
@@ -136,16 +107,38 @@
 
         <!-- คุมหน้า admin -->
         <script>
-            document.getElementById("loginForm").addEventListener("submit", function (event) {
-                event.preventDefault(); // ป้องกันการรีโหลดหน้าเว็บ
-                // รับค่าจากช่องกรอก
-                var username = document.getElementById("username").value;
-                var password = document.getElementById("password").value;
-                // ตรวจสอบเงื่อนไข (แก้ไขเป็น admin รหัส 6164250)
-                if (username === "admin" && password === "6164250") {
-                    window.location.href = "admin.html"; // ส่งไปยังหน้า admin.html
-                } else {
-                    alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง!");
+            document.getElementById("loginForm").addEventListener("submit", async function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                // Get form values
+                const username = document.getElementById("username").value;
+                const password = document.getElementById("password").value;
+
+                // API URL
+                const url = "http://localhost:8080/users/login";
+
+                try {
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ username, password })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // Store JWT in localStorage
+                        localStorage.setItem("jwt_token", data.token);
+                        window.location.href = "./account.html"; // แก้ไข URL ให้เป็นหน้าล็อกอินของคุณ
+                        // Redirect or perform any action after successful login
+                    } else {
+                        alert("Login failed: " + (data.message || "Invalid credentials"));
+                    }
+                } catch (error) {
+                    console.error("Error logging in:", error);
+                    alert("An error occurred. Please try again.");
                 }
             });
         </script>
@@ -153,24 +146,26 @@
         <!-- ฟอร์มลงทะเบียน -->
         <div x-show="!isLogin">
             <h2 class="text-xl font-bold text-[#4e342e] font-mali">ลงทะเบียน</h2>
-            <form class="mt-4">
-                <input type="text" placeholder="ชื่อ *" required
+            <form id="registerForm" class="mt-4">
+                <input type="text" id="registerName" placeholder="ชื่อ *" required
                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
-                <input type="text" placeholder="นามสกุล *" required
+                <input type="text" id="registerSurname" placeholder="นามสกุล *" required
                        class="w-full px-4 py-2 border rounded-lg mt-3 focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
-                <input type="text" placeholder="ชื่อผู้ใช้ *" required
+                <input type="text" id="registerUsername" placeholder="ชื่อผู้ใช้ *" required
                        class="w-full px-4 py-2 border rounded-lg mt-3 focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
-                <input type="email" placeholder="E-mail *" required
+                <input type="password" id="registerPassword" placeholder="รหัสผ่าน *" required
                        class="w-full px-4 py-2 border rounded-lg mt-3 focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
-                <input type="date" required
+                <input type="email" id="registerEmail" placeholder="E-mail *" required
                        class="w-full px-4 py-2 border rounded-lg mt-3 focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
-                <input type="tel" placeholder="เบอร์โทร *" required
+                <input type="date" id="registerDob" required
                        class="w-full px-4 py-2 border rounded-lg mt-3 focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
-                <select class="w-full px-4 py-2 border rounded-lg mt-3 focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
-                    <option value="male">ชาย</option>
-                    <option value="female">หญิง</option>
-                    <option value="other">อื่นๆ</option>
-                </select>
+                <input type="tel" id="registerPhone" placeholder="เบอร์โทร *" required
+                       class="w-full px-4 py-2 border rounded-lg mt-3 focus:outline-none focus:ring-2 focus:ring-[#b49c74]">
+<!--                <select class="w-full px-4 py-2 border rounded-lg mt-3 focus:outline-none focus:ring-2 focus:ring-[#b49c74]">-->
+<!--                    <option value="male">ชาย</option>-->
+<!--                    <option value="female">หญิง</option>-->
+<!--                    <option value="other">อื่นๆ</option>-->
+<!--                </select>-->
                 <button type="submit"
                         class="w-full bg-[#4e342e] text-white font-mali px-4 py-2 mt-4 rounded-lg hover:bg-[#8d6e63]">
                     ลงทะเบียน
@@ -188,4 +183,111 @@
 
 </div>
 </body>
+<!-- template script-->
+<script>
+    document.getElementById("mobile-menu-button").addEventListener("click", function () {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+
+    // ทำให้เมนูมือถือแสดง / ซ่อน
+    document.getElementById("mobile-menu-button").addEventListener("click", function () {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+
+    // เมนูเรียนรู้เพิ่มเติม desktop
+    document.getElementById("learn-more-btn").addEventListener("click", function () {
+        document.getElementById("learn-more-menu").classList.toggle("hidden");
+    });
+
+    // เมนูเรียนรู้เพิ่มเติม mobile
+    document.getElementById("learn-more-btn-mobile").addEventListener("click", function () {
+        document.getElementById("learn-more-menu-mobile").classList.toggle("hidden");
+    });
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function (event) {
+            event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
+            let page = this.getAttribute('data-page'); // ดึงค่า data-page
+            fetch("pages/" + page)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('main-container').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading page:', error));
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const token = 'Bearer ' + localStorage.getItem('jwt_token');
+
+        fetch(window.CONFIG.BASE_PATH+'/users/is-valid', {
+            method: 'GET',
+            headers: {
+                'Authorization': token
+            }
+        })
+            .then(response => {
+                document.querySelectorAll('.loginButton').forEach(button => {
+                    if (response.status === 200) {
+                        button.classList.add('opacity-0', 'pointer-events-none');  // Make button invisible
+                        button.classList.remove('opacity-100'); // Ensure it does not appear
+                    } else {
+                        button.classList.remove('opacity-0', 'pointer-events-none'); // Make button visible
+                        button.classList.add('opacity-100');
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.querySelectorAll('.loginButton').forEach(button => {
+                    button.classList.remove('opacity-0', 'pointer-events-none'); // Ensure button remains visible on error
+                    button.classList.add('opacity-100');
+                });
+            });
+    });
+
+
+        document.getElementById("registerForm").addEventListener("submit", async function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Get form values
+        const name = document.getElementById("registerName").value;
+        const surname = document.getElementById("registerSurname").value;
+        const username = document.getElementById("registerUsername").value;
+        const email = document.getElementById("registerEmail").value;
+        const dob = document.getElementById("registerDob").value;
+        const phone = document.getElementById("registerPhone").value;
+        const password = document.getElementById("registerPassword").value;
+        const notification_status = false; // Ensure this matches your API's expected value
+
+        // API URL for registration
+        const url = "http://localhost:8080/users/register";
+
+        try {
+        const response = await fetch(url, {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json",
+    },
+        body: JSON.stringify({ name, surname, username, email, dob, phone, password, notification_status })
+    });
+
+        const data = await response.json();
+
+        if (response.ok) {
+        alert("ลงทะเบียนสำเร็จ: " + data.message);
+        // Optionally, switch to the login view or redirect
+        // For example: isLogin = true; or window.location.href = "sign-in-up.html";
+    } else {
+        alert("ลงทะเบียนไม่สำเร็จ: " + (data.error || data.message));
+    }
+    } catch (error) {
+        console.error("Error during registration:", error);
+        alert("เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง");
+    }
+    });
+
+
+
+</script>
 </html>

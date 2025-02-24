@@ -6,6 +6,7 @@
     <title>How to pay tax</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <script src="../config.js"></script>
     <style>
         .font-mali {
             font-family: 'Mali', sans-serif;
@@ -70,7 +71,7 @@
 
         <!-- ปุ่ม Login (Desktop) -->
         <button type="button" onclick="location.href='sign-in-up.html'"
-                class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login
+                class="loginButton opacity-100 hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login
         </button>
 
         <!-- เมนูมือถือ (Hamburger Icon) -->
@@ -118,44 +119,11 @@
         <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
 
         <button type="button" onclick="location.href='sign-in-up.html'"
-                class="bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+                class="loginButton opacity-100 bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
             Login
         </button>
     </nav>
 </header>
-
-<!-- template script-->
-<script>
-    // ทำให้เมนูมือถือแสดง / ซ่อน
-    document.getElementById("mobile-menu-button").addEventListener("click", function () {
-        document.getElementById("mobile-menu").classList.toggle("hidden");
-    });
-
-    // เมนูเรียนรู้เพิ่มเติม desktop
-    document.getElementById("learn-more-btn").addEventListener("click", function () {
-        document.getElementById("learn-more-menu").classList.toggle("hidden");
-    });
-
-    // เมนูเรียนรู้เพิ่มเติม mobile
-    document.getElementById("learn-more-btn-mobile").addEventListener("click", function () {
-        document.getElementById("learn-more-menu-mobile").classList.toggle("hidden");
-    });
-
-
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function (event) {
-            event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
-            let page = this.getAttribute('data-page'); // ดึงค่า data-page
-
-            fetch("pages/" + page)  // 📂 โหลดจากโฟลเดอร์ /pages
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('main-container').innerHTML = data; // แสดงผล
-                })
-                .catch(error => console.error('Error loading page:', error));
-        });
-    });
-</script>
 
 <!-- Main Container -->
 <div id="main-container"
@@ -271,18 +239,6 @@
                 </div>
             </div>
 
-            <!-- Script สำหรับกดตัวอย่างย่อ-ขยาย -->
-            <script>
-                function toggleExample(id) {
-                    var example = document.getElementById(id);
-                    if (example.classList.contains("hidden")) {
-                        example.classList.remove("hidden");
-                    } else {
-                        example.classList.add("hidden");
-                    }
-                }
-            </script>
-
             <button type="button" onclick="location.href='tax-personal.html'"
                     class="block w-full md:w-auto text-center bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63] mt-auto">
                 >> พร้อมแล้วมาคำนวณภาษีกันเลย <<
@@ -292,4 +248,76 @@
     </div>
 </div>
 </body>
+
+<!-- template script-->
+<script>
+    <!-- Script สำหรับกดตัวอย่างย่อ-ขยาย -->
+    function toggleExample(id) {
+        var example = document.getElementById(id);
+        if (example.classList.contains("hidden")) {
+            example.classList.remove("hidden");
+        } else {
+            example.classList.add("hidden");
+        }
+    }
+
+    // ทำให้เมนูมือถือแสดง / ซ่อน
+    document.getElementById("mobile-menu-button").addEventListener("click", function () {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+
+    // เมนูเรียนรู้เพิ่มเติม desktop
+    document.getElementById("learn-more-btn").addEventListener("click", function () {
+        document.getElementById("learn-more-menu").classList.toggle("hidden");
+    });
+
+    // เมนูเรียนรู้เพิ่มเติม mobile
+    document.getElementById("learn-more-btn-mobile").addEventListener("click", function () {
+        document.getElementById("learn-more-menu-mobile").classList.toggle("hidden");
+    });
+
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function (event) {
+            event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
+            let page = this.getAttribute('data-page'); // ดึงค่า data-page
+
+            fetch("pages/" + page)  // 📂 โหลดจากโฟลเดอร์ /pages
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('main-container').innerHTML = data; // แสดงผล
+                })
+                .catch(error => console.error('Error loading page:', error));
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const token = 'Bearer ' + localStorage.getItem('jwt_token');
+
+        fetch(window.CONFIG.BASE_PATH+'/users/is-valid', {
+            method: 'GET',
+            headers: {
+                'Authorization': token
+            }
+        })
+            .then(response => {
+                document.querySelectorAll('.loginButton').forEach(button => {
+                    if (response.status === 200) {
+                        button.classList.add('opacity-0', 'pointer-events-none');  // Make button invisible
+                        button.classList.remove('opacity-100'); // Ensure it does not appear
+                    } else {
+                        button.classList.remove('opacity-0', 'pointer-events-none'); // Make button visible
+                        button.classList.add('opacity-100');
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.querySelectorAll('.loginButton').forEach(button => {
+                    button.classList.remove('opacity-0', 'pointer-events-none'); // Ensure button remains visible on error
+                    button.classList.add('opacity-100');
+                });
+            });
+    });
+</script>
 </html>

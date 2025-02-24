@@ -1,203 +1,179 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8" />
-    <title>Admin - รายการคำร้อง</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../assets/TD_web_icon.png">
     <style>
-        /* นำเข้าฟอนต์ Mali (ถ้าต้องการ)
-        @import url('https://fonts.googleapis.com/css2?family=Mali&display=swap');
-        */
-
-        body {
-            /* ใช้ฟอนต์ Mali ถ้าต้องการ, ไม่งั้นใช้ sans-serif ทั่วไป */
+        .font-mali {
             font-family: 'Mali', sans-serif;
-            margin: 20px;
-            background-color: #ffffff;
-            color: #4e342e; /* สีข้อความหลัก */
-        }
-
-        h1, h2 {
-            margin: 0 0 16px 0;
-            color: #4e342e; /* สีหัวข้อ */
-            text-align: center; /* กึ่งกลางเหมือนตัวอย่าง */
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 16px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .requests-list, .request-detail {
-            border: 1px solid #ccc;
-            padding: 16px;
-            border-radius: 8px;
-            margin-bottom: 16px;
-        }
-
-        .request-item {
-            border: 1px solid #ddd;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-
-        .request-item:hover {
-            background-color: #f2f2f2;
-        }
-
-        /* ส่วนปุ่มเปลี่ยนหน้า (Pagination) */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            margin-top: 16px;
-        }
-
-        .pagination button {
-            padding: 4px 8px;
-            cursor: pointer;
-            background-color: #a3885c; /* สีพื้นปุ่ม */
-            color: #ffffff;           /* สีตัวอักษรบนปุ่ม */
-            border: none;
-            border-radius: 4px;
-            transition: background-color 0.2s ease;
-        }
-        .pagination button:hover {
-            background-color: #8d6e63; /* สีพื้นปุ่มเมื่อ hover */
-        }
-
-        /* ซ่อนหน้า Detail ตอนเริ่มต้น */
-        #requestDetail {
-            display: none;
-        }
-
-        /* ตัวอย่างการจัดวางวันเวลา ไว้มุมบนขวา */
-        .submitted-date {
-            float: right;
-            color: #999;
-        }
-
-        .back-button {
-            margin-top: 16px;
-            background-color: #a3885c;
-            color: #fff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-        .back-button:hover {
-            background-color: #8d6e63;
         }
     </style>
 </head>
-<body>
-<div class="container">
-    <h1>หน้าสำหรับ Admin</h1>
+<body class="flex items-center justify-center min-h-screen bg-[#c4bcac]">
+<script src="../js/script.js"></script>
 
-    <!-- ส่วน "รายการคำร้อง" -->
-    <div id="requestsList" class="requests-list">
-        <h2>รายการคำร้อง</h2>
+<!-- Header -->
+<header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <!-- โลโก้ / ชื่อเว็บ -->
+        <h1 class="text-2xl text-[#4e342e] font-bold font-mali justify-start">Tax2Ready</h1>
 
-        <!-- ตัวอย่างรายการคำร้อง (จะดึงจาก Database หรือ API ก็ได้) -->
-        <div class="request-item" onclick="showRequestDetail(1)">
-            <p><strong>ชื่อผู้กรอก:</strong> สมชาย ใจดี</p>
-            <p><strong>เบอร์โทร:</strong> 080-000-0000</p>
-            <p><strong>วันที่กดยืนยัน:</strong> 2025-02-12 09:30</p>
-        </div>
+        <!-- เมนูหลัก (Desktop) -->
+        <nav class="hidden md:flex space-x-6 relative">
+            <a href="account.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
+            <a href="home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
 
-        <div class="request-item" onclick="showRequestDetail(2)">
-            <p><strong>ชื่อผู้กรอก:</strong> สมหญิง จริงจัง</p>
-            <p><strong>เบอร์โทร:</strong> 081-111-1111</p>
-            <p><strong>วันที่กดยืนยัน:</strong> 2025-02-10 14:15</p>
-        </div>
+            <!-- Dropdown for 'เรียนรู้เพิ่มเติม' -->
+            <div class="relative group">
+                <button id="learn-more-btn"
+                        class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline focus:outline-none">
+                    เรียนรู้เพิ่มเติม
+                </button>
+                <div id="learn-more-menu" class="absolute hidden bg-[#b49c74] mt-2 w-60 rounded-lg shadow-lg z-10 p-2">
+                    <ul>
+                        <li><a href="1tax-intro.html"
+                               class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">1.
+                            ภาษีคืออะไร?</a></li>
+                        <li><a href="2why-pay-tax.html"
+                               class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">2.
+                            ทำไมเราต้องจ่ายภาษี?</a></li>
+                        <li><a href="3no-tax-consequence.html"
+                               class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">3.
+                            ไม่จ่ายภาษีจะเกิดอะไรขึ้น?</a></li>
+                        <li><a href="4who-pays-tax.html"
+                               class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">4.
+                            ใครบ้างที่ต้องเริ่มจ่ายภาษี?</a></li>
+                        <li><a href="5income-tax.html"
+                               class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">5.
+                            รายได้ที่ต้องเสียภาษี?</a></li>
+                        <li><a href="6tax-deductions.html"
+                               class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">6.
+                            สิทธิ์ลดหย่อนภาษี?</a></li>
+                        <li><a href="7tax-frequency.html"
+                               class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">7.
+                            ต้องจ่ายภาษีบ่อยแค่ไหน?</a></li>
+                        <li><a href="8how-to-pay-tax.html"
+                               class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">8.
+                            มีวิธีจ่ายภาษีอย่างไร?</a></li>
+                    </ul>
+                </div>
+            </div>
 
-        <!-- ปุ่มซ้าย/ขวาสำหรับเปลี่ยนหน้า (Pagination) -->
-        <div class="pagination">
-            <button onclick="prevPage()">&laquo;</button>
-            <span id="pageIndicator">1/2</span>
-            <button onclick="nextPage()">&raquo;</button>
-        </div>
+            <a href="tax-calculator.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
+            <a href="contact.html"
+               class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
+        </nav>
+
+
+        <!-- ปุ่ม Login (Desktop) -->
+        <button type="button" onclick="location.href='sign-in-up.html'"
+                class="hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login
+        </button>
+
+        <!-- เมนูมือถือ (Hamburger Icon) -->
+        <button class="md:hidden text-gray-600" id="mobile-menu-button">
+            ☰
+        </button>
     </div>
-    <!-- จบส่วน "รายการคำร้อง" -->
 
+    <!-- เมนูสำหรับมือถือ (ซ่อนอยู่) -->
+    <nav id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 mt-3 bg-[#b49c74] p-4">
+        <a href="account.html"
+           class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
+        <a href="home.html"
+           class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
 
-    <!-- ส่วนแสดง "รายละเอียดคำร้อง" (ซ่อนตอนแรก) -->
-    <div id="requestDetail" class="request-detail">
-        <!-- ตำแหน่งวันเวลาที่กดยืนยัน ไว้มุมบนขวา -->
-        <span id="submittedDate" class="submitted-date">2025-02-12 09:30</span>
-        <h2>รายละเอียดคำร้อง</h2>
+        <a href="#" id="learn-more-btn-mobile" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
+        <ul id="learn-more-menu-mobile" class="hidden flex-col space-y-2 bg-[#b49c74] p-2 rounded-lg">
+            <li><a href="1tax-intro.html"
+                   class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">1.
+                ภาษีคืออะไร?</a></li>
+            <li><a href="2why-pay-tax.html"
+                   class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">2.
+                ทำไมเราต้องจ่ายภาษี?</a></li>
+            <li><a href="3no-tax-consequence.html"
+                   class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">3.
+                ไม่จ่ายภาษีจะเกิดอะไรขึ้น?</a></li>
+            <li><a href="4who-pays-tax.html"
+                   class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">4.
+                ใครบ้างที่ต้องเริ่มจ่ายภาษี?</a></li>
+            <li><a href="5income-tax.html"
+                   class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">5.
+                รายได้ที่ต้องเสียภาษี?</a></li>
+            <li><a href="6tax-deductions.html"
+                   class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">6.
+                สิทธิ์ลดหย่อนภาษี?</a></li>
+            <li><a href="7tax-frequency.html"
+                   class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">7.
+                ต้องจ่ายภาษีบ่อยแค่ไหน?</a></li>
+            <li><a href="8how-to-pay-tax.html"
+                   class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">8.
+                มีวิธีจ่ายภาษีอย่างไร?</a></li>
+        </ul>
+        <a href="tax-calculator.html"
+           class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
+        <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
 
-        <p><strong>ชื่อผู้กรอก:</strong> <span id="detailName"></span></p>
-        <p><strong>เบอร์โทร:</strong> <span id="detailPhone"></span></p>
-        <p><strong>อีเมล:</strong> <span id="detailEmail"></span></p>
-        <p><strong>ข้อความ:</strong> <span id="detailMessage"></span></p>
+        <button type="button" onclick="location.href='sign-in-up.html'"
+                class="bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+            Login
+        </button>
+    </nav>
+</header>
 
-        <!-- ปุ่มย้อนกลับ -->
-        <button class="back-button" onclick="backToList()">ย้อนกลับ</button>
-    </div>
-    <!-- จบส่วน "รายละเอียดคำร้อง" -->
-
-</div>
-
+<!-- template script-->
 <script>
-    // ตัวอย่างข้อมูลจำลอง (ในงานจริงอาจดึงจาก Backend)
-    const requestsData = [
-        {
-            id: 1,
-            name: 'สมชาย ใจดี',
-            phone: '080-000-0000',
-            email: 'somchai@example.com',
-            message: 'ขอข้อมูลเพิ่มเติมเกี่ยวกับการคำนวณภาษี',
-            submittedDate: '2025-02-12 09:30'
-        },
-        {
-            id: 2,
-            name: 'สมหญิง จริงจัง',
-            phone: '081-111-1111',
-            email: 'somying@example.com',
-            message: 'ต้องการความช่วยเหลือด้านเอกสาร',
-            submittedDate: '2025-02-10 14:15'
-        }
-        // ... ใส่เพิ่มได้ตามต้องการ
-    ];
+    // ทำให้เมนูมือถือแสดง / ซ่อน
+    document.getElementById("mobile-menu-button").addEventListener("click", function () {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
 
-    // ฟังก์ชันโชว์รายละเอียดคำร้อง
-    function showRequestDetail(requestId) {
-        const requestItem = requestsData.find(r => r.id === requestId);
-        if (!requestItem) return;
+    // เมนูเรียนรู้เพิ่มเติม desktop
+    document.getElementById("learn-more-btn").addEventListener("click", function () {
+        document.getElementById("learn-more-menu").classList.toggle("hidden");
+    });
 
-        document.getElementById('detailName').textContent = requestItem.name;
-        document.getElementById('detailPhone').textContent = requestItem.phone;
-        document.getElementById('detailEmail').textContent = requestItem.email;
-        document.getElementById('detailMessage').textContent = requestItem.message;
-        document.getElementById('submittedDate').textContent = requestItem.submittedDate;
+    // เมนูเรียนรู้เพิ่มเติม mobile
+    document.getElementById("learn-more-btn-mobile").addEventListener("click", function () {
+        document.getElementById("learn-more-menu-mobile").classList.toggle("hidden");
+    });
 
-        document.getElementById('requestsList').style.display = 'none';
-        document.getElementById('requestDetail').style.display = 'block';
-    }
 
-    // ฟังก์ชันย้อนกลับไปที่รายการคำร้อง
-    function backToList() {
-        document.getElementById('requestDetail').style.display = 'none';
-        document.getElementById('requestsList').style.display = 'block';
-    }
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function (event) {
+            event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
+            let page = this.getAttribute('data-page'); // ดึงค่า data-page
 
-    // ฟังก์ชันเปลี่ยนหน้า (Pagination) ตัวอย่างง่าย ๆ
-    function prevPage() {
-        alert('กดปุ่มย้อนหน้า (ตัวอย่าง) - เขียนโค้ดจัดการหน้าจริงตามระบบของคุณ');
-    }
-    function nextPage() {
-        alert('กดปุ่มถัดไป (ตัวอย่าง) - เขียนโค้ดจัดการหน้าจริงตามระบบของคุณ');
-    }
+            fetch("pages/" + page)  // 📂 โหลดจากโฟลเดอร์ /pages
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('main-container').innerHTML = data; // แสดงผล
+                })
+                .catch(error => console.error('Error loading page:', error));
+        });
+    });
 </script>
+
+<!-- Main Container -->
+<div id="main-container"
+     class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
+    <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
+
+        <div class="w-full md:w-1/2 h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md gap-6 flex flex-col justify-between">
+
+        </div>
+
+        <div class="w-full md:w-1/2 h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md gap-6 flex flex-col justify-between">
+
+        </div>
+
+    </div>
+</div>
 </body>
 </html>
+
+
