@@ -2,59 +2,177 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tax Calculation</title>
+    <title>Tax Result</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f8f9fa;
-        }
-        .container {
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .title {
-            font-weight: bold;
-            font-size: 16px;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        .item {
-            display: flex;
-            justify-content: space-between;
-            padding: 5px 0;
-        }
-        .highlight {
-            color: green;
-            text-decoration: none;
-        }
-        .total {
-            font-weight: bold;
+        .font-mali {
+            font-family: 'Mali', sans-serif;
         }
     </style>
 </head>
-<body>
+<body class="font-mali bg-[#c4bcac] min-h-screen flex flex-col items-center py-10">
 
-<div class="container">
-    <div class="title">เงินได้ทั้งหมด</div>
-    <div class="item"><span>เงินได้ปีภาษี 2566 - ยื่นปกติ</span> <span>720,000.00</span></div>
-    <div class="item"><span>หัก ยกเว้น</span> <span>0.00</span></div>
-    <div class="item"><span>หัก ค่าใช้จ่าย <a href="#" class="highlight">รายละเอียด</a></span> <span>100,000.00</span></div>
-    <div class="item"><span>หัก ลดหย่อน <a href="#" class="highlight">รายละเอียด</a></span> <span>84,500.00</span></div>
-    <div class="item total"><span>รวมเงินได้ที่ถูกนำไปคำนวณภาษี</span> <span>535,500.00</span></div>
+<!-- ส่วน Header (ปรับตามโปรเจคจริงของคุณ) -->
+<header class="bg-[#b49c74] w-full py-4 px-6 mb-6">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <h1 class="text-2xl text-[#4e342e] font-bold">Tax2Ready</h1>
+        <!-- ใส่เมนู หรือปุ่มย้อนกลับตามต้องการ -->
+    </div>
+</header>
+
+<!-- ส่วนแสดงผลการคำนวณ -->
+<div class="w-full max-w-[1100px] bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl text-[#4e342e] font-bold text-center mb-4">ผลลัพธ์การคำนวณภาษี</h2>
+
+    <!-- ตารางหรือกล่องสำหรับแสดงผลลัพธ์ -->
+    <div class="flex flex-col md:flex-row gap-6">
+        <!-- กล่องซ้าย: สรุปเงินได้ -->
+        <div class="w-full md:w-1/2 bg-[#f7efda] p-4 rounded shadow">
+            <h3 class="text-xl text-[#4e342e] font-semibold mb-4">เงินได้ทั้งหมด</h3>
+            <div class="flex justify-between mb-2">
+                <span>เงินได้รวม (บาท):</span>
+                <span id="totalIncome" class="font-bold text-blue-700">0.00</span>
+            </div>
+            <div class="flex justify-between mb-2">
+                <span>หักลดหย่อน (บาท):</span>
+                <span id="totalDeduction" class="font-bold text-blue-700">0.00</span>
+            </div>
+            <!-- ตัวอย่างถ้าคุณมี “หักค่าใช้จ่าย” หรือ “ยกเว้น” เพิ่มเติมก็สามารถเพิ่มช่องได้ -->
+            <div class="flex justify-between mb-2">
+                <span>เงินได้สุทธิ (บาท):</span>
+                <span id="netTaxableIncome" class="font-bold text-blue-700">0.00</span>
+            </div>
+        </div>
+
+        <!-- กล่องขวา: คำนวณภาษี -->
+        <div class="w-full md:w-1/2 bg-[#f7efda] p-4 rounded shadow">
+            <h3 class="text-xl text-[#4e342e] font-semibold mb-4">การคำนวณภาษี</h3>
+            <div class="flex justify-between mb-2">
+                <span>ภาษีที่ต้องชำระ (บาท):</span>
+                <span id="taxPayable" class="font-bold text-red-600">0.00</span>
+            </div>
+            <div class="flex justify-between mb-2">
+                <span>ภาษีหัก ณ ที่จ่าย (บาท):</span>
+                <span id="withheldTax" class="font-bold text-red-600">0.00</span>
+            </div>
+            <div class="flex justify-between mb-2">
+                <span>ยอดสุทธิ (ชำระเพิ่ม) (บาท):</span>
+                <span id="finalTaxDue" class="font-bold text-red-600">0.00</span>
+            </div>
+            <div class="flex justify-between mb-2 font-bold">
+                <span>รวมทั้งหมด (ปัดเศษบาท)</span>
+                <span id="finalTaxRounded" class="font-bold text-red-600">0</span>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="container">
-    <div class="title">การคำนวณภาษี</div>
-    <div class="item"><span>ภาษีที่ต้องชำระ <a href="#" class="highlight">ดูวิธีคำนวณ</a></span> <span>32,825.00</span></div>
-    <div class="item"><span>หัก ภาษีหัก ณ ที่จ่าย/เครดิตภาษี</span> <span>0.00</span></div>
-    <div class="item"><span>ยอดภาษีสุทธิ ชำระเพิ่มเติม</span> <span>32,825.00</span></div>
-    <div class="item total"><span>รวมทั้งหมดที่ต้องชำระ (ยกเว้นเศษของบาท)</span> <span>32,825.00</span></div>
-</div>
+<!-- Script คำนวณภาษี -->
+<script>
+    // ฟังก์ชันคำนวณภาษีตามอัตราแบบขั้นบันได
+    function calculatePersonalIncomeTax(netTaxableIncome) {
+        if (netTaxableIncome <= 0) return 0;
 
+        // โครงสร้างอัตราภาษี (ปีภาษีปัจจุบัน)
+        const brackets = [
+            { threshold: 150000,  rate: 0.00 }, // 0 - 150,000 => 0%
+            { threshold: 300000,  rate: 0.05 }, // 150,001 - 300,000 => 5%
+            { threshold: 500000,  rate: 0.10 }, // 300,001 - 500,000 => 10%
+            { threshold: 750000,  rate: 0.15 }, // 500,001 - 750,000 => 15%
+            { threshold: 1000000, rate: 0.20 }, // 750,001 - 1,000,000 => 20%
+            { threshold: 2000000, rate: 0.25 }, // 1,000,001 - 2,000,000 => 25%
+            { threshold: 5000000, rate: 0.30 }, // 2,000,001 - 5,000,000 => 30%
+            { threshold: Infinity, rate: 0.35 } // > 5,000,000 => 35%
+        ];
+
+        let tax = 0;
+        let start = 0;
+
+        for (let i = 0; i < brackets.length; i++) {
+            const { threshold, rate } = brackets[i];
+            if (netTaxableIncome <= threshold) {
+                tax += (netTaxableIncome - start) * rate;
+                break;
+            } else {
+                tax += (threshold - start) * rate;
+                start = threshold;
+            }
+        }
+        return tax;
+    }
+
+    // ฟังก์ชันหลัก: ดึงข้อมูลจาก localStorage และคำนวณ
+    function calculateResult() {
+        // 1) ดึงข้อมูลรายได้จาก localStorage key = "pageData"
+        let totalIncome = 0;       // รวมเงินได้ทุกประเภท
+        let totalWithheldTax = 0;  // รวมภาษี ณ ที่จ่าย
+        const savedPageData = localStorage.getItem("pageData");
+        if (savedPageData) {
+            const pageData = JSON.parse(savedPageData);
+            if (pageData.income) {
+                const groups = ["salary", "freelance", "business", "invest", "inherit"];
+                groups.forEach(group => {
+                    if (pageData.income[group]) {
+                        totalIncome     += parseFloat(pageData.income[group].totalIncome) || 0;
+                        totalWithheldTax += parseFloat(pageData.income[group].totalTax) || 0;
+                    }
+                });
+            }
+        }
+
+        // 2) ดึงข้อมูลลดหย่อนภาษีจาก localStorage key = "taxDeductionData"
+        let totalDeduction = 0;
+        const savedDeduction = localStorage.getItem("taxDeductionData");
+        if (savedDeduction) {
+            const deductionData = JSON.parse(savedDeduction);
+            // สมมติว่าในแต่ละ group1..5 เป็น array ของ input
+            for (let i = 1; i <= 5; i++) {
+                if (deductionData[`group${i}`]) {
+                    deductionData[`group${i}`].forEach(val => {
+                        // แปลง string => number (ตัด comma ออก)
+                        const num = parseFloat((val || "0").replace(/,/g, ""));
+                        totalDeduction += (num || 0);
+                    });
+                }
+            }
+        }
+
+        // 3) สมมติว่าไม่มี “หักค่าใช้จ่าย” หรือ “ยกเว้น” เพิ่มเติม
+        //    ถ้ามี ให้คุณประกาศตัวแปรแล้วนำมาหักด้วย
+        const netTaxableIncome = totalIncome - totalDeduction;
+        if (netTaxableIncome < 0) {
+            // ถ้าลดหย่อนเยอะกว่าเงินได้ => ให้เป็น 0
+            // หรือจะให้ติดลบก็ได้แล้วแต่ logic
+        }
+
+        // 4) คำนวณภาษีตามขั้นบันได
+        const taxPayable = calculatePersonalIncomeTax(netTaxableIncome > 0 ? netTaxableIncome : 0);
+
+        // 5) คำนวณยอดสุทธิที่ต้องจ่าย = ภาษีที่ต้องชำระ - ภาษีหัก ณ ที่จ่าย
+        let finalTaxDue = taxPayable - totalWithheldTax;
+        if (finalTaxDue < 0) {
+            // ถ้าภาษีหัก ณ ที่จ่าย มากกว่าภาษีที่ต้องชำระ => 0 หรือจะแสดงเป็นภาษีคืนก็ได้
+            finalTaxDue = 0;
+        }
+
+        // 6) ปัดเศษทศนิยม (ยกเว้นเศษของบาท)
+        const finalTaxRounded = Math.floor(finalTaxDue);
+
+        // 7) แสดงผลบนหน้า
+        document.getElementById("totalIncome").textContent = totalIncome.toFixed(2);
+        document.getElementById("totalDeduction").textContent = totalDeduction.toFixed(2);
+        document.getElementById("netTaxableIncome").textContent = netTaxableIncome.toFixed(2);
+        document.getElementById("taxPayable").textContent = taxPayable.toFixed(2);
+        document.getElementById("withheldTax").textContent = totalWithheldTax.toFixed(2);
+        document.getElementById("finalTaxDue").textContent = finalTaxDue.toFixed(2);
+        document.getElementById("finalTaxRounded").textContent = finalTaxRounded.toString();
+    }
+
+    // เรียกคำนวณเมื่อหน้าโหลด
+    document.addEventListener("DOMContentLoaded", function() {
+        calculateResult();
+    });
+</script>
 </body>
 </html>

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>tax-deduction</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="../assets/TD_web_icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="../assets/TD_web_icon.png" />
     <script src="../config.js"></script>
     <style>
         .font-mali {
@@ -20,181 +20,100 @@
 <header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
         <!-- โลโก้ / ชื่อเว็บ -->
-        <h1 class="text-2xl text-[#4e342e] font-bold font-mali justify-start">Tax2Ready</h1>
-
+        <h1 class="text-2xl text-[#4e342e] font-bold font-mali">Tax2Ready</h1>
         <!-- เมนูหลัก (Desktop) -->
         <nav class="hidden md:flex space-x-6 relative">
             <a href="account.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
             <a href="home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
-
             <!-- Dropdown for 'เรียนรู้เพิ่มเติม' -->
             <div class="relative group">
-                <button id="learn-more-btn"
-                        class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline focus:outline-none">
+                <button id="learn-more-btn" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline focus:outline-none">
                     เรียนรู้เพิ่มเติม
                 </button>
                 <div id="learn-more-menu" class="absolute hidden bg-[#b49c74] mt-2 w-60 rounded-lg shadow-lg z-10 p-2">
                     <ul>
-                        <li><a href="1tax-intro.html"
-                               class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">1.
-                            ภาษีคืออะไร?</a></li>
-                        <li><a href="2why-pay-tax.html"
-                               class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">2.
-                            ทำไมเราต้องจ่ายภาษี?</a></li>
-                        <li><a href="3no-tax-consequence.html"
-                               class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">3.
-                            ไม่จ่ายภาษีจะเกิดอะไรขึ้น?</a></li>
-                        <li><a href="4who-pays-tax.html"
-                               class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">4.
-                            ใครบ้างที่ต้องเริ่มจ่ายภาษี?</a></li>
-                        <li><a href="5income-tax.html"
-                               class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">5.
-                            รายได้ที่ต้องเสียภาษี?</a></li>
-                        <li><a href="6tax-deductions.html"
-                               class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">6.
-                            สิทธิ์ลดหย่อนภาษี?</a></li>
-                        <li><a href="7tax-frequency.html"
-                               class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">7.
-                            ต้องจ่ายภาษีบ่อยแค่ไหน?</a></li>
-                        <li><a href="8how-to-pay-tax.html"
-                               class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">8.
-                            มีวิธีจ่ายภาษีอย่างไร?</a></li>
+                        <li><a href="1tax-intro.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">1. ภาษีคืออะไร?</a></li>
+                        <li><a href="2why-pay-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">2. ทำไมเราต้องจ่ายภาษี?</a></li>
+                        <li><a href="3no-tax-consequence.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">3. ไม่จ่ายภาษีจะเกิดอะไรขึ้น?</a></li>
+                        <li><a href="4who-pays-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">4. ใครบ้างที่ต้องเริ่มจ่ายภาษี?</a></li>
+                        <li><a href="5income-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">5. รายได้ที่ต้องเสียภาษี?</a></li>
+                        <li><a href="6tax-deductions.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">6. สิทธิ์ลดหย่อนภาษี?</a></li>
+                        <li><a href="7tax-frequency.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">7. ต้องจ่ายภาษีบ่อยแค่ไหน?</a></li>
+                        <li><a href="8how-to-pay-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">8. มีวิธีจ่ายภาษีอย่างไร?</a></li>
                     </ul>
                 </div>
             </div>
-
-            <a href="tax-personal.html"
-               class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
-            <a href="contact.html"
-               class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
+            <a href="tax-personal.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
+            <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
         </nav>
-
-
         <!-- ปุ่ม Login (Desktop) -->
-        <button type="button" onclick="location.href='sign-in-up.html'"
-                class="loginButton opacity-100 hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+        <button type="button" onclick="location.href='sign-in-up.html'" class="loginButton opacity-100 hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
             Login
         </button>
-
         <!-- เมนูมือถือ (Hamburger Icon) -->
-        <button class="md:hidden text-gray-600" id="mobile-menu-button">
-            ☰
-        </button>
+        <button class="md:hidden text-gray-600" id="mobile-menu-button">☰</button>
     </div>
-
     <!-- เมนูสำหรับมือถือ (ซ่อนอยู่) -->
     <nav id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 mt-3 bg-[#b49c74] p-4">
-        <a href="account.html"
-           class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
-        <a href="home.html"
-           class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
-
+        <a href="account.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
+        <a href="home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
         <a href="#" id="learn-more-btn-mobile" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
         <ul id="learn-more-menu-mobile" class="hidden flex-col space-y-2 bg-[#b49c74] p-2 rounded-lg">
-            <li><a href="1tax-intro.html"
-                   class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">1.
-                ภาษีคืออะไร?</a></li>
-            <li><a href="2why-pay-tax.html"
-                   class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">2.
-                ทำไมเราต้องจ่ายภาษี?</a></li>
-            <li><a href="3no-tax-consequence.html"
-                   class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">3.
-                ไม่จ่ายภาษีจะเกิดอะไรขึ้น?</a></li>
-            <li><a href="4who-pays-tax.html"
-                   class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">4.
-                ใครบ้างที่ต้องเริ่มจ่ายภาษี?</a></li>
-            <li><a href="5income-tax.html"
-                   class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">5.
-                รายได้ที่ต้องเสียภาษี?</a></li>
-            <li><a href="6tax-deductions.html"
-                   class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">6.
-                สิทธิ์ลดหย่อนภาษี?</a></li>
-            <li><a href="7tax-frequency.html"
-                   class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">7.
-                ต้องจ่ายภาษีบ่อยแค่ไหน?</a></li>
-            <li><a href="8how-to-pay-tax.html"
-                   class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">8.
-                มีวิธีจ่ายภาษีอย่างไร?</a></li>
+            <li><a href="1tax-intro.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">1. ภาษีคืออะไร?</a></li>
+            <li><a href="2why-pay-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">2. ทำไมเราต้องจ่ายภาษี?</a></li>
+            <li><a href="3no-tax-consequence.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">3. ไม่จ่ายภาษีจะเกิดอะไรขึ้น?</a></li>
+            <li><a href="4who-pays-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">4. ใครบ้างที่ต้องเริ่มจ่ายภาษี?</a></li>
+            <li><a href="5income-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">5. รายได้ที่ต้องเสียภาษี?</a></li>
+            <li><a href="6tax-deductions.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">6. สิทธิ์ลดหย่อนภาษี?</a></li>
+            <li><a href="7tax-frequency.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">7. ต้องจ่ายภาษีบ่อยแค่ไหน?</a></li>
+            <li><a href="8how-to-pay-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">8. มีวิธีจ่ายภาษีอย่างไร?</a></li>
         </ul>
-        <a href="tax-personal.html"
-           class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
+        <a href="tax-personal.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
         <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
-
-        <button type="button" onclick="location.href='sign-in-up.html'"
-                class="loginButton opacity-100 bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+        <button type="button" onclick="location.href='sign-in-up.html'" class="loginButton opacity-100 bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
             Login
         </button>
     </nav>
 </header>
 
-<!-- Main Container -->
-<div id="main-container"
-     class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
-
+<!-- Main Container สำหรับหน้ากรอกข้อมูลสิทธิ์ลดหย่อน -->
+<div id="main-container" class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
     <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
         <div class="w-full h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md flex flex-col justify-between font-mali">
-
             <!-- หัวข้อใหญ่ -->
             <h2 class="text-2xl md:text-3xl font-bold text-[#4e342e] text-center mb-4">
                 กรอกข้อมูลสิทธิ์ค่าลดหย่อน
             </h2>
 
-            <!-- สถานะการกรอก -->
+            <!-- สถานะการกรอก (Steps) -->
             <div class="flex justify-center space-x-4 mb-6">
-                <!-- STEP 1: กรอกข้อมูลผู้เสียภาษี (กรอกแล้ว) -->
-                <a href="tax-personal.html"
-                   class="flex flex-col items-center w-32 cursor-pointer"
-                   title="ขั้นตอนที่ 1: กรอกข้อมูลผู้เสียภาษี">
-                    <div class="bg-[#4e342e] text-[#f7efda] w-full text-center py-2 rounded-t-md font-mali font-bold">
-                        ✓
-                    </div>
-                    <div class="border border-t-0 border-[#4e342e] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">
-                        ข้อมูลผู้เสียภาษี
-                    </div>
+                <!-- STEP 1: ข้อมูลผู้เสียภาษี -->
+                <a href="tax-personal.html" class="flex flex-col items-center w-32 cursor-pointer" title="ขั้นตอนที่ 1: กรอกข้อมูลผู้เสียภาษี" onclick="savePageData()">
+                    <div class="bg-[#4e342e] text-[#f7efda] w-full text-center py-2 rounded-t-md font-mali font-bold">✓</div>
+                    <div class="border border-t-0 border-[#4e342e] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">ข้อมูลผู้เสียภาษี</div>
                     <span class="text-xs text-green-700 mt-1">กรอกแล้ว</span>
                 </a>
-
-                <!-- STEP 2: กรอกเงินได้ (กรอกแล้ว) -->
-                <a href="tax-calculator.html"
-                   class="flex flex-col items-center w-32 cursor-pointer"
-                   title="ขั้นตอนที่ 2: กรอกเงินได้">
-                    <div class="bg-[#4e342e] text-[#f7efda] w-full text-center py-2 rounded-t-md font-mali font-bold">
-                        ✓
-                    </div>
-                    <div class="border border-t-0 border-[#4e342e] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">
-                        ข้อมูลเงินได้
-                    </div>
+                <!-- STEP 2: ข้อมูลเงินได้ -->
+                <a href="tax-calculator.html" class="flex flex-col items-center w-32 cursor-pointer" title="ขั้นตอนที่ 2: กรอกเงินได้" onclick="savePageData()">
+                    <div class="bg-[#4e342e] text-[#f7efda] w-full text-center py-2 rounded-t-md font-mali font-bold">✓</div>
+                    <div class="border border-t-0 border-[#4e342e] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">ข้อมูลเงินได้</div>
                     <span class="text-xs text-green-700 mt-1">กรอกแล้ว</span>
                 </a>
-
-                <!-- STEP 3: สิทธิ์ลดหย่อน (กำลังกรอก) -->
-                <a href="tax-deduction.html"
-                   class="flex flex-col items-center w-32 cursor-pointer"
-                   title="ขั้นตอนที่ 3: สิทธิ์ลดหย่อน">
-                    <div class="bg-[#b49c74] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">
-                        3
-                    </div>
-                    <div class="border border-t-0 border-[#b49c74] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">
-                        สิทธิ์ลดหย่อน
-                    </div>
+                <!-- STEP 3: สิทธิ์ลดหย่อน -->
+                <a href="tax-deduction.html" class="flex flex-col items-center w-32 cursor-pointer" title="ขั้นตอนที่ 3: สิทธิ์ลดหย่อน" onclick="savePageData()">
+                    <div class="bg-[#b49c74] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">3</div>
+                    <div class="border border-t-0 border-[#b49c74] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">สิทธิ์ลดหย่อน</div>
                     <span class="text-xs text-[#4e342e] mt-1">กำลังกรอก</span>
                 </a>
-
-                <!-- STEP 4: ตรวจสอบข้อมูล (ยังไม่กรอก) -->
-                <a href="result.html"
-                   class="flex flex-col items-center w-32 cursor-pointer"
-                   title="ขั้นตอนที่ 4: ตรวจสอบข้อมูล">
-                    <div class="bg-[#f7efda] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">
-                        4
-                    </div>
-                    <div class="border border-t-0 border-[#f7efda] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">
-                        ตรวจสอบข้อมูล
-                    </div>
+                <!-- STEP 4: ตรวจสอบข้อมูล -->
+                <a href="result.html" class="flex flex-col items-center w-32 cursor-pointer" title="ขั้นตอนที่ 4: ตรวจสอบข้อมูล" onclick="savePageData()">
+                    <div class="bg-[#f7efda] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">4</div>
+                    <div class="border border-t-0 border-[#f7efda] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">ตรวจสอบข้อมูล</div>
                     <span class="text-xs text-gray-600 mt-1">ยังไม่กรอก</span>
                 </a>
             </div>
 
-            <!-- ฟอร์ม 5 ตาราง (กลุ่มลดหย่อน) -->
+            <!-- ฟอร์ม 5 กลุ่ม (สำหรับลดหย่อน) -->
             <form id="deductionForm" class="flex flex-col justify-center items-center overflow-auto">
                 <!-- กลุ่มที่ 1 -->
                 <div id="group-1" class="space-y-4 overflow-auto">
@@ -202,119 +121,50 @@
                         กลุ่มที่ 1: ค่าอุปการะส่วนตัวและครอบครัว
                     </h3>
                     <table class="w-full text-left border-collapse">
-                        <!-- แถว ลดหย่อนผู้มีเงินได้ (บาท) -->
                         <tr>
                             <td class="py-2 w-1/3">ลดหย่อนผู้มีเงินได้ (บาท):</td>
                             <td class="py-2 w-2/3">
-                                <input
-                                        type="text"
-                                        class="border rounded p-1 w-full"
-                                        value="60,000"
-                                        readonly
-                                />
+                                <input type="text" class="border rounded p-1 w-full" value="60,000" readonly />
                             </td>
                         </tr>
-                        <!-- แถว ค่าลดหย่อนผู้สูงอายุ (บาท) -->
                         <tr>
                             <td class="py-2">ค่าลดหย่อนผู้สูงอายุ (บาท):</td>
                             <td class="py-2">
                                 <div class="flex gap-2">
-                                    <!-- ช่องกรอกมูลค่าเงิน -->
-                                    <input
-                                            type="text"
-                                            class="border rounded p-1 w-1/2"
-                                            placeholder="0"
-                                            pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                            onkeypress="return checkDecimal(this, event)"
-                                            oninput="validateCommaNumber(this)"
-                                    />
-                                    <!-- ช่องกรอกจำนวนคน -->
-                                    <input
-                                            type="number"
-                                            class="border rounded p-1 w-1/2"
-                                            placeholder="จำนวนคน"
-                                            min="0"
-                                    />
+                                    <input type="text" class="border rounded p-1 w-1/2" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
+                                    <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน" min="0" />
                                 </div>
                             </td>
                         </tr>
-                        <!-- แถว ค่าอุปการะบิดา/มารดา (บาท) -->
                         <tr>
                             <td class="py-2">ค่าอุปการะบิดา/มารดา (บาท):</td>
                             <td class="py-2">
                                 <div class="flex gap-2">
-                                    <!-- ช่องกรอกมูลค่าเงิน -->
-                                    <input
-                                            type="text"
-                                            class="border rounded p-1 w-1/2"
-                                            placeholder="0"
-                                            pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                            onkeypress="return checkDecimal(this, event)"
-                                            oninput="validateCommaNumber(this)"
-                                    />
-                                    <!-- ช่องกรอกจำนวนคน -->
-                                    <input
-                                            type="number"
-                                            class="border rounded p-1 w-1/2"
-                                            placeholder="จำนวนคน"
-                                            min="0"
-                                    />
+                                    <input type="text" class="border rounded p-1 w-1/2" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
+                                    <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน" min="0" />
                                 </div>
                             </td>
                         </tr>
-                        <!-- แถว ค่าเลี้ยงดูบุตร (บาท) -->
                         <tr>
                             <td class="py-2">ค่าเลี้ยงดูบุตร (บาท):</td>
                             <td class="py-2">
                                 <div class="flex gap-2">
-                                    <!-- ช่องกรอกมูลค่าเงิน -->
-                                    <input
-                                            type="text"
-                                            class="border rounded p-1 w-1/2"
-                                            placeholder="0"
-                                            pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                            onkeypress="return checkDecimal(this, event)"
-                                            oninput="validateCommaNumber(this)"
-                                    />
-                                    <!-- ช่องกรอกจำนวนคน -->
-                                    <input
-                                            type="number"
-                                            class="border rounded p-1 w-1/2"
-                                            placeholder="จำนวนคน"
-                                            min="0"
-                                    />
+                                    <input type="text" class="border rounded p-1 w-1/2" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
+                                    <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน" min="0" />
                                 </div>
                             </td>
                         </tr>
-                        <!-- แถว อุปการะคนพิการ/ทุพพลภาพ (บาท) -->
                         <tr>
                             <td class="py-2">อุปการะคนพิการ/ทุพพลภาพ (บาท):</td>
                             <td class="py-2">
                                 <div class="flex gap-2">
-                                    <!-- ช่องกรอกมูลค่าเงิน -->
-                                    <input
-                                            type="text"
-                                            class="border rounded p-1 w-1/2"
-                                            placeholder="0"
-                                            pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                            onkeypress="return checkDecimal(this, event)"
-                                            oninput="validateCommaNumber(this)"
-                                    />
-                                    <!-- ช่องกรอกจำนวนคน -->
-                                    <input
-                                            type="number"
-                                            class="border rounded p-1 w-1/2"
-                                            placeholder="จำนวนคน"
-                                            min="0"
-                                    />
+                                    <input type="text" class="border rounded p-1 w-1/2" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
+                                    <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน" min="0" />
                                 </div>
                             </td>
                         </tr>
                     </table>
                 </div>
-
-
-
 
                 <!-- กลุ่มที่ 2 -->
                 <div id="group-2" class="hidden space-y-4 overflow-auto">
@@ -323,79 +173,37 @@
                         <tr>
                             <td class="py-2">เบี้ยประกันชีวิต (ทั่วไป) (บาท):</td>
                             <td>
-                                <input
-                                        type="text"
-                                        class="border rounded p-1 w-full"
-                                        placeholder="0"
-                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                        onkeypress="return checkDecimal(this, event)"
-                                        oninput="validateCommaNumber(this)"
-                                />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">เบี้ยประกันสุขภาพ (บาท):</td>
                             <td>
-                                <input
-                                        type="text"
-                                        class="border rounded p-1 w-full"
-                                        placeholder="0"
-                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                        onkeypress="return checkDecimal(this, event)"
-                                        oninput="validateCommaNumber(this)"
-                                />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">เบี้ยประกันชีวิตแบบบำนาญ (บาท):</td>
                             <td>
-                                <input
-                                        type="text"
-                                        class="border rounded p-1 w-full"
-                                        placeholder="0"
-                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                        onkeypress="return checkDecimal(this, event)"
-                                        oninput="validateCommaNumber(this)"
-                                />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">กองทุนสำรองเลี้ยงชีพ/กบข. (บาท):</td>
                             <td>
-                                <input
-                                        type="text"
-                                        class="border rounded p-1 w-full"
-                                        placeholder="0"
-                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                        onkeypress="return checkDecimal(this, event)"
-                                        oninput="validateCommaNumber(this)"
-                                />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">กองทุนรวมเพื่อการเลี้ยงชีพ (RMF) (บาท):</td>
                             <td>
-                                <input
-                                        type="text"
-                                        class="border rounded p-1 w-full"
-                                        placeholder="0"
-                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                        onkeypress="return checkDecimal(this, event)"
-                                        oninput="validateCommaNumber(this)"
-                                />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">กองทุน SSF (บาท):</td>
                             <td>
-                                <input
-                                        type="text"
-                                        class="border rounded p-1 w-full"
-                                        placeholder="0"
-                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                        onkeypress="return checkDecimal(this, event)"
-                                        oninput="validateCommaNumber(this)"
-                                />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                     </table>
@@ -408,40 +216,19 @@
                         <tr>
                             <td class="py-2">ดอกเบี้ยเงินกู้ยืม เพื่อที่อยู่อาศัย (บาท):</td>
                             <td>
-                                <input
-                                        type="text"
-                                        class="border rounded p-1 w-full"
-                                        placeholder="0"
-                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                        onkeypress="return checkDecimal(this, event)"
-                                        oninput="validateCommaNumber(this)"
-                                />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">เงินบริจาคพรรคการเมือง (บาท):</td>
                             <td>
-                                <input
-                                        type="text"
-                                        class="border rounded p-1 w-full"
-                                        placeholder="0"
-                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                        onkeypress="return checkDecimal(this, event)"
-                                        oninput="validateCommaNumber(this)"
-                                />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">ค่าโครงการและค่าผ่าตัดทำหมัน (บาท):</td>
                             <td>
-                                <input
-                                        type="text"
-                                        class="border rounded p-1 w-full"
-                                        placeholder="0"
-                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                        onkeypress="return checkDecimal(this, event)"
-                                        oninput="validateCommaNumber(this)"
-                                />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                     </table>
@@ -457,40 +244,19 @@
                                 <br/><span class="text-sm text-gray-600">(ใช้ได้ถึง 15 ก.พ. 2566)</span>
                             </td>
                             <td>
-                                <input
-                                        type="text"
-                                        class="border rounded p-1 w-full"
-                                        placeholder="0"
-                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                        onkeypress="return checkDecimal(this, event)"
-                                        oninput="validateCommaNumber(this)"
-                                />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">ค่าซื้อสินค้าเพื่อการศึกษา/กีฬา/หนังสือ (บาท):</td>
                             <td>
-                                <input
-                                        type="text"
-                                        class="border rounded p-1 w-full"
-                                        placeholder="0"
-                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                        onkeypress="return checkDecimal(this, event)"
-                                        oninput="validateCommaNumber(this)"
-                                />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">ค่าซื้อสินค้า OTOP (บาท):</td>
                             <td>
-                                <input
-                                        type="text"
-                                        class="border rounded p-1 w-full"
-                                        placeholder="0"
-                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                        onkeypress="return checkDecimal(this, event)"
-                                        oninput="validateCommaNumber(this)"
-                                />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                     </table>
@@ -503,117 +269,28 @@
                         <tr>
                             <td class="py-2">เงินบริจาคสนับสนุนการศึกษา/สถาบันการกุศล (บาท):</td>
                             <td>
-                                <input
-                                        type="text"
-                                        class="border rounded p-1 w-full"
-                                        placeholder="0"
-                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                        onkeypress="return checkDecimal(this, event)"
-                                        oninput="validateCommaNumber(this)"
-                                />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">เงินบริจาคอื่น ๆ (บาท):</td>
                             <td>
-                                <input
-                                        type="text"
-                                        class="border rounded p-1 w-full"
-                                        placeholder="0"
-                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                        onkeypress="return checkDecimal(this, event)"
-                                        oninput="validateCommaNumber(this)"
-                                />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                     </table>
                 </div>
 
-                <script>
-                    // ฟังก์ชันตรวจสอบให้พิมพ์ได้เฉพาะตัวเลข, เครื่องหมายจุลภาค และจุด
-                    // พร้อมจำกัดไม่ให้พิมพ์ทศนิยมเกิน 2 ตำแหน่ง
-                    function checkDecimal(input, event) {
-                        // อนุญาตคีย์ควบคุม (Backspace, Delete, ลูกศร, Tab)
-                        if (
-                            event.ctrlKey || event.metaKey ||
-                            event.key === "Backspace" || event.key === "Delete" ||
-                            event.key === "ArrowLeft" || event.key === "ArrowRight" ||
-                            event.key === "Tab"
-                        ) {
-                            return true;
-                        }
-
-                        // อนุญาตให้พิมพ์เฉพาะตัวเลข, คอมมา, จุด
-                        const allowed = /[\d,\.]/;
-                        if (!allowed.test(event.key)) {
-                            event.preventDefault();
-                            return false;
-                        }
-
-                        // หากเป็นจุด (.) ให้แน่ใจว่ามีแค่จุดเดียว
-                        if (event.key === ".") {
-                            if (input.value.indexOf(".") !== -1) {
-                                event.preventDefault();
-                                return false;
-                            }
-                        }
-
-                        // หากมีจุดแล้ว ตรวจสอบจำนวนทศนิยมไม่เกิน 2 ตัว
-                        if (/\d/.test(event.key) && input.value.indexOf(".") !== -1) {
-                            let parts = input.value.split(".");
-                            if (parts[1].length >= 2 && input.selectionStart > input.value.indexOf(".")) {
-                                event.preventDefault();
-                                return false;
-                            }
-                        }
-                        return true;
-                    }
-
-                    // ฟังก์ชันตรวจสอบรูปแบบด้วย regex
-                    function validateCommaNumber(input) {
-                        let value = input.value;
-                        // Regex: 1-3 หลักแรก ตามด้วยกลุ่มที่มีเครื่องหมายจุลภาคและ 3 หลัก, และอาจมีจุดกับตัวเลขไม่เกิน 2 หลัก
-                        const regex = /^\d{1,3}(,\d{3})*(\.\d{0,2})?$/;
-                        if (value === "" || regex.test(value)) {
-                            input.setCustomValidity("");
-                        } else {
-                            input.setCustomValidity("รูปแบบไม่ถูกต้อง (ตัวอย่าง: 000,000,000.00)");
-                        }
-                    }
-                </script>
-
-
                 <!-- ปุ่มย้อนกลับ / ถัดไป / บันทึก -->
                 <div class="flex justify-between w-full mt-6 font-mali">
                     <!-- ปุ่มย้อนกลับ -->
-                    <button
-                            type="button"
-                            id="prevBtn"
-                            class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 disabled:opacity-50"
-                            disabled
-                    >
-                        ย้อนกลับ
-                    </button>
-
-                    <!-- ปุ่มถัดไป/บันทึก -->
+                    <button type="button" id="prevBtn" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 disabled:opacity-50" disabled>ย้อนกลับ</button>
+                    <!-- ปุ่มถัดไป / บันทึก -->
                     <div class="flex flex-col items-end font-mali">
-                        <!-- ปุ่มถัดไป (จะซ่อนใน step สุดท้าย) -->
-                        <button
-                                type="button"
-                                id="nextBtn"
-                                class="bg-[#4e342e] text-white px-4 py-2 rounded hover:bg-[#8d6e63]"
-                        >
-                            ถัดไป
-                        </button>
-
-                        <!-- ปุ่มบันทึกข้อมูลทั้งหมด (จะซ่อนใน step อื่นๆ) -->
-                        <button
-                                type="button"
-                                id="saveButton"
-                                class="hidden w-full max-w-xs px-4 py-2 bg-[#4e342e] text-white rounded-lg shadow"
-                        >
-                            บันทึก
-                        </button>
+                        <!-- ปุ่มถัดไป (ซ่อนในกลุ่มสุดท้าย) -->
+                        <button type="button" id="nextBtn" class="bg-[#4e342e] text-white px-4 py-2 rounded hover:bg-[#8d6e63]">ถัดไป</button>
+                        <!-- ปุ่มบันทึก (เฉพาะในกลุ่มสุดท้าย) -->
+                        <button type="button" id="saveButton" class="hidden w-full max-w-xs px-4 py-2 bg-[#4e342e] text-white rounded-lg shadow">บันทึก</button>
                     </div>
                 </div>
             </form>
@@ -621,75 +298,50 @@
     </div>
 </div>
 
-<!-- Modal แจ้งเตือน สำหรับการยืนยันการบันทึกข้อมูล -->
-<div
-        id="saveModal"
-        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden font-mali"
->
+<!-- Modal สำหรับยืนยันการบันทึกข้อมูล -->
+<div id="saveModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden font-mali">
     <div class="bg-white rounded-lg shadow-lg p-6 w-[350px] text-center font-mali">
-        <p class="text-lg text-gray-800 font-semibold">
-            คุณต้องการบันทึกข้อมูลทั้งหมดหรือไม่?
-        </p>
+        <p class="text-lg text-gray-800 font-semibold">คุณต้องการบันทึกข้อมูลทั้งหมดหรือไม่?</p>
         <div class="flex justify-center gap-4 mt-4 font-mali">
-            <button
-                    id="cancelSave"
-                    class="px-4 py-2 bg-gray-400 text-white rounded-lg shadow"
-            >
-                ยกเลิก
-            </button>
-            <button
-                    id="confirmSave"
-                    class="px-4 py-2 bg-green-500 text-white rounded-lg shadow"
-            >
-                บันทึก
-            </button>
+            <button id="cancelSave" class="px-4 py-2 bg-gray-400 text-white rounded-lg shadow">ยกเลิก</button>
+            <button id="confirmSave" class="px-4 py-2 bg-green-500 text-white rounded-lg shadow">บันทึก</button>
         </div>
     </div>
 </div>
 
-<!-- รวม Script ทั้งหมดไว้ด้านล่าง -->
+<!-- รวม Script -->
 <script>
-    // ---- เมนูมือถือ แสดง / ซ่อน ----
+    // ---- เมนูมือถือ ----
     document.getElementById("mobile-menu-button").addEventListener("click", function () {
         document.getElementById("mobile-menu").classList.toggle("hidden");
     });
-
-    // ---- เมนูเรียนรู้เพิ่มเติม desktop ----
+    // ---- เมนูเรียนรู้เพิ่มเติม (Desktop & Mobile) ----
     document.getElementById("learn-more-btn").addEventListener("click", function () {
         document.getElementById("learn-more-menu").classList.toggle("hidden");
     });
-
-    // ---- เมนูเรียนรู้เพิ่มเติม mobile ----
     document.getElementById("learn-more-btn-mobile").addEventListener("click", function () {
         document.getElementById("learn-more-menu-mobile").classList.toggle("hidden");
     });
 
     // --------------------------------------------------
-    //             จัดการการแสดงผล 5 กลุ่ม
+    // จัดการการแสดงผลกลุ่ม (5 กลุ่ม)
     // --------------------------------------------------
     const totalGroups = 5;
     let currentGroup = 1;
-
-    const prevBtn     = document.getElementById("prevBtn");
-    const nextBtn     = document.getElementById("nextBtn");
-    const saveButton  = document.getElementById("saveButton");  // ปุ่มบันทึก
-    const saveModal   = document.getElementById("saveModal");   // โมดัล
-    const cancelSave  = document.getElementById("cancelSave");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const saveButton = document.getElementById("saveButton"); // ปุ่มบันทึกเฉพาะในกลุ่มสุดท้าย
+    const saveModal = document.getElementById("saveModal");
+    const cancelSave = document.getElementById("cancelSave");
     const confirmSave = document.getElementById("confirmSave");
 
-    // ฟังก์ชันโชว์/ซ่อนกลุ่ม
+    // ฟังก์ชันแสดง/ซ่อนกลุ่ม
     function showGroup(groupNumber) {
-        // ซ่อนทุกกลุ่มก่อน
         for (let i = 1; i <= totalGroups; i++) {
             document.getElementById(`group-${i}`).classList.add("hidden");
         }
-        // แสดงเฉพาะกลุ่มที่ต้องการ
         document.getElementById(`group-${groupNumber}`).classList.remove("hidden");
-
-        // จัดการปุ่มย้อนกลับ
         prevBtn.disabled = (groupNumber === 1);
-
-        // ถ้าเป็นกลุ่มสุดท้าย ให้ซ่อนปุ่มถัดไป แล้วโชว์ปุ่มบันทึก
         if (groupNumber === totalGroups) {
             nextBtn.classList.add("hidden");
             saveButton.classList.remove("hidden");
@@ -699,13 +351,13 @@
         }
     }
 
-    // ตรวจสอบว่าอินพุตเป็นตัวเลขหรือไม่ (อนุญาตให้เว้นว่างได้)
+    // ตรวจสอบอินพุตในกลุ่มปัจจุบัน (ตรวจสอบเฉพาะช่องที่ไม่ใช่ readonly)
     function validateCurrentGroup() {
-        const inputs = document.querySelectorAll(`#group-${currentGroup} input[type="number"]`);
+        const inputs = document.querySelectorAll(`#group-${currentGroup} input:not([readonly])`);
         for (let input of inputs) {
             if (input.value !== "") {
-                // ถ้ากรอกแล้ว แต่ไม่ใช่ตัวเลข (isNaN) ให้ return false
-                if (isNaN(parseFloat(input.value))) {
+                let value = input.value.replace(/,/g, '');
+                if (isNaN(parseFloat(value))) {
                     return false;
                 }
             }
@@ -713,70 +365,106 @@
         return true;
     }
 
-    // ปุ่มย้อนกลับ
+    // ฟังก์ชันบันทึกข้อมูลทั้งหมดในหน้า (ใช้ localStorage)
+    function savePageData() {
+        let deductionData = {};
+        for (let i = 1; i <= totalGroups; i++) {
+            const groupElement = document.getElementById(`group-${i}`);
+            const inputs = groupElement.querySelectorAll('input');
+            deductionData[`group${i}`] = [];
+            inputs.forEach((input) => {
+                deductionData[`group${i}`].push(input.value);
+            });
+        }
+        localStorage.setItem("taxDeductionData", JSON.stringify(deductionData));
+    }
+
+    // ฟังก์ชันโหลดข้อมูลจาก localStorage
+    function loadPageData() {
+        let saved = localStorage.getItem("taxDeductionData");
+        if (saved) {
+            let deductionData = JSON.parse(saved);
+            for (let i = 1; i <= totalGroups; i++) {
+                if (deductionData[`group${i}`]) {
+                    const groupElement = document.getElementById(`group-${i}`);
+                    const inputs = groupElement.querySelectorAll('input');
+                    inputs.forEach((input, index) => {
+                        if (deductionData[`group${i}`][index] !== undefined) {
+                            input.value = deductionData[`group${i}`][index];
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+    // Event listener ปุ่มย้อนกลับ
     prevBtn.addEventListener("click", () => {
         if (currentGroup > 1) {
+            savePageData();
             currentGroup--;
             showGroup(currentGroup);
         }
     });
 
-    // ปุ่มถัดไป
+    // Event listener ปุ่มถัดไป
     nextBtn.addEventListener("click", () => {
-        // ตรวจสอบอินพุตก่อน
         if (!validateCurrentGroup()) {
             alert("กรุณากรอกเฉพาะตัวเลข (หรือเว้นว่าง) ในทุกช่องของกลุ่มนี้");
             return;
         }
-        // ไปหน้าถัดไป
+        savePageData();
         if (currentGroup < totalGroups) {
             currentGroup++;
             showGroup(currentGroup);
         }
     });
 
-    // ---------------------------
-    // ปุ่ม "บันทึก" -> เปิด Modal
-    // ---------------------------
+    // Event listener ปุ่มบันทึก (เฉพาะในกลุ่มสุดท้าย)
     saveButton.addEventListener("click", () => {
-        // ตรวจสอบอินพุตกลุ่มสุดท้าย
         if (!validateCurrentGroup()) {
             alert("กรุณากรอกเฉพาะตัวเลข (หรือเว้นว่าง) ในทุกช่องของกลุ่มนี้");
             return;
         }
-        // ถ้าผ่านการตรวจสอบ -> แสดง Modal
         saveModal.classList.remove('hidden');
     });
 
-    // เมื่อคลิก "ยกเลิก" -> ซ่อน Modal
+    // Modal: เมื่อคลิก "ยกเลิก" ใน modal
     cancelSave.addEventListener('click', () => {
         saveModal.classList.add('hidden');
     });
 
-    // เมื่อคลิก "บันทึก" ใน Modal -> ไปหน้า result.html (หรือทำอย่างอื่นก่อน)
+    // Modal: เมื่อคลิก "บันทึก" ใน modal ให้บันทึกข้อมูลและนำทางไปยังหน้าต่อไป
     confirmSave.addEventListener('click', () => {
+        savePageData();
+        saveModal.classList.add('hidden');
         window.location.href = 'result.html';
     });
 
-    // เริ่มต้นแสดงกลุ่มแรก
-    showGroup(currentGroup);
+    // เพิ่ม event listener ให้กับลิงก์ใน header เพื่อบันทึกข้อมูลก่อนเปลี่ยนหน้า
+    document.querySelectorAll('header a[href]').forEach(link => {
+        link.addEventListener('click', function () {
+            savePageData();
+        });
+    });
 
+    // โหลดข้อมูลที่บันทึกไว้เมื่อหน้าเพจโหลด และแสดงกลุ่มแรก
     document.addEventListener("DOMContentLoaded", function () {
+        loadPageData();
+        showGroup(currentGroup);
+        // ตรวจสอบสถานะการเข้าสู่ระบบ (Session Validation)
         const token = 'Bearer ' + localStorage.getItem('jwt_token');
-
-        fetch(window.CONFIG.BASE_PATH+'/users/is-valid', {
+        fetch(window.CONFIG.BASE_PATH + '/users/is-valid', {
             method: 'GET',
-            headers: {
-                'Authorization': token
-            }
+            headers: { 'Authorization': token }
         })
             .then(response => {
                 document.querySelectorAll('.loginButton').forEach(button => {
                     if (response.status === 200) {
-                        button.classList.add('opacity-0', 'pointer-events-none');  // Make button invisible
-                        button.classList.remove('opacity-100'); // Ensure it does not appear
+                        button.classList.add('opacity-0', 'pointer-events-none');
+                        button.classList.remove('opacity-100');
                     } else {
-                        button.classList.remove('opacity-0', 'pointer-events-none'); // Make button visible
+                        button.classList.remove('opacity-0', 'pointer-events-none');
                         button.classList.add('opacity-100');
                     }
                 });
@@ -784,11 +472,48 @@
             .catch(error => {
                 console.error('Error:', error);
                 document.querySelectorAll('.loginButton').forEach(button => {
-                    button.classList.remove('opacity-0', 'pointer-events-none'); // Ensure button remains visible on error
+                    button.classList.remove('opacity-0', 'pointer-events-none');
                     button.classList.add('opacity-100');
                 });
             });
     });
+
+    // ฟังก์ชันตรวจสอบตัวเลขและทศนิยม
+    function checkDecimal(input, event) {
+        if (event.ctrlKey || event.metaKey || event.key === "Backspace" || event.key === "Delete" ||
+            event.key === "ArrowLeft" || event.key === "ArrowRight" || event.key === "Tab") {
+            return true;
+        }
+        const allowed = /[\d,\.]/;
+        if (!allowed.test(event.key)) {
+            event.preventDefault();
+            return false;
+        }
+        if (event.key === ".") {
+            if (input.value.indexOf(".") !== -1) {
+                event.preventDefault();
+                return false;
+            }
+        }
+        if (/\d/.test(event.key) && input.value.indexOf(".") !== -1) {
+            let parts = input.value.split(".");
+            if (parts[1].length >= 2 && input.selectionStart > input.value.indexOf(".")) {
+                event.preventDefault();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function validateCommaNumber(input) {
+        let value = input.value;
+        const regex = /^\d{1,3}(,\d{3})*(\.\d{0,2})?$/;
+        if (value === "" || regex.test(value)) {
+            input.setCustomValidity("");
+        } else {
+            input.setCustomValidity("รูปแบบไม่ถูกต้อง (ตัวอย่าง: 000,000,000.00)");
+        }
+    }
 </script>
 
 </body>

@@ -1,304 +1,374 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tax-personal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="../assets/TD_web_icon.png">
-    <script src="../config.js"></script>
-    <style>
-        .font-mali {
-            font-family: 'Mali', sans-serif;
-        }
-    </style>
-</head>
-<body class="flex items-center justify-center min-h-screen bg-[#c4bcac]">
+    <!DOCTYPE html>
+    <html lang="th">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>tax-personal</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="icon" type="image/png" href="../assets/TD_web_icon.png">
+        <script src="../config.js"></script>
+        <style>
+            .font-mali {
+                font-family: 'Mali', sans-serif;
+            }
+        </style>
+    </head>
+    <body class="flex items-center justify-center min-h-screen bg-[#c4bcac]">
 
-<!-- Header -->
-<header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
-    <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <!-- โลโก้ / ชื่อเว็บ -->
-        <h1 class="text-2xl text-[#4e342e] font-bold font-mali">Tax2Ready</h1>
-        <!-- เมนูหลัก (Desktop) -->
-        <nav class="hidden md:flex space-x-6 relative">
+    <!-- Header -->
+    <header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <!-- โลโก้ / ชื่อเว็บ -->
+            <h1 class="text-2xl text-[#4e342e] font-bold font-mali">Tax2Ready</h1>
+            <!-- เมนูหลัก (Desktop) -->
+            <nav class="hidden md:flex space-x-6 relative">
+                <a href="account.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
+                <a href="home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
+                <!-- Dropdown for 'เรียนรู้เพิ่มเติม' -->
+                <div class="relative group">
+                    <button id="learn-more-btn" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline focus:outline-none">
+                        เรียนรู้เพิ่มเติม
+                    </button>
+                    <div id="learn-more-menu" class="absolute hidden bg-[#b49c74] mt-2 w-60 rounded-lg shadow-lg z-10 p-2">
+                        <ul>
+                            <li><a href="1tax-intro.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">1. ภาษีคืออะไร?</a></li>
+                            <li><a href="2why-pay-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">2. ทำไมเราต้องจ่ายภาษี?</a></li>
+                            <li><a href="3no-tax-consequence.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">3. ไม่จ่ายภาษีจะเกิดอะไรขึ้น?</a></li>
+                            <li><a href="4who-pays-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">4. ใครบ้างที่ต้องเริ่มจ่ายภาษี?</a></li>
+                            <li><a href="5income-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">5. รายได้ที่ต้องเสียภาษี?</a></li>
+                            <li><a href="6tax-deductions.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">6. สิทธิ์ลดหย่อนภาษี?</a></li>
+                            <li><a href="7tax-frequency.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">7. ต้องจ่ายภาษีบ่อยแค่ไหน?</a></li>
+                            <li><a href="8how-to-pay-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">8. มีวิธีจ่ายภาษีอย่างไร?</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="tax-personal.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
+                <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
+            </nav>
+            <!-- ปุ่ม Login (Desktop) -->
+            <button type="button" onclick="location.href='sign-in-up.html'" class="loginButton opacity-100 hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+                Login
+            </button>
+            <!-- เมนูมือถือ (Hamburger Icon) -->
+            <button class="md:hidden text-gray-600" id="mobile-menu-button">☰</button>
+        </div>
+        <!-- เมนูสำหรับมือถือ (ซ่อนอยู่) -->
+        <nav id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 mt-3 bg-[#b49c74] p-4">
             <a href="account.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
             <a href="home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
-            <!-- Dropdown for 'เรียนรู้เพิ่มเติม' -->
-            <div class="relative group">
-                <button id="learn-more-btn" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline focus:outline-none">
-                    เรียนรู้เพิ่มเติม
-                </button>
-                <div id="learn-more-menu" class="absolute hidden bg-[#b49c74] mt-2 w-60 rounded-lg shadow-lg z-10 p-2">
-                    <ul>
-                        <li><a href="1tax-intro.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">1. ภาษีคืออะไร?</a></li>
-                        <li><a href="2why-pay-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">2. ทำไมเราต้องจ่ายภาษี?</a></li>
-                        <li><a href="3no-tax-consequence.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">3. ไม่จ่ายภาษีจะเกิดอะไรขึ้น?</a></li>
-                        <li><a href="4who-pays-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">4. ใครบ้างที่ต้องเริ่มจ่ายภาษี?</a></li>
-                        <li><a href="5income-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">5. รายได้ที่ต้องเสียภาษี?</a></li>
-                        <li><a href="6tax-deductions.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">6. สิทธิ์ลดหย่อนภาษี?</a></li>
-                        <li><a href="7tax-frequency.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">7. ต้องจ่ายภาษีบ่อยแค่ไหน?</a></li>
-                        <li><a href="8how-to-pay-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">8. มีวิธีจ่ายภาษีอย่างไร?</a></li>
-                    </ul>
-                </div>
-            </div>
+            <a href="#" id="learn-more-btn-mobile" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
+            <ul id="learn-more-menu-mobile" class="hidden flex-col space-y-2 bg-[#b49c74] p-2 rounded-lg">
+                <li><a href="1tax-intro.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">1. ภาษีคืออะไร?</a></li>
+                <li><a href="2why-pay-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">2. ทำไมเราต้องจ่ายภาษี?</a></li>
+                <li><a href="3no-tax-consequence.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">3. ไม่จ่ายภาษีจะเกิดอะไรขึ้น?</a></li>
+                <li><a href="4who-pays-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">4. ใครบ้างที่ต้องเริ่มจ่ายภาษี?</a></li>
+                <li><a href="5income-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">5. รายได้ที่ต้องเสียภาษี?</a></li>
+                <li><a href="6tax-deductions.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">6. สิทธิ์ลดหย่อนภาษี?</a></li>
+                <li><a href="7tax-frequency.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">7. ต้องจ่ายภาษีบ่อยแค่ไหน?</a></li>
+                <li><a href="8how-to-pay-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">8. มีวิธีจ่ายภาษีอย่างไร?</a></li>
+            </ul>
             <a href="tax-personal.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
             <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
+            <button type="button" onclick="location.href='sign-in-up.html'" class="loginButton opacity-100 bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+                Login
+            </button>
         </nav>
-        <!-- ปุ่ม Login (Desktop) -->
-        <button type="button" onclick="location.href='sign-in-up.html'" class="loginButton opacity-100 hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
-            Login
-        </button>
-        <!-- เมนูมือถือ (Hamburger Icon) -->
-        <button class="md:hidden text-gray-600" id="mobile-menu-button">☰</button>
-    </div>
-    <!-- เมนูสำหรับมือถือ (ซ่อนอยู่) -->
-    <nav id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 mt-3 bg-[#b49c74] p-4">
-        <a href="account.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
-        <a href="home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
-        <a href="#" id="learn-more-btn-mobile" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
-        <ul id="learn-more-menu-mobile" class="hidden flex-col space-y-2 bg-[#b49c74] p-2 rounded-lg">
-            <li><a href="1tax-intro.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">1. ภาษีคืออะไร?</a></li>
-            <li><a href="2why-pay-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">2. ทำไมเราต้องจ่ายภาษี?</a></li>
-            <li><a href="3no-tax-consequence.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">3. ไม่จ่ายภาษีจะเกิดอะไรขึ้น?</a></li>
-            <li><a href="4who-pays-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">4. ใครบ้างที่ต้องเริ่มจ่ายภาษี?</a></li>
-            <li><a href="5income-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">5. รายได้ที่ต้องเสียภาษี?</a></li>
-            <li><a href="6tax-deductions.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">6. สิทธิ์ลดหย่อนภาษี?</a></li>
-            <li><a href="7tax-frequency.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">7. ต้องจ่ายภาษีบ่อยแค่ไหน?</a></li>
-            <li><a href="8how-to-pay-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">8. มีวิธีจ่ายภาษีอย่างไร?</a></li>
-        </ul>
-        <a href="tax-personal.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
-        <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
-        <button type="button" onclick="location.href='sign-in-up.html'" class="loginButton opacity-100 bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
-            Login
-        </button>
-    </nav>
-</header>
+    </header>
 
-<!-- Main Container -->
-<div id="main-container" class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
-    <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
-        <div class="w-full h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md flex flex-col justify-between font-mali">
-            <!-- หัวข้อใหญ่ -->
-            <h2 class="text-2xl md:text-3xl font-bold text-[#4e342e] text-center mb-4">
-                ยื่นแบบแสดงรายการภาษีเงินได้บุคคลธรรมดา ก.ย.90
-            </h2>
+    <!-- Main Container -->
+    <div id="main-container" class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
+        <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
+            <div class="w-full h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md flex flex-col justify-between font-mali">
+                <!-- หัวข้อใหญ่ -->
+                <h2 class="text-2xl md:text-3xl font-bold text-[#4e342e] text-center mb-4">
+                    ยื่นแบบแสดงรายการภาษีเงินได้บุคคลธรรมดา ก.ย.90
+                </h2>
 
-            <!-- สถานะการกรอก -->
-            <div class="flex justify-center space-x-8">
-                <!-- STEP 1: กรอกข้อมูลผู้เสียภาษี (กำลังกรอก) -->
-                <a href="tax-personal.html" class="flex flex-col items-center w-32 cursor-pointer" title="ขั้นตอนที่ 1: กรอกข้อมูลผู้เสียภาษี">
-                    <div class="bg-[#b49c74] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">1</div>
-                    <div class="border border-t-0 border-[#b49c74] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">ข้อมูลผู้เสียภาษี</div>
-                    <span class="text-xs text-[#4e342e] mt-1">กำลังกรอก</span>
-                </a>
-                <!-- STEP 2: กรอกเงินได้ (ยังไม่กรอก) -->
-                <a href="tax-calculator.html" class="flex flex-col items-center w-32 cursor-pointer" title="ขั้นตอนที่ 2: กรอกเงินได้">
-                    <div class="bg-[#f7efda] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">2</div>
-                    <div class="border border-t-0 border-[#f7efda] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">ข้อมูลเงินได้</div>
-                    <span class="text-xs text-gray-600 mt-1">ยังไม่กรอก</span>
-                </a>
-                <!-- STEP 3: สิทธิ์ลดหย่อน (ยังไม่กรอก) -->
-                <a href="tax-deduction.html" class="flex flex-col items-center w-32 cursor-pointer" title="ขั้นตอนที่ 3: สิทธิ์ลดหย่อน">
-                    <div class="bg-[#f7efda] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">3</div>
-                    <div class="border border-t-0 border-[#f7efda] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">สิทธิ์ลดหย่อน</div>
-                    <span class="text-xs text-gray-600 mt-1">ยังไม่กรอก</span>
-                </a>
-                <!-- STEP 4: ตรวจสอบข้อมูล (ยังไม่กรอก) -->
-                <a href="result.html" class="flex flex-col items-center w-32 cursor-pointer" title="ขั้นตอนที่ 4: ตรวจสอบข้อมูล">
-                    <div class="bg-[#f7efda] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">4</div>
-                    <div class="border border-t-0 border-[#f7efda] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">ตรวจสอบข้อมูล</div>
-                    <span class="text-xs text-gray-600 mt-1">ยังไม่กรอก</span>
-                </a>
-            </div>
-
-            <!-- แบบฟอร์ม -->
-            <div class="form-page overflow-y-auto text-start">
-                <div class="mt-6 bg-white p-6 rounded-lg">
-                    <h3 class="text-2xl font-semibold text-[#4e342e] text-center mb-4">ข้อมูลส่วนตัว</h3>
-                    <div>
-                        <label class="text-gray-700">เลขประจำตัวผู้เสียภาษีอากร:</label>
-                        <a href="#" onclick="toggleExample('exampleWPT5'); return false;">❓</a>
-                        <input type="text" class="w-full border p-2 mb-4">
-                        <p id="exampleWPT5" class="hidden text-gray-700 mt-2">
-                            เลขประจำตัวผู้เสียภาษีอากร คือ หมายเลข 13 หลัก ที่กรมสรรพากรออกให้ บุคคลหรือองค์กร
-                            เพื่อใช้ระบุว่าใครเป็นผู้เสียภาษี
-                        </p>
-                    </div>
-                    <label class="block mb-2">ชื่อ - นามสกุล:</label>
-                    <input type="text" class="w-full border p-2 mb-4">
-                    <label class="block mb-2">วันเกิด:</label>
-                    <input type="date" class="w-full border p-2 mb-4">
-                    <label class="block mb-2">สถานะ:</label>
-                    <select id="marital-status" class="w-full border p-2 mb-4">
-                        <option value="single">โสด</option>
-                        <option value="married">สมรส</option>
-                        <option value="widowed">หม้าย</option>
-                    </select>
+                <!-- สถานะการกรอก -->
+                <div class="flex justify-center space-x-8">
+                    <!-- STEP 1: กรอกข้อมูลผู้เสียภาษี (กำลังกรอก) -->
+                    <a href="tax-personal.html" class="flex flex-col items-center w-32 cursor-pointer" title="ขั้นตอนที่ 1: กรอกข้อมูลผู้เสียภาษี">
+                        <div class="bg-[#b49c74] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">1</div>
+                        <div class="border border-t-0 border-[#b49c74] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">ข้อมูลผู้เสียภาษี</div>
+                        <span class="text-xs text-[#4e342e] mt-1">กำลังกรอก</span>
+                    </a>
+                    <!-- STEP 2: กรอกเงินได้ (ยังไม่กรอก) -->
+                    <a href="tax-calculator.html" class="flex flex-col items-center w-32 cursor-pointer" title="ขั้นตอนที่ 2: กรอกเงินได้">
+                        <div class="bg-[#f7efda] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">2</div>
+                        <div class="border border-t-0 border-[#f7efda] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">ข้อมูลเงินได้</div>
+                        <span class="text-xs text-gray-600 mt-1">ยังไม่กรอก</span>
+                    </a>
+                    <!-- STEP 3: สิทธิ์ลดหย่อน (ยังไม่กรอก) -->
+                    <a href="tax-deduction.html" class="flex flex-col items-center w-32 cursor-pointer" title="ขั้นตอนที่ 3: สิทธิ์ลดหย่อน">
+                        <div class="bg-[#f7efda] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">3</div>
+                        <div class="border border-t-0 border-[#f7efda] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">สิทธิ์ลดหย่อน</div>
+                        <span class="text-xs text-gray-600 mt-1">ยังไม่กรอก</span>
+                    </a>
+                    <!-- STEP 4: ตรวจสอบข้อมูล (ยังไม่กรอก) -->
+                    <a href="result.html" class="flex flex-col items-center w-32 cursor-pointer" title="ขั้นตอนที่ 4: ตรวจสอบข้อมูล">
+                        <div class="bg-[#f7efda] text-[#4e342e] w-full text-center py-2 rounded-t-md font-mali font-bold">4</div>
+                        <div class="border border-t-0 border-[#f7efda] w-full text-center py-2 rounded-b-md font-mali text-[#4e342e]">ตรวจสอบข้อมูล</div>
+                        <span class="text-xs text-gray-600 mt-1">ยังไม่กรอก</span>
+                    </a>
                 </div>
-                <div>
-                    <!-- แบบฟอร์มคู่สมรส (ซ่อนเริ่มต้น) -->
-                    <div id="spouse-form" class="mt-6 bg-white p-6 rounded-lg hidden">
-                        <h3 class="text-2xl font-semibold text-[#4e342e] text-center mb-4">ข้อมูลคู่สมรส</h3>
-                        <label class="block mb-2">เลขประจำตัวผู้เสียภาษีอากรของคู่สมรส:</label>
-                        <input type="text" class="w-full border p-2 mb-4">
-                        <label class="block mb-2">ชื่อ - นามสกุล:</label>
-                        <input type="text" class="w-full border p-2 mb-4">
-                        <label class="block mb-2">วันเกิดของคู่สมรส:</label>
-                        <input type="date" class="w-full border p-2 mb-4">
-                    </div>
 
-                    <!-- Modal สำหรับข้อมูลคู่สมรส -->
-                    <div id="alertModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-                        <div class="bg-white rounded-lg shadow-lg p-6 w-[350px] text-center">
-                            <p class="text-lg text-gray-800 font-semibold">
-                                ท่านต้องการที่จะบันทึกข้อมูลคู่สมรสหรือไม่?
+                <!-- แบบฟอร์ม -->
+                <div class="form-page overflow-y-auto text-start">
+                    <div class="mt-6 bg-white p-6 rounded-lg">
+                        <h3 class="text-2xl font-semibold text-[#4e342e] text-center mb-4">ข้อมูลส่วนตัว</h3>
+                        <div>
+                            <label class="text-gray-700">เลขประจำตัวผู้เสียภาษีอากร:</label>
+                            <a href="#" onclick="toggleExample('exampleWPT5'); return false;">❓</a>
+                            <!-- เพิ่ม id="taxId" -->
+                            <input id="taxId" type="text" class="w-full border p-2 mb-4">
+                            <p id="exampleWPT5" class="hidden text-gray-700 mt-2">
+                                เลขประจำตัวผู้เสียภาษีอากร คือ หมายเลข 13 หลัก ที่กรมสรรพากรออกให้
                             </p>
-                            <div class="flex justify-center gap-4 mt-4">
-                                <button id="no-spouse" class="px-4 py-2 bg-gray-400 text-white rounded-lg shadow">
-                                    ไม่บันทึก
-                                </button>
-                                <button id="yes-spouse" class="px-4 py-2 bg-green-500 text-white rounded-lg shadow">
-                                    ต้องการบันทึก
-                                </button>
+                        </div>
+                        <label class="block mb-2">ชื่อ - นามสกุล:</label>
+                        <!-- เพิ่ม id="fullName" -->
+                        <input id="fullName" type="text" class="w-full border p-2 mb-4">
+                        <label class="block mb-2">วันเกิด:</label>
+                        <!-- เพิ่ม id="birthDate" -->
+                        <input id="birthDate" type="date" class="w-full border p-2 mb-4">
+                        <label class="block mb-2">สถานะ:</label>
+                        <select id="marital-status" class="w-full border p-2 mb-4">
+                            <option value="single">โสด</option>
+                            <option value="married">สมรส</option>
+                            <option value="widowed">หม้าย</option>
+                        </select>
+                    </div>
+                    <div>
+                        <!-- แบบฟอร์มคู่สมรส (ซ่อนเริ่มต้น) -->
+                        <div id="spouse-form" class="mt-6 bg-white p-6 rounded-lg hidden">
+                            <h3 class="text-2xl font-semibold text-[#4e342e] text-center mb-4">ข้อมูลคู่สมรส</h3>
+                            <label class="block mb-2">เลขประจำตัวผู้เสียภาษีอากรของคู่สมรส:</label>
+                            <!-- เพิ่ม id="spouseTaxId" -->
+                            <input id="spouseTaxId" type="text" class="w-full border p-2 mb-4">
+                            <label class="block mb-2">ชื่อ - นามสกุล:</label>
+                            <!-- เพิ่ม id="spouseFullName" -->
+                            <input id="spouseFullName" type="text" class="w-full border p-2 mb-4">
+                            <label class="block mb-2">วันเกิดของคู่สมรส:</label>
+                            <!-- เพิ่ม id="spouseBirthDate" -->
+                            <input id="spouseBirthDate" type="date" class="w-full border p-2 mb-4">
+                        </div>
+
+                        <!-- Modal สำหรับข้อมูลคู่สมรส -->
+                        <div id="alertModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+                            <div class="bg-white rounded-lg shadow-lg p-6 w-[350px] text-center">
+                                <p class="text-lg text-gray-800 font-semibold">
+                                    ท่านต้องการที่จะบันทึกข้อมูลคู่สมรสหรือไม่?
+                                </p>
+                                <div class="flex justify-center gap-4 mt-4">
+                                    <button id="no-spouse" class="px-4 py-2 bg-gray-400 text-white rounded-lg shadow">
+                                        ไม่บันทึก
+                                    </button>
+                                    <button id="yes-spouse" class="px-4 py-2 bg-green-500 text-white rounded-lg shadow">
+                                        ต้องการบันทึก
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- ปุ่มบันทึกข้อมูลทั้งหมด -->
-                    <button id="saveButton" class="w-full mt-4 px-4 py-2 bg-[#4e342e] text-white rounded-lg shadow">
-                        บันทึก
-                    </button>
+                        <!-- ปุ่มบันทึกข้อมูลทั้งหมด -->
+                        <button id="saveButton" class="w-full mt-4 px-4 py-2 bg-[#4e342e] text-white rounded-lg shadow">
+                            บันทึก
+                        </button>
 
-                    <!-- Modal สำหรับยืนยันการบันทึกข้อมูล -->
-                    <div id="saveModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-                        <div class="bg-white rounded-lg shadow-lg p-6 w-[350px] text-center">
-                            <p class="text-lg text-gray-800 font-semibold">คุณต้องการบันทึกข้อมูลทั้งหมดหรือไม่?</p>
-                            <div class="flex justify-center gap-4 mt-4">
-                                <button id="cancelSave" class="px-4 py-2 bg-gray-400 text-white rounded-lg shadow">
-                                    ยกเลิก
-                                </button>
-                                <button id="confirmSave" class="px-4 py-2 bg-green-500 text-white rounded-lg shadow">
-                                    บันทึก
-                                </button>
+                        <!-- Modal สำหรับยืนยันการบันทึกข้อมูล -->
+                        <div id="saveModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+                            <div class="bg-white rounded-lg shadow-lg p-6 w-[350px] text-center">
+                                <p class="text-lg text-gray-800 font-semibold">คุณต้องการบันทึกข้อมูลทั้งหมดหรือไม่?</p>
+                                <div class="flex justify-center gap-4 mt-4">
+                                    <button id="cancelSave" class="px-4 py-2 bg-gray-400 text-white rounded-lg shadow">
+                                        ยกเลิก
+                                    </button>
+                                    <button id="confirmSave" class="px-4 py-2 bg-green-500 text-white rounded-lg shadow">
+                                        บันทึก
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Script สำหรับฟังก์ชันภายในแบบฟอร์ม -->
-                    <script>
-                        // สลับการแสดงผลของข้อความตัวอย่าง
-                        function toggleExample(id) {
-                            var element = document.getElementById(id);
-                            if (element.classList.contains("hidden")) {
-                                element.classList.remove("hidden");
-                            } else {
-                                element.classList.add("hidden");
+                        <!-- Script สำหรับฟังก์ชันภายในแบบฟอร์ม -->
+                        <script>
+                            // สลับการแสดงผลของข้อความตัวอย่าง
+                            function toggleExample(id) {
+                                var element = document.getElementById(id);
+                                element.classList.toggle("hidden");
                             }
-                        }
 
-                        // เมื่อเปลี่ยนสถานะ ให้แสดง Modal ถ้าสมรส
-                        document.getElementById("marital-status").addEventListener("change", function () {
-                            let status = this.value;
-                            if (status === "married") {
-                                document.getElementById("alertModal").classList.remove("hidden");
-                            } else {
+                            // ฟังก์ชันตรวจสอบเลขประจำตัวผู้เสียภาษี (ต้องเป็น 13 หลักและเป็นตัวเลขทั้งหมด)
+                            function isValidTaxId(taxId) {
+                                var raw = taxId.replace(/-/g, "").trim();
+                                if (raw.length !== 13) return false;
+                                return /^\d{13}$/.test(raw);
+                            }
+
+                            // ฟังก์ชันแปลงเลขประจำตัวเป็นรูปแบบ x-xxxx-xxxxx-xx-x
+                            function formatTaxId(taxId) {
+                                var raw = taxId.replace(/-/g, "").trim();
+                                if (raw.length !== 13) return taxId;
+                                return raw[0] + "-" + raw.substr(1, 4) + "-" + raw.substr(5, 5) + "-" + raw.substr(10, 2) + "-" + raw.substr(12, 1);
+                            }
+
+                            // เมื่อเปลี่ยนสถานะ ให้แสดง Modal ถ้าสมรส
+                            document.getElementById("marital-status").addEventListener("change", function () {
+                                let status = this.value;
+                                if (status === "married") {
+                                    document.getElementById("alertModal").classList.remove("hidden");
+                                } else {
+                                    document.getElementById("spouse-form").classList.add("hidden");
+                                }
+                            });
+
+                            // ไม่บันทึกข้อมูลคู่สมรส
+                            document.getElementById("no-spouse").addEventListener("click", function () {
+                                document.getElementById("alertModal").classList.add("hidden");
                                 document.getElementById("spouse-form").classList.add("hidden");
-                            }
-                        });
+                            });
 
-                        // ไม่บันทึกข้อมูลคู่สมรส
-                        document.getElementById("no-spouse").addEventListener("click", function () {
-                            document.getElementById("alertModal").classList.add("hidden");
-                            document.getElementById("spouse-form").classList.add("hidden");
-                        });
+                            // บันทึกข้อมูลคู่สมรส
+                            document.getElementById("yes-spouse").addEventListener("click", function () {
+                                document.getElementById("alertModal").classList.add("hidden");
+                                document.getElementById("spouse-form").classList.remove("hidden");
+                            });
 
-                        // บันทึกข้อมูลคู่สมรส
-                        document.getElementById("yes-spouse").addEventListener("click", function () {
-                            document.getElementById("alertModal").classList.add("hidden");
-                            document.getElementById("spouse-form").classList.remove("hidden");
-                        });
+                            // เมื่อกดปุ่ม "บันทึก" ตรวจสอบข้อมูลและบันทึกลง localStorage
+                            document.getElementById("saveButton").addEventListener("click", function () {
+                                // ดึงค่าจากฟิลด์
+                                var taxId = document.getElementById("taxId").value.trim();
+                                var fullName = document.getElementById("fullName").value.trim();
+                                var birthDate = document.getElementById("birthDate").value;
+                                var maritalStatus = document.getElementById("marital-status").value;
 
-                        // เมื่อกดปุ่ม "บันทึก" แสดง Modal ยืนยัน
-                        document.getElementById("saveButton").addEventListener("click", function () {
-                            document.getElementById("saveModal").classList.remove("hidden");
-                        });
+                                // ตรวจสอบข้อมูลพื้นฐาน
+                                if (!taxId || !fullName || !birthDate || !maritalStatus) {
+                                    alert("กรุณากรอกข้อมูลในทุกช่องของข้อมูลส่วนตัว");
+                                    return;
+                                }
 
-                        // ยกเลิกการบันทึกข้อมูล
-                        document.getElementById("cancelSave").addEventListener("click", function () {
-                            document.getElementById("saveModal").classList.add("hidden");
-                        });
+                                // ตรวจสอบเลขประจำตัวผู้เสียภาษี
+                                if (!isValidTaxId(taxId)) {
+                                    alert("เลขประจำตัวผู้เสียภาษีอากรไม่ถูกต้อง กรุณากรอกให้ครบ 13 หลักและเป็นตัวเลขทั้งหมด");
+                                    return;
+                                }
 
-                        // ยืนยันการบันทึกและเปลี่ยนหน้า
-                        document.getElementById("confirmSave").addEventListener("click", function () {
-                            window.location.href = "tax-calculator.html";
-                        });
-                    </script>
+                                // ถ้าสถานะเป็นสมรส ให้ตรวจสอบข้อมูลคู่สมรส
+                                if (maritalStatus === "married") {
+                                    var spouseTaxId = document.getElementById("spouseTaxId").value.trim();
+                                    var spouseFullName = document.getElementById("spouseFullName").value.trim();
+                                    var spouseBirthDate = document.getElementById("spouseBirthDate").value;
+                                    if (!spouseTaxId || !spouseFullName || !spouseBirthDate) {
+                                        alert("กรุณากรอกข้อมูลของคู่สมรสให้ครบถ้วน");
+                                        return;
+                                    }
+                                    if (!isValidTaxId(spouseTaxId)) {
+                                        alert("เลขประจำตัวผู้เสียภาษีอากรของคู่สมรสไม่ถูกต้อง กรุณากรอกให้ครบ 13 หลักและเป็นตัวเลขทั้งหมด");
+                                        return;
+                                    }
+                                    // แปลงรูปแบบเลขประจำตัวของคู่สมรส
+                                    document.getElementById("spouseTaxId").value = formatTaxId(spouseTaxId);
+                                }
+
+                                // แปลงรูปแบบเลขประจำตัวผู้เสียภาษี
+                                document.getElementById("taxId").value = formatTaxId(taxId);
+
+                                // บันทึกข้อมูลลง localStorage
+                                var formData = {
+                                    taxId: document.getElementById("taxId").value,
+                                    fullName: fullName,
+                                    birthDate: birthDate,
+                                    maritalStatus: maritalStatus
+                                };
+                                if (maritalStatus === "married") {
+                                    formData.spouseTaxId = document.getElementById("spouseTaxId").value;
+                                    formData.spouseFullName = document.getElementById("spouseFullName").value.trim();
+                                    formData.spouseBirthDate = document.getElementById("spouseBirthDate").value;
+                                }
+                                localStorage.setItem("taxFormData", JSON.stringify(formData));
+
+                                // แสดง Modal ยืนยัน (ถ้าต้องการใช้งาน Modal ยืนยันให้เปิดใช้ส่วนนี้)
+                                document.getElementById("saveModal").classList.remove("hidden");
+                            });
+
+                            // ยกเลิกการบันทึกข้อมูล
+                            document.getElementById("cancelSave").addEventListener("click", function () {
+                                document.getElementById("saveModal").classList.add("hidden");
+                            });
+
+                            // ยืนยันการบันทึกและเปลี่ยนหน้า (ตัวอย่างเปลี่ยนไปหน้าถัดไป)
+                            document.getElementById("confirmSave").addEventListener("click", function () {
+                                window.location.href = "tax-calculator.html";
+                            });
+
+                            // โหลดข้อมูลที่บันทึกไว้ (ถ้ามี) เมื่อโหลดหน้า
+                            document.addEventListener("DOMContentLoaded", function () {
+                                var savedData = localStorage.getItem("taxFormData");
+                                if (savedData) {
+                                    var data = JSON.parse(savedData);
+                                    document.getElementById("taxId").value = data.taxId || "";
+                                    document.getElementById("fullName").value = data.fullName || "";
+                                    document.getElementById("birthDate").value = data.birthDate || "";
+                                    document.getElementById("marital-status").value = data.maritalStatus || "single";
+                                    if (data.maritalStatus === "married") {
+                                        document.getElementById("spouse-form").classList.remove("hidden");
+                                        document.getElementById("spouseTaxId").value = data.spouseTaxId || "";
+                                        document.getElementById("spouseFullName").value = data.spouseFullName || "";
+                                        document.getElementById("spouseBirthDate").value = data.spouseBirthDate || "";
+                                    }
+                                }
+                            });
+                        </script>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- สคริปต์ทั้งหมดจัดวางไว้ด้านล่างก่อนปิด </body> -->
-<script src="../js/script.js"></script>
-<script>
-    // ทำให้เมนูมือถือแสดง / ซ่อน (สำหรับ header ทั้งหมด)
-    document.getElementById("mobile-menu-button").addEventListener("click", function () {
-        document.getElementById("mobile-menu").classList.toggle("hidden");
-    });
-
-    // เมนู "เรียนรู้เพิ่มเติม" (Desktop)
-    document.getElementById("learn-more-btn").addEventListener("click", function () {
-        document.getElementById("learn-more-menu").classList.toggle("hidden");
-    });
-
-    // เมนู "เรียนรู้เพิ่มเติม" (Mobile)
-    document.getElementById("learn-more-btn-mobile").addEventListener("click", function () {
-        document.getElementById("learn-more-menu-mobile").classList.toggle("hidden");
-    });
-
-    // สำหรับลิงก์ที่มีคลาส .nav-link (ถ้ามี)
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function (event) {
-            event.preventDefault();
-            let page = this.getAttribute('data-page');
-            fetch("pages/" + page)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('main-container').innerHTML = data;
-                })
-                .catch(error => console.error('Error loading page:', error));
+    <!-- สคริปต์สำหรับ Header และฟังก์ชันอื่นๆ (คงเดิม) -->
+    <script src="../js/script.js"></script>
+    <script>
+        // สคริปต์สำหรับเมนูมือถือและเมนู "เรียนรู้เพิ่มเติม"
+        document.getElementById("mobile-menu-button").addEventListener("click", function () {
+            document.getElementById("mobile-menu").classList.toggle("hidden");
         });
-    });
 
-    // ตรวจสอบสถานะการเข้าสู่ระบบ (Session Validation)
-    document.addEventListener("DOMContentLoaded", function () {
-        const token = 'Bearer ' + localStorage.getItem('jwt_token');
-        fetch(window.CONFIG.BASE_PATH + '/users/is-valid', {
-            method: 'GET',
-            headers: { 'Authorization': token }
-        })
-            .then(response => {
-                document.querySelectorAll('.loginButton').forEach(button => {
-                    if (response.status === 200) {
-                        button.classList.add('opacity-0', 'pointer-events-none');
-                        button.classList.remove('opacity-100');
-                    } else {
+        document.getElementById("learn-more-btn").addEventListener("click", function () {
+            document.getElementById("learn-more-menu").classList.toggle("hidden");
+        });
+
+        document.getElementById("learn-more-btn-mobile").addEventListener("click", function () {
+            document.getElementById("learn-more-menu-mobile").classList.toggle("hidden");
+        });
+
+        // ตรวจสอบสถานะการเข้าสู่ระบบ (Session Validation)
+        document.addEventListener("DOMContentLoaded", function () {
+            const token = 'Bearer ' + localStorage.getItem('jwt_token');
+            fetch(window.CONFIG.BASE_PATH + '/users/is-valid', {
+                method: 'GET',
+                headers: { 'Authorization': token }
+            })
+                .then(response => {
+                    document.querySelectorAll('.loginButton').forEach(button => {
+                        if (response.status === 200) {
+                            button.classList.add('opacity-0', 'pointer-events-none');
+                            button.classList.remove('opacity-100');
+                        } else {
+                            button.classList.remove('opacity-0', 'pointer-events-none');
+                            button.classList.add('opacity-100');
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.querySelectorAll('.loginButton').forEach(button => {
                         button.classList.remove('opacity-0', 'pointer-events-none');
                         button.classList.add('opacity-100');
-                    }
+                    });
                 });
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.querySelectorAll('.loginButton').forEach(button => {
-                    button.classList.remove('opacity-0', 'pointer-events-none');
-                    button.classList.add('opacity-100');
-                });
-            });
-    });
-</script>
-</body>
-</html>
+        });
+    </script>
+    </body>
+    </html>
