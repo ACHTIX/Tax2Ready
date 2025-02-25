@@ -28,10 +28,7 @@
             Tax2Ready
         </h1>
         <nav class="hidden md:flex space-x-6">
-            <a
-                    href="../tax-calculator.html"
-                    class="hidden md:block bg-[#4e342e] text-white px-4 py-2 rounded-lg hover:bg-[#8d6e63]"
-            >
+            <a href="../tax-calculator.html" class="hidden md:block bg-[#4e342e] text-white px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
                 ย้อนกลับ
             </a>
         </nav>
@@ -41,24 +38,17 @@
 <!-- Main Container -->
 <div id="main-container"
      class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col md:flex-row justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
-
     <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
-    <!-- กล่องหลักสำหรับแสดงรายการ -->
-        <div class="w-full h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md gap-2 flex flex-col justify-start items-stretch font-mali">
-
+        <!-- กล่องหลักสำหรับแสดงรายการ -->
+        <div class="w-full h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md gap-2 flex flex-col justify-start items-stretch font-mali overflow-auto">
             <!-- ส่วนหัวเรื่อง -->
             <h2 class="text-2xl font-bold mb-4">เงินเดือนและค่าจ้างตามสัญญาแรงงาน</h2>
-
             <!-- โซนแสดงรายการทั้งหมด -->
             <div id="itemContainer" class="flex flex-col space-y-4">
                 <!-- รายการที่ 1 (บังคับกรอก และห้ามลบ) -->
                 <div class="relative border border-gray-300 rounded p-4" data-index="1">
                     <!-- ปุ่มลบที่มุมขวาบน (รายการแรก disable) -->
-                    <button
-                            class="absolute top-0 right-0 mt-1 mr-1 hover:rounded px-1 py-1 h- cursor-not-allowed opacity-50"
-                            title="ไม่สามารถลบรายการนี้ได้"
-                            disabled
-                    >
+                    <button class="absolute top-0 right-0 mt-1 mr-1 hover:rounded px-1 py-1 h-10 cursor-not-allowed opacity-50" title="ไม่สามารถลบรายการนี้ได้" disabled>
                         ❌
                     </button>
                     <strong class="block mb-2">รายการที่ 1</strong>
@@ -67,31 +57,18 @@
                         <!-- เงินเพิ่มให้ทั้งหมด -->
                         <label class="flex flex-col text-left">
                             <span class="mb-1">เงินเพิ่มให้ทั้งหมด:</span>
-                            <input
-                                    type="number"
-                                    class="amount border border-gray-300 rounded px-2 py-1 h-10 w-52 focus:outline-none focus:ring-2 focus:ring-blue-300"
-                                    placeholder="ใส่จำนวน"
-                                    required>
+                            <input type="number" class="amount border border-gray-300 rounded px-2 py-1 h-10 w-52 focus:outline-none focus:ring-2 focus:ring-blue-300" placeholder="ใส่จำนวน" required>
                         </label>
-
                         <!-- ภาษีนำเข้า/ที่ซื้อ -->
                         <label class="flex flex-col text-left">
                             <span class="mb-1">ภาษีนำเข้า/ที่ซื้อ:</span>
-                            <input
-                                    type="number"
-                                    class="tax border border-gray-300 rounded px-2 py-1 h-10 w-52 focus:outline-none focus:ring-2 focus:ring-blue-300"
-                                    placeholder="หากไม่มีให้เป็น 0"
-                                    required>
+                            <input type="number" class="tax border border-gray-300 rounded px-2 py-1 h-10 w-52 focus:outline-none focus:ring-2 focus:ring-blue-300" placeholder="หากไม่มีให้เป็น 0" required>
                         </label>
-
                         <!-- เลขประจำตัวผู้เสียภาษี (Tooltip) -->
                         <label class="flex flex-col text-left">
                             <span class="mb-1">เลขประจำตัวผู้เสียภาษี:</span>
                             <div class="flex items-center">
-                                <input
-                                        type="text"
-                                        class="tax-id border border-gray-300 rounded px-2 py-1 h-10 w-52 focus:outline-none focus:ring-2 focus:ring-blue-300"
-                                        placeholder="เลขประจำตัวผู้เสียภาษี">
+                                <input type="text" class="tax-id border border-gray-300 rounded px-2 py-1 h-10 w-52 focus:outline-none focus:ring-2 focus:ring-blue-300" placeholder="เลขประจำตัวผู้เสียภาษี">
                                 <!-- Tooltip -->
                                 <div class="tooltip-container relative ml-2 cursor-pointer text-blue-600 font-bold">
                                     ?
@@ -101,14 +78,13 @@
                                 </div>
                             </div>
                         </label>
-
                         <!-- ผู้ขายเป็น -->
                         <label class="flex flex-col text-left">
                             <span class="mb-1">ผู้ขายเป็น:</span>
-                            <select
-                                    class="seller-type border border-gray-300 rounded px-2 py-1 h-10 w-52 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                            <select class="seller-type border border-gray-300 rounded px-2 py-1 h-10 w-52 focus:outline-none focus:ring-2 focus:ring-blue-300">
                                 <option value="บุคคลธรรมดา">บุคคลธรรมดา</option>
                                 <option value="นิติบุคคล">นิติบุคคล</option>
+                                <option value="ผู้จ่ายเงินได้จากต่างประเทศ">ผู้จ่ายเงินได้จากต่างประเทศ</option>
                             </select>
                         </label>
                     </div>
@@ -116,9 +92,7 @@
             </div>
 
             <!-- ปุ่มเพิ่มรายการ -->
-            <button
-                    id="addItemButton"
-                    class="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+            <button id="addItemButton" class="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
                 + เพิ่มรายการอื่น
             </button>
 
@@ -139,12 +113,8 @@
                 <div class="bg-white rounded-lg shadow-lg p-6 w-[350px] text-center">
                     <p class="text-lg text-gray-800 font-semibold">คุณต้องการบันทึกข้อมูลทั้งหมดหรือไม่?</p>
                     <div class="flex justify-center gap-4 mt-4">
-                        <button id="cancelSave" class="px-4 py-2 bg-gray-400 text-white rounded-lg shadow">
-                            ยกเลิก
-                        </button>
-                        <button id="confirmSave" class="px-4 py-2 bg-green-500 text-white rounded-lg shadow">
-                            บันทึก
-                        </button>
+                        <button id="cancelSave" class="px-4 py-2 bg-gray-400 text-white rounded-lg shadow">ยกเลิก</button>
+                        <button id="confirmSave" class="px-4 py-2 bg-green-500 text-white rounded-lg shadow">บันทึก</button>
                     </div>
                 </div>
             </div>
@@ -160,14 +130,10 @@
 </div>
 
 <!-- Modal รายละเอียดการคำนวณ -->
-<div
-        id="calculationModal"
-        class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20">
+<div id="calculationModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20">
     <div class="bg-white p-6 rounded shadow-md w-full max-w-3xl relative text-left">
         <!-- ปุ่มปิด Modal -->
-        <button
-                id="closeModal"
-                class="absolute top-2 right-2 text-gray-600 text-xl hover:text-gray-800">
+        <button id="closeModal" class="absolute top-2 right-2 text-gray-600 text-xl hover:text-gray-800">
             ❌
         </button>
         <h2 class="text-xl font-bold mb-4">รายละเอียดการคำนวณ</h2>
@@ -195,22 +161,33 @@
     </div>
 </div>
 
+<!-- JavaScript Code -->
 <script>
     // เมื่อกดปุ่ม "บันทึก" สำหรับข้อมูลทั้งหมด
     document.getElementById("saveButton").addEventListener("click", function () {
+        // คำนวณผลรวมที่แสดงในส่วนสรุป
+        calculateTotals();
+        // บันทึกค่าที่คำนวณได้ลง localStorage
+        var resultAmount = parseFloat(document.getElementById("sumAmount").textContent) || 0;
+        var resultTax = parseFloat(document.getElementById("sumTax").textContent) || 0;
+        localStorage.setItem("salaryAmount", resultAmount);
+        localStorage.setItem("salaryTax", resultTax);
+        localStorage.setItem("salaryTotal", parseFloat(document.getElementById("sumTotal").textContent) || 0);
         document.getElementById("saveModal").classList.remove("hidden");
     });
 
-    // ยืนยันการบันทึกข้อมูลทั้งหมดและเปลี่ยนหน้าไปยัง tax-calculator.html
+    // ยืนยันการบันทึกข้อมูลและเปลี่ยนหน้าไปยังหน้าหลัก (สมมุติว่า ../tax-calculator.html คือหน้าหลัก)
     document.getElementById("confirmSave").addEventListener("click", function () {
         window.location.href = "../tax-calculator.html";
     });
 
-    // ตัวแปรโซนรายการ
+    document.getElementById("cancelSave").addEventListener("click", function () {
+        document.getElementById("saveModal").classList.add("hidden");
+    });
+
+    // ตัวแปรสำหรับรายการในหน้ารายละเอียด
     const itemContainer = document.getElementById('itemContainer');
     const addItemButton = document.getElementById('addItemButton');
-
-    // ตัวแปรแสดงยอดรวม
     const sumAmountEl = document.getElementById('sumAmount');
     const sumTaxEl = document.getElementById('sumTax');
     const sumTotalEl = document.getElementById('sumTotal');
@@ -221,19 +198,15 @@
     function calculateTotals() {
         let totalAmount = 0;
         let totalTax = 0;
-
         const rows = document.querySelectorAll('.border[data-index]');
         rows.forEach(row => {
             const amountInput = row.querySelector('.amount');
             const taxInput = row.querySelector('.tax');
-
             const amount = parseFloat(amountInput.value) || 0;
             const tax = parseFloat(taxInput.value) || 0;
-
             totalAmount += amount;
             totalTax += tax;
         });
-
         sumAmountEl.textContent = totalAmount.toFixed(2);
         sumTaxEl.textContent = totalTax.toFixed(2);
         sumTotalEl.textContent = (totalAmount + totalTax).toFixed(2);
@@ -242,50 +215,27 @@
     // ฟังก์ชันเพิ่มรายการใหม่
     function addItem() {
         itemIndex++;
-
-        // สร้าง div สำหรับ "รายการ" ใหม่ (เพิ่ม relative เพื่อรองรับตำแหน่ง absolute ของปุ่มลบ)
         const newRow = document.createElement('div');
         newRow.className = 'relative border border-gray-300 rounded p-4';
         newRow.setAttribute('data-index', itemIndex);
-
         newRow.innerHTML = `
-        <!-- ปุ่มลบที่มุมขวาบน -->
-        <button
-          class="absolute top-0 right-0 mt-1 mr-1 hover:rounded px-1 py-1 h-10"
-          title="ลบรายการนี้">
+        <button class="absolute top-0 right-0 mt-1 mr-1 hover:rounded px-1 py-1 h-10" title="ลบรายการนี้">
           ❌
         </button>
         <strong class="block mb-2">รายการที่ ${itemIndex}</strong>
         <div class="flex flex-wrap gap-4 items-center">
-          <!-- เงินเพิ่มให้ทั้งหมด -->
           <label class="flex flex-col text-left">
             <span class="mb-1">เงินเพิ่มให้ทั้งหมด:</span>
-            <input
-              type="number"
-              class="amount border border-gray-300 rounded px-2 py-1 h-10 w-52 focus:outline-none focus:ring-2 focus:ring-blue-300"
-              placeholder="ใส่จำนวน"
-              required>
+            <input type="number" class="amount border border-gray-300 rounded px-2 py-1 h-10 w-52 focus:outline-none focus:ring-2 focus:ring-blue-300" placeholder="ใส่จำนวน" required>
           </label>
-
-          <!-- ภาษีนำเข้า/ที่ซื้อ -->
           <label class="flex flex-col text-left">
             <span class="mb-1">ภาษีนำเข้า/ที่ซื้อ:</span>
-            <input
-              type="number"
-              class="tax border border-gray-300 rounded px-2 py-1 h-10 w-52 focus:outline-none focus:ring-2 focus:ring-blue-300"
-              placeholder="หากไม่มีให้เป็น 0"
-              required>
+            <input type="number" class="tax border border-gray-300 rounded px-2 py-1 h-10 w-52 focus:outline-none focus:ring-2 focus:ring-blue-300" placeholder="หากไม่มีให้เป็น 0" required>
           </label>
-
-          <!-- เลขประจำตัวผู้เสียภาษี (Tooltip) -->
           <label class="flex flex-col text-left">
             <span class="mb-1">เลขประจำตัวผู้เสียภาษี:</span>
             <div class="flex items-center">
-              <input
-                type="text"
-                class="tax-id border border-gray-300 rounded px-2 py-1 h-10 w-52 focus:outline-none focus:ring-2 focus:ring-blue-300"
-                placeholder="เลขประจำตัวผู้เสียภาษี">
-              <!-- Tooltip -->
+              <input type="text" class="tax-id border border-gray-300 rounded px-2 py-1 h-10 w-52 focus:outline-none focus:ring-2 focus:ring-blue-300" placeholder="เลขประจำตัวผู้เสียภาษี">
               <div class="tooltip-container relative ml-2 cursor-pointer text-blue-600 font-bold">
                 ?
                 <div class="tooltip-text absolute hidden bg-black text-white text-sm px-2 py-1 rounded left-full top-0 ml-2 w-64 z-20">
@@ -294,59 +244,35 @@
               </div>
             </div>
           </label>
-
-          <!-- ผู้ขายเป็น -->
           <label class="flex flex-col text-left">
             <span class="mb-1">ผู้ขายเป็น:</span>
             <select class="seller-type border border-gray-300 rounded px-2 py-1 h-10 w-52 focus:outline-none focus:ring-2 focus:ring-blue-300">
               <option value="บุคคลธรรมดา">บุคคลธรรมดา</option>
               <option value="นิติบุคคล">นิติบุคคล</option>
-              <option value="นิติบุคคล">ผู้จ่ายเงินได้จากต่างประเทศ</option>
+              <option value="ผู้จ่ายเงินได้จากต่างประเทศ">ผู้จ่ายเงินได้จากต่างประเทศ</option>
             </select>
           </label>
         </div>
       `;
-
-        // เมื่อกดปุ่มลบ จะลบรายการออก
         const removeButton = newRow.querySelector('button');
         removeButton.addEventListener('click', () => {
             newRow.remove();
             calculateTotals();
         });
-
-        // ผูก event ให้ input เพื่อคำนวณใหม่เมื่อมีการกรอกข้อมูล
         const amountInput = newRow.querySelector('.amount');
         const taxInput = newRow.querySelector('.tax');
         amountInput.addEventListener('input', calculateTotals);
         taxInput.addEventListener('input', calculateTotals);
-
-        // เพิ่มลงใน container
         itemContainer.appendChild(newRow);
     }
 
-    // เมื่อคลิกปุ่ม "เพิ่มรายการ"
     addItemButton.addEventListener('click', addItem);
-
-    // ผูก event กับรายการที่ 1 (เพื่อคำนวณผลรวมเมื่อกรอก)
+    // ผูก event ให้กับรายการแรก
     const firstRow = document.querySelector('.border[data-index="1"]');
     const firstAmountInput = firstRow.querySelector('.amount');
     const firstTaxInput = firstRow.querySelector('.tax');
     firstAmountInput.addEventListener('input', calculateTotals);
     firstTaxInput.addEventListener('input', calculateTotals);
-
-    // จัดการแสดง/ซ่อน Modal “รายละเอียดการคำนวณ”
-    const calculationLink = document.getElementById('calculationLink');
-    const calculationModal = document.getElementById('calculationModal');
-    const closeModal = document.getElementById('closeModal');
-
-    calculationLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        calculationModal.classList.remove('hidden');
-    });
-
-    closeModal.addEventListener('click', () => {
-        calculationModal.classList.add('hidden');
-    });
 </script>
 </body>
 </html>

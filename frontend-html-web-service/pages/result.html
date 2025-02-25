@@ -68,10 +68,10 @@
                class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
         </nav>
 
-
         <!-- ปุ่ม Login (Desktop) -->
         <button type="button" onclick="location.href='sign-in-up.html'"
-                class="loginButton opacity-100 hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">Login
+                class="loginButton opacity-100 hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+            Login
         </button>
 
         <!-- เมนูมือถือ (Hamburger Icon) -->
@@ -131,14 +131,14 @@
             text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
 
     <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
-        <div class="w-full h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md flex flex-col justify-between font-mali">
-
-
+        <!-- กล่องใหญ่ด้านซ้าย (ขั้นตอน + PDF) -->
+        <div class="w-full h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md flex flex-col justify-between font-mali overflow-auto">
             <!-- หัวข้อใหญ่ -->
             <h2 class="text-2xl md:text-3xl font-bold text-[#4e342e] text-center mb-4">
                 แสดงผลลัพท์
             </h2>
 
+            <!-- แสดงขั้นตอน -->
             <div class="flex justify-center space-x-4 mb-6">
                 <!-- STEP 1 -->
                 <a href="tax-personal.html"
@@ -193,11 +193,10 @@
                 </a>
             </div>
 
-            <!-- เพิ่ม div นี้เพื่อวาง PDF เคียงข้างกันในจอ md ขึ้นไป -->
+            <!-- โซน PDF -->
             <div class="flex flex-col md:flex-row gap-3 w-full justify-center items-start">
-
                 <!-- Form Tax 90 (ซ้าย) -->
-                <div class="w-full md:w-1/2 h-[300px] overflow-y-auto flex flex-col items-center">
+                <div class="w-full h-full overflow-y-auto flex flex-col items-center">
                     <embed src="../assets/Form-Tax90.pdf"
                            type="application/pdf"
                            width="100%"
@@ -209,30 +208,69 @@
                         ดาวน์โหลดฟอร์มกรอกภาษี 90
                     </a>
                 </div>
-
-                <!-- Form Tax 91 (ขวา) -->
-                <div class="w-full md:w-1/2 h-[300px] overflow-y-auto flex flex-col items-center">
-                    <embed src="../assets/Form-Tax91.pdf"
-                           type="application/pdf"
-                           width="100%"
-                           height="100%"
-                           class="border border-gray-300 rounded-lg">
-                    <a href="../assets/Form-Tax91.pdf"
-                       download
-                       class="text-blue-500 underline mt-2">
-                        ดาวน์โหลดฟอร์มกรอกภาษี 91
-                    </a>
+                <!-- กล่องขวา (2 Container: เงินได้ทั้งหมด + การคำนวณภาษี) -->
+                <div class="w-full flex flex-col gap-4">
+                    <!-- Container: เงินได้ทั้งหมด -->
+                    <div class="w-full bg-white p-6 rounded-lg shadow-md flex flex-col font-mali">
+                        <h2 class="text-xl font-bold text-[#4e342e] mb-4">เงินได้ทั้งหมด</h2>
+                        <div class="space-y-2">
+                            <div class="flex justify-between border-b pb-2">
+                                <span class="text-[#4e342e]">เงินได้ปีภาษี 2566 - ยื่นปกติ</span>
+                                <span class="font-bold">720,000.00</span>
+                            </div>
+                            <div class="flex justify-between border-b pb-2">
+                                <span class="text-[#4e342e]">หัก ยกเว้น</span>
+                                <span class="font-bold">0.00</span>
+                            </div>
+                            <div class="flex justify-between border-b pb-2">
+                        <span class="text-[#4e342e]">
+                            หัก ค่าใช้จ่าย
+                        </span>
+                                <span class="font-bold">100,000.00</span>
+                            </div>
+                            <div class="flex justify-between border-b pb-2">
+                        <span class="text-[#4e342e]">
+                            หัก ลดหย่อน
+                        </span>
+                                <span class="font-bold">84,500.00</span>
+                            </div>
+                            <div class="flex justify-between font-bold text-[#4e342e]">
+                                <span>รวมเงินได้ที่ถูกนำไปคำนวณภาษี</span>
+                                <span>535,500.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Container: การคำนวณภาษี -->
+                    <div class="w-full bg-white p-6 rounded-lg shadow-md flex flex-col font-mali">
+                        <h2 class="text-xl font-bold text-[#4e342e] mb-4">การคำนวณภาษี</h2>
+                        <div class="space-y-2">
+                            <div class="flex justify-between border-b pb-2">
+                        <span class="text-[#4e342e]">
+                            ภาษีที่ต้องชำระ
+                        </span>
+                                <span class="font-bold">32,825.00</span>
+                            </div>
+                            <div class="flex justify-between border-b pb-2">
+                                <span class="text-[#4e342e]">หัก ภาษีหัก ณ ที่จ่าย/เครดิตภาษี</span>
+                                <span class="font-bold">0.00</span>
+                            </div>
+                            <div class="flex justify-between border-b pb-2">
+                                <span class="text-[#4e342e]">ยอดภาษีสุทธิ ชำระเพิ่มเติม</span>
+                                <span class="font-bold">32,825.00</span>
+                            </div>
+                            <div class="flex justify-between font-bold text-[#4e342e]">
+                                <span>รวมทั้งหมดที่ต้องชำระ (ยกเว้นเศษของบาท)</span>
+                                <span>32,825.00</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
-            <!-- จบส่วน PDF -->
-
         </div>
     </div>
 </div>
 
 <!-- รวม Script ทั้งหมดไว้ด้านล่าง -->
-<!-- template script-->
 <script>
     // ทำให้เมนูมือถือแสดง / ซ่อน
     document.getElementById("mobile-menu-button").addEventListener("click", function () {
@@ -249,7 +287,7 @@
         document.getElementById("learn-more-menu-mobile").classList.toggle("hidden");
     });
 
-
+    // โหลดหน้าเพจผ่าน nav-link (ถ้ามี)
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function (event) {
             event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
@@ -263,6 +301,8 @@
                 .catch(error => console.error('Error loading page:', error));
         });
     });
+
+    // ตรวจสอบ Token
     document.addEventListener("DOMContentLoaded", function () {
         const token = 'Bearer ' + localStorage.getItem('jwt_token');
 
@@ -275,18 +315,21 @@
             .then(response => {
                 document.querySelectorAll('.loginButton').forEach(button => {
                     if (response.status === 200) {
-                        button.classList.add('opacity-0', 'pointer-events-none');  // Make button invisible
-                        button.classList.remove('opacity-100'); // Ensure it does not appear
+                        // เมื่อ Token ถูกต้อง => ซ่อนปุ่ม Login
+                        button.classList.add('opacity-0', 'pointer-events-none');
+                        button.classList.remove('opacity-100');
                     } else {
-                        button.classList.remove('opacity-0', 'pointer-events-none'); // Make button visible
+                        // Token ไม่ถูกต้อง => แสดงปุ่ม Login
+                        button.classList.remove('opacity-0', 'pointer-events-none');
                         button.classList.add('opacity-100');
                     }
                 });
             })
             .catch(error => {
                 console.error('Error:', error);
+                // กรณี error ก็ให้ปุ่ม Login ยังแสดง
                 document.querySelectorAll('.loginButton').forEach(button => {
-                    button.classList.remove('opacity-0', 'pointer-events-none'); // Ensure button remains visible on error
+                    button.classList.remove('opacity-0', 'pointer-events-none');
                     button.classList.add('opacity-100');
                 });
             });
