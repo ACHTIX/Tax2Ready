@@ -253,6 +253,10 @@
                     </div>
                 </div>
             </div>
+            <!-- ปุ่มบันทึกข้อมูลทั้งหมด -->
+            <button id="saveDataButton" class="w-full mt-4 px-4 py-2 bg-[#4e342e] text-white rounded-lg shadow">
+                บันทึกผลลัพท์
+            </button>
         </div>
     </div>
 </div>
@@ -328,21 +332,21 @@
 
         // โครงสร้างอัตราภาษี (ปีภาษีปัจจุบัน)
         const brackets = [
-            { threshold: 150000,  rate: 0.00 }, // 0 - 150,000 => 0%
-            { threshold: 300000,  rate: 0.05 }, // 150,001 - 300,000 => 5%
-            { threshold: 500000,  rate: 0.10 }, // 300,001 - 500,000 => 10%
-            { threshold: 750000,  rate: 0.15 }, // 500,001 - 750,000 => 15%
-            { threshold: 1000000, rate: 0.20 }, // 750,001 - 1,000,000 => 20%
-            { threshold: 2000000, rate: 0.25 }, // 1,000,001 - 2,000,000 => 25%
-            { threshold: 5000000, rate: 0.30 }, // 2,000,001 - 5,000,000 => 30%
-            { threshold: Infinity, rate: 0.35 } // > 5,000,000 => 35%
+            {threshold: 150000, rate: 0.00}, // 0 - 150,000 => 0%
+            {threshold: 300000, rate: 0.05}, // 150,001 - 300,000 => 5%
+            {threshold: 500000, rate: 0.10}, // 300,001 - 500,000 => 10%
+            {threshold: 750000, rate: 0.15}, // 500,001 - 750,000 => 15%
+            {threshold: 1000000, rate: 0.20}, // 750,001 - 1,000,000 => 20%
+            {threshold: 2000000, rate: 0.25}, // 1,000,001 - 2,000,000 => 25%
+            {threshold: 5000000, rate: 0.30}, // 2,000,001 - 5,000,000 => 30%
+            {threshold: Infinity, rate: 0.35} // > 5,000,000 => 35%
         ];
 
         let tax = 0;
         let start = 0;
 
         for (let i = 0; i < brackets.length; i++) {
-            const { threshold, rate } = brackets[i];
+            const {threshold, rate} = brackets[i];
             if (netTaxableIncome <= threshold) {
                 tax += (netTaxableIncome - start) * rate;
                 break;
@@ -353,41 +357,65 @@
         }
         return tax;
     }
-        // ฟังก์ชันสำหรับคำนวณผลลัพธ์ภาษี
-        function calculateResult() {
+
+    // ฟังก์ชันสำหรับคำนวณผลลัพธ์ภาษี
+    function calculateResult() {
         // 1) ดึงข้อมูลรายได้จาก localStorage key = "pageData"
+        let savedPageData = localStorage.getItem("pageData");
+        // ถ้าไม่มีข้อมูล ให้ตั้งค่า default sample data
+        if (!savedPageData) {
+            const samplePageData = {
+                income: {
+                    salary: { totalIncome: "0", totalTax: "0" },
+                    freelance: { totalIncome: "0", totalTax: "0" },
+                    business: { totalIncome: "0", totalTax: "0" },
+                    invest: { totalIncome: "0", totalTax: "0" },
+                    inherit: { totalIncome: "0", totalTax: "0" }
+                }
+            };
+            localStorage.setItem("pageData", JSON.stringify(samplePageData));
+            savedPageData = JSON.stringify(samplePageData);
+        }
+
         let totalIncome = 0;       // รวมเงินได้ทุกประเภท
         let totalWithheldTax = 0;  // รวมภาษี ณ ที่จ่าย
-        const savedPageData = localStorage.getItem("pageData");
-        if (savedPageData) {
         const pageData = JSON.parse(savedPageData);
         if (pageData.income) {
-        const groups = ["salary", "freelance", "business", "invest", "inherit"];
-        groups.forEach(group => {
-        if (pageData.income[group]) {
-        totalIncome     += parseFloat(pageData.income[group].totalIncome) || 0;
-        totalWithheldTax += parseFloat(pageData.income[group].totalTax) || 0;
-    }
-    });
-    }
-    }
+            const groups = ["salary", "freelance", "business", "invest", "inherit"];
+            groups.forEach(group => {
+                if (pageData.income[group]) {
+                    totalIncome += parseFloat(pageData.income[group].totalIncome) || 0;
+                    totalWithheldTax += parseFloat(pageData.income[group].totalTax) || 0;
+                }
+            });
+        }
 
         // 2) ดึงข้อมูลลดหย่อนภาษีจาก localStorage key = "taxDeductionData"
+        let savedDeduction = localStorage.getItem("taxDeductionData");
+        // ถ้าไม่มีข้อมูล ให้ตั้งค่า default sample data สำหรับลดหย่อน
+        if (!savedDeduction) {
+            const sampleDeductionData = {
+                group1: [],   // ตัวอย่างข้อมูลลดหย่อนในกลุ่ม 1
+                group2: [],           // ตัวอย่างข้อมูลลดหย่อนในกลุ่ม 2
+                group3: [],
+                group4: [],
+                group5: []
+            };
+            localStorage.setItem("taxDeductionData", JSON.stringify(sampleDeductionData));
+            savedDeduction = JSON.stringify(sampleDeductionData);
+        }
         let totalDeduction = 0;
-        const savedDeduction = localStorage.getItem("taxDeductionData");
-        if (savedDeduction) {
         const deductionData = JSON.parse(savedDeduction);
         // สมมติว่าในแต่ละ group1..5 เป็น array ของ input
         for (let i = 1; i <= 5; i++) {
-        if (deductionData[`group${i}`]) {
-        deductionData[`group${i}`].forEach(val => {
-        // แปลง string => number (ตัด comma ออก)
-        const num = parseFloat((val || "0").replace(/,/g, ""));
-        totalDeduction += (num || 0);
-    });
-    }
-    }
-    }
+            if (deductionData[`group${i}`]) {
+                deductionData[`group${i}`].forEach(val => {
+                    // แปลง string => number (ตัด comma ออก)
+                    const num = parseFloat((val || "0").replace(/,/g, ""));
+                    totalDeduction += (num || 0);
+                });
+            }
+        }
 
         // 3) กำหนด "หักค่าใช้จ่าย" เป็นค่าคงที่ 100,000 บาท
         const totalExpenses = 100000; // ค่าใช้จ่าย 100,000 บาท
@@ -404,8 +432,8 @@
         // 6) คำนวณยอดสุทธิที่ต้องจ่าย = ภาษีที่ต้องชำระ - ภาษีหัก ณ ที่จ่าย
         let finalTaxDue = taxPayable - totalWithheldTax;
         if (finalTaxDue < 0) {
-        finalTaxDue = 0;
-    }
+            finalTaxDue = 0;
+        }
 
         // 7) ปัดเศษทศนิยม (ยกเว้นเศษของบาท)
         const finalTaxRounded = Math.floor(finalTaxDue);
@@ -420,9 +448,51 @@
         document.getElementById("finalTaxRounded").textContent = finalTaxRounded.toString();
     }
 
-        // เรียกคำนวณผลลัพธ์เมื่อหน้าโหลด
-        document.addEventListener("DOMContentLoaded", function() {
+    // เรียกคำนวณผลลัพธ์เมื่อหน้าโหลด
+    document.addEventListener("DOMContentLoaded", function () {
         calculateResult();
+    });
+
+    // บักทึกผลลัพท์เข้า database
+    document.getElementById('saveDataButton').addEventListener('click', async () => {
+        const data = {
+            tax_category_id: 1,  // หรืออาจปรับแก้ให้มาจากตัวเลือกที่ถูกต้อง
+            // ดึงข้อมูลทั้งหมดจาก DOM
+            total_income: parseFloat(document.getElementById('totalIncome').textContent.replace(/,/g, "")) || 0,
+            total_expenses: parseFloat(document.getElementById('totalExpenses').textContent.replace(/,/g, "")) || 0,
+            total_deduction: parseFloat(document.getElementById('totalDeduction').textContent.replace(/,/g, "")) || 0,
+            net_taxable_income: parseFloat(document.getElementById('netTaxableIncome').textContent.replace(/,/g, "")) || 0,
+            tax_payable: parseFloat(document.getElementById('taxPayable').textContent.replace(/,/g, "")) || 0,
+            withheld_tax: parseFloat(document.getElementById('withheldTax').textContent.replace(/,/g, "")) || 0,
+            final_tax_due: parseFloat(document.getElementById('finalTaxDue').textContent.replace(/,/g, "")) || 0,
+            final_tax_rounded: parseFloat(document.getElementById('finalTaxRounded').textContent.replace(/,/g, "")) || 0,
+            status: 'pending',
+            description: 'บันทึกผลคำนวณภาษี',
+            date: new Date().toISOString().split('T')[0] // รูปแบบ YYYY-MM-DD
+        };
+
+        try {
+            // ดึง token และเติม "Bearer " ไว้ในตัวแปร
+            const token = 'Bearer ' + localStorage.getItem('jwt_token');
+
+            const response = await fetch(window.CONFIG.BASE_PATH + '/tax-data/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token  // ใช้ token ที่มี "Bearer " แล้ว
+                },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            if (response.ok) {
+                alert('บันทึกข้อมูลสำเร็จ (Transaction ID: ' + result.transactionId + ')');
+            } else {
+                alert('เกิดข้อผิดพลาด: ' + result.error);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('เกิดข้อผิดพลาดในการส่งข้อมูล');
+        }
     });
 </script>
 

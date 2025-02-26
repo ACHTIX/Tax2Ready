@@ -206,12 +206,12 @@
                                 return /^\d{13}$/.test(raw);
                             }
 
-                            // ฟังก์ชันแปลงเลขประจำตัวเป็นรูปแบบ x-xxxx-xxxxx-xx-x
-                            function formatTaxId(taxId) {
-                                var raw = taxId.replace(/-/g, "").trim();
-                                if (raw.length !== 13) return taxId;
-                                return raw[0] + "-" + raw.substr(1, 4) + "-" + raw.substr(5, 5) + "-" + raw.substr(10, 2) + "-" + raw.substr(12, 1);
-                            }
+                            // // ฟังก์ชันแปลงเลขประจำตัวเป็นรูปแบบ x-xxxx-xxxxx-xx-x
+                            // function formatTaxId(taxId) {
+                            //     var raw = taxId.replace(/-/g, "").trim();
+                            //     if (raw.length !== 13) return taxId;
+                            //     return raw[0] + "-" + raw.substr(1, 4) + "-" + raw.substr(5, 5) + "-" + raw.substr(10, 2) + "-" + raw.substr(12, 1);
+                            // }
 
                             // เมื่อเปลี่ยนสถานะ ให้แสดง Modal ถ้าสมรส
                             document.getElementById("marital-status").addEventListener("change", function () {
@@ -269,11 +269,11 @@
                                         return;
                                     }
                                     // แปลงรูปแบบเลขประจำตัวของคู่สมรส
-                                    document.getElementById("spouseTaxId").value = formatTaxId(spouseTaxId);
+                                    // document.getElementById("spouseTaxId").value = formatTaxId(spouseTaxId);
                                 }
 
                                 // แปลงรูปแบบเลขประจำตัวผู้เสียภาษี
-                                document.getElementById("taxId").value = formatTaxId(taxId);
+                                // document.getElementById("taxId").value = formatTaxId(taxId);
 
                                 // บันทึกข้อมูลลง localStorage
                                 var formData = {
