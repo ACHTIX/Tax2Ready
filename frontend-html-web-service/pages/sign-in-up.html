@@ -115,7 +115,7 @@
                 const password = document.getElementById("password").value;
 
                 // API URL
-                const url = "http://localhost:8080/users/login";
+                const url = window.CONFIG.BASE_PATH + '/users/login';
 
                 try {
                     const response = await fetch(url, {
