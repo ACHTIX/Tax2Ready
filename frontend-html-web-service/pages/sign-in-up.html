@@ -261,7 +261,7 @@
         const notification_status = false; // Ensure this matches your API's expected value
 
         // API URL for registration
-        const url = "http://localhost:8080/users/register";
+        const url = window.CONFIG.BASE_PATH + '/users/register';
 
         try {
         const response = await fetch(url, {
