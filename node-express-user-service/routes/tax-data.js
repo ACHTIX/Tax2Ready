@@ -4,16 +4,20 @@ const pool = require('../db'); // ไฟล์เชื่อมต่อฐา�
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-// (ถ้ามีระบบ Auth) Middleware ตรวจสอบ JWT
+// Middleware ตรวจสอบ JWT
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
-        return res.status(403).json({error: 'Token required'});
+        return res.status(401).json({ error: 'Token required' });
     }
-    const token = authHeader.split(' ')[1];
+    const parts = authHeader.split(' ');
+    if (parts.length !== 2 || parts[0] !== 'Bearer') {
+        return res.status(401).json({ error: 'Invalid authorization header format' });
+    }
+    const token = parts[1];
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) {
-            return res.status(403).json({error: 'Invalid token'});
+            return res.status(401).json({ error: 'Invalid token' });
         }
         req.user = user;
         next();
@@ -38,10 +42,12 @@ router.post('/save', authenticateToken, async (req, res) => {
             date
         } = req.body;
 
-        // สมมุติว่า user_id มาจาก JWT
-        const user_id = req.user.user_id; // หรือถ้าไม่มี ก็ set เป็น null
+        // Optional: ตรวจสอบค่าที่รับมาว่าถูกต้อง (เช่น ไม่เป็น null, เป็นตัวเลข ฯลฯ)
 
-        // สร้างคำสั่ง SQL (parameterized query) สำหรับ INSERT
+        // สมมุติว่า user_id มาจาก JWT
+        const user_id = req.user.user_id;
+
+        // สร้างคำสั่ง SQL (parameterized query) สำหรับ INSERT/UPDATE
         const insertQuery = `
             INSERT INTO tax_data.tax_data
             (user_id,
@@ -58,24 +64,22 @@ router.post('/save', authenticateToken, async (req, res) => {
              date)
             VALUES ($1, $2, $3, $4, $5,
                     $6, $7, $8, $9, $10,
-                    $11, $12) ON CONFLICT (user_id, date)
-  DO
-            UPDATE
-                SET
-                    total_income = EXCLUDED.total_income,
-                total_expenses = EXCLUDED.total_expenses,
-                total_deduction = EXCLUDED.total_deduction,
-                net_taxable_income = EXCLUDED.net_taxable_income,
-                tax_payable = EXCLUDED.tax_payable,
-                withheld_tax = EXCLUDED.withheld_tax,
-                final_tax_due = EXCLUDED.final_tax_due,
-                final_tax_rounded = EXCLUDED.final_tax_rounded,
-                status = EXCLUDED.status,
-                description = EXCLUDED.description,
-                updated_at = now()
-                RETURNING transaction_id
+                    $11, $12)
+                ON CONFLICT (user_id, date)
+            DO UPDATE SET
+                total_income = EXCLUDED.total_income,
+                                   total_expenses = EXCLUDED.total_expenses,
+                                   total_deduction = EXCLUDED.total_deduction,
+                                   net_taxable_income = EXCLUDED.net_taxable_income,
+                                   tax_payable = EXCLUDED.tax_payable,
+                                   withheld_tax = EXCLUDED.withheld_tax,
+                                   final_tax_due = EXCLUDED.final_tax_due,
+                                   final_tax_rounded = EXCLUDED.final_tax_rounded,
+                                   status = EXCLUDED.status,
+                                   description = EXCLUDED.description,
+                                   updated_at = now()
+                                   RETURNING transaction_id
         `;
-
 
         const values = [
             user_id,
@@ -92,7 +96,7 @@ router.post('/save', authenticateToken, async (req, res) => {
             date
         ];
 
-        // เรียกใช้งาน Pool เพื่อ INSERT ข้อมูล
+        // เรียกใช้งาน Pool เพื่อ INSERT/UPDATE ข้อมูล
         const result = await pool.query(insertQuery, values);
         const transactionId = result.rows[0].transaction_id;
 
@@ -103,7 +107,7 @@ router.post('/save', authenticateToken, async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({error: 'Server error'});
+        return res.status(500).json({ error: 'Server error' });
     }
 });
 
