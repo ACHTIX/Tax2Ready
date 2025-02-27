@@ -31,5 +31,5 @@ COPY --from=builder /app /app
 # Expose port 8080 (as required by Cloud Run)
 EXPOSE 8080
 
-# Start the app
-CMD ["node", "app.js"]
+# Start the app using the start script defined in package.json
+CMD ["npm", "start"]
