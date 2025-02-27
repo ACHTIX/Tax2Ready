@@ -3,33 +3,25 @@ FROM node:20-alpine AS builder
 LABEL maintainer="tipsukanya.n@ku.th"
 WORKDIR /app
 
-# Install build dependencies for native modules
-RUN apk add --no-cache python3 make g++
-
-# Force native modules to build from source
-ENV npm_config_build_from_source=true
-
-# Copy only package.json & package-lock.json for dependency installation
+# Copy only package.json & package-lock.json for faster caching
 COPY package*.json ./
 
-# Install dependencies (re-downloaded and built in the Cloud Build environment)
+# Install dependencies
 RUN npm ci --omit=dev
-
-# Optionally, force rebuild bcrypt
-RUN npm rebuild bcrypt --build-from-source
 
 # Copy application source code
 COPY . .
 
-# Stage 2: Production stage
+# Stage 2: Production stage (small final image)
 FROM node:20-alpine
+
 WORKDIR /app
 
-# Copy built application and dependencies from the builder stage
+# Copy only built application and dependencies from previous stage
 COPY --from=builder /app /app
 
-# Expose port 8080 (as required by Cloud Run)
+# Expose port 8080 (Cloud Run expects this)
 EXPOSE 8080
 
-# Start the app using the start script defined in package.json
-CMD ["npm", "start"]
+# Start the app
+CMD ["node", "app.js"]
