@@ -36,7 +36,7 @@ cron.schedule('*/1 * * * *', async () => {
 
         for (const user of users) {
             const mailOptions = {
-                from: '"Tax2Ready" <tipsukanya.n@ku.th>',
+                from: '"Tax2Ready" <elisabeth40@ethereal.email>',
                 // สำหรับการทดสอบ ส่งอีเมลไปที่บัญชี Ethereal ของคุณ
                 to: user.email,
                 subject: 'ข่าวสารค่าลดหย่อนภาษี Easy E-receipt 2.0 ปี2568',
