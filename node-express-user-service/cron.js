@@ -1,43 +1,42 @@
-// cron.js
+require('dotenv').config();
 const cron = require('node-cron');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const nodemailer = require('nodemailer');
 const pool = require('./db');
-require('dotenv').config();
 
-// 1. สร้าง transporter สำหรับส่งอีเมล (ใช้ค่าจาก .env)
+// สร้าง transporter สำหรับส่งอีเมล โดยใช้ข้อมูลจาก .env
 const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
-    secure: false,
+    port: Number(process.env.SMTP_PORT), // แปลงเป็นตัวเลข
+    secure: false, // สำหรับพอร์ต 587 ให้ใช้ false; ถ้าใช้พอร์ต 465 ให้ใช้ true
     auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS
     }
 });
 
-// 2. กำหนด cron job ให้รันทุก 1 นาที (สำหรับทดสอบ)
+// กำหนด cron job ให้รันทุก 1 นาที (สำหรับทดสอบ)
 cron.schedule('*/1 * * * *', async () => {
     console.log('Running cron job to fetch data and send email');
 
     try {
-        // 2.1 ดึงข้อมูลจากเว็บไซต์
+        // ดึงข้อมูลจากเว็บไซต์
         const response = await axios.get('https://www.itax.in.th/pedia/%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B8%A5%E0%B8%94%E0%B8%AB%E0%B8%A2%E0%B9%88%E0%B8%AD%E0%B8%99-easy-e-receipt-2-0-%E0%B8%9B%E0%B8%B5-2568/');
         const $ = cheerio.load(response.data);
 
-        // 2.2 parse HTML
+        // ตัวอย่างการดึงข้อมูล (ปรับตามต้องการ)
         const headline = $('h1').first().text().trim();
         const summary = $('p.summary').text().trim();
 
-        // 3. ดึงรายชื่อผู้ใช้ที่เปิดแจ้งเตือนจากฐานข้อมูล
+        // ดึงรายชื่อผู้ใช้ที่เปิดแจ้งเตือนจากฐานข้อมูล
         const userResult = await pool.query('SELECT email, name FROM "user".user WHERE notification_status = true');
         const users = userResult.rows;
 
         for (const user of users) {
             const mailOptions = {
-                from: '"Tax2Ready" <elisabeth40@ethereal.email>',
-                // สำหรับการทดสอบ ส่งอีเมลไปที่บัญชี Ethereal ของคุณ
+                // เปลี่ยนจาก ethereal.email เป็นอีเมลที่ใช้งานจริงจาก SMTP_USER
+                from: `"Tax2Ready" <${process.env.SMTP_USER}>`,
                 to: user.email,
                 subject: 'ข่าวสารค่าลดหย่อนภาษี Easy E-receipt 2.0 ปี2568',
                 html: `
@@ -88,34 +87,10 @@ cron.schedule('*/1 * * * *', async () => {
           <p>
             <em>ดูข้อมูลเพิ่มเติมได้ที่: <a href="https://www.itax.in.th/pedia/%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B8%A5%E0%B8%94%E0%B8%AB%E0%B8%A2%E0%B9%88%E0%B8%AD%E0%B8%99-easy-e-receipt-2-0-%E0%B8%9B%E0%B8%B5-2568/" target="_blank">https://www.itax.in.th/</a></em>
           </p>
-          <div style="margin-top: 20px;">
-            <img
-              src="asset/PREasy_E-Receipt_22012568_page-0001.jpg"
-              alt="Easy E-Receipt 2.0/1"
-            />
-          </div>
-          <div style="margin-top: 20px;">
-            <img
-              src="asset/PREasy_E-Receipt_22012568_page-0002.jpg"
-              alt="Easy E-Receipt 2.0/2"
-            />
-          </div>
         </body>
-      // </html>   `,
-      //           attachments: [
-      //               {
-      //                   filename: 'PREasy_E-Receipt1.jpg',
-      //                   path: '/asset/PREasy_E-Receipt_22012568_page-0001.jpg',
-      //                   cid: 'easyReceiptImage1' // ตรงกับ src="cid:easyReceiptImage"
-      //               },
-      //               {
-      //                   filename: 'PREasy_E-Receipt2.jpg',
-      //                   path: '/asset/PREasy_E-Receipt_22012568_page-0002.jpg',
-      //                   cid: 'easyReceiptImage2' // ตรงกับ src="cid:easyReceiptImage"
-      //               }
-      //           ]
+      </html>
+                `
             };
-
 
             await transporter.sendMail(mailOptions);
             console.log(`Email sent to ${user.email}`);
