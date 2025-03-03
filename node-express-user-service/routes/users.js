@@ -199,5 +199,36 @@ router.post('/update-profile', authenticateToken, async (req, res) => {
   }
 });
 
+// เพิ่ม route สำหรับ toggle notification status
+router.post('/toggle-notification', authenticateToken, async (req, res) => {
+  try {
+    // 1. ตรวจสอบ user_id จาก token
+    const userId = parseInt(req.user.user_id, 10);
+    if (isNaN(userId)) {
+      return res.status(400).json({ error: 'Invalid user ID' });
+    }
+
+    // 2. ดึงค่า notification_status จาก request body
+    const { notification_status } = req.body;
+    if (notification_status === undefined) {
+      return res.status(400).json({ error: 'Notification status is required' });
+    }
+
+    // 3. อัปเดตค่า notification_status ใน database โดยใช้ parameter
+    const updatedUser = await pool.query(
+        'UPDATE "user".user SET notification_status = $1 WHERE user_id = $2 RETURNING *',
+        [notification_status, userId]
+    );
+
+    if (updatedUser.rows.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({ message: `Notification status updated to ${notification_status}`, user: updatedUser.rows[0] });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
 
 module.exports = router;
