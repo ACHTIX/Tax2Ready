@@ -1,5 +1,15 @@
 {
   "dependencies": {
-    "cors": "^2.8.5"
-  }
+    "cors": "^2.8.5",
+    "pdf-lib": "^1.17.1"
+  },
+  "name": "t",
+  "version": "1.0.0",
+  "description": "ระบบนี้ถูกพัฒนามาเพื่อเสริมสร้างความรู้ในด้านภาษีสำหรับบุคคลธรรมดา",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
 }

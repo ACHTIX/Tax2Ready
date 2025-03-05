@@ -3,6 +3,10 @@ var router = express.Router();
 const pool = require('../db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
+const path = require('path');
+const {PDFDocument} = require('pdf-lib'); // <-- Using pdf-lib now
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -85,6 +89,105 @@ const authenticateToken = (req, res, next) => {
     next();
   });
 };
+
+
+// New route to fill PDF and return it as a response:
+router.get('/generate-pdf', authenticateToken, async (req, res, next) => {
+  try {
+
+    const userId = parseInt(req.user.user_id, 10);
+    const userResult = await pool.query('SELECT * FROM "tax_data".tax_data WHERE user_id = $1', [userId]);
+
+    // 2) Load the PDF from disk
+    const pdfPath = path.join(__dirname, '..', '271265PIT90.pdf');
+    const pdfBytes = fs.readFileSync(pdfPath);
+
+    // 3) Load and fill the PDF with pdf-lib
+    const pdfDoc = await PDFDocument.load(pdfBytes);
+
+    // Get the form in the PDF
+    const form = pdfDoc.getForm();
+    const fields = form.getFields();
+
+    fields.forEach((field, idx) => {
+      const type = field.constructor.name; // e.g. 'PDFTextField', 'PDFCheckBox', etc.
+      const name = field.getName();
+      console.log(`Field ${idx + 1}: "${name}" (type: ${type})`);
+    });
+
+
+    const total_income = form.getTextField('Text71');
+    total_income.setText(userResult.rows[0].total_income);
+    const total_expenses = form.getTextField('Text81');
+    total_expenses.setText(userResult.rows[0].total_expenses);
+    const total_deduction = form.getTextField('Text90');
+    total_deduction.setText(userResult.rows[0].total_deduction);
+    const tax_payable = form.getTextField('Text72');
+    tax_payable.setText(userResult.rows[0].tax_payable);
+    const withheld_tax = form.getTextField('Text88');
+    withheld_tax.setText(userResult.rows[0].withheld_tax);
+    const final_tax_due = form.getTextField('Text95');
+    final_tax_due.setText(userResult.rows[0].final_tax_due);
+    const final_tax_rounded = form.getTextField('Text94');
+    final_tax_rounded.setText(userResult.rows[0].final_tax_rounded);
+
+
+    // 4) Save the filled PDF
+    const filledPdfBytes = await pdfDoc.save();
+
+    // 5) Return the PDF in the response
+    res.setHeader('Content-Type', 'application/pdf');
+
+    res.send(Buffer.from(filledPdfBytes));
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Example: POST /users/generate-pdf-manual
+router.post('/generate-pdf-manual', async (req, res, next) => {
+  try {
+    // 1) Extract data from req.body
+    //    Ensure the client sends fields like { total_income: "...", total_expenses: "..." } in JSON.
+    const {
+      total_income,
+      total_expenses,
+      total_deduction,
+      tax_payable,
+      withheld_tax,
+      final_tax_due,
+      final_tax_rounded
+    } = req.body;
+
+    // 2) Load the PDF
+    const pdfPath = path.join(__dirname, '..', '271265PIT90.pdf');
+    const pdfBytes = fs.readFileSync(pdfPath);
+    const pdfDoc = await PDFDocument.load(pdfBytes);
+    const form = pdfDoc.getForm();
+
+    // 3) Set form fields from the request body
+    //    Convert everything to strings just to be safe:
+    form.getTextField('Text71').setText(String(total_income || ''));
+    form.getTextField('Text81').setText(String(total_expenses || ''));
+    form.getTextField('Text90').setText(String(total_deduction || ''));
+    form.getTextField('Text72').setText(String(tax_payable || ''));
+    form.getTextField('Text88').setText(String(withheld_tax || ''));
+    form.getTextField('Text95').setText(String(final_tax_due || ''));
+    form.getTextField('Text94').setText(String(final_tax_rounded || ''));
+
+    // If you want to flatten form fields so they're no longer editable, uncomment below:
+    // form.flatten();
+
+    // 4) Generate the filled PDF
+    const filledPdfBytes = await pdfDoc.save();
+
+    // 5) Return the PDF
+    res.setHeader('Content-Type', 'application/pdf');
+    res.send(Buffer.from(filledPdfBytes));
+  } catch (error) {
+    next(error);
+  }
+});
 
 // Get User Data
 router.get('/get-user', authenticateToken, async (req, res) => {
