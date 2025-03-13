@@ -7,7 +7,7 @@ const cors = require('cors');
 
 var app = express();
 
-// Middlewares (เรียกครั้งเดียว)
+// Middlewares
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());

@@ -453,11 +453,9 @@
         calculateResult();
     });
 
-    // บักทึกผลลัพท์เข้า database
+    // โค้ดสำหรับการคำนวณผลลัพท์และส่งข้อมูลไปยัง API
     document.getElementById('saveDataButton').addEventListener('click', async () => {
         const data = {
-            tax_category_id: 1,  // หรืออาจปรับแก้ให้มาจากตัวเลือกที่ถูกต้อง
-            // ดึงข้อมูลทั้งหมดจาก DOM
             total_income: parseFloat(document.getElementById('totalIncome').textContent.replace(/,/g, "")) || 0,
             total_expenses: parseFloat(document.getElementById('totalExpenses').textContent.replace(/,/g, "")) || 0,
             total_deduction: parseFloat(document.getElementById('totalDeduction').textContent.replace(/,/g, "")) || 0,
@@ -468,18 +466,16 @@
             final_tax_rounded: parseFloat(document.getElementById('finalTaxRounded').textContent.replace(/,/g, "")) || 0,
             status: 'pending',
             description: 'บันทึกผลคำนวณภาษี',
-            date: new Date().toISOString().split('T')[0] // รูปแบบ YYYY-MM-DD
+            date: new Date().toISOString().split('T')[0]
         };
 
         try {
-            // ดึง token และเติม "Bearer " ไว้ในตัวแปร
             const token = 'Bearer ' + localStorage.getItem('jwt_token');
-
             const response = await fetch(window.CONFIG.BASE_PATH + '/tax-data/save', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': token  // ใช้ token ที่มี "Bearer " แล้ว
+                    'Authorization': token
                 },
                 body: JSON.stringify(data)
             });

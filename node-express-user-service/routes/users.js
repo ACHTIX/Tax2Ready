@@ -5,8 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
-const {PDFDocument} = require('pdf-lib'); // <-- Using pdf-lib now
-
+const { PDFDocument } = require('pdf-lib'); // Using pdf-lib now
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -89,7 +88,6 @@ const authenticateToken = (req, res, next) => {
 };
 
 // New route to fill PDF and return it as a response (GET /generate-pdf)
-// (โค้ดนี้ใช้สำหรับทดลองสร้าง PDF จากข้อมูลในฐานข้อมูล)
 router.get('/generate-pdf', authenticateToken, async (req, res, next) => {
   try {
     const userId = parseInt(req.user.user_id, 10);
@@ -126,8 +124,6 @@ router.get('/generate-pdf', authenticateToken, async (req, res, next) => {
   }
 });
 
-// Route: POST /users/generate-pdf-manual
-// ใช้ authenticateToken และบันทึก PDF ลงใน disk แล้วส่งกลับ URL พร้อมบันทึกลงใน tax_form
 // Route: POST /users/generate-pdf-manual
 router.post('/generate-pdf-manual', authenticateToken, async (req, res, next) => {
   try {
@@ -184,13 +180,13 @@ router.post('/generate-pdf-manual', authenticateToken, async (req, res, next) =>
     // 9) เก็บ URL ของไฟล์ (สำหรับให้ client เรียกใช้งาน)
     const pdfUrl = `/pdfs/${fileName}`;
 
-    // 10) บันทึกข้อมูลลงในตาราง tax_form (หากต้องการ)
+    // 10) บันทึกข้อมูลลงในตาราง tax_form โดยใช้ schema ที่ถูกต้อง (public)
     const taxDetails = `Created from tax calculator on ${new Date().toISOString()}`;
     const formStatus = 'pending';
     const insertQuery = `
-      INSERT INTO tax_form.tax_form (tax_details, pdf_data, form_status, user_id)
+      INSERT INTO "tax_form"."tax_form" (tax_details, pdf_data, form_status, user_id)
       VALUES ($1, $2, $3, $4)
-        RETURNING form_id
+      RETURNING form_id
     `;
     const insertValues = [taxDetails, pdfUrl, formStatus, userId];
     const insertResult = await pool.query(insertQuery, insertValues);
@@ -224,33 +220,27 @@ function generateFileName(username) {
   return `${safeUsername}-${year}.${month}.${day}-${hour}.${minute}.pdf`;
 }
 
-// Route: GET /pdf-history
+// Route: GET /users/pdf-history
 router.get('/pdf-history', authenticateToken, async (req, res, next) => {
   try {
     const userId = req.user.user_id;
 
-    // 1) Query ข้อมูลจากตาราง tax_form
+    // Query ข้อมูลจากตาราง tax_form
     const result = await pool.query(`
       SELECT form_id, generated_at, tax_details, pdf_data, form_status
-      FROM tax_form
+      FROM "tax_form"."tax_form"
       WHERE user_id = $1
       ORDER BY generated_at DESC
     `, [userId]);
 
-    // 2) Map ข้อมูลให้ตรงกับโครงสร้างที่ Frontend คาดหวัง
-    // ในโค้ด Frontend คุณเรียกใช้ item.name, item.date, item.url
-    // จึงอาจต้องสร้าง object ให้มี name, date, url
-    const data = result.rows.map(row => {
-      return {
-        name: row.tax_details || `Form #${row.form_id}`, // หรือจะตั้งชื่ออะไรก็ได้
-        date: row.generated_at,
-        url: row.pdf_data          // คอลัมน์ pdf_data เก็บ URL เช่น "/pdfs/xxx.pdf"
-      };
-    });
+    // Map ข้อมูลให้ตรงกับโครงสร้างที่ Frontend คาดหวัง
+    const data = result.rows.map(row => ({
+      name: row.tax_details || `Form #${row.form_id}`,
+      date: row.generated_at,
+      url: row.pdf_data
+    }));
 
-    // 3) ส่งข้อมูลกลับเป็น JSON
     res.json(data);
-
   } catch (error) {
     next(error);
   }
@@ -264,29 +254,27 @@ router.get('/get-user', authenticateToken, async (req, res) => {
       return res.status(400).json({ error: 'Invalid user ID' });
     }
 
-    // Fetch user details
     const userResult = await pool.query('SELECT * FROM "user".user WHERE user_id = $1', [userId]);
 
     if (userResult.rows.length === 0) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    res.json(userResult.rows[0]); // Return user details
+    res.json(userResult.rows[0]);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Server error' });
   }
 });
 
-// ✅ Add is-valid route to check if JWT is valid
+// Route: GET /users/is-valid
 router.get('/is-valid', (req, res) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
     return res.status(403).json({ error: 'Token required' });
   }
 
-  const token = authHeader.split(' ')[1]; // Extract token from "Bearer <TOKEN>"
-
+  const token = authHeader.split(' ')[1];
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) return res.status(401).json({ error: 'Invalid or expired token' });
 
@@ -297,16 +285,12 @@ router.get('/is-valid', (req, res) => {
 // Update User Profile Route
 router.post('/update-profile', authenticateToken, async (req, res) => {
   try {
-    // Extract user ID from JWT
     const userId = parseInt(req.user.user_id, 10);
     if (isNaN(userId)) {
       return res.status(400).json({ error: 'Invalid user ID' });
     }
 
-    // Extract possible fields from the request body
     const { name, surname, phone, email, dob, notification_status, password } = req.body;
-
-    // Build dynamic query parts
     let updateFields = [];
     let values = [];
 
@@ -330,24 +314,20 @@ router.post('/update-profile', authenticateToken, async (req, res) => {
       updateFields.push(`dob = $${updateFields.length + 1}`);
       values.push(dob);
     }
-    // Allow updating notification_status even if false or 0
     if (notification_status !== undefined) {
       updateFields.push(`notification_status = $${updateFields.length + 1}`);
       values.push(notification_status);
     }
     if (password) {
-      // Hash the new password before updating
       const hashedPassword = await bcrypt.hash(password, 10);
       updateFields.push(`password = $${updateFields.length + 1}`);
       values.push(hashedPassword);
     }
 
-    // Ensure that at least one field is provided for update
     if (updateFields.length === 0) {
       return res.status(400).json({ error: 'No fields provided for update' });
     }
 
-    // Construct the query with parameterized values
     const queryStr = `
       UPDATE "user".user 
       SET ${updateFields.join(', ')}
@@ -356,7 +336,6 @@ router.post('/update-profile', authenticateToken, async (req, res) => {
     `;
     values.push(userId);
 
-    // Execute the update query
     const updatedUser = await pool.query(queryStr, values);
     if (updatedUser.rows.length === 0) {
       return res.status(404).json({ error: 'User not found' });
@@ -369,22 +348,19 @@ router.post('/update-profile', authenticateToken, async (req, res) => {
   }
 });
 
-// เพิ่ม route สำหรับ toggle notification status
+// Route: POST /users/toggle-notification
 router.post('/toggle-notification', authenticateToken, async (req, res) => {
   try {
-    // 1. ตรวจสอบ user_id จาก token
     const userId = parseInt(req.user.user_id, 10);
     if (isNaN(userId)) {
       return res.status(400).json({ error: 'Invalid user ID' });
     }
 
-    // 2. ดึงค่า notification_status จาก request body
     const { notification_status } = req.body;
     if (notification_status === undefined) {
       return res.status(400).json({ error: 'Notification status is required' });
     }
 
-    // 3. อัปเดตค่า notification_status ใน database โดยใช้ parameter
     const updatedUser = await pool.query(
         'UPDATE "user".user SET notification_status = $1 WHERE user_id = $2 RETURNING *',
         [notification_status, userId]
