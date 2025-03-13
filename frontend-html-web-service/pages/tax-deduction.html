@@ -360,6 +360,13 @@
                 if (isNaN(parseFloat(value))) {
                     return false;
                 }
+                // เฉพาะกลุ่มที่ 1 สำหรับช่องจำนวนคน (input type="number")
+                if (currentGroup === 1 && input.type === "number") {
+                    if (parseFloat(value) % 1 !== 0) {
+                        alert("Error: กรุณากรอกจำนวนคนเป็นเลขจำนวนเต็ม");
+                        return false;
+                    }
+                }
             }
         }
         return true;

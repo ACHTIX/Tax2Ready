@@ -300,6 +300,12 @@
 
         // --- เรียก render ประวัติผลลัพธ์ (Pagination) ---
         renderHistoryPage();
+
+        // --- เพิ่ม Event ให้กับปุ่ม infoButton สำหรับแสดง popup แจ้งเตือน ---
+        const infoBtn = document.getElementById("infoButton");
+        if(infoBtn) {
+            infoBtn.addEventListener("click", openPopup);
+        }
     });
 
     // ===========================
@@ -409,6 +415,37 @@
         let newLastName = document.getElementById("edit-lastname").value;
         let newEmail = document.getElementById("edit-email").value;
         let newPhone = document.getElementById("edit-phone").value;
+
+        // === เริ่มการตรวจสอบข้อมูลตามเงื่อนไข ===
+        // ตรวจสอบชื่อ: ห้ามมีตัวเลขหรืออักขระพิเศษ (อนุญาตเฉพาะตัวอักษรภาษาอังกฤษ, ภาษาไทย และช่องว่าง)
+        const nameRegex = /^[A-Za-zก-ฮ\s]+$/;
+        if (!nameRegex.test(newName)) {
+            alert("Error account page\nกรุณากรอกชื่อให้ถูกต้อง");
+            return;
+        }
+        // ตรวจสอบนามสกุล
+        const lastnameRegex = /^[A-Za-zก-ฮ\s]+$/;
+        if (!lastnameRegex.test(newLastName)) {
+            alert("Error account page\nกรุณากรอกนามสกุลให้ถูกต้อง");
+            return;
+        }
+        // ตรวจสอบ E-mail
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(newEmail)) {
+            alert("Error account page\nกรุณากรอกอีเมลให้ถูกต้อง");
+            return;
+        }
+        // ตรวจสอบเบอร์โทร: ต้องเป็นตัวเลขทั้งหมดและมีความยาว 10 ตัว
+        if(newPhone.length !== 10) {
+            alert("Error account page\nกรุณากรอกเบอร์โทรศัพท์ให้ครบถ้วน");
+            return;
+        }
+        if (!/^\d+$/.test(newPhone)) {
+            alert("Error account page\nกรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง");
+            return;
+        }
+        // === สิ้นสุดการตรวจสอบข้อมูล ===
+
         const payload = {
             name: newName,
             surname: newLastName,
