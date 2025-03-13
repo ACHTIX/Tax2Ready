@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const pool = require('../db');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
@@ -80,9 +80,7 @@ const authenticateToken = (req, res, next) => {
   if (!authHeader) {
     return res.status(403).json({ error: 'Token required' });
   }
-
   const token = authHeader.split(' ')[1]; // Extract token from "Bearer <TOKEN>"
-
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) return res.status(403).json({ error: 'Invalid token' });
     req.user = user; // Store user in request
@@ -90,65 +88,60 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
-
-// New route to fill PDF and return it as a response:
+// New route to fill PDF and return it as a response (GET /generate-pdf)
+// (โค้ดนี้ใช้สำหรับทดลองสร้าง PDF จากข้อมูลในฐานข้อมูล)
 router.get('/generate-pdf', authenticateToken, async (req, res, next) => {
   try {
-
     const userId = parseInt(req.user.user_id, 10);
     const userResult = await pool.query('SELECT * FROM "tax_data".tax_data WHERE user_id = $1', [userId]);
 
-    // 2) Load the PDF from disk
+    if (!userResult.rows || userResult.rows.length === 0) {
+      return res.status(404).json({ error: 'ไม่พบข้อมูลภาษีของผู้ใช้' });
+    }
+
+    // Load the PDF from disk
     const pdfPath = path.join(__dirname, '..', '271265PIT90.pdf');
     const pdfBytes = fs.readFileSync(pdfPath);
 
-    // 3) Load and fill the PDF with pdf-lib
+    // Load and fill the PDF with pdf-lib
     const pdfDoc = await PDFDocument.load(pdfBytes);
-
-    // Get the form in the PDF
     const form = pdfDoc.getForm();
-    const fields = form.getFields();
+    const data = userResult.rows[0];
 
-    fields.forEach((field, idx) => {
-      const type = field.constructor.name; // e.g. 'PDFTextField', 'PDFCheckBox', etc.
-      const name = field.getName();
-      console.log(`Field ${idx + 1}: "${name}" (type: ${type})`);
-    });
+    form.getTextField('Text71').setText(data.total_income);
+    form.getTextField('Text81').setText(data.total_expenses);
+    form.getTextField('Text90').setText(data.total_deduction);
+    form.getTextField('Text72').setText(data.tax_payable);
+    form.getTextField('Text88').setText(data.withheld_tax);
+    form.getTextField('Text95').setText(data.final_tax_due);
+    form.getTextField('Text94').setText(data.final_tax_rounded);
 
-
-    const total_income = form.getTextField('Text71');
-    total_income.setText(userResult.rows[0].total_income);
-    const total_expenses = form.getTextField('Text81');
-    total_expenses.setText(userResult.rows[0].total_expenses);
-    const total_deduction = form.getTextField('Text90');
-    total_deduction.setText(userResult.rows[0].total_deduction);
-    const tax_payable = form.getTextField('Text72');
-    tax_payable.setText(userResult.rows[0].tax_payable);
-    const withheld_tax = form.getTextField('Text88');
-    withheld_tax.setText(userResult.rows[0].withheld_tax);
-    const final_tax_due = form.getTextField('Text95');
-    final_tax_due.setText(userResult.rows[0].final_tax_due);
-    const final_tax_rounded = form.getTextField('Text94');
-    final_tax_rounded.setText(userResult.rows[0].final_tax_rounded);
-
-
-    // 4) Save the filled PDF
     const filledPdfBytes = await pdfDoc.save();
 
-    // 5) Return the PDF in the response
+    // Return PDF as response
     res.setHeader('Content-Type', 'application/pdf');
-
     res.send(Buffer.from(filledPdfBytes));
   } catch (error) {
     next(error);
   }
 });
 
-// Example: POST /users/generate-pdf-manual
-router.post('/generate-pdf-manual', async (req, res, next) => {
+// Route: POST /users/generate-pdf-manual
+// ใช้ authenticateToken และบันทึก PDF ลงใน disk แล้วส่งกลับ URL พร้อมบันทึกลงใน tax_form
+// Route: POST /users/generate-pdf-manual
+router.post('/generate-pdf-manual', authenticateToken, async (req, res, next) => {
   try {
-    // 1) Extract data from req.body
-    //    Ensure the client sends fields like { total_income: "...", total_expenses: "..." } in JSON.
+    // 1) ดึง user_id จาก token
+    const userId = req.user.user_id;
+
+    // 2) Query หา username จากตาราง user
+    const userQuery = await pool.query('SELECT username FROM "user".user WHERE user_id = $1', [userId]);
+    if (userQuery.rows.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    const username = userQuery.rows[0].username;
+
+    // 3) Extract data from req.body
     const {
       total_income,
       total_expenses,
@@ -159,14 +152,13 @@ router.post('/generate-pdf-manual', async (req, res, next) => {
       final_tax_rounded
     } = req.body;
 
-    // 2) Load the PDF
+    // 4) Load the PDF template
     const pdfPath = path.join(__dirname, '..', '271265PIT90.pdf');
     const pdfBytes = fs.readFileSync(pdfPath);
     const pdfDoc = await PDFDocument.load(pdfBytes);
     const form = pdfDoc.getForm();
 
-    // 3) Set form fields from the request body
-    //    Convert everything to strings just to be safe:
+    // 5) Set form fields
     form.getTextField('Text71').setText(String(total_income || ''));
     form.getTextField('Text81').setText(String(total_expenses || ''));
     form.getTextField('Text90').setText(String(total_deduction || ''));
@@ -175,15 +167,90 @@ router.post('/generate-pdf-manual', async (req, res, next) => {
     form.getTextField('Text95').setText(String(final_tax_due || ''));
     form.getTextField('Text94').setText(String(final_tax_rounded || ''));
 
-    // If you want to flatten form fields so they're no longer editable, uncomment below:
-    // form.flatten();
-
-    // 4) Generate the filled PDF
+    // 6) Generate the filled PDF (Buffer)
     const filledPdfBytes = await pdfDoc.save();
 
-    // 5) Return the PDF
-    res.setHeader('Content-Type', 'application/pdf');
-    res.send(Buffer.from(filledPdfBytes));
+    // 7) สร้างชื่อไฟล์ตาม Username-YYYY.MM.DD-HH.mm.pdf
+    const fileName = generateFileName(username);
+
+    // 8) บันทึกไฟล์ลงในโฟลเดอร์ public/pdf_history
+    const outputDir = path.join(__dirname, '..', 'public', 'pdf_history');
+    if (!fs.existsSync(outputDir)) {
+      fs.mkdirSync(outputDir, { recursive: true });
+    }
+    const outputPath = path.join(outputDir, fileName);
+    fs.writeFileSync(outputPath, filledPdfBytes);
+
+    // 9) เก็บ URL ของไฟล์ (สำหรับให้ client เรียกใช้งาน)
+    const pdfUrl = `/pdfs/${fileName}`;
+
+    // 10) บันทึกข้อมูลลงในตาราง tax_form (หากต้องการ)
+    const taxDetails = `Created from tax calculator on ${new Date().toISOString()}`;
+    const formStatus = 'pending';
+    const insertQuery = `
+      INSERT INTO tax_form.tax_form (tax_details, pdf_data, form_status, user_id)
+      VALUES ($1, $2, $3, $4)
+        RETURNING form_id
+    `;
+    const insertValues = [taxDetails, pdfUrl, formStatus, userId];
+    const insertResult = await pool.query(insertQuery, insertValues);
+
+    // 11) ส่งข้อมูลกลับให้ client
+    res.json({
+      message: 'สร้าง PDF และบันทึกข้อมูลในฐานข้อมูลสำเร็จ',
+      pdfUrl,
+      formId: insertResult.rows[0].form_id
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * ฟังก์ชันสร้างชื่อไฟล์ในรูปแบบ
+ * Username-YYYY.MM.DD-HH.mm.pdf
+ */
+function generateFileName(username) {
+  // กรณี username มีช่องว่างหรืออักขระพิเศษ อาจต้อง sanitize
+  const safeUsername = username.replace(/\s+/g, '_'); // แทน space ด้วย _
+
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const hour = String(now.getHours()).padStart(2, '0');
+  const minute = String(now.getMinutes()).padStart(2, '0');
+
+  return `${safeUsername}-${year}.${month}.${day}-${hour}.${minute}.pdf`;
+}
+
+// Route: GET /pdf-history
+router.get('/pdf-history', authenticateToken, async (req, res, next) => {
+  try {
+    const userId = req.user.user_id;
+
+    // 1) Query ข้อมูลจากตาราง tax_form
+    const result = await pool.query(`
+      SELECT form_id, generated_at, tax_details, pdf_data, form_status
+      FROM tax_form
+      WHERE user_id = $1
+      ORDER BY generated_at DESC
+    `, [userId]);
+
+    // 2) Map ข้อมูลให้ตรงกับโครงสร้างที่ Frontend คาดหวัง
+    // ในโค้ด Frontend คุณเรียกใช้ item.name, item.date, item.url
+    // จึงอาจต้องสร้าง object ให้มี name, date, url
+    const data = result.rows.map(row => {
+      return {
+        name: row.tax_details || `Form #${row.form_id}`, // หรือจะตั้งชื่ออะไรก็ได้
+        date: row.generated_at,
+        url: row.pdf_data          // คอลัมน์ pdf_data เก็บ URL เช่น "/pdfs/xxx.pdf"
+      };
+    });
+
+    // 3) ส่งข้อมูลกลับเป็น JSON
+    res.json(data);
+
   } catch (error) {
     next(error);
   }
