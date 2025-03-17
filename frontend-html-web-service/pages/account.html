@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Profile</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="../assets/TD_web_icon.png">
+    <!-- Mali Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="../assets/TD_web_icon.png" />
     <script src="../config.js"></script>
     <style>
         .font-mali {
@@ -14,62 +16,67 @@
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen bg-[#c4bcac]">
+<body class="flex items-center justify-center min-h-screen bg-[#c4bcac] font-mali">
+
 <!-- Header -->
 <header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
         <!-- โลโก้ / ชื่อเว็บ -->
-        <h1 class="text-2xl text-[#4e342e] font-bold font-mali">Tax2Ready</h1>
+        <h1 class="text-2xl text-[#4e342e] font-bold">Tax2Ready</h1>
+
         <!-- เมนูหลัก (Desktop) -->
         <nav class="hidden md:flex space-x-6 relative">
-            <a href="account.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
-            <a href="home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
+            <a href="account.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
+            <a href="home.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
             <!-- Dropdown for 'เรียนรู้เพิ่มเติม' -->
             <div class="relative group">
-                <button id="learn-more-btn" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline focus:outline-none">
+                <button id="learn-more-btn" class="text-[#f7efda] hover:text-[#4e342e] hover:underline focus:outline-none">
                     เรียนรู้เพิ่มเติม
                 </button>
                 <div id="learn-more-menu" class="absolute hidden bg-[#b49c74] mt-2 w-60 rounded-lg shadow-lg z-10 p-2">
                     <ul>
-                        <li><a href="1tax-intro.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">1. ภาษีคืออะไร?</a></li>
-                        <li><a href="2why-pay-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">2. ทำไมเราต้องจ่ายภาษี?</a></li>
-                        <li><a href="3no-tax-consequence.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">3. ไม่จ่ายภาษีจะเกิดอะไรขึ้น?</a></li>
-                        <li><a href="4who-pays-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">4. ใครบ้างที่ต้องเริ่มจ่ายภาษี?</a></li>
-                        <li><a href="5income-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">5. รายได้ที่ต้องเสียภาษี?</a></li>
-                        <li><a href="6tax-deductions.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">6. สิทธิ์ลดหย่อนภาษี?</a></li>
-                        <li><a href="7tax-frequency.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">7. ต้องจ่ายภาษีบ่อยแค่ไหน?</a></li>
-                        <li><a href="8how-to-pay-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">8. มีวิธีจ่ายภาษีอย่างไร?</a></li>
+                        <li><a href="1tax-intro.html" class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">1. ภาษีคืออะไร?</a></li>
+                        <li><a href="2why-pay-tax.html" class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">2. ทำไมเราต้องจ่ายภาษี?</a></li>
+                        <li><a href="3no-tax-consequence.html" class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">3. ไม่จ่ายภาษีจะเกิดอะไรขึ้น?</a></li>
+                        <li><a href="4who-pays-tax.html" class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">4. ใครบ้างที่ต้องเริ่มจ่ายภาษี?</a></li>
+                        <li><a href="5income-tax.html" class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">5. รายได้ที่ต้องเสียภาษี?</a></li>
+                        <li><a href="6tax-deductions.html" class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">6. สิทธิ์ลดหย่อนภาษี?</a></li>
+                        <li><a href="7tax-frequency.html" class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">7. ต้องจ่ายภาษีบ่อยแค่ไหน?</a></li>
+                        <li><a href="8how-to-pay-tax.html" class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">8. มีวิธีจ่ายภาษีอย่างไร?</a></li>
                     </ul>
                 </div>
             </div>
-            <a href="tax-personal.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
-            <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
+            <a href="tax-personal.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
+            <a href="contact.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">ติดต่อ</a>
         </nav>
+
         <!-- ปุ่ม Login (Desktop) -->
-        <button type="button" onclick="location.href='sign-in-up.html'" class="loginButton opacity-100 hidden md:block bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+        <button type="button" onclick="location.href='sign-in-up.html'" class="loginButton opacity-100 hidden md:block bg-[#4e342e] text-white px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
             Login
         </button>
+
         <!-- เมนูมือถือ (Hamburger Icon) -->
         <button class="md:hidden text-gray-600" id="mobile-menu-button">☰</button>
     </div>
+
     <!-- เมนูสำหรับมือถือ (ซ่อนอยู่) -->
     <nav id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 mt-3 bg-[#b49c74] p-4">
-        <a href="account.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
-        <a href="home.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
-        <a href="#" id="learn-more-btn-mobile" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
+        <a href="account.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">บัญชีผู้ใช้</a>
+        <a href="home.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">เริ่มต้นเรียนรู้ใหม่</a>
+        <a href="#" id="learn-more-btn-mobile" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">เรียนรู้เพิ่มเติม</a>
         <ul id="learn-more-menu-mobile" class="hidden flex-col space-y-2 bg-[#b49c74] p-2 rounded-lg">
-            <li><a href="1tax-intro.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">1. ภาษีคืออะไร?</a></li>
-            <li><a href="2why-pay-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">2. ทำไมเราต้องจ่ายภาษี?</a></li>
-            <li><a href="3no-tax-consequence.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">3. ไม่จ่ายภาษีจะเกิดอะไรขึ้น?</a></li>
-            <li><a href="4who-pays-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">4. ใครบ้างที่ต้องเริ่มจ่ายภาษี?</a></li>
-            <li><a href="5income-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">5. รายได้ที่ต้องเสียภาษี?</a></li>
-            <li><a href="6tax-deductions.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">6. สิทธิ์ลดหย่อนภาษี?</a></li>
-            <li><a href="7tax-frequency.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">7. ต้องจ่ายภาษีบ่อยแค่ไหน?</a></li>
-            <li><a href="8how-to-pay-tax.html" class="font-mali block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">8. มีวิธีจ่ายภาษีอย่างไร?</a></li>
+            <li><a href="1tax-intro.html" class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">1. ภาษีคืออะไร?</a></li>
+            <li><a href="2why-pay-tax.html" class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">2. ทำไมเราต้องจ่ายภาษี?</a></li>
+            <li><a href="3no-tax-consequence.html" class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">3. ไม่จ่ายภาษีจะเกิดอะไรขึ้น?</a></li>
+            <li><a href="4who-pays-tax.html" class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">4. ใครบ้างที่ต้องเริ่มจ่ายภาษี?</a></li>
+            <li><a href="5income-tax.html" class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">5. รายได้ที่ต้องเสียภาษี?</a></li>
+            <li><a href="6tax-deductions.html" class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">6. สิทธิ์ลดหย่อนภาษี?</a></li>
+            <li><a href="7tax-frequency.html" class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">7. ต้องจ่ายภาษีบ่อยแค่ไหน?</a></li>
+            <li><a href="8how-to-pay-tax.html" class="block px-4 py-2 text-[#f7efda] hover:bg-[#8d6e63] hover:underline">8. มีวิธีจ่ายภาษีอย่างไร?</a></li>
         </ul>
-        <a href="tax-personal.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
-        <a href="contact.html" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">ติดต่อ</a>
-        <button type="button" onclick="location.href='sign-in-up.html'" class="loginButton opacity-100 bg-[#4e342e] text-white font-mali px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
+        <a href="tax-personal.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">คำนวณภาษี</a>
+        <a href="contact.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">ติดต่อ</a>
+        <button type="button" onclick="location.href='sign-in-up.html'" class="loginButton opacity-100 bg-[#4e342e] text-white px-4 py-2 rounded-lg hover:bg-[#8d6e63]">
             Login
         </button>
     </nav>
@@ -80,41 +87,45 @@
     <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
         <!-- User Profile Section -->
         <div class="w-full md:w-1/2 h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md gap-6">
-            <h2 class="text-2xl font-bold text-[#4e342e] font-mali text-center">โปรไฟล์ผู้ใช้</h2>
+            <h2 class="text-2xl font-bold text-[#4e342e] text-center">โปรไฟล์ผู้ใช้</h2>
             <div class="mt-4 text-xl text-left">
-                <p class="text-[#4e342e] font-mali"><strong>ชื่อ:</strong> <span id="user-name">-</span></p>
-                <p class="text-[#4e342e] font-mali"><strong>นามสกุล:</strong> <span id="user-lastname">-</span></p>
-                <p class="text-[#4e342e] font-mali"><strong>ชื่อผู้ใช้:</strong> <span id="user-username">-</span></p>
-                <p class="text-[#4e342e] font-mali"><strong>E-mail:</strong> <span id="user-email">-</span></p>
-                <p class="text-[#4e342e] font-mali"><strong>วันเกิด:</strong> <span id="user-birthday">-</span></p>
-                <p class="text-[#4e342e] font-mali"><strong>เบอร์โทร:</strong> <span id="user-phone">-</span></p>
-                <p class="text-[#4e342e] font-mali"><strong>เพศ:</strong> <span id="user-gender">-</span></p>
+                <p class="text-[#4e342e]"><strong>ชื่อ:</strong> <span id="user-name">-</span></p>
+                <p class="text-[#4e342e]"><strong>นามสกุล:</strong> <span id="user-lastname">-</span></p>
+                <p class="text-[#4e342e]"><strong>ชื่อผู้ใช้:</strong> <span id="user-username">-</span></p>
+                <p class="text-[#4e342e]"><strong>E-mail:</strong> <span id="user-email">-</span></p>
+                <p class="text-[#4e342e]"><strong>วันเกิด:</strong> <span id="user-birthday">-</span></p>
+                <p class="text-[#4e342e]"><strong>เบอร์โทร:</strong> <span id="user-phone">-</span></p>
+                <p class="text-[#4e342e]"><strong>เพศ:</strong> <span id="user-gender">-</span></p>
             </div>
-            <button onclick="openEditProfile()" class="w-full bg-[#4e342e] text-white font-mali px-4 py-2 mt-4 rounded-lg hover:bg-[#8d6e63]">แก้ไขโปรไฟล์</button>
-            <!-- Modal แก้ไขโปรไฟล์ (modal code) -->
-            <!-- ... -->
+            <button onclick="openEditProfile()" class="w-full bg-[#4e342e] text-white px-4 py-2 mt-4 rounded-lg hover:bg-[#8d6e63]">
+                แก้ไขโปรไฟล์
+            </button>
+
+            <!-- เส้นแบ่ง -->
             <hr class="border-t border-gray-300 my-4">
+
             <div class="flex items-center justify-between w-full">
-                <h2 class="text-lg font-bold text-[#4e342e] font-mali">เปิดเพื่อรับแจ้งเตือนผ่าน E-mail</h2>
+                <h2 class="text-lg font-bold text-[#4e342e]">เปิดเพื่อรับแจ้งเตือนผ่าน E-mail</h2>
                 <div class="flex items-center space-x-3">
                     <button id="infoButton" class="w-7 h-7 bg-[#4e342e] text-white rounded-full flex items-center justify-center font-bold text-lg hover:bg-[#8d6e63]">?</button>
                     <div class="flex items-center space-x-2">
-                        <span class="text-lg font-semibold text-gray-700 font-mali">ปิด</span>
+                        <span class="text-lg font-semibold text-gray-700">ปิด</span>
                         <div id="toggleSwitch" class="w-14 h-8 flex items-center bg-gray-300 rounded-full p-1 cursor-pointer transition-all duration-300" onclick="toggleSwitch()">
                             <div id="toggleCircle" class="w-6 h-6 bg-white rounded-full shadow-md transition-all duration-300"></div>
                         </div>
-                        <span class="text-lg font-semibold text-gray-700 font-mali">เปิด</span>
+                        <span class="text-lg font-semibold text-gray-700">เปิด</span>
                     </div>
                 </div>
             </div>
-            <!-- Popup สำหรับแจ้งเตือน (popup code) -->
-            <!-- ... -->
-            <button onclick="logoutUser()" class="w-full bg-red-600 text-white font-mali px-4 py-2 mt-4 rounded-lg hover:bg-red-700">ออกจากระบบ</button>
+
+            <button onclick="logoutUser()" class="w-full bg-red-600 text-white px-4 py-2 mt-4 rounded-lg hover:bg-red-700">
+                ออกจากระบบ
+            </button>
         </div>
 
         <!-- PDF History Section -->
         <div class="w-full md:w-1/2 h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md flex flex-col justify-between">
-            <h2 class="text-2xl font-bold text-[#4e342e] font-mali text-center">ประวัติผลลัพธ์</h2>
+            <h2 class="text-2xl font-bold text-[#4e342e] text-center">ประวัติผลลัพธ์</h2>
             <!-- Container สำหรับแสดง PDF History -->
             <div id="history-container" class="flex flex-col space-y-4 mt-4 overflow-auto max-h-[400px]">
                 <!-- รายการ PDF จะแสดงที่นี่โดย JavaScript -->
@@ -129,6 +140,93 @@
     </div>
 </div>
 
+<!-- Modal แก้ไขโปรไฟล์ (modal code) -->
+<div id="editProfileModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-[#f7efda] p-6 rounded-lg shadow-md w-11/12 md:w-1/2">
+        <h2 class="text-xl font-bold mb-4 text-[#4e342e]">แก้ไขโปรไฟล์</h2>
+        <!-- ห่อหุ้ม Input ด้วย Form -->
+        <form id="editProfileForm">
+            <!-- ชื่อ -->
+            <div>
+                <label for="edit-name" class="block mb-1 text-[#4e342e]">ชื่อ:</label>
+                <input
+                        id="edit-name"
+                        name="edit-name"
+                        type="text"
+                        class="border border-[#b49c74] rounded px-2 py-1 w-full text-[#4e342e] focus:outline-none focus:border-[#4e342e]"
+                        required
+                />
+            </div>
+            <!-- นามสกุล -->
+            <div>
+                <label for="edit-lastname" class="block mb-1 text-[#4e342e]">นามสกุล:</label>
+                <input
+                        id="edit-lastname"
+                        name="edit-lastname"
+                        type="text"
+                        class="border border-[#b49c74] rounded px-2 py-1 w-full text-[#4e342e] focus:outline-none focus:border-[#4e342e]"
+                        required
+                />
+            </div>
+            <!-- อีเมล -->
+            <div>
+                <label for="edit-email" class="block mb-1 text-[#4e342e]">E-mail:</label>
+                <input
+                        id="edit-email"
+                        name="edit-email"
+                        type="email"
+                        class="border border-[#b49c74] rounded px-2 py-1 w-full text-[#4e342e] focus:outline-none focus:border-[#4e342e]"
+                        required
+                />
+            </div>
+            <!-- วันเกิด -->
+            <div>
+                <label for="edit-birthday" class="block mb-1 text-[#4e342e]">วันเกิด:</label>
+                <input
+                        id="edit-birthday"
+                        name="edit-birthday"
+                        type="date"
+                        class="border border-[#b49c74] rounded px-2 py-1 w-full text-[#4e342e] focus:outline-none focus:border-[#4e342e]"
+                        required
+                />
+            </div>
+            <!-- เบอร์โทร -->
+            <div>
+                <label for="edit-phone" class="block mb-1 text-[#4e342e]">เบอร์โทร:</label>
+                <input
+                        id="edit-phone"
+                        name="edit-phone"
+                        type="text"
+                        class="border border-[#b49c74] rounded px-2 py-1 w-full text-[#4e342e] focus:outline-none focus:border-[#4e342e]"
+                        required
+                />
+            </div>
+        </form>
+        <div class="mt-6 flex justify-end space-x-2">
+            <button onclick="closeEditProfile()" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">
+                ปิด
+            </button>
+            <button onclick="saveProfile()" class="bg-[#4e342e] text-white px-4 py-2 rounded hover:bg-[#8d6e63]">
+                บันทึก
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Popup สำหรับแจ้งเตือน (popup code) -->
+<div id="infoPopup" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-[#f7efda] p-6 rounded-lg shadow-md w-11/12 md:w-1/3">
+        <h2 class="text-xl font-bold mb-4 text-[#4e342e]">ข้อมูลเกี่ยวกับการแจ้งเตือน</h2>
+        <p class="mb-4 text-[#4e342e]">
+            หากเปิดการแจ้งเตือน คุณจะได้รับอีเมลแจ้งเตือนเมื่อมีข้อมูลใหม่หรือการอัปเดตเกี่ยวกับระบบภาษี
+        </p>
+        <div class="flex justify-end">
+            <button onclick="closePopup()" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">
+                ปิด
+            </button>
+        </div>
+    </div>
+</div>
 
 <!-- JavaScript -->
 <script>
@@ -225,6 +323,7 @@
                 return;
             }
             const userData = await response.json();
+
             let formattedDOB = "-";
             if (userData.dob) {
                 const dobDate = new Date(userData.dob);
@@ -233,6 +332,7 @@
                 const year = dobDate.getFullYear();
                 formattedDOB = `${day}/${month}/${year}`;
             }
+
             document.getElementById("user-name").textContent = userData.name;
             document.getElementById("user-lastname").textContent = userData.surname;
             document.getElementById("user-username").textContent = userData.username;
@@ -240,6 +340,8 @@
             document.getElementById("user-birthday").textContent = formattedDOB;
             document.getElementById("user-phone").textContent = userData.phone;
             document.getElementById("user-gender").textContent = userData.gender;
+
+            // จัดการ notification toggle
             isNotificationOn = userData.notification_status;
             updateToggleUI(isNotificationOn);
         } catch (error) {
@@ -262,11 +364,16 @@
 
     // ฟังก์ชันเปิด/ปิด Modal แก้ไขโปรไฟล์
     function openEditProfile() {
-        document.getElementById("editProfileModal").classList.remove("hidden");
+        const modal = document.getElementById("editProfileModal");
+        if (!modal) return;
+        modal.classList.remove("hidden");
+
+        // เติมค่าเดิมในช่องแก้ไข
         document.getElementById("edit-name").value = document.getElementById("user-name").textContent;
         document.getElementById("edit-lastname").value = document.getElementById("user-lastname").textContent;
         document.getElementById("edit-email").value = document.getElementById("user-email").textContent;
         document.getElementById("edit-phone").value = document.getElementById("user-phone").textContent;
+
         const birthdayText = document.getElementById("user-birthday").textContent;
         if (birthdayText === "-" || !birthdayText.includes("/")) {
             document.getElementById("edit-birthday").value = "";
@@ -279,24 +386,34 @@
     }
 
     function closeEditProfile() {
-        document.getElementById("editProfileModal").classList.add("hidden");
+        const modal = document.getElementById("editProfileModal");
+        if (!modal) return;
+        modal.classList.add("hidden");
     }
 
     // ฟังก์ชันบันทึกการแก้ไขโปรไฟล์
     async function saveProfile() {
-        let newName = document.getElementById("edit-name").value;
-        let newLastName = document.getElementById("edit-lastname").value;
-        let newEmail = document.getElementById("edit-email").value;
+        const form = document.getElementById("editProfileForm");
+        // ใช้ reportValidity() เพื่อให้ Browser แสดง required error (Please fill out this field) ถ้ามีช่องว่าง
+        if (!form.reportValidity()) {
+            return;
+        }
+
+        let newName = document.getElementById("edit-name").value.trim();
+        let newLastName = document.getElementById("edit-lastname").value.trim();
+        let newEmail = document.getElementById("edit-email").value.trim();
         let newDOB = document.getElementById("edit-birthday").value;
-        let newPhone = document.getElementById("edit-phone").value;
+        let newPhone = document.getElementById("edit-phone").value.trim();
+
+        // ตรวจสอบรูปแบบข้อมูลเพิ่มเติมด้วย Regex (ข้อมูลเหล่านี้ไม่นับช่องว่าง เนื่องจาก required จะจัดการ)
         const nameRegex = /^[A-Za-zก-ฮ\s]+$/;
         if (!nameRegex.test(newName)) {
-            alert("กรุณากรอกชื่อให้ถูกต้อง");
+            alert("กรุณากรอกชื่อให้ถูกต้อง (เป็นตัวอักษรเท่านั้น)");
             return;
         }
         const lastnameRegex = /^[A-Za-zก-ฮ\s]+$/;
         if (!lastnameRegex.test(newLastName)) {
-            alert("กรุณากรอกนามสกุลให้ถูกต้อง");
+            alert("กรุณากรอกนามสกุลให้ถูกต้อง (เป็นตัวอักษรเท่านั้น)");
             return;
         }
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -305,13 +422,15 @@
             return;
         }
         if (newPhone.length !== 10) {
-            alert("กรุณากรอกเบอร์โทรศัพท์ให้ครบถ้วน");
+            alert("กรุณากรอกเบอร์โทรศัพท์ให้ครบถ้วน (10 หลัก)");
             return;
         }
         if (!/^\d+$/.test(newPhone)) {
-            alert("กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง");
+            alert("กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง (ตัวเลขเท่านั้น)");
             return;
         }
+
+        // สร้าง payload เพื่อส่งไปอัปเดต
         const payload = {
             name: newName,
             surname: newLastName,
@@ -319,6 +438,7 @@
             dob: newDOB,
             phone: newPhone
         };
+
         const token = 'Bearer ' + localStorage.getItem('jwt_token');
         try {
             const response = await fetch(window.CONFIG.BASE_PATH + '/users/update-profile', {
@@ -339,11 +459,14 @@
                     const y = updatedDobDate.getFullYear();
                     updatedDobFormatted = `${d}/${m}/${y}`;
                 }
+
+                // อัปเดตค่าที่หน้าเว็บ
                 document.getElementById("user-name").textContent = data.user.name;
                 document.getElementById("user-lastname").textContent = data.user.surname;
                 document.getElementById("user-email").textContent = data.user.email;
                 document.getElementById("user-birthday").textContent = updatedDobFormatted;
                 document.getElementById("user-phone").textContent = data.user.phone;
+
                 closeEditProfile();
                 alert("Profile updated successfully!");
             } else {
@@ -362,6 +485,7 @@
         const toggleSwitch = document.getElementById('toggleSwitch');
         const toggleCircle = document.getElementById('toggleCircle');
         if (!toggleSwitch || !toggleCircle) return;
+
         if (isOn) {
             toggleSwitch.classList.remove('bg-gray-300');
             toggleSwitch.classList.add('bg-green-500');
@@ -433,12 +557,17 @@
         const container = document.getElementById("history-container");
         if (!container) return;
         container.innerHTML = "";
+
         const start = (currentPage - 1) * itemsPerPage;
         const end = start + itemsPerPage;
         const paginatedResults = results.slice(start, end);
+
         paginatedResults.forEach(item => {
             const div = document.createElement("div");
-            div.classList.add("flex", "justify-between", "items-center", "p-4", "rounded-lg", "shadow-md", "cursor-pointer", "hover:bg-[#c4bcac]", "font-mali", "hover:underline");
+            div.classList.add(
+                "flex", "justify-between", "items-center", "p-4", "rounded-lg",
+                "shadow-md", "cursor-pointer", "hover:bg-[#c4bcac]", "hover:underline"
+            );
             const formattedDate = new Date(item.date).toLocaleDateString('th-TH');
             div.onclick = () => window.open(item.url, "_blank");
             div.innerHTML = `
@@ -447,6 +576,7 @@
         `;
             container.appendChild(div);
         });
+
         const pageIndicator = document.getElementById("page-indicator");
         if (pageIndicator) {
             pageIndicator.textContent = `${currentPage} / ${Math.ceil(results.length / itemsPerPage)}`;
@@ -469,10 +599,14 @@
 
     // Popup
     function openPopup() {
-        document.getElementById("infoPopup").classList.remove("hidden");
+        const infoPopup = document.getElementById("infoPopup");
+        if (!infoPopup) return;
+        infoPopup.classList.remove("hidden");
     }
     function closePopup() {
-        document.getElementById("infoPopup").classList.add("hidden");
+        const infoPopup = document.getElementById("infoPopup");
+        if (!infoPopup) return;
+        infoPopup.classList.add("hidden");
     }
 </script>
 </body>

@@ -121,45 +121,67 @@
                         กลุ่มที่ 1: ค่าอุปการะส่วนตัวและครอบครัว
                     </h3>
                     <table class="w-full text-left border-collapse">
+                        <!-- แถวลดหย่อนผู้มีเงินได้ (ค่านี้คงที่) -->
                         <tr>
                             <td class="py-2 w-1/3">ลดหย่อนผู้มีเงินได้ (บาท):</td>
                             <td class="py-2 w-2/3">
-                                <input type="text" class="border rounded p-1 w-full" value="60,000" readonly />
+                                <input type="text" class="border rounded p-1 w-full" value="60,000" readonly onkeydown="return false;" />
                             </td>
                         </tr>
+                        <!-- แถวค่าลดหย่อนผู้สูงอายุ -->
                         <tr>
                             <td class="py-2">ค่าลดหย่อนผู้สูงอายุ (บาท):</td>
                             <td class="py-2">
                                 <div class="flex gap-2">
-                                    <input type="text" class="border rounded p-1 w-1/2" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
-                                    <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน" min="0" />
+                                    <!-- ช่องแสดงผลเงิน (คำนวณอัตโนมัติ) -->
+                                    <input type="text" class="border rounded p-1 w-1/2" placeholder="0" readonly onkeydown="return false;"
+                                           pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" />
+                                    <!-- ช่องกรอกจำนวนคน จำกัดสูงสุด 2 คน (กดปุ่มเพิ่ม/ลดเท่านั้น) -->
+                                    <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน"
+                                           min="0" max="2" step="1" onkeydown="return false;"
+                                           data-rate="30000" oninput="updateDeductionValue(this)" />
                                 </div>
                             </td>
                         </tr>
+                        <!-- แถวค่าอุปการะบิดา/มารดา -->
                         <tr>
                             <td class="py-2">ค่าอุปการะบิดา/มารดา (บาท):</td>
                             <td class="py-2">
                                 <div class="flex gap-2">
-                                    <input type="text" class="border rounded p-1 w-1/2" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
-                                    <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน" min="0" />
+                                    <input type="text" class="border rounded p-1 w-1/2" placeholder="0" readonly onkeydown="return false;"
+                                           pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" />
+                                    <!-- ช่องกรอกจำนวนคน จำกัดสูงสุด 2 คน -->
+                                    <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน"
+                                           min="0" max="2" step="1" onkeydown="return false;"
+                                           data-rate="30000" oninput="updateDeductionValue(this)" />
                                 </div>
                             </td>
                         </tr>
+                        <!-- แถวค่าเลี้ยงดูบุตร -->
                         <tr>
                             <td class="py-2">ค่าเลี้ยงดูบุตร (บาท):</td>
                             <td class="py-2">
                                 <div class="flex gap-2">
-                                    <input type="text" class="border rounded p-1 w-1/2" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
-                                    <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน" min="0" />
+                                    <input type="text" class="border rounded p-1 w-1/2" placeholder="0" readonly onkeydown="return false;"
+                                           pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" />
+                                    <!-- ช่องกรอกจำนวนคน จำกัดสูงสุด 3 คน -->
+                                    <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน"
+                                           min="0" max="3" step="1" onkeydown="return false;"
+                                           data-rate="30000" oninput="updateDeductionValue(this)" />
                                 </div>
                             </td>
                         </tr>
+                        <!-- แถวอุปการะคนพิการ/ทุพพลภาพ -->
                         <tr>
                             <td class="py-2">อุปการะคนพิการ/ทุพพลภาพ (บาท):</td>
                             <td class="py-2">
                                 <div class="flex gap-2">
-                                    <input type="text" class="border rounded p-1 w-1/2" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
-                                    <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน" min="0" />
+                                    <input type="text" class="border rounded p-1 w-1/2" placeholder="0" readonly onkeydown="return false;"
+                                           pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" />
+                                    <!-- ช่องกรอกจำนวนคน ไม่จำกัดจำนวน -->
+                                    <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน"
+                                           min="0" step="1" onkeydown="return false;"
+                                           data-rate="60000" oninput="updateDeductionValue(this)" />
                                 </div>
                             </td>
                         </tr>
@@ -173,37 +195,49 @@
                         <tr>
                             <td class="py-2">เบี้ยประกันชีวิต (ทั่วไป) (บาท):</td>
                             <td>
-                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
+                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                       onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">เบี้ยประกันสุขภาพ (บาท):</td>
                             <td>
-                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
+                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                       onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">เบี้ยประกันชีวิตแบบบำนาญ (บาท):</td>
                             <td>
-                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
+                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                       onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">กองทุนสำรองเลี้ยงชีพ/กบข. (บาท):</td>
                             <td>
-                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
+                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                       onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">กองทุนรวมเพื่อการเลี้ยงชีพ (RMF) (บาท):</td>
                             <td>
-                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
+                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                       onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">กองทุน SSF (บาท):</td>
                             <td>
-                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
+                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                       onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                     </table>
@@ -216,19 +250,25 @@
                         <tr>
                             <td class="py-2">ดอกเบี้ยเงินกู้ยืม เพื่อที่อยู่อาศัย (บาท):</td>
                             <td>
-                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
+                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                       onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">เงินบริจาคพรรคการเมือง (บาท):</td>
                             <td>
-                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
+                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                       onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">ค่าโครงการและค่าผ่าตัดทำหมัน (บาท):</td>
                             <td>
-                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
+                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                       onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                     </table>
@@ -244,19 +284,25 @@
                                 <br/><span class="text-sm text-gray-600">(ใช้ได้ถึง 15 ก.พ. 2566)</span>
                             </td>
                             <td>
-                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
+                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                       onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">ค่าซื้อสินค้าเพื่อการศึกษา/กีฬา/หนังสือ (บาท):</td>
                             <td>
-                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
+                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                       onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">ค่าซื้อสินค้า OTOP (บาท):</td>
                             <td>
-                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
+                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                       onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                     </table>
@@ -269,13 +315,17 @@
                         <tr>
                             <td class="py-2">เงินบริจาคสนับสนุนการศึกษา/สถาบันการกุศล (บาท):</td>
                             <td>
-                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
+                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                       onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                         <tr>
                             <td class="py-2">เงินบริจาคอื่น ๆ (บาท):</td>
                             <td>
-                                <input type="text" class="border rounded p-1 w-full" placeholder="0" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
+                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                       onkeypress="return checkDecimal(this, event)" oninput="validateCommaNumber(this)" />
                             </td>
                         </tr>
                     </table>
@@ -520,6 +570,21 @@
         } else {
             input.setCustomValidity("รูปแบบไม่ถูกต้อง (ตัวอย่าง: 000,000,000.00)");
         }
+    }
+
+    // ฟังก์ชันคำนวณและอัปเดตค่าเบี้ยลดหย่อนอัตโนมัติ
+    function updateDeductionValue(numberInput) {
+        // ดึงจำนวนคนที่กรอก (ถ้าไม่ใช่ตัวเลขหรือว่าง ให้ถือเป็น 0)
+        const count = parseInt(numberInput.value) || 0;
+        // ดึงอัตราที่กำหนดไว้ใน data-rate (เช่น 30000 หรือ 60000)
+        const rate = parseInt(numberInput.getAttribute('data-rate')) || 0;
+        // คำนวณค่าเบี้ยลดหย่อน
+        const newValue = count * rate;
+        // หาตัว input ประเภท text ที่เป็นคู่ของ numberInput
+        const container = numberInput.parentElement;
+        const textInput = container.querySelector('input[type="text"]');
+        // อัปเดตค่าใน textInput โดยแปลงเป็นสตริงที่มีเครื่องหมายคั่นหลักพัน
+        textInput.value = newValue.toLocaleString('en-US');
     }
 </script>
 
