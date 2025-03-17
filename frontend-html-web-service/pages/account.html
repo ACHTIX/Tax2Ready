@@ -17,7 +17,6 @@
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen bg-[#c4bcac] font-mali">
-
 <!-- Header -->
 <header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
@@ -93,7 +92,6 @@
                 <p class="text-[#4e342e]"><strong>นามสกุล:</strong> <span id="user-lastname">-</span></p>
                 <p class="text-[#4e342e]"><strong>ชื่อผู้ใช้:</strong> <span id="user-username">-</span></p>
                 <p class="text-[#4e342e]"><strong>E-mail:</strong> <span id="user-email">-</span></p>
-                <p class="text-[#4e342e]"><strong>วันเกิด:</strong> <span id="user-birthday">-</span></p>
                 <p class="text-[#4e342e]"><strong>เบอร์โทร:</strong> <span id="user-phone">-</span></p>
             </div>
             <button onclick="openEditProfile()" class="w-full bg-[#4e342e] text-white px-4 py-2 mt-4 rounded-lg hover:bg-[#8d6e63]">
@@ -167,24 +165,13 @@
                         required
                 />
             </div>
-            <!-- อีเมล -->
+            <!-- E-mail -->
             <div>
                 <label for="edit-email" class="block mb-1 text-[#4e342e]">E-mail:</label>
                 <input
                         id="edit-email"
                         name="edit-email"
                         type="email"
-                        class="border border-[#b49c74] rounded px-2 py-1 w-full text-[#4e342e] focus:outline-none focus:border-[#4e342e]"
-                        required
-                />
-            </div>
-            <!-- วันเกิด -->
-            <div>
-                <label for="edit-birthday" class="block mb-1 text-[#4e342e]">วันเกิด:</label>
-                <input
-                        id="edit-birthday"
-                        name="edit-birthday"
-                        type="date"
                         class="border border-[#b49c74] rounded px-2 py-1 w-full text-[#4e342e] focus:outline-none focus:border-[#4e342e]"
                         required
                 />
@@ -306,7 +293,7 @@
             });
     }
 
-    // ฟังก์ชันดึงข้อมูลผู้ใช้ + แปลงวันเกิดเป็น dd/mm/yyyy
+    // ฟังก์ชันดึงข้อมูลผู้ใช้
     async function fetchUserData() {
         try {
             const token = 'Bearer ' + localStorage.getItem('jwt_token');
@@ -323,22 +310,12 @@
             }
             const userData = await response.json();
 
-            let formattedDOB = "-";
-            if (userData.dob) {
-                const dobDate = new Date(userData.dob);
-                const day = String(dobDate.getDate()).padStart(2, '0');
-                const month = String(dobDate.getMonth() + 1).padStart(2, '0');
-                const year = dobDate.getFullYear();
-                formattedDOB = `${day}/${month}/${year}`;
-            }
-
-            document.getElementById("user-name").textContent = userData.name;
-            document.getElementById("user-lastname").textContent = userData.surname;
-            document.getElementById("user-username").textContent = userData.username;
-            document.getElementById("user-email").textContent = userData.email;
-            document.getElementById("user-birthday").textContent = formattedDOB;
-            document.getElementById("user-phone").textContent = userData.phone;
-            document.getElementById("user-gender").textContent = userData.gender;
+            // อัปเดตข้อมูลบนหน้าเว็บ
+            document.getElementById("user-name").textContent = userData.name || "-";
+            document.getElementById("user-lastname").textContent = userData.surname || "-";
+            document.getElementById("user-username").textContent = userData.username || "-";
+            document.getElementById("user-email").textContent = userData.email || "-";
+            document.getElementById("user-phone").textContent = userData.phone || "-";
 
             // จัดการ notification toggle
             isNotificationOn = userData.notification_status;
@@ -355,9 +332,7 @@
         document.getElementById("user-lastname").textContent = '';
         document.getElementById("user-username").textContent = '';
         document.getElementById("user-email").textContent = '';
-        document.getElementById("user-birthday").textContent = '';
         document.getElementById("user-phone").textContent = '';
-        document.getElementById("user-gender").textContent = '';
         window.location.href = "./home.html";
     }
 
@@ -367,21 +342,11 @@
         if (!modal) return;
         modal.classList.remove("hidden");
 
-        // เติมค่าเดิมในช่องแก้ไข
+        // เติมค่าเดิมในช่องแก้ไข (เฉพาะ ชื่อ, นามสกุล, E-mail, เบอร์โทร)
         document.getElementById("edit-name").value = document.getElementById("user-name").textContent;
         document.getElementById("edit-lastname").value = document.getElementById("user-lastname").textContent;
         document.getElementById("edit-email").value = document.getElementById("user-email").textContent;
         document.getElementById("edit-phone").value = document.getElementById("user-phone").textContent;
-
-        const birthdayText = document.getElementById("user-birthday").textContent;
-        if (birthdayText === "-" || !birthdayText.includes("/")) {
-            document.getElementById("edit-birthday").value = "";
-        } else {
-            const [day, month, year] = birthdayText.split("/");
-            const dateObj = new Date(year, Number(month) - 1, day);
-            const isoForInput = dateObj.toISOString().split("T")[0];
-            document.getElementById("edit-birthday").value = isoForInput;
-        }
     }
 
     function closeEditProfile() {
@@ -393,7 +358,7 @@
     // ฟังก์ชันบันทึกการแก้ไขโปรไฟล์
     async function saveProfile() {
         const form = document.getElementById("editProfileForm");
-        // ใช้ reportValidity() เพื่อให้ Browser แสดง required error (Please fill out this field) ถ้ามีช่องว่าง
+        // ใช้ reportValidity() เพื่อให้ Browser แสดง required error ถ้ามีช่องว่าง
         if (!form.reportValidity()) {
             return;
         }
@@ -401,25 +366,28 @@
         let newName = document.getElementById("edit-name").value.trim();
         let newLastName = document.getElementById("edit-lastname").value.trim();
         let newEmail = document.getElementById("edit-email").value.trim();
-        let newDOB = document.getElementById("edit-birthday").value;
         let newPhone = document.getElementById("edit-phone").value.trim();
 
-        // ตรวจสอบรูปแบบข้อมูลเพิ่มเติมด้วย Regex (ข้อมูลเหล่านี้ไม่นับช่องว่าง เนื่องจาก required จะจัดการ)
+        // ตรวจสอบรูปแบบข้อมูลเพิ่มเติมด้วย Regex
+        // ชื่อ/นามสกุล อนุญาตเฉพาะตัวอักษรไทย อังกฤษ และช่องว่าง (ไม่อนุญาตตัวเลข)
         const nameRegex = /^[A-Za-zก-ฮ\s]+$/;
         if (!nameRegex.test(newName)) {
             alert("กรุณากรอกชื่อให้ถูกต้อง (เป็นตัวอักษรเท่านั้น)");
             return;
         }
-        const lastnameRegex = /^[A-Za-zก-ฮ\s]+$/;
-        if (!lastnameRegex.test(newLastName)) {
+        if (!nameRegex.test(newLastName)) {
             alert("กรุณากรอกนามสกุลให้ถูกต้อง (เป็นตัวอักษรเท่านั้น)");
             return;
         }
+
+        // E-mail
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(newEmail)) {
             alert("กรุณากรอกอีเมลให้ถูกต้อง");
             return;
         }
+
+        // เบอร์โทร (10 หลัก)
         if (newPhone.length !== 10) {
             alert("กรุณากรอกเบอร์โทรศัพท์ให้ครบถ้วน (10 หลัก)");
             return;
@@ -429,12 +397,11 @@
             return;
         }
 
-        // สร้าง payload เพื่อส่งไปอัปเดต
+        // สร้าง payload เพื่อส่งไปอัปเดต (ไม่รวมชื่อผู้ใช้)
         const payload = {
             name: newName,
             surname: newLastName,
             email: newEmail,
-            dob: newDOB,
             phone: newPhone
         };
 
@@ -450,20 +417,11 @@
             });
             if (response.ok) {
                 const data = await response.json();
-                let updatedDobFormatted = "-";
-                if (data.user.dob) {
-                    const updatedDobDate = new Date(data.user.dob);
-                    const d = String(updatedDobDate.getDate()).padStart(2, '0');
-                    const m = String(updatedDobDate.getMonth() + 1).padStart(2, '0');
-                    const y = updatedDobDate.getFullYear();
-                    updatedDobFormatted = `${d}/${m}/${y}`;
-                }
 
                 // อัปเดตค่าที่หน้าเว็บ
                 document.getElementById("user-name").textContent = data.user.name;
                 document.getElementById("user-lastname").textContent = data.user.surname;
                 document.getElementById("user-email").textContent = data.user.email;
-                document.getElementById("user-birthday").textContent = updatedDobFormatted;
                 document.getElementById("user-phone").textContent = data.user.phone;
 
                 closeEditProfile();
