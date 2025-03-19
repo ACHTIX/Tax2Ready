@@ -212,6 +212,9 @@
                             return regex.test(name);
                         }
 
+                        // เพิ่ม flag สำหรับการบันทึกข้อมูลคู่สมรส
+                        var saveSpouse = false;
+
                         // เมื่อเปลี่ยนสถานะ ให้แสดง Modal ถ้าสมรส
                         document.getElementById("marital-status").addEventListener("change", function () {
                             let status = this.value;
@@ -224,12 +227,14 @@
 
                         // ไม่บันทึกข้อมูลคู่สมรส
                         document.getElementById("no-spouse").addEventListener("click", function () {
+                            saveSpouse = false;
                             document.getElementById("alertModal").classList.add("hidden");
                             document.getElementById("spouse-form").classList.add("hidden");
                         });
 
                         // บันทึกข้อมูลคู่สมรส
                         document.getElementById("yes-spouse").addEventListener("click", function () {
+                            saveSpouse = true;
                             document.getElementById("alertModal").classList.add("hidden");
                             document.getElementById("spouse-form").classList.remove("hidden");
                         });
@@ -280,8 +285,8 @@
                                 return;
                             }
 
-                            // ถ้าสถานะเป็นสมรส ให้ตรวจสอบข้อมูลคู่สมรส
-                            if (maritalStatus === "married") {
+                            // ถ้าสถานะเป็นสมรส ให้ตรวจสอบข้อมูลคู่สมรส เฉพาะเมื่อผู้ใช้เลือกที่จะบันทึกข้อมูลคู่สมรส (saveSpouse เป็น true)
+                            if (maritalStatus === "married" && saveSpouse) {
                                 var spouseTaxId = document.getElementById("spouseTaxId").value.trim();
                                 var spouseFullName = document.getElementById("spouseFullName").value.trim();
                                 var spouseBirthDate = document.getElementById("spouseBirthDate").value;
@@ -324,7 +329,7 @@
                                 birthDate: birthDate,
                                 maritalStatus: maritalStatus
                             };
-                            if (maritalStatus === "married") {
+                            if (maritalStatus === "married" && saveSpouse) {
                                 formData.spouseTaxId = document.getElementById("spouseTaxId").value;
                                 formData.spouseFullName = document.getElementById("spouseFullName").value.trim();
                                 formData.spouseBirthDate = document.getElementById("spouseBirthDate").value;
