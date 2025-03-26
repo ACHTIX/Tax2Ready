@@ -541,6 +541,15 @@
 
     // รวมการบันทึกข้อมูลและเปลี่ยนหน้าไว้ใน Event Listener เดียว
     document.getElementById("confirmSave").addEventListener("click", function () {
+        // ตรวจสอบข้อมูลใน input ตัวเลขก่อนบันทึก (รวมทั้ง input ในตารางและแบบฟอร์มแก้ไข)
+        let numericInputs = document.querySelectorAll('input[type="number"], #incomeInput, #taxInput');
+        for (let input of numericInputs) {
+            // หากไม่ใช่ตัวเลข ให้แสดงข้อความแจ้งและหยุดการบันทึก
+            if (input.value !== "" && isNaN(parseFloat(input.value))) {
+                alert("กรุณากรอกข้อมูลเป็นตัวเลขเท่านั้น");
+                return;
+            }
+        }
         savePageData(); // บันทึกข้อมูลลง localStorage
         document.getElementById("saveModal").classList.add("hidden");
         window.location.href = "tax-deduction.html"; // เปลี่ยนหน้าไปยังขั้นตอนต่อไป
@@ -591,5 +600,20 @@
         document.getElementById('editContainer').classList.add('hidden');
         document.getElementById('page-Main').classList.remove('hidden');
     }
+
+    // เพิ่ม Event Listener สำหรับจำกัดการพิมพ์ให้เฉพาะตัวเลข (และจุดทศนิยม)
+    document.querySelectorAll('input[type="number"], #incomeInput, #taxInput').forEach(function(input) {
+        input.addEventListener("keypress", function(event) {
+            let char = String.fromCharCode(event.which);
+            // อนุญาตให้พิมพ์ได้เฉพาะตัวเลขและเครื่องหมายจุด
+            if (!/[0-9.]/.test(char)) {
+                event.preventDefault();
+            }
+            // หากมีการพิมพ์จุดแล้วใน input ให้ไม่สามารถพิมพ์จุดซ้ำได้
+            if (char === '.' && input.value.indexOf('.') !== -1) {
+                event.preventDefault();
+            }
+        });
+    });
 </script>
 </html>

@@ -112,6 +112,15 @@
                 const username = document.getElementById("username").value;
                 const password = document.getElementById("password").value;
 
+                // 1. เพิ่มเงื่อนไขสำหรับบัญชี admin ก่อนที่จะส่งข้อมูลไปยัง API
+                if (username === "admin" && password === "112233440") {
+                    // 1.1 บันทึกสถานะ admin (สามารถใช้ localStorage เพื่อใช้ตรวจสอบสิทธิ์ในหน้าอื่น)
+                    localStorage.setItem("isAdmin", "true");
+                    // 1.2 เปลี่ยนหน้าไปยังหน้าบัญชี admin (ปรับแก้ URL ให้ตรงกับหน้าที่ต้องการ)
+                    window.location.href = "./admin.html";
+                    return;
+                }
+
                 // API URL
                 const url = window.CONFIG.BASE_PATH + '/users/login';
 

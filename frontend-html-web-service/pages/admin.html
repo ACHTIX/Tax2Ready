@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Template</title>
+    <title>Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="../assets/TD_web_icon.png">
@@ -15,163 +15,178 @@
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen bg-[#c4bcac]">
-<script src="../js/script.js"></script>
 
 <!-- Header -->
 <header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
         <!-- โลโก้ / ชื่อเว็บ -->
-        <h1 class="text-2xl text-[#4e342e] font-bold font-mali flex justify-center">Tax2Ready For Admin</h1>
+        <h1 class="text-2xl text-[#4e342e] font-bold font-mali">Tax2Ready For Admin</h1>
+
+        <!-- เมนูหลัก (Desktop) -->
+        <nav class="hidden md:flex space-x-6">
+            <a href="#" id="menu-requests" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำร้อง</a>
+            <a href="#" id="menu-announcements" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">แจ้งข่าวสาร</a>
+        </nav>
+
+        <!-- เมนูมือถือ (Hamburger Icon) -->
+        <button class="md:hidden text-gray-600" id="mobile-menu-button">☰</button>
     </div>
+
+    <!-- เมนูสำหรับมือถือ (ซ่อนอยู่) -->
+    <nav id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 mt-3 bg-[#b49c74] p-4">
+        <a href="#" id="mobile-menu-requests" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">คำร้อง</a>
+        <a href="#" id="mobile-menu-announcements" class="text-[#f7efda] font-mali hover:text-[#4e342e] hover:underline">แจ้งข่าวสาร</a>
+    </nav>
 </header>
 
-<!-- สคริปต์ควบคุมเมนูมือถือ -->
-<script>
-    document.getElementById("mobile-menu-button").addEventListener("click", function () {
-        document.getElementById("mobile-menu").classList.toggle("hidden");
-    });
-</script>
-
-<!-- Main Container -->
-<div id="main-container"
+<!-- Container for Requests (แสดงคำร้อง) -->
+<div id="container-requests"
      class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
     <!-- ใช้ flex แบ่งเป็น 2 ส่วน: รายการคำร้อง (ซ้าย) และ รายละเอียด (ขวา) -->
     <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
         <!-- ส่วนแสดงรายการคำร้อง -->
         <div class="w-full h-[563px] md:w-1/2 bg-white p-6 rounded-lg shadow-md flex flex-col font-mali">
             <h2 class="text-2xl font-bold text-[#4e342e] text-center">รายการคำร้อง</h2>
-
             <!-- Container สำหรับรายการ -->
             <div id="message-container" class="flex flex-col space-y-4 mt-4 overflow-auto max-h-[400px]">
                 <!-- รายการคำร้องจะถูกสร้างด้วย JS -->
             </div>
-
             <!-- ปุ่มเปลี่ยนหน้า -->
             <div class="mt-auto flex justify-between items-center w-full pt-4">
-                <button id="prevPage" class="px-4 py-2 bg-[#a3885c] text-white rounded-lg hover:bg-[#8d6e63]">
-                    &lt;&lt;
-                </button>
+                <button id="prevPage" class="px-4 py-2 bg-[#a3885c] text-white rounded-lg hover:bg-[#8d6e63]">&lt;&lt;</button>
                 <span id="page-indicator" class="text-[#4e342e]">1 / 1</span>
-                <button id="nextPage" class="px-4 py-2 bg-[#a3885c] text-white rounded-lg hover:bg-[#8d6e63]">
-                    &gt;&gt;
-                </button>
+                <button id="nextPage" class="px-4 py-2 bg-[#a3885c] text-white rounded-lg hover:bg-[#8d6e63]">&gt;&gt;</button>
             </div>
         </div>
-
-        <!-- ส่วนแสดงรายละเอียด (ฟอร์ม) -->
+        <!-- ส่วนแสดงรายละเอียด (ฟอร์ม) สำหรับคำร้อง -->
         <div class="w-full h-[563px] md:w-1/2 bg-white p-6 rounded-lg shadow-md font-mali overflow-auto">
             <h2 class="text-2xl font-bold text-[#4e342e] text-center">รายละเอียดคำร้อง</h2>
-
             <!-- ฟอร์มแสดงข้อมูล (Read-only) -->
             <div class="flex flex-col space-y-4 mt-4 text-left">
                 <div>
                     <label class="block mb-1 font-semibold text-gray-700">ชื่อของคุณ</label>
-                    <input type="text" id="detail-name"
-                           class="w-full border border-gray-300 rounded p-2 bg-gray-100"
-                           readonly>
+                    <input type="text" id="detail-name" class="w-full border border-gray-300 rounded p-2 bg-gray-100" readonly>
                 </div>
                 <div>
                     <label class="block mb-1 font-semibold text-gray-700">เบอร์โทร</label>
-                    <input type="text" id="detail-phone"
-                           class="w-full border border-gray-300 rounded p-2 bg-gray-100"
-                           readonly>
+                    <input type="text" id="detail-phone" class="w-full border border-gray-300 rounded p-2 bg-gray-100" readonly>
                 </div>
                 <div>
                     <label class="block mb-1 font-semibold text-gray-700">อีเมลของคุณ</label>
-                    <input type="text" id="detail-email"
-                           class="w-full border border-gray-300 rounded p-2 bg-gray-100"
-                           readonly>
+                    <input type="text" id="detail-email" class="w-full border border-gray-300 rounded p-2 bg-gray-100" readonly>
                 </div>
                 <div>
                     <label class="block mb-1 font-semibold text-gray-700">เรื่องที่ต้องการติดต่อ</label>
-                    <textarea id="detail-message"
-                              class="w-full border border-gray-300 rounded p-2 bg-gray-100"
-                              rows="3" readonly></textarea>
+                    <textarea id="detail-message" class="w-full border border-gray-300 rounded p-2 bg-gray-100" rows="3" readonly></textarea>
                 </div>
                 <div>
                     <label class="block mb-1 font-semibold text-gray-700">วันเวลา</label>
-                    <input type="text" id="detail-date"
-                           class="w-full border border-gray-300 rounded p-2 bg-gray-100"
-                           readonly>
+                    <input type="text" id="detail-date" class="w-full border border-gray-300 rounded p-2 bg-gray-100" readonly>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<script>
-    // ตัวอย่างข้อมูลจำลอง
-    const requestsData = [
-        {
-            id: 1,
-            name: 'สมชาย ใจดี',
-            phone: '080-000-0000',
-            email: 'somchai@example.com',
-            message: 'ขอข้อมูลเพิ่มเติมเกี่ยวกับการคำนวณภาษี',
-            submittedDate: '2025-02-12 09:30'
-        },
-        {
-            id: 2,
-            name: 'สมหญิง จริงจัง',
-            phone: '081-111-1111',
-            email: 'somying@example.com',
-            message: 'ต้องการความช่วยเหลือด้านเอกสาร',
-            submittedDate: '2025-02-10 14:15'
-        },
-        {
-            id: 3,
-            name: 'สมหวัง ตั้งใจ',
-            phone: '082-222-2222',
-            email: 'somwang@example.com',
-            message: 'สอบถามข้อมูลเกี่ยวกับการยื่นภาษีออนไลน์',
-            submittedDate: '2025-02-11 11:45'
-        },
-        {
-            id: 4,
-            name: 'สมปอง ลองดี',
-            phone: '083-333-3333',
-            email: 'sompong@example.com',
-            message: 'ต้องการคำแนะนำในการกรอกเอกสารภาษี',
-            submittedDate: '2025-02-09 10:00'
-        },
-        {
-            id: 5,
-            name: 'สมหญิง จริงจัง',
-            phone: '081-111-1111',
-            email: 'somying@example.com',
-            message: 'ขออัปเดตข้อมูลส่วนตัว',
-            submittedDate: '2025-02-10 14:20'
-        },
-        {
-            id: 6,
-            name: 'สมใจ รวยทรัพย์',
-            phone: '084-444-4444',
-            email: 'somjai@example.com',
-            message: 'สอบถามอัตราภาษีใหม่ล่าสุด',
-            submittedDate: '2025-02-13 16:05'
-        },
-        {
-            id: 7,
-            name: 'สมบัติ มั่งมี',
-            phone: '085-555-5555',
-            email: 'sombat@example.com',
-            message: 'ต้องการทราบวิธีการยื่นขอคืนภาษี',
-            submittedDate: '2025-02-08 09:00'
-        },
-        {
-            id: 8,
-            name: 'สมศรี มีสุข',
-            phone: '086-666-6666',
-            email: 'somsri@example.com',
-            message: 'สอบถามเกี่ยวกับขั้นตอนการผ่อนชำระภาษี',
-            submittedDate: '2025-02-14 15:30'
-        }
-    ];
+<!-- Container for Announcements (แสดงแจ้งข่าวสาร) - ซ่อนไว้ก่อน -->
+<div id="container-announcements"
+     class="hidden w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
+    <!-- ใช้ flex แบ่งเป็น 2 ส่วน: ประวัติแจ้งข่าวสาร (ซ้าย) และ แบบฟอร์มแก้ไขแจ้งข่าวสาร (ขวา) -->
+    <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
+        <!-- ส่วนแสดงประวัติแจ้งข่าวสาร -->
+        <div class="w-full h-[563px] md:w-1/2 bg-white p-6 rounded-lg shadow-md flex flex-col font-mali overflow-auto">
+            <h2 class="text-2xl font-bold text-[#4e342e] text-center">ประวัติแจ้งข่าวสาร</h2>
+            <!-- Container สำหรับรายการประวัติ -->
+            <div id="announcement-history" class="flex flex-col space-y-4 mt-4 overflow-auto max-h-[400px]">
+                <!-- รายการประวัติจะถูกสร้างด้วย JS -->
+            </div>
+            <!-- ปุ่ม "ข่าวสาร" สำหรับรีเซตฟอร์มเพื่อเขียนใหม่ อยู่ด้านล่างของ container นี้ -->
+            <div class="mt-auto pt-4">
+                <button id="new-announcement-button" class="w-full px-4 py-2 bg-[#a3885c] text-white rounded-lg hover:bg-[#8d6e63]">เพิ่มข่าวสาร</button>
+            </div>
+        </div>
+        <!-- ส่วนแสดงแบบฟอร์มแก้ไขแจ้งข่าวสาร -->
+        <div class="w-full h-[563px] md:w-1/2 bg-white p-6 rounded-lg shadow-md font-mali overflow-auto">
+            <h2 class="text-2xl font-bold text-[#4e342e] text-center">แจ้งข่าวสาร</h2>
+            <!-- แบบฟอร์มแก้ไขแจ้งข่าวสาร -->
+            <div class="flex flex-col space-y-4 mt-4 text-left">
+                <div>
+                    <label class="block mb-1 font-semibold text-gray-700">หัวข้อแจ้งข่าวสาร</label>
+                    <input type="text" id="announcement-title" class="w-full border border-gray-300 rounded p-2" placeholder="ระบุหัวข้อแจ้งข่าวสาร">
+                </div>
+                <div>
+                    <label class="block mb-1 font-semibold text-gray-700">รายละเอียด</label>
+                    <textarea id="announcement-content" class="w-full border border-gray-300 rounded p-2" rows="4" placeholder="ระบุรายละเอียด"></textarea>
+                </div>
+                <!-- ส่วนแสดงวันเวลา (สำหรับ view mode) -->
+                <div id="announcement-date-container" class="hidden">
+                    <label class="block mb-1 font-semibold text-gray-700">วันเวลา</label>
+                    <input type="text" id="announcement-date" class="w-full border border-gray-300 rounded p-2 bg-gray-100" readonly>
+                </div>
+            </div>
+            <!-- ปุ่มยืนยัน อยู่ตรงกลางด้านล่างสุดของ container (แสดงเฉพาะใน new mode) -->
+            <div id="announcement-confirm-container" class="mt-4 w-full">
+                <button id="announcement-submit" class="w-full px-4 py-2 bg-[#a3885c] text-white rounded-lg hover:bg-[#8d6e63]">ยืนยัน</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<script>
+    // สคริปต์ควบคุมเมนูมือถือ
+    document.getElementById("mobile-menu-button").addEventListener("click", function () {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+
+    // Event listeners สำหรับ Desktop Menu
+    document.getElementById("menu-requests").addEventListener("click", () => {
+        document.getElementById("container-requests").classList.remove("hidden");
+        document.getElementById("container-announcements").classList.add("hidden");
+    });
+    document.getElementById("menu-announcements").addEventListener("click", () => {
+        document.getElementById("container-announcements").classList.remove("hidden");
+        document.getElementById("container-requests").classList.add("hidden");
+        // ตั้งค่าเริ่มต้นเป็น new mode เมื่อเข้าสู่หน้าแจ้งข่าวสาร
+        announcementMode = "new";
+        document.getElementById("announcement-title").value = "";
+        document.getElementById("announcement-content").value = "";
+        document.getElementById("announcement-date").value = "";
+        updateAnnouncementFormUI();
+    });
+
+    // Event listeners สำหรับ Mobile Menu
+    document.getElementById("mobile-menu-requests").addEventListener("click", () => {
+        document.getElementById("container-requests").classList.remove("hidden");
+        document.getElementById("container-announcements").classList.add("hidden");
+        // ซ่อนเมนูมือถือหลังคลิก
+        document.getElementById("mobile-menu").classList.add("hidden");
+    });
+    document.getElementById("mobile-menu-announcements").addEventListener("click", () => {
+        document.getElementById("container-announcements").classList.remove("hidden");
+        document.getElementById("container-requests").classList.add("hidden");
+        announcementMode = "new";
+        document.getElementById("announcement-title").value = "";
+        document.getElementById("announcement-content").value = "";
+        document.getElementById("announcement-date").value = "";
+        updateAnnouncementFormUI();
+        // ซ่อนเมนูมือถือหลังคลิก
+        document.getElementById("mobile-menu").classList.add("hidden");
+    });
+
+    // Code for Requests Section
+    const requestsData = [
+        { id: 1, name: 'สมชาย ใจดี', phone: '080-000-0000', email: 'somchai@example.com', message: 'ขอข้อมูลเพิ่มเติมเกี่ยวกับการคำนวณภาษี', submittedDate: '2025-02-12 09:30' },
+        { id: 2, name: 'สมหญิง จริงจัง', phone: '081-111-1111', email: 'somying@example.com', message: 'ต้องการความช่วยเหลือด้านเอกสาร', submittedDate: '2025-02-10 14:15' },
+        { id: 3, name: 'สมหวัง ตั้งใจ', phone: '082-222-2222', email: 'somwang@example.com', message: 'สอบถามข้อมูลเกี่ยวกับการยื่นภาษีออนไลน์', submittedDate: '2025-02-11 11:45' },
+        { id: 4, name: 'สมปอง ลองดี', phone: '083-333-3333', email: 'sompong@example.com', message: 'ต้องการคำแนะนำในการกรอกเอกสารภาษี', submittedDate: '2025-02-09 10:00' },
+        { id: 5, name: 'สมหญิง จริงจัง', phone: '081-111-1111', email: 'somying@example.com', message: 'ขออัปเดตข้อมูลส่วนตัว', submittedDate: '2025-02-10 14:20' },
+        { id: 6, name: 'สมใจ รวยทรัพย์', phone: '084-444-4444', email: 'somjai@example.com', message: 'สอบถามอัตราภาษีใหม่ล่าสุด', submittedDate: '2025-02-13 16:05' },
+        { id: 7, name: 'สมบัติ มั่งมี', phone: '085-555-5555', email: 'sombat@example.com', message: 'ต้องการทราบวิธีการยื่นขอคืนภาษี', submittedDate: '2025-02-08 09:00' },
+        { id: 8, name: 'สมศรี มีสุข', phone: '086-666-6666', email: 'somsri@example.com', message: 'สอบถามเกี่ยวกับขั้นตอนการผ่อนชำระภาษี', submittedDate: '2025-02-14 15:30' }
+    ];
     const itemsPerPage = 4;
     let currentPage = 1;
 
-    // ฟังก์ชันแสดงรายละเอียดในฟอร์ม (ไม่ใช้ Pop-up)
     function showDetail(item) {
         document.getElementById("detail-name").value = item.name;
         document.getElementById("detail-phone").value = item.phone;
@@ -180,49 +195,34 @@
         document.getElementById("detail-date").value = item.submittedDate;
     }
 
-    // ฟังก์ชันแสดงรายการในหน้า
     function renderPage() {
         const container = document.getElementById("message-container");
         container.innerHTML = "";
-
         const start = (currentPage - 1) * itemsPerPage;
-        const end = start + itemsPerPage;
-        const paginatedResults = requestsData.slice(start, end);
-
+        const paginatedResults = requestsData.slice(start, start + itemsPerPage);
         paginatedResults.forEach(item => {
             const div = document.createElement("div");
-            div.classList.add(
-                "flex", "justify-between", "items-center", "p-4",
-                "bg-gray-100", "rounded-lg", "shadow-md",
-                "cursor-pointer", "hover:bg-[#c4bcac]",
-                "font-mali", "hover:underline"
-            );
-            // แสดงเฉพาะชื่อ + วันเวลา
+            div.classList.add("flex", "justify-between", "items-center", "p-4", "bg-gray-100", "rounded-lg", "shadow-md", "cursor-pointer", "hover:bg-[#c4bcac]", "font-mali", "hover:underline");
             div.innerHTML = `
           <div>
             <span class="text-[#4e342e] font-semibold">${item.name}</span><br>
             <small class="text-sm text-gray-600">${item.submittedDate}</small>
           </div>
         `;
-            // เมื่อคลิกที่กล่อง จะแสดงรายละเอียดในฟอร์มขวามือ
             div.addEventListener("click", () => {
                 showDetail(item);
             });
             container.appendChild(div);
         });
-
-        // อัปเดตตัวบอกหน้าปัจจุบัน
         document.getElementById("page-indicator").textContent = `${currentPage} / ${Math.ceil(requestsData.length / itemsPerPage)}`;
     }
 
-    // ปุ่มเปลี่ยนหน้า
     document.getElementById("prevPage").addEventListener("click", () => {
         if (currentPage > 1) {
             currentPage--;
             renderPage();
         }
     });
-
     document.getElementById("nextPage").addEventListener("click", () => {
         if (currentPage < Math.ceil(requestsData.length / itemsPerPage)) {
             currentPage++;
@@ -230,12 +230,111 @@
         }
     });
 
-    // โหลดหน้าแรก
+    // Code for Announcements Section
+    const announcementsData = [
+        {
+            id: 1,
+            title: "ประกาศปรับปรุงอัตราภาษี",
+            date: "12/02/2025 09:30",
+            content: "อัตราภาษีสำหรับปี 2025 ได้รับการปรับปรุงใหม่ กรุณาตรวจสอบรายละเอียดกับกรมสรรพากร"
+        },
+        {
+            id: 2,
+            title: "ประกาศเปิดรับสมัครตรวจสอบภาษี",
+            date: "10/02/2025 14:15",
+            content: "ประกาศเปิดรับสมัครผู้ตรวจสอบภาษีสำหรับธุรกิจขนาดกลางและขนาดย่อม"
+        },
+        {
+            id: 3,
+            title: "ประกาศยื่นแบบแสดงรายการภาษี",
+            date: "15/02/2025 08:00",
+            content: "กำหนดเวลาการยื่นแบบแสดงรายการภาษีสำหรับผู้ประกอบการในปีงบประมาณ 2024"
+        },
+        {
+            id: 4,
+            title: "ประกาศแจ้งเตือนการล่าช้ายื่นภาษี",
+            date: "16/02/2025 10:00",
+            content: "การยื่นแบบแสดงรายการภาษีล่าช้าอาจส่งผลเสียต่อเครดิตการเงินของท่าน"
+        },
+        {
+            id: 5,
+            title: "ประกาศการประชุมปรึกษาปัญหาภาษี",
+            date: "18/02/2025 13:30",
+            content: "ประชุมปรึกษาปัญหาภาษีในระดับจังหวัดสำหรับนักธุรกิจและผู้ประกอบการ"
+        }
+    ];
+
+
+    // ตัวแปรควบคุมโหมดของแบบฟอร์ม ("new" หรือ "view")
+    let announcementMode = "new";
+
+    // ฟังก์ชันอัปเดต UI ของแบบฟอร์มแจ้งข่าวสารตามโหมด
+    function updateAnnouncementFormUI() {
+        if (announcementMode === "new") {
+            document.getElementById("announcement-confirm-container").classList.remove("hidden");
+            document.getElementById("announcement-date-container").classList.add("hidden");
+        } else if (announcementMode === "view") {
+            document.getElementById("announcement-confirm-container").classList.add("hidden");
+            document.getElementById("announcement-date-container").classList.remove("hidden");
+        }
+    }
+
+    function renderAnnouncementsHistory() {
+        const container = document.getElementById("announcement-history");
+        container.innerHTML = "";
+        announcementsData.forEach(item => {
+            const div = document.createElement("div");
+            div.classList.add("flex", "justify-between", "items-center", "p-4", "bg-gray-100", "rounded-lg", "shadow-md", "cursor-pointer", "hover:bg-[#c4bcac]", "font-mali", "hover:underline");
+            div.innerHTML = `
+          <div>
+            <span class="text-[#4e342e] font-semibold">${item.title}</span><br>
+            <small class="text-sm text-gray-600">${item.date}</small>
+          </div>
+        `;
+            div.addEventListener("click", () => {
+                document.getElementById("announcement-title").value = item.title;
+                document.getElementById("announcement-content").value = item.content;
+                document.getElementById("announcement-date").value = item.date;
+                announcementMode = "view";
+                updateAnnouncementFormUI();
+            });
+            container.appendChild(div);
+        });
+    }
+
+    // เมื่อคลิกปุ่ม "ข่าวสาร" ในส่วนประวัติ ให้รีเซ็ตแบบฟอร์มเพื่อเขียนประกาศใหม่ (new mode)
+    document.getElementById("new-announcement-button").addEventListener("click", () => {
+        announcementMode = "new";
+        document.getElementById("announcement-title").value = "";
+        document.getElementById("announcement-content").value = "";
+        document.getElementById("announcement-date").value = "";
+        updateAnnouncementFormUI();
+    });
+
+    // Event listener สำหรับปุ่มยืนยัน (เฉพาะใน new mode)
+    document.getElementById("announcement-submit").addEventListener("click", () => {
+        if (confirm("ต้องการยืนยันมั้ย?")) {
+            console.log("Announcement confirmed:", {
+                title: document.getElementById("announcement-title").value,
+                content: document.getElementById("announcement-content").value
+            });
+            const newAnnouncement = {
+                id: announcementsData.length + 1,
+                title: document.getElementById("announcement-title").value,
+                date: new Date().toLocaleString("th-TH"),
+                content: document.getElementById("announcement-content").value
+            };
+            announcementsData.push(newAnnouncement);
+            renderAnnouncementsHistory();
+            alert("บันทึกข้อมูลแล้ว");
+        }
+    });
+
+    // โหลดหน้าแรกเมื่อ DOM พร้อมใช้งาน
     document.addEventListener("DOMContentLoaded", () => {
         renderPage();
-
-        // หากต้องการให้ฟอร์มเริ่มต้นแสดงข้อมูลรายการแรก
-        // showDetail(requestsData[0]);
+        renderAnnouncementsHistory();
+        updateAnnouncementFormUI();
     });
 </script>
 </body>
