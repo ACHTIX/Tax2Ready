@@ -185,7 +185,7 @@
     // =========================== ดึงข้อมูลคำร้อง (Requests) ===========================
     async function fetchContacts() {
         try {
-            const response = await fetch('/contact/all'); // หรือใส่ URL เต็ม ถ้าคนละพอร์ต
+            const response = await fetch('/contact/allContact'); // หรือใส่ URL เต็ม ถ้าคนละพอร์ต
             if (response.ok) {
                 return await response.json();
             } else {

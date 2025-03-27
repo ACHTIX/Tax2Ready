@@ -306,7 +306,7 @@
 
         // ส่งข้อมูลไปยังเซิร์ฟเวอร์
         try {
-            const response = await fetch('/contact/save', {
+            const response = await fetch('/contact/saveContact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, phone, email, message })
