@@ -14,6 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+
 // ให้บริการไฟล์ static จากโฟลเดอร์ public
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -24,10 +25,12 @@ app.use('/pdfs', express.static(path.join(__dirname, 'public', 'pdf_history')));
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var taxDataRouter = require('./routes/tax-data');
+var contactRouter = require('./routes/contact');
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/tax-data', taxDataRouter);
+app.use('/contact', contactRouter);
 
 var PORT = 8080;
 app.listen(PORT, () => {
