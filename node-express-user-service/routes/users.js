@@ -289,7 +289,7 @@ router.get('/pdf-history', authenticateToken, async (req, res, next) => {
     const data = result.rows.map(row => ({
       name: row.tax_details || `Form #${row.form_id}`,
       date: row.generated_at,
-      base64Pdf: row.pdf_base64,
+      base64Pdf: row.file_pdf,
       formId: row.form_id,
       status: row.form_status
     }));

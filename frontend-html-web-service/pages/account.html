@@ -526,7 +526,11 @@
                 "shadow-md", "cursor-pointer", "hover:bg-[#c4bcac]", "hover:underline"
             );
             const formattedDate = new Date(item.date).toLocaleDateString('th-TH');
-            div.onclick = () => window.open(item.url, "_blank");
+            div.onclick = () => {
+                const blob = base64ToBlob(item.base64Pdf, "application/pdf");
+                const blobUrl = URL.createObjectURL(blob);
+                window.open(blobUrl, "_blank");
+            };
             div.innerHTML = `
           <span class="text-[#4e342e] font-semibold">${item.name}</span>
           <span class="text-sm text-gray-600">${formattedDate}</span>
@@ -564,6 +568,16 @@
         const infoPopup = document.getElementById("infoPopup");
         if (!infoPopup) return;
         infoPopup.classList.add("hidden");
+    }
+
+    function base64ToBlob(base64, mime) {
+        const byteChars = atob(base64);
+        const byteNumbers = new Array(byteChars.length);
+        for (let i = 0; i < byteChars.length; i++) {
+            byteNumbers[i] = byteChars.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        return new Blob([byteArray], {type: mime});
     }
 </script>
 </body>
