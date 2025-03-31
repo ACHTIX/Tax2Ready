@@ -88,56 +88,58 @@ const authenticateToken = (req, res, next) => {
 };
 
 // New route to fill PDF and return it as a response (GET /generate-pdf)
+const {rgb} = require('pdf-lib');
+
 router.get('/generate-pdf', authenticateToken, async (req, res, next) => {
   try {
     const userId = parseInt(req.user.user_id, 10);
-    const userResult = await pool.query('SELECT * FROM "tax_data".tax_data WHERE user_id = $1', [userId]);
+    const userResult = await pool.query(
+        'SELECT * FROM "tax_data".tax_data WHERE user_id = $1',
+        [userId]
+    );
 
     if (!userResult.rows || userResult.rows.length === 0) {
       return res.status(404).json({ error: 'ไม่พบข้อมูลภาษีของผู้ใช้' });
     }
 
-    // Load the PDF from disk
+    const data = userResult.rows[0];
     const pdfPath = path.join(__dirname, '..', '271265PIT90.pdf');
     const pdfBytes = fs.readFileSync(pdfPath);
-
-    // Load and fill the PDF with pdf-lib
     const pdfDoc = await PDFDocument.load(pdfBytes);
-    const form = pdfDoc.getForm();
-    const data = userResult.rows[0];
+    const pages = pdfDoc.getPages();
+    const page1 = pages[0]; // Change to another page if needed
 
-    form.getTextField('Text71').setText(data.total_income);
-    form.getTextField('Text81').setText(data.total_expenses);
-    form.getTextField('Text90').setText(data.total_deduction);
-    form.getTextField('Text72').setText(data.tax_payable);
-    form.getTextField('Text88').setText(data.withheld_tax);
-    form.getTextField('Text95').setText(data.final_tax_due);
-    form.getTextField('Text94').setText(data.final_tax_rounded);
+    // Draw data directly on page using coordinates
+    page1.drawText(String(data.total_income || ''), {x: 400, y: 660, size: 10, color: rgb(0, 0, 0)});
+    page1.drawText(String(data.total_expenses || ''), {x: 400, y: 640, size: 10, color: rgb(0, 0, 0)});
+    page1.drawText(String(data.total_deduction || ''), {x: 400, y: 620, size: 10, color: rgb(0, 0, 0)});
+    page1.drawText(String(data.tax_payable || ''), {x: 400, y: 600, size: 10, color: rgb(0, 0, 0)});
+    page1.drawText(String(data.withheld_tax || ''), {x: 400, y: 580, size: 10, color: rgb(0, 0, 0)});
+    page1.drawText(String(data.final_tax_due || ''), {x: 400, y: 560, size: 10, color: rgb(0, 0, 0)});
+    page1.drawText(String(data.final_tax_rounded || ''), {x: 400, y: 540, size: 10, color: rgb(0, 0, 0)});
 
     const filledPdfBytes = await pdfDoc.save();
 
-    // Return PDF as response
+    // Send as PDF response
     res.setHeader('Content-Type', 'application/pdf');
     res.send(Buffer.from(filledPdfBytes));
   } catch (error) {
     next(error);
   }
 });
-
-// Route: POST /users/generate-pdf-manual
 router.post('/generate-pdf-manual', authenticateToken, async (req, res, next) => {
   try {
-    // 1) ดึง user_id จาก token
     const userId = req.user.user_id;
 
-    // 2) Query หา username จากตาราง user
-    const userQuery = await pool.query('SELECT username FROM "user".user WHERE user_id = $1', [userId]);
+    const userQuery = await pool.query(
+        'SELECT username FROM "user".user WHERE user_id = $1',
+        [userId]
+    );
     if (userQuery.rows.length === 0) {
       return res.status(404).json({ error: 'User not found' });
     }
     const username = userQuery.rows[0].username;
 
-    // 3) Extract data from req.body
     const {
       total_income,
       total_expenses,
@@ -145,31 +147,28 @@ router.post('/generate-pdf-manual', authenticateToken, async (req, res, next) =>
       tax_payable,
       withheld_tax,
       final_tax_due,
-      final_tax_rounded
+      final_tax_rounded,
     } = req.body;
 
-    // 4) Load the PDF template
     const pdfPath = path.join(__dirname, '..', '271265PIT90.pdf');
     const pdfBytes = fs.readFileSync(pdfPath);
     const pdfDoc = await PDFDocument.load(pdfBytes);
-    const form = pdfDoc.getForm();
+    const pages = pdfDoc.getPages();
 
-    // 5) Set form fields
-    form.getTextField('Text71').setText(String(total_income || ''));
-    form.getTextField('Text81').setText(String(total_expenses || ''));
-    form.getTextField('Text90').setText(String(total_deduction || ''));
-    form.getTextField('Text72').setText(String(tax_payable || ''));
-    form.getTextField('Text88').setText(String(withheld_tax || ''));
-    form.getTextField('Text95').setText(String(final_tax_due || ''));
-    form.getTextField('Text94').setText(String(final_tax_rounded || ''));
+    // Use page 1 (index 0) — replace with correct index if needed
+    const page1 = pages[0];
 
-    // 6) Generate the filled PDF (Buffer)
+    // Draw text at specific (x, y) positions — adjust positions as needed
+    page1.drawText(String(total_income || ''), {x: 400, y: 660, size: 10, color: rgb(0, 0, 0)});
+    page1.drawText(String(total_expenses || ''), {x: 400, y: 640, size: 10, color: rgb(0, 0, 0)});
+    page1.drawText(String(total_deduction || ''), {x: 400, y: 620, size: 10, color: rgb(0, 0, 0)});
+    page1.drawText(String(tax_payable || ''), {x: 400, y: 600, size: 10, color: rgb(0, 0, 0)});
+    page1.drawText(String(withheld_tax || ''), {x: 400, y: 580, size: 10, color: rgb(0, 0, 0)});
+    page1.drawText(String(final_tax_due || ''), {x: 400, y: 560, size: 10, color: rgb(0, 0, 0)});
+    page1.drawText(String(final_tax_rounded || ''), {x: 400, y: 540, size: 10, color: rgb(0, 0, 0)});
+
     const filledPdfBytes = await pdfDoc.save();
-
-    // 7) สร้างชื่อไฟล์ตาม Username-YYYY.MM.DD-HH.mm.pdf
     const fileName = generateFileName(username);
-
-    // 8) บันทึกไฟล์ลงในโฟลเดอร์ public/pdf_history
     const outputDir = path.join(__dirname, '..', 'public', 'pdf_history');
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir, { recursive: true });
@@ -177,31 +176,76 @@ router.post('/generate-pdf-manual', authenticateToken, async (req, res, next) =>
     const outputPath = path.join(outputDir, fileName);
     fs.writeFileSync(outputPath, filledPdfBytes);
 
-    // 9) เก็บ URL ของไฟล์ (สำหรับให้ client เรียกใช้งาน)
     const pdfUrl = `/pdfs/${fileName}`;
-
-    // 10) บันทึกข้อมูลลงในตาราง tax_form โดยใช้ schema ที่ถูกต้อง (public)
     const taxDetails = `Created from tax calculator on ${new Date().toISOString()}`;
     const formStatus = 'pending';
     const insertQuery = `
       INSERT INTO "tax_form"."tax_form" (tax_details, pdf_data, form_status, user_id)
-      VALUES ($1, $2, $3, $4)
-      RETURNING form_id
+      VALUES ($1, $2, $3, $4) RETURNING form_id
     `;
     const insertValues = [taxDetails, pdfUrl, formStatus, userId];
     const insertResult = await pool.query(insertQuery, insertValues);
 
-    // 11) ส่งข้อมูลกลับให้ client
     res.json({
       message: 'สร้าง PDF และบันทึกข้อมูลในฐานข้อมูลสำเร็จ',
       pdfUrl,
-      formId: insertResult.rows[0].form_id
+      formId: insertResult.rows[0].form_id,
     });
   } catch (error) {
     next(error);
   }
 });
 
+router.post('/generate-pdf-test', async (req, res, next) => {
+  try {
+    const {
+      total_income,
+      total_expenses,
+      total_deduction,
+      tax_payable,
+      withheld_tax,
+      final_tax_due,
+      final_tax_rounded,
+    } = req.body;
+
+    // 1. Load the PDF template
+    const pdfPath = path.join(__dirname, '..', '271265PIT90.pdf');
+    const pdfBytes = fs.readFileSync(pdfPath);
+    const pdfDoc = await PDFDocument.load(pdfBytes);
+    const pages = pdfDoc.getPages();
+    const page1 = pages[0]; // adjust this index if needed for another page
+
+    // 2. Draw each value at (x, y) — adjust these manually as needed
+    page1.drawText(String(total_income || 'fdfd'), {x: 400, y: 660, size: 10, color: rgb(0, 0, 0)});
+    page1.drawText(String(total_expenses || 'sdf'), {x: 400, y: 640, size: 10, color: rgb(0, 0, 0)});
+    page1.drawText(String(total_deduction || 'xcvx'), {x: 400, y: 620, size: 10, color: rgb(0, 0, 0)});
+    page1.drawText(String(tax_payable || 'ghdf'), {x: 400, y: 600, size: 10, color: rgb(0, 0, 0)});
+    page1.drawText(String(withheld_tax || 'wsdf'), {x: 400, y: 580, size: 10, color: rgb(0, 0, 0)});
+    page1.drawText(String(final_tax_due || 'gdfhdg'), {x: 400, y: 560, size: 10, color: rgb(0, 0, 0)});
+    page1.drawText(String(final_tax_rounded || 'xcvxv'), {x: 400, y: 540, size: 10, color: rgb(0, 0, 0)});
+
+    // 3. Save filled PDF to buffer
+    const filledPdfBytes = await pdfDoc.save();
+
+    // 4. Save to file
+    const fileName = 'test.pdf';
+    const outputDir = path.join(__dirname, '..', 'public', 'pdf_history');
+    if (!fs.existsSync(outputDir)) {
+      fs.mkdirSync(outputDir, {recursive: true});
+    }
+    const outputPath = path.join(outputDir, fileName);
+    fs.writeFileSync(outputPath, filledPdfBytes);
+
+    // 5. Return PDF URL to client
+    const pdfUrl = `/pdfs/${fileName}`;
+    res.json({
+      message: 'สร้าง PDF และบันทึกข้อมูลในฐานข้อมูลสำเร็จ',
+      pdfUrl,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 /**
  * ฟังก์ชันสร้างชื่อไฟล์ในรูปแบบ
  * Username-YYYY.MM.DD-HH.mm.pdf
