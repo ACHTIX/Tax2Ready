@@ -5,8 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
-const { PDFDocument } = require('pdf-lib'); // Using pdf-lib now
-
+const {PDFDocument, rgb} = require('pdf-lib');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -87,8 +86,7 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
-// New route to fill PDF and return it as a response (GET /generate-pdf)
-const {rgb} = require('pdf-lib');
+
 
 router.get('/generate-pdf', authenticateToken, async (req, res, next) => {
   try {
@@ -107,9 +105,8 @@ router.get('/generate-pdf', authenticateToken, async (req, res, next) => {
     const pdfBytes = fs.readFileSync(pdfPath);
     const pdfDoc = await PDFDocument.load(pdfBytes);
     const pages = pdfDoc.getPages();
-    const page1 = pages[0]; // Change to another page if needed
+    const page1 = pages[0];
 
-    // Draw data directly on page using coordinates
     page1.drawText(String(data.total_income || ''), {x: 400, y: 660, size: 10, color: rgb(0, 0, 0)});
     page1.drawText(String(data.total_expenses || ''), {x: 400, y: 640, size: 10, color: rgb(0, 0, 0)});
     page1.drawText(String(data.total_deduction || ''), {x: 400, y: 620, size: 10, color: rgb(0, 0, 0)});
@@ -119,15 +116,27 @@ router.get('/generate-pdf', authenticateToken, async (req, res, next) => {
     page1.drawText(String(data.final_tax_rounded || ''), {x: 400, y: 540, size: 10, color: rgb(0, 0, 0)});
 
     const filledPdfBytes = await pdfDoc.save();
+    const base64Pdf = Buffer.from(filledPdfBytes).toString('base64');
 
-    // Send as PDF response
-    res.setHeader('Content-Type', 'application/pdf');
-    res.send(Buffer.from(filledPdfBytes));
+    const taxDetails = `Created from tax calculator on ${new Date().toISOString()}`;
+    const formStatus = 'pending';
+
+    const insertQuery = `
+      INSERT INTO "tax_form"."tax_form" (user_id, tax_details, form_status, file_pdf)
+      VALUES ($1, $2, $3, $4) RETURNING form_id
+    `;
+    const insertValues = [userId, taxDetails, formStatus, base64Pdf];
+    const insertResult = await pool.query(insertQuery, insertValues);
+
+    res.json({
+      message: 'PDF created and stored successfully',
+      base64Pdf,
+      formId: insertResult.rows[0].form_id,
+    });
   } catch (error) {
     next(error);
   }
 });
-
 router.post('/generate-pdf-manual', authenticateToken, async (req, res, next) => {
   try {
     const userId = req.user.user_id;
@@ -270,19 +279,19 @@ router.get('/pdf-history', authenticateToken, async (req, res, next) => {
   try {
     const userId = req.user.user_id;
 
-    // Query ข้อมูลจากตาราง tax_form
     const result = await pool.query(`
-      SELECT form_id, generated_at, tax_details, pdf_data, form_status
+      SELECT form_id, generated_at, tax_details, form_status, file_pdf
       FROM "tax_form"."tax_form"
       WHERE user_id = $1
       ORDER BY generated_at DESC
     `, [userId]);
 
-    // Map ข้อมูลให้ตรงกับโครงสร้างที่ Frontend คาดหวัง
     const data = result.rows.map(row => ({
       name: row.tax_details || `Form #${row.form_id}`,
       date: row.generated_at,
-      url: row.pdf_data
+      base64Pdf: row.pdf_base64,
+      formId: row.form_id,
+      status: row.form_status
     }));
 
     res.json(data);
@@ -290,7 +299,6 @@ router.get('/pdf-history', authenticateToken, async (req, res, next) => {
     next(error);
   }
 });
-
 // Get User Data
 router.get('/get-user', authenticateToken, async (req, res) => {
   try {
