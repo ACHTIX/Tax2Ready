@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 
-var app = express();
+const app = express();
 
 // Middlewares
 app.use(cors());
@@ -14,7 +14,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-
 // ให้บริการไฟล์ static จากโฟลเดอร์ public
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -22,21 +21,28 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/pdfs', express.static(path.join(__dirname, 'public', 'pdf_history')));
 
 // Routes
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var taxDataRouter = require('./routes/tax-data');
-var contactRouter = require('./routes/contact');
-
+const indexRouter = require('./routes/index');
 app.use('/', indexRouter);
+
+const usersRouter = require('./routes/users');
 app.use('/users', usersRouter);
+
+const taxDataRouter = require('./routes/tax-data');
 app.use('/tax-data', taxDataRouter);
+
+const contactRouter = require('./routes/contact');
 app.use('/contact', contactRouter);
 
-var PORT = 8080;
+const notificationRouter = require('./routes/notification');
+app.use('/notification', notificationRouter);
+
+
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
-require('./cron'); // เรียก cron job เพียงครั้งเดียว
+// เรียกใช้งาน cron job เพียงครั้งเดียว
+require('./cron');
 
 module.exports = app;

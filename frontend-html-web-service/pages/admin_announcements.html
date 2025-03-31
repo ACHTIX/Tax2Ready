@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Tax2Ready For Admin - แจ้งข่าวสาร</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .font-mali { font-family: 'Mali', sans-serif; }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-[#c4bcac] font-mali">
+<!-- Header -->
+<header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <h1 class="text-2xl text-[#4e342e] font-bold">Tax2Ready For Admin</h1>
+        <!-- เมนูหลัก (Desktop) -->
+        <nav class="hidden md:flex space-x-6">
+            <a href="admin_requests.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">คำร้อง</a>
+            <a href="admin_announcements.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">แจ้งข่าวสาร</a>
+        </nav>
+        <!-- เมนูมือถือ (Hamburger Icon) -->
+        <button class="md:hidden text-gray-600" id="mobile-menu-button">☰</button>
+    </div>
+    <!-- เมนูสำหรับมือถือ (ซ่อนอยู่) -->
+    <nav id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 mt-3 bg-[#b49c74] p-4">
+        <a href="admin_requests.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">คำร้อง</a>
+        <a href="admin_announcements.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">แจ้งข่าวสาร</a>
+    </nav>
+</header>
+
+<!-- Container for Announcements -->
+<div id="container-announcements" class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
+    <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
+        <!-- ส่วนแสดงประวัติแจ้งข่าวสาร -->
+        <div class="w-full h-[563px] md:w-1/2 bg-white p-6 rounded-lg shadow-md flex flex-col overflow-auto">
+            <h2 class="text-2xl font-bold text-[#4e342e] text-center">ประวัติแจ้งข่าวสาร</h2>
+            <!-- Container สำหรับรายการประวัติ -->
+            <div id="announcement-history" class="flex flex-col space-y-4 mt-4 overflow-auto max-h-[400px]">
+                <!-- รายการประวัติจะถูกสร้างด้วย JS -->
+            </div>
+            <!-- ปุ่ม "เพิ่มข่าวสาร" สำหรับรีเซตฟอร์มเพื่อเขียนใหม่ -->
+            <div class="mt-auto pt-4">
+                <button id="new-announcement-button" class="w-full px-4 py-2 bg-[#a3885c] text-white rounded-lg hover:bg-[#8d6e63]">
+                    เพิ่มข่าวสาร
+                </button>
+            </div>
+        </div>
+        <!-- ส่วนแสดงแบบฟอร์มแก้ไขแจ้งข่าวสาร -->
+        <div class="w-full h-[563px] md:w-1/2 bg-white p-6 rounded-lg shadow-md overflow-auto">
+            <h2 class="text-2xl font-bold text-[#4e342e] text-center">แจ้งข่าวสาร</h2>
+            <!-- แบบฟอร์มแก้ไขแจ้งข่าวสาร -->
+            <div class="flex flex-col space-y-4 mt-4 text-left">
+                <!-- Dropdown เลือกปี -->
+                <div>
+                    <label for="announcement-year" class="block mb-1 font-semibold text-gray-700">เลือกปี</label>
+                    <select id="announcement-year" name="announcement-year" class="w-full border border-gray-300 rounded p-2">
+                        <option value="">-- เลือกปี --</option>
+                        <!-- ตัวเลือกปีจะถูกเพิ่มแบบอัตโนมัติด้วย JS -->
+                    </select>
+                </div>
+                <div>
+                    <label class="block mb-1 font-semibold text-gray-700">หัวข้อแจ้งข่าวสาร</label>
+                    <input type="text" id="announcement-title" class="w-full border border-gray-300 rounded p-2" placeholder="ระบุหัวข้อแจ้งข่าวสาร">
+                </div>
+                <div>
+                    <label class="block mb-1 font-semibold text-gray-700">รายละเอียด</label>
+                    <textarea id="announcement-content" class="w-full border border-gray-300 rounded p-2" rows="4" placeholder="ระบุรายละเอียด"></textarea>
+                </div>
+                <!-- ส่วนแสดงวันเวลา (สำหรับ view mode) -->
+                <div id="announcement-date-container" class="hidden">
+                    <label class="block mb-1 font-semibold text-gray-700">วันเวลา</label>
+                    <input type="text" id="announcement-date" class="w-full border border-gray-300 rounded p-2 bg-gray-100" readonly>
+                </div>
+            </div>
+            <!-- ปุ่มสำหรับยืนยัน/แก้ไข -->
+            <div class="mt-4 w-full flex flex-col gap-2">
+                <div id="announcement-confirm-container" class="w-full">
+                    <button id="announcement-submit" class="w-full px-4 py-2 bg-[#a3885c] text-white rounded-lg hover:bg-[#8d6e63]">
+                        ยืนยัน
+                    </button>
+                </div>
+                <div id="edit-announcement-container" class="hidden">
+                    <button id="announcement-edit" class="w-full px-4 py-2 bg-[#4e342e] text-white rounded-lg hover:bg-[#3e2d29]">
+                        แก้ไขข้อมูล
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. เปิด/ปิดเมนูมือถือ
+    document.getElementById("mobile-menu-button").addEventListener("click", function () {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+
+    // 2. Mock data สำหรับข่าวสาร
+    let announcementsData = [
+        {
+            id: 1,
+            year: "2025",
+            title: "ประกาศปรับปรุงอัตราภาษี",
+            date: "12/02/2025 09:30",
+            content: "อัตราภาษีสำหรับปี 2025 ได้รับการปรับปรุงใหม่..."
+        },
+        {
+            id: 2,
+            year: "2024",
+            title: "ประกาศเปิดรับสมัครตรวจสอบภาษี",
+            date: "10/02/2025 14:15",
+            content: "ประกาศเปิดรับสมัครผู้ตรวจสอบภาษีสำหรับธุรกิจขนาดกลางและขนาดย่อม"
+        }
+    ];
+
+    // 3. กำหนดโหมดของแบบฟอร์ม (new, view, edit) และตัวแปรเก็บ ID ของข่าวสารที่เลือก
+    let announcementMode = "new";
+    let currentAnnouncementId = null;
+
+    // 4. ฟังก์ชันปรับ UI ตามโหมด
+    function updateAnnouncementFormUI() {
+        if (announcementMode === "new" || announcementMode === "edit") {
+            document.getElementById("announcement-confirm-container").classList.remove("hidden");
+            document.getElementById("announcement-date-container").classList.add("hidden");
+            document.getElementById("edit-announcement-container").classList.add("hidden");
+            document.getElementById("announcement-title").readOnly = false;
+            document.getElementById("announcement-content").readOnly = false;
+        } else if (announcementMode === "view") {
+            document.getElementById("announcement-confirm-container").classList.add("hidden");
+            document.getElementById("announcement-date-container").classList.remove("hidden");
+            document.getElementById("edit-announcement-container").classList.remove("hidden");
+            document.getElementById("announcement-title").readOnly = true;
+            document.getElementById("announcement-content").readOnly = true;
+        }
+    }
+
+    // 5. ฟังก์ชันแสดงประวัติข่าวสาร
+    function renderAnnouncementsHistory() {
+        const container = document.getElementById("announcement-history");
+        container.innerHTML = "";
+        announcementsData.forEach(item => {
+            const div = document.createElement("div");
+            div.classList.add("flex", "justify-between", "items-center", "p-4", "bg-gray-100", "rounded-lg", "shadow-md", "cursor-pointer", "hover:bg-[#c4bcac]");
+            div.innerHTML = `
+                <div>
+                    <span class="text-[#4e342e] font-semibold">${item.title}</span><br>
+                    <small class="text-sm text-gray-600">ปี ${item.year} - ${item.date}</small>
+                </div>
+            `;
+            div.addEventListener("click", () => {
+                document.getElementById("announcement-title").value = item.title;
+                document.getElementById("announcement-content").value = item.content;
+                document.getElementById("announcement-date").value = item.date;
+                // กำหนดค่า selected ใน dropdown ให้ตรงกับปีของข่าวสารนั้น
+                document.getElementById("announcement-year").value = item.year || "";
+                currentAnnouncementId = item.id;
+                announcementMode = "view";
+                updateAnnouncementFormUI();
+            });
+            container.appendChild(div);
+        });
+    }
+
+    // 6. กดปุ่ม "เพิ่มข่าวสาร" เพื่อรีเซตฟอร์มและเปลี่ยนโหมดเป็น new
+    document.getElementById("new-announcement-button").addEventListener("click", () => {
+        announcementMode = "new";
+        currentAnnouncementId = null; // ล้าง ID ของข่าวสารที่เลือก
+        document.getElementById("announcement-title").value = "";
+        document.getElementById("announcement-content").value = "";
+        document.getElementById("announcement-date").value = "";
+        document.getElementById("announcement-year").value = "";
+        updateAnnouncementFormUI();
+    });
+
+    // 7. Event listener สำหรับปุ่ม "ยืนยัน" เพื่อเพิ่มหรือแก้ไขข่าวสาร
+    document.getElementById("announcement-submit").addEventListener("click", () => {
+        // ดึงค่าปีที่เลือกจาก dropdown
+        const selectedYear = document.getElementById('announcement-year').value;
+        if (!selectedYear) {
+            alert("กรุณาเลือกปี");
+            return;
+        }
+
+        if (announcementMode === "new") {
+            // สำหรับโหมด "new" ให้เช็คปีซ้ำ
+            if (announcementsData.some(item => item.year == selectedYear)) {
+                alert("ไม่สามารถเลือกปีซ้ำได้");
+                return;
+            }
+            if (confirm("ต้องการยืนยันมั้ย?")) {
+                const newAnnouncement = {
+                    id: announcementsData.length + 1,
+                    year: selectedYear,  // เก็บปีที่เลือก
+                    title: document.getElementById("announcement-title").value,
+                    date: new Date().toLocaleString("th-TH"),
+                    content: document.getElementById("announcement-content").value
+                };
+                announcementsData.push(newAnnouncement);
+                renderAnnouncementsHistory();
+                alert("บันทึกข้อมูลแล้ว");
+                announcementMode = "view";
+                updateAnnouncementFormUI();
+            }
+        } else if (announcementMode === "edit") {
+            // ในกรณีแก้ไข ให้ตรวจสอบว่า ถ้าผู้ใช้เปลี่ยนปีแล้ว ไม่ให้ซ้ำกับข่าวอื่น
+            if (announcementsData.some(item => item.year == selectedYear && item.id !== currentAnnouncementId)) {
+                alert("ไม่สามารถเลือกปีซ้ำได้");
+                return;
+            }
+            if (confirm("ต้องการยืนยันการแก้ไขข้อมูลหรือไม่?")) {
+                const updatedTitle = document.getElementById("announcement-title").value;
+                const updatedContent = document.getElementById("announcement-content").value;
+                const index = announcementsData.findIndex(item => item.id === currentAnnouncementId);
+                if (index !== -1) {
+                    announcementsData[index].year = selectedYear;
+                    announcementsData[index].title = updatedTitle;
+                    announcementsData[index].content = updatedContent;
+                    announcementsData[index].date = new Date().toLocaleString("th-TH");
+                    renderAnnouncementsHistory();
+                    alert("แก้ไขข้อมูลเรียบร้อยแล้ว");
+                    announcementMode = "view";
+                    updateAnnouncementFormUI();
+                }
+            }
+        }
+    });
+
+    // 8. Event listener สำหรับปุ่ม "แก้ไขข้อมูล"
+    //    เมื่อกดปุ่มนี้ จะแก้ไขข้อมูลได้ โดยเปลี่ยนโหมดเป็น "edit" และสลับเป็นปุ่ม "ยืนยัน"
+    document.getElementById("announcement-edit").addEventListener("click", () => {
+        announcementMode = "edit";
+        updateAnnouncementFormUI();
+    });
+
+    // 9. ตรวจสอบ token และเริ่มต้นแสดงข่าวสาร (ตัวอย่างการเช็ค token)
+    document.addEventListener("DOMContentLoaded", async () => {
+        const token = 'Bearer ' + localStorage.getItem('jwt_token');
+        try {
+            const response = await fetch('/users/is-valid', {
+                method: 'GET',
+                headers: { 'Authorization': token }
+            });
+            document.querySelectorAll('.loginButton').forEach(button => {
+                if (response.status === 200) {
+                    button.classList.add('opacity-0', 'pointer-events-none');
+                    button.classList.remove('opacity-100');
+                } else {
+                    button.classList.remove('opacity-0', 'pointer-events-none');
+                    button.classList.add('opacity-100');
+                }
+            });
+        } catch (error) {
+            console.error('Error checking token:', error);
+        }
+        renderAnnouncementsHistory();
+        updateAnnouncementFormUI();
+    });
+
+    // 10. กำหนดปีปัจจุบันและเพิ่มตัวเลือกปีแบบอัตโนมัติ
+    const currentYear = new Date().getFullYear();
+    const startYear = currentYear - 10;
+    const selectYear = document.getElementById('announcement-year');
+    for (let year = currentYear; year >= startYear; year--) {
+        const option = document.createElement('option');
+        option.value = year;
+        option.textContent = year;
+        selectYear.appendChild(option);
+    }
+</script>
+</body>
+</html>

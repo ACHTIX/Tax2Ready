@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Tax2Ready For Admin - คำร้อง</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .font-mali { font-family: 'Mali', sans-serif; }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-[#c4bcac] font-mali">
+<!-- Header -->
+<header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <h1 class="text-2xl text-[#4e342e] font-bold">Tax2Ready For Admin</h1>
+        <nav class="hidden md:flex space-x-6">
+            <a href="admin_requests.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">คำร้อง</a>
+            <a href="admin_announcements.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">แจ้งข่าวสาร</a>
+        </nav>
+        <button class="md:hidden text-gray-600" id="mobile-menu-button">☰</button>
+    </div>
+    <nav id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 mt-3 bg-[#b49c74] p-4">
+        <a href="admin_requests.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">คำร้อง</a>
+        <a href="admin_announcements.html" class="text-[#f7efda] hover:text-[#4e342e] hover:underline">แจ้งข่าวสาร</a>
+    </nav>
+</header>
+
+<!-- Container สำหรับคำร้องและรายละเอียด -->
+<div id="container-requests" class="w-full max-w-sm md:max-w-[1100px] h-auto md:h-[600px] p-6 flex flex-col justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
+    <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
+        <!-- ส่วนแสดงรายการคำร้อง -->
+        <div class="w-full h-[563px] md:w-1/2 bg-white p-6 rounded-lg shadow-md flex flex-col">
+            <h2 class="text-2xl font-bold text-[#4e342e] text-center">รายการคำร้อง</h2>
+            <!-- Container สำหรับรายการคำร้อง -->
+            <div id="message-container" class="flex flex-col space-y-4 mt-4 overflow-auto max-h-[400px]">
+                <!-- รายการคำร้องจะถูกสร้างด้วย JavaScript -->
+            </div>
+            <!-- ปุ่มเปลี่ยนหน้า -->
+            <div class="mt-auto flex justify-between items-center w-full pt-4">
+                <button id="prevPage" class="px-4 py-2 bg-[#a3885c] text-white rounded-lg hover:bg-[#8d6e63]">&lt;&lt;</button>
+                <span id="page-indicator" class="text-[#4e342e]">1 / 1</span>
+                <button id="nextPage" class="px-4 py-2 bg-[#a3885c] text-white rounded-lg hover:bg-[#8d6e63]">&gt;&gt;</button>
+            </div>
+        </div>
+        <!-- ส่วนแสดงรายละเอียดคำร้อง -->
+        <div class="w-full h-[563px] md:w-1/2 bg-white p-6 rounded-lg shadow-md overflow-auto">
+            <h2 class="text-2xl font-bold text-[#4e342e] text-center">รายละเอียดคำร้อง</h2>
+            <!-- ฟอร์มสำหรับแสดงรายละเอียด (Read-only) -->
+            <div class="flex flex-col space-y-4 mt-4 text-left">
+                <div>
+                    <label class="block mb-1 font-semibold text-gray-700">ชื่อของคุณ</label>
+                    <input type="text" id="detail-name" class="w-full border border-gray-300 rounded p-2 bg-gray-100" readonly>
+                </div>
+                <div>
+                    <label class="block mb-1 font-semibold text-gray-700">เบอร์โทร</label>
+                    <input type="text" id="detail-phone" class="w-full border border-gray-300 rounded p-2 bg-gray-100" readonly>
+                </div>
+                <div>
+                    <label class="block mb-1 font-semibold text-gray-700">อีเมลของคุณ</label>
+                    <input type="text" id="detail-email" class="w-full border border-gray-300 rounded p-2 bg-gray-100" readonly>
+                </div>
+                <div>
+                    <label class="block mb-1 font-semibold text-gray-700">เรื่องที่ต้องการติดต่อ</label>
+                    <textarea id="detail-message" class="w-full border border-gray-300 rounded p-2 bg-gray-100" rows="3" readonly></textarea>
+                </div>
+                <div>
+                    <label class="block mb-1 font-semibold text-gray-700">วันเวลา (สมมติเป็น contact_id)</label>
+                    <input type="text" id="detail-date" class="w-full border border-gray-300 rounded p-2 bg-gray-100" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script สำหรับดึงและแสดงข้อมูลคำร้อง -->
+<script>
+    // 1. เปิด/ปิดเมนูสำหรับมือถือ
+    document.getElementById("mobile-menu-button").addEventListener("click", function () {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+
+    // 2. ฟังก์ชันสำหรับดึงข้อมูลคำร้องจาก API
+    async function fetchContacts() {
+        try {
+            const response = await fetch(window.CONFIG.BASE_PATH+'/contact/allContact');
+            if (!response.ok) {
+                throw new Error('ไม่สามารถดึงข้อมูลได้');
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error fetching contacts:', error);
+            return [];
+        }
+    }
+
+    // 3. กำหนดค่าการแบ่งหน้า (Pagination)
+    let currentContacts = [];
+    const itemsPerPage = 4;
+    let currentPage = 1;
+
+    // 4. ฟังก์ชันสำหรับแสดงรายละเอียดของคำร้องที่เลือก
+    function showDetail(item) {
+        document.getElementById("detail-name").value = item.name;
+        document.getElementById("detail-phone").value = item.phone;
+        document.getElementById("detail-email").value = item.email;
+        document.getElementById("detail-message").value = item.message;
+        document.getElementById("detail-date").value = item.contact_id;
+    }
+
+    // 5. ฟังก์ชันสำหรับแสดงรายการคำร้องแบบแบ่งหน้า
+    function renderPage() {
+        const container = document.getElementById("message-container");
+        container.innerHTML = "";
+        const start = (currentPage - 1) * itemsPerPage;
+        const paginatedResults = currentContacts.slice(start, start + itemsPerPage);
+
+        paginatedResults.forEach(item => {
+            const div = document.createElement("div");
+            div.classList.add("flex", "justify-between", "items-center", "p-4", "bg-gray-100", "rounded-lg", "shadow-md", "cursor-pointer", "hover:bg-[#c4bcac]");
+            div.innerHTML = `
+                    <div>
+                        <span class="text-[#4e342e] font-semibold">${item.name}</span><br>
+                        <small class="text-sm text-gray-600">${item.contact_id}</small>
+                    </div>
+                `;
+            div.addEventListener("click", () => {
+                showDetail(item);
+            });
+            container.appendChild(div);
+        });
+        document.getElementById("page-indicator").textContent = `${currentPage} / ${Math.ceil(currentContacts.length / itemsPerPage)}`;
+    }
+
+    // 6. ฟังก์ชันเริ่มต้นดึงข้อมูลและแสดงผล
+    async function initContacts() {
+        currentContacts = await fetchContacts();
+        currentPage = 1;
+        renderPage();
+    }
+
+    // 7. กำหนด Event Listener สำหรับปุ่มเปลี่ยนหน้า
+    document.getElementById("prevPage").addEventListener("click", () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderPage();
+        }
+    });
+
+    document.getElementById("nextPage").addEventListener("click", () => {
+        if (currentPage < Math.ceil(currentContacts.length / itemsPerPage)) {
+            currentPage++;
+            renderPage();
+        }
+    });
+
+    // 8. เมื่อหน้าโหลดเสร็จ ให้เริ่มดึงข้อมูลคำร้อง
+    document.addEventListener("DOMContentLoaded", () => {
+        initContacts();
+    });
+</script>
+</body>
+</html>
