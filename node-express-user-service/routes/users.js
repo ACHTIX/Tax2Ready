@@ -137,6 +137,7 @@ router.get('/generate-pdf', authenticateToken, async (req, res, next) => {
     next(error);
   }
 });
+
 router.post('/generate-pdf-manual', authenticateToken, async (req, res, next) => {
   try {
     const userId = req.user.user_id;
