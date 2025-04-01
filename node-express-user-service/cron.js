@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // 2. กำหนด cron job ให้รันทุก 1 นาที (สำหรับทดสอบ)
-cron.schedule('*/1 * * * *', async () => {
+cron.schedule('0 9 * * *', async () => {
     console.log('Running cron job to fetch data and send email');
 
     try {

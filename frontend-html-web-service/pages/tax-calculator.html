@@ -124,19 +124,27 @@
                     <tr class="bg-gray-50">
                         <td class="border p-2 pl-6">- เงินเดือนและค่าจ้างตามสัญญาแรงงาน</td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subIncome" data-parent="salary" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subIncome numericInput" data-parent="salary" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subTax" data-parent="salary" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subTax numericInput" data-parent="salary" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                     </tr>
                     <tr class="bg-gray-50">
                         <td class="border p-2 pl-6">- ค่าชดเชยออกจากงาน (ไม่รวมภาษี)</td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subIncome" data-parent="salary" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subIncome numericInput" data-parent="salary" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subTax" data-parent="salary" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subTax numericInput" data-parent="salary" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                     </tr>
                     </tbody>
@@ -157,10 +165,14 @@
                     <tr class="bg-gray-50">
                         <td class="border p-2 pl-6">- ค่าจ้าง ฟรีแลนซ์ ค่านายหน้า</td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subIncome" data-parent="freelance" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subIncome numericInput" data-parent="freelance" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subTax" data-parent="freelance" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subTax numericInput" data-parent="freelance" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                     </tr>
                     </tbody>
@@ -181,55 +193,79 @@
                     <tr class="bg-gray-50">
                         <td class="border p-2 pl-6">- ค่าลิขสิทธิ์ สิทธิในทรัพย์สินทางปัญญา</td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subIncome" data-parent="business" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subIncome numericInput" data-parent="business" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subTax" data-parent="business" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subTax numericInput" data-parent="business" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                     </tr>
                     <tr class="bg-gray-50">
                         <td class="border p-2 pl-6">- ค่าเช่าและค่าผิดสัญญาเช่า</td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subIncome" data-parent="business" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subIncome numericInput" data-parent="business" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subTax" data-parent="business" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subTax numericInput" data-parent="business" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                     </tr>
                     <tr class="bg-gray-50">
                         <td class="border p-2 pl-6">- ค่าตอบแทนวิชาชีพอิสระ</td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subIncome" data-parent="business" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subIncome numericInput" data-parent="business" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subTax" data-parent="business" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subTax numericInput" data-parent="business" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                     </tr>
                     <tr class="bg-gray-50">
                         <td class="border p-2 pl-6">- เงินได้จากการรับเหมา</td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subIncome" data-parent="business" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subIncome numericInput" data-parent="business" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subTax" data-parent="business" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subTax numericInput" data-parent="business" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                     </tr>
                     <tr class="bg-gray-50">
                         <td class="border p-2 pl-6">- เงินได้จากธุรกิจและอุตสาหกรรม</td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subIncome" data-parent="business" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subIncome numericInput" data-parent="business" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subTax" data-parent="business" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subTax numericInput" data-parent="business" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                     </tr>
                     <tr class="bg-gray-50">
                         <td class="border p-2 pl-6">- เงินได้จากการขายอสังหาริมทรัพย์</td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subIncome" data-parent="business" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subIncome numericInput" data-parent="business" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subTax" data-parent="business" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subTax numericInput" data-parent="business" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                     </tr>
                     </tbody>
@@ -250,55 +286,79 @@
                     <tr class="bg-gray-50">
                         <td class="border p-2 pl-6">- ดอกเบี้ย คริปโทเคอร์เรนซี เงินปันผลต่างประเทศ</td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subIncome" data-parent="invest" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subIncome numericInput" data-parent="invest" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subTax" data-parent="invest" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subTax numericInput" data-parent="invest" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                     </tr>
                     <tr class="bg-gray-50">
                         <td class="border p-2 pl-6">- เงินปันผลจากหุ้นและกองทุนรวม</td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subIncome" data-parent="invest" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subIncome numericInput" data-parent="invest" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subTax" data-parent="invest" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subTax numericInput" data-parent="invest" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                     </tr>
                     <tr class="bg-gray-50">
                         <td class="border p-2 pl-6">- เงินได้ที่เลือกเสียภาษีแบบแยกต่างหาก</td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subIncome" data-parent="invest" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subIncome numericInput" data-parent="invest" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subTax" data-parent="invest" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subTax numericInput" data-parent="invest" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                     </tr>
                     <tr class="bg-gray-50">
                         <td class="border p-2 pl-6">- กองทุนรวมเพื่อการเลี้ยงชีพ (RMF)</td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subIncome" data-parent="invest" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subIncome numericInput" data-parent="invest" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subTax" data-parent="invest" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subTax numericInput" data-parent="invest" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                     </tr>
                     <tr class="bg-gray-50">
                         <td class="border p-2 pl-6">- กองทุนรวมหุ้นระยะยาว (LTF)</td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subIncome" data-parent="invest" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subIncome numericInput" data-parent="invest" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subTax" data-parent="invest" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subTax numericInput" data-parent="invest" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                     </tr>
                     <tr class="bg-gray-50">
                         <td class="border p-2 pl-6">- กองทุนเพื่อการออม (SSF)</td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subIncome" data-parent="invest" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subIncome numericInput" data-parent="invest" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subTax" data-parent="invest" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subTax numericInput" data-parent="invest" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                     </tr>
                     </tbody>
@@ -319,10 +379,14 @@
                     <tr class="bg-gray-50">
                         <td class="border p-2 pl-6">- เงินได้จากการให้หรือการรับ</td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subIncome" data-parent="inherit" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subIncome numericInput" data-parent="inherit" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                         <td class="border p-2">
-                            <input type="number" class="w-full border p-1 subTax" data-parent="inherit" placeholder="0.00">
+                            <input type="text" class="w-full border p-1 subTax numericInput" data-parent="inherit" placeholder="0.00"
+                                   inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                   oninput="formatNumberWithCommas(this); updateMainTotals();" />
                         </td>
                         <td class="border p-2 text-center">
                             <a href="income-cal/16income_donation_40_8.html" class="text-black-500 px-3 py-1 rounded hover:text-blue-600 hover:underline">ระบุข้อมูล</a>
@@ -342,11 +406,13 @@
                     </div>
                     <div>
                         <label for="incomeInput" class="block mb-1">เงินได้ทั้งหมด:</label>
-                        <input type="text" id="incomeInput" name="income" class="w-full border p-2">
+                        <input type="text" id="incomeInput" name="income" class="w-full border p-2 numericInput"
+                               inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" oninput="formatNumberWithCommas(this)">
                     </div>
                     <div>
                         <label for="taxInput" class="block mb-1">ภาษี ณ ที่จ่าย:</label>
-                        <input type="text" id="taxInput" name="tax" class="w-full border p-2">
+                        <input type="text" id="taxInput" name="tax" class="w-full border p-2 numericInput"
+                               inputmode="numeric" pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" oninput="formatNumberWithCommas(this)">
                     </div>
                     <input type="hidden" id="rowIndexInput" name="rowIndex">
                     <div class="flex space-x-4">
@@ -374,23 +440,24 @@
         </div>
     </div>
 </div>
-</body>
+
 <!-- JavaScript Code -->
 <script>
-    // ทำให้เมนูมือถือแสดง / ซ่อน
-    document.getElementById("mobile-menu-button").addEventListener("click", function () {
-        document.getElementById("mobile-menu").classList.toggle("hidden");
-    });
+    // ฟังก์ชันสำหรับแสดง comma ในตัวเลข
+    function formatNumberWithCommas(input) {
+        let value = input.value.replace(/,/g, '');
+        if (value === "") return;
+        let parts = value.split('.');
+        let integerPart = parts[0];
+        let decimalPart = parts.length > 1 ? '.' + parts[1] : '';
+        integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        input.value = integerPart + decimalPart;
+    }
 
-    // เมนูเรียนรู้เพิ่มเติม desktop
-    document.getElementById("learn-more-btn").addEventListener("click", function () {
-        document.getElementById("learn-more-menu").classList.toggle("hidden");
-    });
-
-    // เมนูเรียนรู้เพิ่มเติม mobile
-    document.getElementById("learn-more-btn-mobile").addEventListener("click", function () {
-        document.getElementById("learn-more-menu-mobile").classList.toggle("hidden");
-    });
+    // ฟังก์ชัน parseNumber: ลบ comma แล้วแปลงเป็น float
+    function parseNumber(value) {
+        return parseFloat(value.replace(/,/g, '')) || 0;
+    }
 
     // ---------- Toggle Sub-table ----------
     function toggleSubItems(subTableId) {
@@ -399,7 +466,7 @@
     }
 
     // ---------- Auto Calculate Sub-items ----------
-    document.addEventListener('input', function (e) {
+    document.addEventListener('input', function(e) {
         if (e.target.classList.contains('subIncome') || e.target.classList.contains('subTax')) {
             updateMainTotals();
         }
@@ -409,60 +476,71 @@
         // รายได้จากเงินเดือน
         let totalSalaryIncome = 0, totalSalaryTax = 0;
         document.querySelectorAll('.subIncome[data-parent="salary"]').forEach(inp => {
-            totalSalaryIncome += parseFloat(inp.value) || 0;
+            totalSalaryIncome += parseNumber(inp.value);
         });
         document.querySelectorAll('.subTax[data-parent="salary"]').forEach(inp => {
-            totalSalaryTax += parseFloat(inp.value) || 0;
+            totalSalaryTax += parseNumber(inp.value);
         });
-        document.getElementById('salaryTotalIncome').textContent = totalSalaryIncome.toFixed(2);
-        document.getElementById('salaryTotalTax').textContent = totalSalaryTax.toFixed(2);
+        // ใช้ toLocaleString() เพื่อแสดง comma
+        document.getElementById('salaryTotalIncome').textContent =
+            totalSalaryIncome.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        document.getElementById('salaryTotalTax').textContent =
+            totalSalaryTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
         // รายได้จากฟรีแลนซ์
         let totalFreelanceIncome = 0, totalFreelanceTax = 0;
         document.querySelectorAll('.subIncome[data-parent="freelance"]').forEach(inp => {
-            totalFreelanceIncome += parseFloat(inp.value) || 0;
+            totalFreelanceIncome += parseNumber(inp.value);
         });
         document.querySelectorAll('.subTax[data-parent="freelance"]').forEach(inp => {
-            totalFreelanceTax += parseFloat(inp.value) || 0;
+            totalFreelanceTax += parseNumber(inp.value);
         });
-        document.getElementById('freelanceTotalIncome').textContent = totalFreelanceIncome.toFixed(2);
-        document.getElementById('freelanceTotalTax').textContent = totalFreelanceTax.toFixed(2);
+        document.getElementById('freelanceTotalIncome').textContent =
+            totalFreelanceIncome.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        document.getElementById('freelanceTotalTax').textContent =
+            totalFreelanceTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
         // รายได้จากธุรกิจ
         let totalBusinessIncome = 0, totalBusinessTax = 0;
         document.querySelectorAll('.subIncome[data-parent="business"]').forEach(inp => {
-            totalBusinessIncome += parseFloat(inp.value) || 0;
+            totalBusinessIncome += parseNumber(inp.value);
         });
         document.querySelectorAll('.subTax[data-parent="business"]').forEach(inp => {
-            totalBusinessTax += parseFloat(inp.value) || 0;
+            totalBusinessTax += parseNumber(inp.value);
         });
-        document.getElementById('businessTotalIncome').textContent = totalBusinessIncome.toFixed(2);
-        document.getElementById('businessTotalTax').textContent = totalBusinessTax.toFixed(2);
+        document.getElementById('businessTotalIncome').textContent =
+            totalBusinessIncome.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        document.getElementById('businessTotalTax').textContent =
+            totalBusinessTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
         // รายได้จากการลงทุน
         let totalInvestIncome = 0, totalInvestTax = 0;
         document.querySelectorAll('.subIncome[data-parent="invest"]').forEach(inp => {
-            totalInvestIncome += parseFloat(inp.value) || 0;
+            totalInvestIncome += parseNumber(inp.value);
         });
         document.querySelectorAll('.subTax[data-parent="invest"]').forEach(inp => {
-            totalInvestTax += parseFloat(inp.value) || 0;
+            totalInvestTax += parseNumber(inp.value);
         });
-        document.getElementById('investTotalIncome').textContent = totalInvestIncome.toFixed(2);
-        document.getElementById('investTotalTax').textContent = totalInvestTax.toFixed(2);
+        document.getElementById('investTotalIncome').textContent =
+            totalInvestIncome.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        document.getElementById('investTotalTax').textContent =
+            totalInvestTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
         // รายได้จากมรดก
         let totalInheritIncome = 0, totalInheritTax = 0;
         document.querySelectorAll('.subIncome[data-parent="inherit"]').forEach(inp => {
-            totalInheritIncome += parseFloat(inp.value) || 0;
+            totalInheritIncome += parseNumber(inp.value);
         });
         document.querySelectorAll('.subTax[data-parent="inherit"]').forEach(inp => {
-            totalInheritTax += parseFloat(inp.value) || 0;
+            totalInheritTax += parseNumber(inp.value);
         });
-        document.getElementById('inheritTotalIncome').textContent = totalInheritIncome.toFixed(2);
-        document.getElementById('inheritTotalTax').textContent = totalInheritTax.toFixed(2);
+        document.getElementById('inheritTotalIncome').textContent =
+            totalInheritIncome.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        document.getElementById('inheritTotalTax').textContent =
+            totalInheritTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    // ---------- Save Data to localStorage (ทั้งหน้านี้) ----------
+    // ---------- Save Data to localStorage ----------
     function savePageData() {
         let pageData = {};
 
@@ -474,13 +552,13 @@
             pageData.income[group] = {
                 subIncomes: [],
                 subTaxes: [],
-                totalIncome: parseFloat(document.getElementById(group + 'TotalIncome').textContent) || 0,
-                totalTax: parseFloat(document.getElementById(group + 'TotalTax').textContent) || 0
+                totalIncome: parseNumber(document.getElementById(group + 'TotalIncome').textContent),
+                totalTax: parseNumber(document.getElementById(group + 'TotalTax').textContent)
             };
-            document.querySelectorAll('.subIncome[data-parent="'+group+'"]').forEach(inp => {
+            document.querySelectorAll('.subIncome[data-parent="' + group + '"]').forEach(inp => {
                 pageData.income[group].subIncomes.push(inp.value);
             });
-            document.querySelectorAll('.subTax[data-parent="'+group+'"]').forEach(inp => {
+            document.querySelectorAll('.subTax[data-parent="' + group + '"]').forEach(inp => {
                 pageData.income[group].subTaxes.push(inp.value);
             });
         });
@@ -488,7 +566,7 @@
         // เก็บข้อมูล input อื่น ๆ ที่มี id (ถ้ามี)
         pageData.otherInputs = {};
         document.querySelectorAll('input').forEach(input => {
-            if(input.id && !input.classList.contains('subIncome') && !input.classList.contains('subTax')) {
+            if (input.id && !input.classList.contains('subIncome') && !input.classList.contains('subTax')) {
                 pageData.otherInputs[input.id] = input.value;
             }
         });
@@ -501,27 +579,27 @@
         let saved = localStorage.getItem("pageData");
         if (saved) {
             let pageData = JSON.parse(saved);
-            if(pageData.income) {
+            if (pageData.income) {
                 const groups = ['salary', 'freelance', 'business', 'invest', 'inherit'];
                 groups.forEach(group => {
-                    if(pageData.income[group]) {
+                    if (pageData.income[group]) {
                         let incomes = pageData.income[group].subIncomes;
                         let taxes = pageData.income[group].subTaxes;
-                        let incomeInputs = document.querySelectorAll('.subIncome[data-parent="'+group+'"]');
-                        let taxInputs = document.querySelectorAll('.subTax[data-parent="'+group+'"]');
+                        let incomeInputs = document.querySelectorAll('.subIncome[data-parent="' + group + '"]');
+                        let taxInputs = document.querySelectorAll('.subTax[data-parent="' + group + '"]');
                         incomeInputs.forEach((inp, idx) => {
-                            if(incomes[idx] !== undefined) { inp.value = incomes[idx]; }
+                            if (incomes[idx] !== undefined) { inp.value = incomes[idx]; }
                         });
                         taxInputs.forEach((inp, idx) => {
-                            if(taxes[idx] !== undefined) { inp.value = taxes[idx]; }
+                            if (taxes[idx] !== undefined) { inp.value = taxes[idx]; }
                         });
                     }
                 });
             }
-            if(pageData.otherInputs) {
+            if (pageData.otherInputs) {
                 for (const id in pageData.otherInputs) {
                     const elem = document.getElementById(id);
-                    if(elem) {
+                    if (elem) {
                         elem.value = pageData.otherInputs[id];
                     }
                 }
@@ -539,28 +617,24 @@
         document.getElementById("saveModal").classList.add("hidden");
     });
 
-    // รวมการบันทึกข้อมูลและเปลี่ยนหน้าไว้ใน Event Listener เดียว
     document.getElementById("confirmSave").addEventListener("click", function () {
-        // ตรวจสอบข้อมูลใน input ตัวเลขก่อนบันทึก (รวมทั้ง input ในตารางและแบบฟอร์มแก้ไข)
-        let numericInputs = document.querySelectorAll('input[type="number"], #incomeInput, #taxInput');
+        let numericInputs = document.querySelectorAll('.numericInput');
         for (let input of numericInputs) {
-            // หากไม่ใช่ตัวเลข ให้แสดงข้อความแจ้งและหยุดการบันทึก
-            if (input.value !== "" && isNaN(parseFloat(input.value))) {
+            if (input.value !== "" && isNaN(parseNumber(input.value))) {
                 alert("กรุณากรอกข้อมูลเป็นตัวเลขเท่านั้น");
                 return;
             }
         }
-        savePageData(); // บันทึกข้อมูลลง localStorage
+        savePageData();
         document.getElementById("saveModal").classList.add("hidden");
-        window.location.href = "tax-deduction.html"; // เปลี่ยนหน้าไปยังขั้นตอนต่อไป
+        window.location.href = "tax-deduction.html";
     });
 
-    // โหลดข้อมูลที่บันทึกไว้เมื่อหน้าเพจโหลด
     document.addEventListener("DOMContentLoaded", function () {
         loadPageData();
     });
 
-    // ---------------- Edit Data Logic (ถ้ามีการแก้ไขข้อมูลในตาราง) ----------------
+    // ---------------- Edit Data Logic ----------------
     function editRow(rowIndex) {
         document.getElementById('page-Main').classList.add('hidden');
         document.getElementById('editContainer').classList.remove('hidden');
@@ -601,19 +675,18 @@
         document.getElementById('page-Main').classList.remove('hidden');
     }
 
-    // เพิ่ม Event Listener สำหรับจำกัดการพิมพ์ให้เฉพาะตัวเลข (และจุดทศนิยม)
-    document.querySelectorAll('input[type="number"], #incomeInput, #taxInput').forEach(function(input) {
+    // จำกัดการพิมพ์ให้เฉพาะตัวเลขและจุด (สำหรับ input ที่มี class "numericInput")
+    document.querySelectorAll('.numericInput').forEach(function(input) {
         input.addEventListener("keypress", function(event) {
             let char = String.fromCharCode(event.which);
-            // อนุญาตให้พิมพ์ได้เฉพาะตัวเลขและเครื่องหมายจุด
             if (!/[0-9.]/.test(char)) {
                 event.preventDefault();
             }
-            // หากมีการพิมพ์จุดแล้วใน input ให้ไม่สามารถพิมพ์จุดซ้ำได้
             if (char === '.' && input.value.indexOf('.') !== -1) {
                 event.preventDefault();
             }
         });
     });
 </script>
+</body>
 </html>

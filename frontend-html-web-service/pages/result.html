@@ -132,7 +132,7 @@
 
     <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
         <!-- กล่องใหญ่ด้านซ้าย (ขั้นตอน + PDF) -->
-        <div class="w-full h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md flex flex-col justify-between font-mali">
+        <div class="w-full h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md flex flex-col justify-between font-mali overflow-auto">
             <!-- หัวข้อใหญ่ -->
             <h2 class="text-2xl md:text-3xl font-bold text-[#4e342e] text-center mb-4">
                 แสดงผลลัพท์
@@ -193,63 +193,61 @@
                 </a>
             </div>
 
-            <!-- โซน PDF -->
-            <div class="flex flex-col md:flex-row gap-3 w-full justify-center items-start overflow-auto">
-                <!-- Form Tax 90 (ซ้าย) -->
-                <div class="w-full h-full flex flex-col items-center">
-                    <embed src="../assets/Form-Tax90.pdf" type="application/pdf" width="600" height="800"
-                           class="border border-gray-300 rounded-lg">
-                    <a href="../assets/Form-Tax90.pdf"
-                       download
-                       class="text-blue-500 underline mt-2">
-                        ดาวน์โหลดฟอร์มกรอกภาษี 90
-                    </a>
-                </div>
-                <!-- กล่องขวา (2 Container: เงินได้ทั้งหมด + การคำนวณภาษี) -->
-                <div class="w-full flex flex-col gap-4 over">
-                    <!-- Container: เงินได้ทั้งหมด -->
-                    <div class="w-full bg-white p-6 rounded-lg shadow-md flex flex-col font-mali">
-                        <h3 class="text-xl text-[#4e342e] font-semibold mb-4">เงินได้ทั้งหมด</h3>
-                        <div class="flex justify-between mb-2">
-                            <span>เงินได้รวม (บาท):</span>
-                            <span id="totalIncome" class="font-bold text-blue-700">0.00</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span>หักค่าใช้จ่าย (บาท):</span>
-                            <span id="totalExpenses" class="font-bold text-blue-700">100,000.00</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span>หักลดหย่อน (บาท):</span>
-                            <span id="totalDeduction" class="font-bold text-blue-700">0.00</span>
-                        </div>
-                        <!-- ตัวอย่างถ้าคุณมี “หักค่าใช้จ่าย” หรือ “ยกเว้น” เพิ่มเติมก็สามารถเพิ่มช่องได้ -->
-                        <div class="flex justify-between mb-2">
-                            <span>เงินได้สุทธิ (บาท):</span>
-                            <span id="netTaxableIncome" class="font-bold text-blue-700">0.00</span>
-                        </div>
+            <!-- โซนข้อมูลเงินได้และการคำนวณภาษี -->
+            <div class="flex flex-col gap-3 w-full justify-center items-start">
+                <!-- Container: เงินได้ทั้งหมด -->
+                <div class="w-full bg-white p-6 rounded-lg shadow-md flex flex-col font-mali">
+                    <h3 class="text-xl text-[#4e342e] font-semibold mb-4">เงินได้ทั้งหมด</h3>
+                    <div class="flex justify-between mb-2">
+                        <span>เงินได้รวม (บาท):</span>
+                        <span id="totalIncome" class="font-bold text-blue-700">0.00</span>
                     </div>
-                    <!-- Container: การคำนวณภาษี -->
-                    <div class="w-full bg-white p-6 rounded-lg shadow-md flex flex-col font-mali">
-                        <h3 class="text-xl text-[#4e342e] font-semibold mb-4">การคำนวณภาษี</h3>
-                        <div class="flex justify-between mb-2">
-                            <span>ภาษีที่ต้องชำระ (บาท):</span>
-                            <span id="taxPayable" class="font-bold text-red-600">0.00</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span>ภาษีหัก ณ ที่จ่าย (บาท):</span>
-                            <span id="withheldTax" class="font-bold text-red-600">0.00</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span>ยอดสุทธิ (ชำระเพิ่ม) (บาท):</span>
-                            <span id="finalTaxDue" class="font-bold text-red-600">0.00</span>
-                        </div>
-                        <div class="flex justify-between mb-2 font-bold">
-                            <span>รวมทั้งหมด (ปัดเศษบาท)</span>
-                            <span id="finalTaxRounded" class="font-bold text-red-600">0</span>
-                        </div>
+                    <div class="flex justify-between mb-2">
+                        <span>หักค่าใช้จ่าย (บาท):</span>
+                        <span id="totalExpenses" class="font-bold text-blue-700">100,000.00</span>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <span>หักลดหย่อน (บาท):</span>
+                        <span id="totalDeduction" class="font-bold text-blue-700">0.00</span>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <span>เงินได้สุทธิ (บาท):</span>
+                        <span id="netTaxableIncome" class="font-bold text-blue-700">0.00</span>
+                    </div>
+                </div>
+                <!-- Container: การคำนวณภาษี -->
+                <div class="w-full bg-white p-6 rounded-lg shadow-md flex flex-col font-mali">
+                    <h3 class="text-xl text-[#4e342e] font-semibold mb-4">การคำนวณภาษี</h3>
+                    <div class="flex justify-between mb-2">
+                        <span>ภาษีที่ต้องชำระ (บาท):</span>
+                        <span id="taxPayable" class="font-bold text-red-600">0.00</span>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <span>ภาษีหัก ณ ที่จ่าย (บาท):</span>
+                        <span id="withheldTax" class="font-bold text-red-600">0.00</span>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <span>ยอดสุทธิ (ชำระเพิ่ม) (บาท):</span>
+                        <span id="finalTaxDue" class="font-bold text-red-600">0.00</span>
+                    </div>
+                    <div class="flex justify-between mb-2 font-bold">
+                        <span>รวมทั้งหมด (ปัดเศษบาท):</span>
+                        <span id="finalTaxRounded" class="font-bold text-red-600">0</span>
                     </div>
                 </div>
             </div>
+
+            <!-- โซน PDF อยู่ด้านล่างสุด -->
+            <div class="flex flex-col w-full justify-center items-center mt-6">
+                <div class="w-full h-full flex flex-col items-center">
+                    <embed src="../assets/Form-Tax90.pdf" type="application/pdf" width="600" height="800"
+                           class="border border-gray-300 rounded-lg">
+                    <a href="../assets/Form-Tax90.pdf" download class="text-blue-500 underline mt-2">
+                        ดาวน์โหลดฟอร์มกรอกภาษี 90
+                    </a>
+                </div>
+            </div>
+
             <!-- ปุ่มบันทึกข้อมูลทั้งหมด -->
             <button id="saveDataButton" class="w-full mt-4 px-4 py-2 bg-[#4e342e] text-white rounded-lg shadow">
                 บันทึกผลลัพท์
@@ -275,73 +273,23 @@
         document.getElementById("learn-more-menu-mobile").classList.toggle("hidden");
     });
 
-    // โหลดหน้าเพจผ่าน nav-link (ถ้ามี)
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function (event) {
-            event.preventDefault(); // ป้องกันการโหลดหน้าใหม่
-            let page = this.getAttribute('data-page'); // ดึงค่า data-page
-
-            fetch("pages/" + page)  // 📂 โหลดจากโฟลเดอร์ /pages
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('main-container').innerHTML = data; // แสดงผล
-                })
-                .catch(error => console.error('Error loading page:', error));
-        });
-    });
-
-    // ตรวจสอบ Token
-    document.addEventListener("DOMContentLoaded", function () {
-        const token = 'Bearer ' + localStorage.getItem('jwt_token');
-
-        fetch(window.CONFIG.BASE_PATH + '/users/is-valid', {
-            method: 'GET',
-            headers: {
-                'Authorization': token
-            }
-        })
-            .then(response => {
-                document.querySelectorAll('.loginButton').forEach(button => {
-                    if (response.status === 200) {
-                        // เมื่อ Token ถูกต้อง => ซ่อนปุ่ม Login
-                        button.classList.add('opacity-0', 'pointer-events-none');
-                        button.classList.remove('opacity-100');
-                    } else {
-                        // Token ไม่ถูกต้อง => แสดงปุ่ม Login
-                        button.classList.remove('opacity-0', 'pointer-events-none');
-                        button.classList.add('opacity-100');
-                    }
-                });
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                // กรณี error ก็ให้ปุ่ม Login ยังแสดง
-                document.querySelectorAll('.loginButton').forEach(button => {
-                    button.classList.remove('opacity-0', 'pointer-events-none');
-                    button.classList.add('opacity-100');
-                });
-            });
-    });
-
     // ฟังก์ชันคำนวณภาษีตามอัตราแบบขั้นบันได
     function calculatePersonalIncomeTax(netTaxableIncome) {
         if (netTaxableIncome <= 0) return 0;
 
-        // โครงสร้างอัตราภาษี (ปีภาษีปัจจุบัน)
         const brackets = [
-            {threshold: 150000, rate: 0.00}, // 0 - 150,000 => 0%
-            {threshold: 300000, rate: 0.05}, // 150,001 - 300,000 => 5%
-            {threshold: 500000, rate: 0.10}, // 300,001 - 500,000 => 10%
-            {threshold: 750000, rate: 0.15}, // 500,001 - 750,000 => 15%
-            {threshold: 1000000, rate: 0.20}, // 750,001 - 1,000,000 => 20%
-            {threshold: 2000000, rate: 0.25}, // 1,000,001 - 2,000,000 => 25%
-            {threshold: 5000000, rate: 0.30}, // 2,000,001 - 5,000,000 => 30%
-            {threshold: Infinity, rate: 0.35} // > 5,000,000 => 35%
+            {threshold: 150000, rate: 0.00},
+            {threshold: 300000, rate: 0.05},
+            {threshold: 500000, rate: 0.10},
+            {threshold: 750000, rate: 0.15},
+            {threshold: 1000000, rate: 0.20},
+            {threshold: 2000000, rate: 0.25},
+            {threshold: 5000000, rate: 0.30},
+            {threshold: Infinity, rate: 0.35}
         ];
 
         let tax = 0;
         let start = 0;
-
         for (let i = 0; i < brackets.length; i++) {
             const {threshold, rate} = brackets[i];
             if (netTaxableIncome <= threshold) {
@@ -359,7 +307,6 @@
     function calculateResult() {
         // 1) ดึงข้อมูลรายได้จาก localStorage key = "pageData"
         let savedPageData = localStorage.getItem("pageData");
-        // ถ้าไม่มีข้อมูล ให้ตั้งค่า default sample data
         if (!savedPageData) {
             const samplePageData = {
                 income: {
@@ -373,9 +320,8 @@
             localStorage.setItem("pageData", JSON.stringify(samplePageData));
             savedPageData = JSON.stringify(samplePageData);
         }
-
-        let totalIncome = 0;       // รวมเงินได้ทุกประเภท
-        let totalWithheldTax = 0;  // รวมภาษี ณ ที่จ่าย
+        let totalIncome = 0;
+        let totalWithheldTax = 0;
         const pageData = JSON.parse(savedPageData);
         if (pageData.income) {
             const groups = ["salary", "freelance", "business", "invest", "inherit"];
@@ -389,11 +335,10 @@
 
         // 2) ดึงข้อมูลลดหย่อนภาษีจาก localStorage key = "taxDeductionData"
         let savedDeduction = localStorage.getItem("taxDeductionData");
-        // ถ้าไม่มีข้อมูล ให้ตั้งค่า default sample data สำหรับลดหย่อน
         if (!savedDeduction) {
             const sampleDeductionData = {
-                group1: [],   // ตัวอย่างข้อมูลลดหย่อนในกลุ่ม 1
-                group2: [],           // ตัวอย่างข้อมูลลดหย่อนในกลุ่ม 2
+                group1: [],
+                group2: [],
                 group3: [],
                 group4: [],
                 group5: []
@@ -403,46 +348,42 @@
         }
         let totalDeduction = 0;
         const deductionData = JSON.parse(savedDeduction);
-        // สมมติว่าในแต่ละ group1..5 เป็น array ของ input
         for (let i = 1; i <= 5; i++) {
             if (deductionData[`group${i}`]) {
                 deductionData[`group${i}`].forEach(val => {
-                    // แปลง string => number (ตัด comma ออก)
                     const num = parseFloat((val || "0").replace(/,/g, ""));
                     totalDeduction += (num || 0);
                 });
             }
         }
 
-        // 3) กำหนด "หักค่าใช้จ่าย" เป็นค่าคงที่ 100,000 บาท
-        const totalExpenses = 100000; // ค่าใช้จ่าย 100,000 บาท
-        // แสดงผลค่าใช้จ่ายบนหน้า
-        document.getElementById("totalExpenses").textContent = totalExpenses.toFixed(2);
+        // 3) ค่าใช้จ่ายคงที่ 100,000 บาท
+        const totalExpenses = 100000;
+        document.getElementById("totalExpenses").textContent = totalExpenses.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
 
-        // 4) คำนวณเงินได้สุทธิที่ต้องเสียภาษี
+        // 4) คำนวณเงินได้สุทธิ
         const netTaxableIncome = totalIncome - (totalDeduction + totalExpenses);
-        // (ถ้าผลลัพธ์ติดลบ คุณอาจปรับให้เป็น 0 ตาม logic ที่ต้องการ)
 
-        // 5) คำนวณภาษีตามขั้นบันได (ฟังก์ชัน calculatePersonalIncomeTax ต้องมีการนิยามไว้แล้ว)
+        // 5) คำนวณภาษีที่ต้องชำระ
         const taxPayable = calculatePersonalIncomeTax(netTaxableIncome > 0 ? netTaxableIncome : 0);
 
-        // 6) คำนวณยอดสุทธิที่ต้องจ่าย = ภาษีที่ต้องชำระ - ภาษีหัก ณ ที่จ่าย
+        // 6) คำนวณยอดสุทธิที่ต้องชำระ
         let finalTaxDue = taxPayable - totalWithheldTax;
         if (finalTaxDue < 0) {
             finalTaxDue = 0;
         }
 
-        // 7) ปัดเศษทศนิยม (ยกเว้นเศษของบาท)
+        // 7) ปัดเศษเป็นจำนวนเต็ม (ปัดลง)
         const finalTaxRounded = Math.floor(finalTaxDue);
 
-        // 8) แสดงผลบนหน้า
-        document.getElementById("totalIncome").textContent = totalIncome.toFixed(2);
-        document.getElementById("totalDeduction").textContent = totalDeduction.toFixed(2);
-        document.getElementById("netTaxableIncome").textContent = netTaxableIncome.toFixed(2);
-        document.getElementById("taxPayable").textContent = taxPayable.toFixed(2);
-        document.getElementById("withheldTax").textContent = totalWithheldTax.toFixed(2);
-        document.getElementById("finalTaxDue").textContent = finalTaxDue.toFixed(2);
-        document.getElementById("finalTaxRounded").textContent = finalTaxRounded.toString();
+        // 8) แสดงผลด้วยการจัดรูปแบบตัวเลขด้วย toLocaleString()
+        document.getElementById("totalIncome").textContent = totalIncome.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+        document.getElementById("totalDeduction").textContent = totalDeduction.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+        document.getElementById("netTaxableIncome").textContent = netTaxableIncome.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+        document.getElementById("taxPayable").textContent = taxPayable.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+        document.getElementById("withheldTax").textContent = totalWithheldTax.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+        document.getElementById("finalTaxDue").textContent = finalTaxDue.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+        document.getElementById("finalTaxRounded").textContent = finalTaxRounded.toLocaleString('en-US');
     }
 
     // เรียกคำนวณผลลัพธ์เมื่อหน้าโหลด
@@ -468,7 +409,6 @@
 
         try {
             const token = 'Bearer ' + localStorage.getItem('jwt_token');
-            // 1. บันทึกข้อมูลภาษี
             const response = await fetch(window.CONFIG.BASE_PATH + '/tax-data/save', {
                 method: 'POST',
                 headers: {
@@ -481,7 +421,6 @@
             if (response.ok) {
                 alert('บันทึกข้อมูลสำเร็จ (Transaction ID: ' + result.transactionId + ')');
 
-                // สมมุติว่าเราเรียก API ที่ endpoint '/generate-pdf' แล้วรับ response JSON ที่มี base64Pdf
                 fetch(window.CONFIG.BASE_PATH + '/users/generate-pdf', {
                     method: 'GET',
                     headers: {
@@ -490,18 +429,13 @@
                 })
                     .then(response => response.json())
                     .then(data => {
-                        // ตรวจสอบว่า base64Pdf มีข้อมูลหรือไม่
                         if (!data.base64Pdf) {
                             throw new Error('ไม่มีข้อมูล PDF ใน response');
                         }
-
-                        // สร้าง Data URL สำหรับไฟล์ PDF
                         const dataUrl = 'data:application/pdf;base64,' + data.base64Pdf;
-
-                        // สร้าง element <a> ชั่วคราวเพื่อดาวน์โหลด PDF
                         const downloadLink = document.createElement('a');
                         downloadLink.href = dataUrl;
-                        downloadLink.download = 'tax_result.pdf'; // กำหนดชื่อไฟล์ที่ต้องการดาวน์โหลด
+                        downloadLink.download = 'tax_result.pdf';
                         document.body.appendChild(downloadLink);
                         downloadLink.click();
                         document.body.removeChild(downloadLink);
@@ -510,7 +444,6 @@
                         console.error('Error downloading PDF:', error);
                         alert('เกิดข้อผิดพลาดในการดาวน์โหลด PDF');
                     });
-
             } else {
                 alert('เกิดข้อผิดพลาด: ' + result.error);
             }
