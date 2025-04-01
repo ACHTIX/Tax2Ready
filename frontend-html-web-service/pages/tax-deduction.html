@@ -125,7 +125,8 @@
                         <tr>
                             <td class="py-2 w-1/3">ลดหย่อนผู้มีเงินได้ (บาท):</td>
                             <td class="py-2 w-2/3">
-                                <input type="text" class="border rounded p-1 w-full" value="60,000" readonly onkeydown="return false;" />
+                                <input type="text" class="border rounded p-1 w-full" value="60,000" readonly onkeydown="return false;"
+                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" />
                             </td>
                         </tr>
                         <!-- แถวค่าลดหย่อนผู้สูงอายุ -->
@@ -136,9 +137,9 @@
                                     <!-- ช่องแสดงผลเงิน (คำนวณอัตโนมัติ) -->
                                     <input type="text" class="border rounded p-1 w-1/2" placeholder="0" readonly onkeydown="return false;"
                                            pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" />
-                                    <!-- ช่องกรอกจำนวนคน จำกัดสูงสุด 2 คน (กดปุ่มเพิ่ม/ลดเท่านั้น) -->
+                                    <!-- ช่องกรอกจำนวนคน จำกัดสูงสุด 2 คน -->
                                     <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน"
-                                           min="0" max="2" step="1" onkeydown="return false;"
+                                           min="0" max="2" step="1" inputmode="numeric" pattern="[0-9]*"
                                            data-rate="30000" oninput="updateDeductionValue(this)" />
                                 </div>
                             </td>
@@ -152,7 +153,7 @@
                                            pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" />
                                     <!-- ช่องกรอกจำนวนคน จำกัดสูงสุด 2 คน -->
                                     <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน"
-                                           min="0" max="2" step="1" onkeydown="return false;"
+                                           min="0" max="2" step="1" inputmode="numeric" pattern="[0-9]*"
                                            data-rate="30000" oninput="updateDeductionValue(this)" />
                                 </div>
                             </td>
@@ -166,7 +167,7 @@
                                            pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" />
                                     <!-- ช่องกรอกจำนวนคน จำกัดสูงสุด 3 คน -->
                                     <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน"
-                                           min="0" max="3" step="1" onkeydown="return false;"
+                                           min="0" max="3" step="1" inputmode="numeric" pattern="[0-9]*"
                                            data-rate="30000" oninput="updateDeductionValue(this)" />
                                 </div>
                             </td>
@@ -180,7 +181,7 @@
                                            pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$" />
                                     <!-- ช่องกรอกจำนวนคน ไม่จำกัดจำนวน -->
                                     <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน"
-                                           min="0" step="1" onkeydown="return false;"
+                                           min="0" step="1" inputmode="numeric" pattern="[0-9]*"
                                            data-rate="60000" oninput="updateDeductionValue(this)" />
                                 </div>
                             </td>

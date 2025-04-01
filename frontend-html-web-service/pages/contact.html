@@ -306,7 +306,7 @@
 
         // ส่งข้อมูลไปยังเซิร์ฟเวอร์
         try {
-            const response = await fetch('/contact/saveContact', {
+            const response = await fetch(window.CONFIG.BASE_PATH+'/contact/saveContact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, phone, email, message })
@@ -330,7 +330,7 @@
     // =========================== ซ่อนปุ่ม Login ถ้า token ยัง valid ===========================
     document.addEventListener("DOMContentLoaded", function () {
         const token = 'Bearer ' + localStorage.getItem('jwt_token');
-        fetch('/users/is-valid', {
+        fetch(window.CONFIG.BASE_PATH+'/users/is-valid', {
             method: 'GET',
             headers: { 'Authorization': token }
         })

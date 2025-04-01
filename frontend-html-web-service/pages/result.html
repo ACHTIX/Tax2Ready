@@ -468,6 +468,7 @@
 
         try {
             const token = 'Bearer ' + localStorage.getItem('jwt_token');
+            // 1. บันทึกข้อมูลภาษี
             const response = await fetch(window.CONFIG.BASE_PATH + '/tax-data/save', {
                 method: 'POST',
                 headers: {
@@ -479,6 +480,37 @@
             const result = await response.json();
             if (response.ok) {
                 alert('บันทึกข้อมูลสำเร็จ (Transaction ID: ' + result.transactionId + ')');
+
+                // สมมุติว่าเราเรียก API ที่ endpoint '/generate-pdf' แล้วรับ response JSON ที่มี base64Pdf
+                fetch(window.CONFIG.BASE_PATH + '/users/generate-pdf', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('jwt_token')
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // ตรวจสอบว่า base64Pdf มีข้อมูลหรือไม่
+                        if (!data.base64Pdf) {
+                            throw new Error('ไม่มีข้อมูล PDF ใน response');
+                        }
+
+                        // สร้าง Data URL สำหรับไฟล์ PDF
+                        const dataUrl = 'data:application/pdf;base64,' + data.base64Pdf;
+
+                        // สร้าง element <a> ชั่วคราวเพื่อดาวน์โหลด PDF
+                        const downloadLink = document.createElement('a');
+                        downloadLink.href = dataUrl;
+                        downloadLink.download = 'tax_result.pdf'; // กำหนดชื่อไฟล์ที่ต้องการดาวน์โหลด
+                        document.body.appendChild(downloadLink);
+                        downloadLink.click();
+                        document.body.removeChild(downloadLink);
+                    })
+                    .catch(error => {
+                        console.error('Error downloading PDF:', error);
+                        alert('เกิดข้อผิดพลาดในการดาวน์โหลด PDF');
+                    });
+
             } else {
                 alert('เกิดข้อผิดพลาด: ' + result.error);
             }
