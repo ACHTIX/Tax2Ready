@@ -193,36 +193,116 @@
                 </a>
             </div>
 
-            <!-- โซน PDF -->
-            <div class="flex flex-col md:flex-row gap-3 w-full justify-center items-start overflow-auto">
-                <!-- Form Tax 90 (ซ้าย) -->
-                <div class="w-full h-full flex flex-col items-center">
-                    <embed src="../assets/Form-Tax90.pdf" type="application/pdf" width="600" height="800"
-                           class="border border-gray-300 rounded-lg">
-                    <a href="../assets/Form-Tax90.pdf"
-                       download
-                       class="text-blue-500 underline mt-2">
-                        ดาวน์โหลดฟอร์มกรอกภาษี 90
-                    </a>
-                </div>
-                <!-- กล่องขวา (2 Container: เงินได้ทั้งหมด + การคำนวณภาษี) -->
-                <div class="w-full flex flex-col gap-4 over">
+            <!-- ส่วนแสดงผลข้อมูลและคำนวณภาษี -->
+            <div class="overflow-auto">
+                <div class="flex flex-col gap-3 w-full justify-center items-start">
                     <!-- Container: เงินได้ทั้งหมด -->
                     <div class="w-full bg-white p-6 rounded-lg shadow-md flex flex-col font-mali">
-                        <h3 class="text-xl text-[#4e342e] font-semibold mb-4">เงินได้ทั้งหมด</h3>
-                        <div class="flex justify-between mb-2">
+                        <h3 class="text-xl font-semibold mb-4">เงินได้ทั้งหมด</h3>
+                        <!-- Section: เงินได้รวม -->
+                        <div class="flex justify-between mb-2 text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline cursor-pointer"
+                             id="incomeHeading">
                             <span>เงินได้รวม (บาท):</span>
                             <span id="totalIncome" class="font-bold text-blue-700">0.00</span>
+                        </div>
+                        <div class="ml-4 hidden" id="incomeDetails">
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="incomeItem1">
+                                <span>1. รายได้จากเงินเดือน:</span>
+                                <span class="font-bold text-blue-700" id="income_salary">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="incomeItem2">
+                                <span>2. รายได้จากฟรีแลนซ์, รับจ้างทั่วไป:</span>
+                                <span class="font-bold text-blue-700" id="income_freelance">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="incomeItem3">
+                                <span>3. รายได้จากทรัพย์สิน, การทำธุรกิจ, อาชีพอิสระ:</span>
+                                <span class="font-bold text-blue-700" id="income_business">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="incomeItem4">
+                                <span>4. รายได้จากการลงทุน:</span>
+                                <span class="font-bold text-blue-700" id="income_invest">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="incomeItem5">
+                                <span>5. รายได้จากมรดกหรือได้รับมา:</span>
+                                <span class="font-bold text-blue-700" id="income_inherit">0.00</span>
+                            </div>
                         </div>
                         <div class="flex justify-between mb-2">
                             <span>หักค่าใช้จ่าย (บาท):</span>
                             <span id="totalExpenses" class="font-bold text-blue-700">100,000.00</span>
                         </div>
-                        <div class="flex justify-between mb-2">
+                        <!-- Section: หักลดหย่อน -->
+                        <div class="flex justify-between mb-2 text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline cursor-pointer"
+                             id="deductionHeading">
                             <span>หักลดหย่อน (บาท):</span>
                             <span id="totalDeduction" class="font-bold text-blue-700">0.00</span>
                         </div>
-                        <!-- ตัวอย่างถ้าคุณมี “หักค่าใช้จ่าย” หรือ “ยกเว้น” เพิ่มเติมก็สามารถเพิ่มช่องได้ -->
+                        <div class="ml-4 hidden" id="deductionDetails">
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem0">
+                                <span>0. ค่าลดหย่อนส่วนบุคคล (บาท):</span>
+                                <span class="font-bold text-blue-700" id="deduction_person">60,000.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem1">
+                                <span>1. ค่าลดหย่อนผู้สูงอายุ (บาท):</span>
+                                <span class="font-bold text-blue-700" id="deduction_age">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem2">
+                                <span>2. ค่าอุปการะบิดา/มารดา (บาท):</span>
+                                <span class="font-bold text-blue-700" id="deduction_parent">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem3">
+                                <span>3. ค่าเลี้ยงดูบุตร (บาท):</span>
+                                <span class="font-bold text-blue-700" id="deduction_child">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem4">
+                                <span>4. อุปการะคนพิการ/ทุพพลภาพ (บาท):</span>
+                                <span class="font-bold text-blue-700" id="deduction_disability">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem5">
+                                <span>5. เบี้ยประกันชีวิต (ทั่วไป) (บาท):</span>
+                                <span class="font-bold text-blue-700" id="deduction_insurance">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem6">
+                                <span>6. เบี้ยประกันชีวิต (ทั่วไป) (บาท):</span>
+                                <span class="font-bold text-blue-700" id="deduction_health_insurance">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem7">
+                                <span>7. เบี้ยประกันชีวิตแบบบำนาญ (บาท):</span>
+                                <span class="font-bold text-blue-700" id="deduction_retirement_insurance">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem8">
+                                <span>8. กองทุนสำรองเลี้ยงชีพ/กบข. (บาท):</span>
+                                <span class="font-bold text-blue-700" id="deduction_pvf">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem9">
+                                <span>9. กองทุนรวมเพื่อการเลี้ยงชีพ (RMF) (บาท):</span>
+                                <span class="font-bold text-blue-700" id="deduction_rmfund">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem10">
+                                <span>10. กองทุน SSF (บาท):</span>
+                                <span class="font-bold text-blue-700" id="deduction_ssf">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem11">
+                                <span>11. ดอกเบี้ยเงินกู้ยืม เพื่อที่อยู่อาศัย (บาท):</span>
+                                <span class="font-bold text-blue-700" id="deduction_interest">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem12">
+                                <span>12. เงินบริจาคพรรคการเมือง (บาท):</span>
+                                <span class="font-bold text-blue-700" id="deduction_political">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem13">
+                                <span>13. ค่าซื้อสินค้าหรือบริการ ช้อปดีมีคืน:</span>
+                                <span class="font-bold text-blue-700" id="deduction_shop">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem14">
+                                <span>14. เงินบริจาคสนับสนุนการศึกษา/สถาบันการกุศล (บาท):</span>
+                                <span class="font-bold text-blue-700" id="deduction_education">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem15">
+                                <span>15. เงินบริจาคทั่วไป (บาท):</span>
+                                <span class="font-bold text-blue-700" id="deduction_general">0.00</span>
+                            </div>
+                        </div>
                         <div class="flex justify-between mb-2">
                             <span>เงินได้สุทธิ (บาท):</span>
                             <span id="netTaxableIncome" class="font-bold text-blue-700">0.00</span>
@@ -235,25 +315,56 @@
                             <span>ภาษีที่ต้องชำระ (บาท):</span>
                             <span id="taxPayable" class="font-bold text-red-600">0.00</span>
                         </div>
-                        <div class="flex justify-between mb-2">
+                        <!-- Section: ภาษีหัก ณ ที่จ่าย -->
+                        <div class="flex justify-between mb-2 text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline cursor-pointer"
+                             id="withheldTaxHeading">
                             <span>ภาษีหัก ณ ที่จ่าย (บาท):</span>
                             <span id="withheldTax" class="font-bold text-red-600">0.00</span>
+                        </div>
+                        <div class="ml-4 hidden" id="withheldTaxDetails">
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="withheldItem1">
+                                <span>1. รายได้จากเงินเดือน:</span>
+                                <span class="font-bold text-blue-700" id="withheld_salary">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="withheldItem2">
+                                <span>2. รายได้จากฟรีแลนซ์, รับจ้างทั่วไป:</span>
+                                <span class="font-bold text-blue-700" id="withheld_freelance">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="withheldItem3">
+                                <span>3. รายได้จากทรัพย์สิน, การทำธุรกิจ, อาชีพอิสระ:</span>
+                                <span class="font-bold text-blue-700" id="withheld_business">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="withheldItem4">
+                                <span>4. รายได้จากการลงทุน:</span>
+                                <span class="font-bold text-blue-700" id="withheld_invest">0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="withheldItem5">
+                                <span>5. รายได้จากมรดกหรือได้รับมา:</span>
+                                <span class="font-bold text-blue-700" id="withheld_inherit">0.00</span>
+                            </div>
                         </div>
                         <div class="flex justify-between mb-2">
                             <span>ยอดสุทธิ (ชำระเพิ่ม) (บาท):</span>
                             <span id="finalTaxDue" class="font-bold text-red-600">0.00</span>
                         </div>
                         <div class="flex justify-between mb-2 font-bold">
-                            <span>รวมทั้งหมด (ปัดเศษบาท)</span>
+                            <span>รวมทั้งหมด (ปัดเศษบาท):</span>
                             <span id="finalTaxRounded" class="font-bold text-red-600">0</span>
                         </div>
                     </div>
+                    <!-- โซน PDF -->
+                    <div class="flex flex-col w-full justify-center items-center mt-6">
+                        <div class="w-full h-full flex flex-col items-center">
+                            <a class="text-blue-500 underline mt-2" download href="../assets/Form-Tax90.pdf">ดาวน์โหลดฟอร์มกรอกภาษี
+                                90</a>
+                        </div>
+                    </div>
+                    <!-- ปุ่มบันทึกผลลัพท์ -->
+                    <button class="w-full mt-4 px-4 py-2 bg-[#4e342e] text-white rounded-lg shadow" id="saveDataButton">
+                        บันทึกผลลัพท์
+                    </button>
                 </div>
             </div>
-            <!-- ปุ่มบันทึกข้อมูลทั้งหมด -->
-            <button id="saveDataButton" class="w-full mt-4 px-4 py-2 bg-[#4e342e] text-white rounded-lg shadow">
-                บันทึกผลลัพท์
-            </button>
         </div>
     </div>
 </div>
@@ -404,15 +515,114 @@
         let totalDeduction = 0;
         const deductionData = JSON.parse(savedDeduction);
         // สมมติว่าในแต่ละ group1..5 เป็น array ของ input
+        let g1temp = 0
+        let g2temp = 0
+        let g3temp = 0
+        let g4temp = 0
+        let g5temp = 0
         for (let i = 1; i <= 5; i++) {
-            if (deductionData[`group${i}`]) {
-                deductionData[`group${i}`].forEach(val => {
+            if (i === 1) {
+                deductionData[`group${i}`].forEach((val, a) => {
                     // แปลง string => number (ตัด comma ออก)
                     const num = parseFloat((val || "0").replace(/,/g, ""));
-                    totalDeduction += (num || 0);
+                    if (a === 1) {
+                        g1temp += (num || 0);
+                    }
+                    if (a === 3) {
+                        if (num > 60000) {
+                            g1temp += 60000
+                        } else
+                            g1temp += (num || 0);
+                    }
+                    if (a === 5) {
+                        if (num > 90000) {
+                            g1temp += 60000
+                        } else
+                            g1temp += (num || 0);
+                    }
+                    if (a === 7) {
+                        g1temp += (num || 0);
+                    }
+
+                });
+                g1temp += 60000
+            }
+            if (i === 2) {
+                let group = deductionData[`group${i}`];
+                let sumForB2to4 = 0;
+
+                group.forEach((val, b) => {
+                    const num = parseFloat((val || "0").replace(/,/g, ""));
+
+                    if (b === 0) {
+                        g2temp += Math.min(num, 100000);
+                    }
+                    if (b === 1) {
+                        g2temp += Math.min(num, 25000);
+                    }
+
+                    if (b === 2) {
+                        const percent15income = totalIncome * 0.15;
+                        const limit = Math.min(percent15income, 200000);
+                        g2temp += Math.min(num, limit);
+                    }
+                    if (b === 3) {
+                        const percent15income = totalIncome * 0.15;
+                        const limit = Math.min(percent15income, 200000);
+                        g2temp += Math.min(num, limit);
+                    }
+
+                    if (b >= 4 && b <= 5) {
+                        sumForB2to4 += num;
+                    }
+                });
+                // After collecting b=2 to b=4, apply the total cap
+                const cap = Math.min(totalIncome * 0.30, 500000);
+                g2temp += Math.min(sumForB2to4, cap);
+            }
+            if (i === 3) {
+                deductionData[`group${i}`].forEach((val, c) => {
+                    // แปลง string => number (ตัด comma ออก)
+                    const num = parseFloat((val || "0").replace(/,/g, ""));
+                    if (c === 0) {
+                        g3temp += Math.min(num, 100000);
+                    }
+                    if (c === 1) {
+                        g3temp += Math.min(num, 10000);
+                    }
+                    if (c === 2) {
+                        g3temp += Math.min(num, 0);
+                    }
                 });
             }
+            if (i === 4) {
+                deductionData[`group${i}`].forEach((val, d) => {
+                    // แปลง string => number (ตัด comma ออก)
+                    const num = parseFloat((val || "0").replace(/,/g, ""));
+                    if (d === 0) {
+                        g4temp += Math.min(num, 50000);
+                    }
+                });
+            }
+            if (i === 5) {
+                let percent10 = totalIncome * 0.10;
+                deductionData[`group${i}`].forEach((val, e) => {
+                    // แปลง string => number (ตัด comma ออก)
+                    const num = parseFloat((val || "0").replace(/,/g, ""));
+                    let temp = num * 2
+                    if (e === 0) {
+                        g5temp += Math.min(temp, percent10);
+                    }
+                    if (e === 1) {
+                        g5temp += Math.min(num, (g1temp + g2temp + g3temp + g4temp + g5temp) * 0.1);
+                    }
+                });
+            }
+
         }
+
+
+        totalDeduction = g1temp + g2temp + g3temp + g4temp + g5temp;
 
         // 3) กำหนด "หักค่าใช้จ่าย" เป็นค่าคงที่ 100,000 บาท
         const totalExpenses = 100000; // ค่าใช้จ่าย 100,000 บาท
@@ -486,6 +696,260 @@
             console.error('Error:', error);
             alert('เกิดข้อผิดพลาดในการส่งข้อมูล');
         }
+    });
+
+    function toggleDetails(headingId, detailsId) {
+        document.getElementById(headingId).addEventListener("click", function () {
+            document.getElementById(detailsId).classList.toggle("hidden");
+        });
+    }
+
+    toggleDetails("incomeHeading", "incomeDetails");
+    toggleDetails("deductionHeading", "deductionDetails");
+    toggleDetails("withheldTaxHeading", "withheldTaxDetails");
+
+    function updateDisplayedValues() {
+        const savedIncome = localStorage.getItem("pageData");
+        const savedDeductions = localStorage.getItem("taxDeductionData");
+        const savedWithheld = localStorage.getItem("taxWithheldData");
+        const incomeData = savedIncome ? JSON.parse(savedIncome) : null;
+        const deductionData = savedDeductions ? JSON.parse(savedDeductions) : null;
+        const withheldData = savedWithheld ? JSON.parse(savedWithheld) : null;
+
+        if (incomeData && incomeData.income) {
+            if (incomeData.income.salary) {
+                document.getElementById("income_salary").textContent =
+                    parseFloat(incomeData.income.salary.totalIncome).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (incomeData.income.freelance) {
+                document.getElementById("income_freelance").textContent =
+                    parseFloat(incomeData.income.freelance.totalIncome).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (incomeData.income.business) {
+                document.getElementById("income_business").textContent =
+                    parseFloat(incomeData.income.business.totalIncome).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (incomeData.income.invest) {
+                document.getElementById("income_invest").textContent =
+                    parseFloat(incomeData.income.invest.totalIncome).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (incomeData.income.inherit) {
+                document.getElementById("income_inherit").textContent =
+                    parseFloat(incomeData.income.inherit.totalIncome).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (incomeData.totals && incomeData.totals.totalIncome) {
+                document.getElementById("totalIncome").textContent =
+                    parseFloat(incomeData.totals.totalIncome).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+        }
+        if (deductionData) {
+            if (deductionData.group1[1]) {
+                const group1Val1 = String(deductionData.group1[1]).replace(/,/g, '');
+                document.getElementById("deduction_age").textContent =
+                    parseFloat(group1Val1).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (deductionData.group1[3]) {
+                const group1Val3 = String(deductionData.group1[3]).replace(/,/g, '');
+                document.getElementById("deduction_parent").textContent =
+                    parseFloat(group1Val3).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (deductionData.group1[5]) {
+                const group1Val5 = String(deductionData.group1[5]).replace(/,/g, '');
+                document.getElementById("deduction_child").textContent =
+                    parseFloat(group1Val5).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (deductionData.group1[7]) {
+                const group1Val7 = String(deductionData.group1[7]).replace(/,/g, '');
+                document.getElementById("deduction_disability").textContent =
+                    parseFloat(group1Val7).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (deductionData.group2[0]) {
+                const group2Val0 = String(deductionData.group2[0]).replace(/,/g, '');
+                document.getElementById("deduction_insurance").textContent =
+                    parseFloat(group2Val0).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (deductionData.group2[1]) {
+                const group2Val1 = String(deductionData.group2[1]).replace(/,/g, '');
+                document.getElementById("deduction_health_insurance").textContent =
+                    parseFloat(group2Val1).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (deductionData.group2[2]) {
+                const group2Val1 = String(deductionData.group2[2]).replace(/,/g, '');
+                document.getElementById("deduction_retirement_insurance").textContent =
+                    parseFloat(group2Val1).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (deductionData.group2[3]) {
+                const group2Val2 = String(deductionData.group2[3]).replace(/,/g, '');
+                document.getElementById("deduction_pvf").textContent =
+                    parseFloat(group2Val2).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (deductionData.group2[4]) {
+                const group2Val3 = String(deductionData.group2[4]).replace(/,/g, '');
+                document.getElementById("deduction_rmfund").textContent =
+                    parseFloat(group2Val3).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (deductionData.group2[5]) {
+                const group2Val4 = String(deductionData.group2[5]).replace(/,/g, '');
+                document.getElementById("deduction_ssf").textContent =
+                    parseFloat(group2Val4).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (deductionData.group3[0]) {
+                const group2Val5 = String(deductionData.group3[0]).replace(/,/g, '');
+                document.getElementById("deduction_interest").textContent =
+                    parseFloat(group2Val5).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (deductionData.group3[1]) {
+                const group3Val0 = String(deductionData.group3[1]).replace(/,/g, '');
+                document.getElementById("deduction_political").textContent =
+                    parseFloat(group3Val0).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            // Note: The following also uses deductionData.group3[0]. Change the index if needed.
+            if (deductionData.group4[0]) {
+                const group3Val0Shop = String(deductionData.group4[0]).replace(/,/g, '');
+                document.getElementById("deduction_shop").textContent =
+                    parseFloat(group3Val0Shop).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (deductionData.group5[0]) {
+                const group3Val1 = String(deductionData.group5[0]).replace(/,/g, '');
+                document.getElementById("deduction_education").textContent =
+                    parseFloat(group3Val1).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (deductionData.group5[1]) {
+                const group3Val2 = String(deductionData.group5[1]).replace(/,/g, '');
+                document.getElementById("deduction_general").textContent =
+                    parseFloat(group3Val2).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+
+        }
+        if (incomeData) {
+            let sumWithheldTax = 0;
+
+            if (incomeData.income.salary.totalTax) {
+                const salaryValue = String(incomeData.income.salary.totalTax).replace(/,/g, '');
+                const salaryTax = parseFloat(salaryValue);
+                sumWithheldTax += salaryTax;
+                document.getElementById("withheld_salary").textContent =
+                    salaryTax.toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (incomeData.income.freelance.totalTax) {
+                const freelanceValue = String(incomeData.income.freelance.totalTax).replace(/,/g, '');
+                const freelanceTax = parseFloat(freelanceValue);
+                sumWithheldTax += freelanceTax;
+                document.getElementById("withheld_freelance").textContent =
+                    freelanceTax.toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (incomeData.income.business.totalTax) {
+                const businessValue = String(incomeData.income.business.totalTax).replace(/,/g, '');
+                const businessTax = parseFloat(businessValue);
+                sumWithheldTax += businessTax;
+                document.getElementById("withheld_business").textContent =
+                    businessTax.toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (incomeData.income.invest.totalTax) {
+                const investValue = String(incomeData.income.invest.totalTax).replace(/,/g, '');
+                const investTax = parseFloat(investValue);
+                sumWithheldTax += investTax;
+                document.getElementById("withheld_invest").textContent =
+                    investTax.toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+            if (incomeData.income.inherit.totalTax) {
+                const inheritValue = String(incomeData.income.inherit.totalTax).replace(/,/g, '');
+                const inheritTax = parseFloat(inheritValue);
+                sumWithheldTax += inheritTax;
+                document.getElementById("withheld_inherit").textContent =
+                    inheritTax.toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+            }
+
+            // Set the total withheld tax as the sum of all individual taxes
+            document.getElementById("withheldTax").textContent =
+                sumWithheldTax.toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        calculateResult();
+        updateDisplayedValues();
     });
 </script>
 
