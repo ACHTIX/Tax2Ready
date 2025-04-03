@@ -951,6 +951,41 @@
         calculateResult();
         updateDisplayedValues();
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        function applyCommaFormatting(id, options) {
+            const el = document.getElementById(id);
+            if (el) {
+                // เอา comma เดิมออก แล้วแปลงเป็นตัวเลข
+                const value = parseFloat(el.textContent.replace(/,/g, '')) || 0;
+                el.textContent = value.toLocaleString("en-US", options);
+            }
+        }
+
+        // ตัวเลือกสำหรับตัวเลขที่ต้องการทศนิยม 2 ตำแหน่ง
+        const optionsWithTwoDecimals = {minimumFractionDigits: 2, maximumFractionDigits: 2};
+        // ตัวเลือกสำหรับตัวเลขที่ต้องการปัดเศษ (ไม่มีทศนิยม)
+        const optionsNoDecimals = {minimumFractionDigits: 0, maximumFractionDigits: 0};
+
+        // รายการ element ID ที่ต้องการแสดงทศนิยม 2 ตำแหน่ง
+        const idsWithDecimals = [
+            "totalIncome",
+            "totalExpenses",
+            "totalDeduction",
+            "netTaxableIncome",
+            "taxPayable",
+            "withheldTax",
+            "finalTaxDue"
+        ];
+
+        // รายการ element ID ที่ต้องการปัดเศษ (ไม่มีทศนิยม)
+        const idsNoDecimals = [
+            "finalTaxRounded"
+        ];
+
+        idsWithDecimals.forEach(id => applyCommaFormatting(id, optionsWithTwoDecimals));
+        idsNoDecimals.forEach(id => applyCommaFormatting(id, optionsNoDecimals));
+    });
 </script>
 
 </body>

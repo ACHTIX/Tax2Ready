@@ -184,8 +184,7 @@
                             <td class="py-2 w-1/3">ลดหย่อนผู้มีเงินได้ (บาท):</td>
                             <td class="py-2 w-2/3">
                                 <input type="text" class="border rounded p-1 w-full" value="60,000" readonly
-                                       onkeydown="return false;"
-                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"/>
+                                       onkeydown="return false;"/>
                             </td>
                         </tr>
                         <!-- แถวค่าลดหย่อนผู้สูงอายุ -->
@@ -194,12 +193,12 @@
                             <td class="py-2">
                                 <div class="flex gap-2">
                                     <!-- ช่องแสดงผลเงิน (คำนวณอัตโนมัติ) -->
-                                    <input id="deduction_age" type="text" class="border rounded p-1 w-1/2" placeholder="0" readonly
+                                    <input type="text" class="border rounded p-1 w-1/2" placeholder="0" readonly
                                            onkeydown="return false;"
                                            pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"/>
-                                    <!-- ช่องกรอกจำนวนคน จำกัดสูงสุด 2 คน -->
+                                    <!-- ช่องกรอกจำนวนคน จำกัดสูงสุด 2 คน (กดปุ่มเพิ่ม/ลดเท่านั้น) -->
                                     <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน"
-                                           min="0" max="2" step="1" inputmode="numeric" pattern="[0-9]*"
+                                           min="0" max="2" step="1" onkeydown="return false;"
                                            data-rate="30000" oninput="updateDeductionValue(this)"/>
                                 </div>
                             </td>
@@ -209,12 +208,12 @@
                             <td class="py-2">ค่าอุปการะบิดา/มารดา (บาท):</td>
                             <td class="py-2">
                                 <div class="flex gap-2">
-                                    <input id="deduction_parent" type="text" class="border rounded p-1 w-1/2" placeholder="0" readonly
+                                    <input type="text" class="border rounded p-1 w-1/2" placeholder="0" readonly
                                            onkeydown="return false;"
                                            pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"/>
                                     <!-- ช่องกรอกจำนวนคน จำกัดสูงสุด 2 คน -->
                                     <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน"
-                                           min="0" max="2" step="1" inputmode="numeric" pattern="[0-9]*"
+                                           min="0" max="2" step="1" onkeydown="return false;"
                                            data-rate="30000" oninput="updateDeductionValue(this)"/>
                                 </div>
                             </td>
@@ -224,12 +223,12 @@
                             <td class="py-2">ค่าเลี้ยงดูบุตร (บาท):</td>
                             <td class="py-2">
                                 <div class="flex gap-2">
-                                    <input id="deduction_child" type="text" class="border rounded p-1 w-1/2" placeholder="0" readonly
+                                    <input type="text" class="border rounded p-1 w-1/2" placeholder="0" readonly
                                            onkeydown="return false;"
                                            pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"/>
                                     <!-- ช่องกรอกจำนวนคน จำกัดสูงสุด 3 คน -->
                                     <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน"
-                                           min="0" max="3" step="1" inputmode="numeric" pattern="[0-9]*"
+                                           min="0" max="3" step="1" onkeydown="return false;"
                                            data-rate="30000" oninput="updateDeductionValue(this)"/>
                                 </div>
                             </td>
@@ -239,12 +238,12 @@
                             <td class="py-2">อุปการะคนพิการ/ทุพพลภาพ (บาท):</td>
                             <td class="py-2">
                                 <div class="flex gap-2">
-                                    <input id="deduction_disability" type="text" class="border rounded p-1 w-1/2" placeholder="0" readonly
+                                    <input type="text" class="border rounded p-1 w-1/2" placeholder="0" readonly
                                            onkeydown="return false;"
                                            pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"/>
                                     <!-- ช่องกรอกจำนวนคน ไม่จำกัดจำนวน -->
                                     <input type="number" class="border rounded p-1 w-1/2" placeholder="จำนวนคน"
-                                           min="0" step="1" inputmode="numeric" pattern="[0-9]*"
+                                           min="0" step="1" onkeydown="return false;"
                                            data-rate="60000" oninput="updateDeductionValue(this)"/>
                                 </div>
                             </td>
@@ -256,110 +255,58 @@
                 <div id="group-2" class="hidden space-y-4 overflow-auto">
                     <h3 class="text-lg font-bold text-[#4e342e]">กลุ่มที่ 2: ค่าลดหย่อนอื่นๆ สำหรับออมและการลงทุน</h3>
                     <table class="w-full text-left border-collapse">
-                        <!-- 1. เบี้ยประกันสุขภาพ (บาท) -->
                         <tr>
                             <td class="py-2">เบี้ยประกันชีวิต (ทั่วไป) (บาท):</td>
-                            <td class="flex gap-2">
-                                <!-- Input แรก: รับค่าที่ผู้ใช้กรอกจริง -->
-                                <input id="rawLife" type="text" class="border rounded p-1 w-1/2"
-                                       placeholder="0 (สูงสุด 100,000)"
+                            <td>
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                       inputmode="numeric"
-                                       maxlength="15"
                                        onkeypress="return checkDecimal(this, event)"
-                                       oninput="formatNumberWithCommas(this)"
-                                       onblur="updateCalcValue(this, 100000, 'จ่ายตามจริง ไม่เกิน 100,000 บาท')"
-                                       title="จ่ายตามจริง ไม่เกิน 100,000 บาท"
-                                       required/>
-                                <!-- Input ที่สอง: แสดงค่าสูงสุดที่จะนำไปคำนวณ (readonly) -->
-                                <input id="calcLife" type="text" class="border rounded p-1 w-1/2"
-                                       placeholder="0 (สูงสุด 100,000)"
-                                       readonly
-                                       title="ค่าสูงสุดที่จะนำไปคำนวณ"/>
+                                       oninput="validateCommaNumber(this)"/>
                             </td>
                         </tr>
-
-                        <!-- 2. เบี้ยประกันชีวิตแบบบำนาญ (บาท) -->
+                        <tr>
+                            <td class="py-2">เบี้ยประกันสุขภาพ (บาท):</td>
+                            <td>
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
+                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                       onkeypress="return checkDecimal(this, event)"
+                                       oninput="validateCommaNumber(this)"/>
+                            </td>
+                        </tr>
                         <tr>
                             <td class="py-2">เบี้ยประกันชีวิตแบบบำนาญ (บาท):</td>
-                            <td class="flex gap-2">
-                                <input id="rawPension" type="text" class="border rounded p-1 w-1/2"
-                                       placeholder="0 (สูงสุด 200,000 หรือ 15% ของรายได้)"
+                            <td>
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                       inputmode="numeric"
-                                       maxlength="15"
                                        onkeypress="return checkDecimal(this, event)"
-                                       oninput="formatNumberWithCommas(this)"
-                                       onblur="updateCalcValue(this, 200000, 'จ่ายตามจริง ไม่เกิน 200,000 บาท หรือ 15% ของรายได้')"
-                                       title="จ่ายตามจริง ไม่เกิน 200,000 บาท หรือ 15% ของรายได้ (เลือกที่น้อยกว่า)"
-                                       required/>
-                                <input id="calcPension" type="text" class="border rounded p-1 w-1/2"
-                                       placeholder="0 (สูงสุด 200,000 หรือ 15% ของรายได้)"
-                                       readonly
-                                       title="ค่าสูงสุดที่จะนำไปคำนวณ"/>
+                                       oninput="validateCommaNumber(this)"/>
                             </td>
                         </tr>
-
-                        <!-- 3. กองทุนสำรองเลี้ยงชีพ/กบข. (บาท) -->
                         <tr>
                             <td class="py-2">กองทุนสำรองเลี้ยงชีพ/กบข. (บาท):</td>
-                            <td class="flex gap-2">
-                                <input id="rawProvident" type="text" class="border rounded p-1 w-1/2"
-                                       placeholder="0 (สูงสุด 15% ของรายได้ หรือ 500,000 บาท)"
+                            <td>
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                       inputmode="numeric"
-                                       maxlength="15"
                                        onkeypress="return checkDecimal(this, event)"
-                                       oninput="formatNumberWithCommas(this)"
-                                       onblur="updateCalcValue(this, 500000, 'จ่ายตามจริง ไม่เกิน 15% ของรายได้ และไม่เกิน 500,000 บาท')"
-                                       title="จ่ายตามจริง ไม่เกิน 15% ของรายได้ และไม่เกิน 500,000 บาท"
-                                       required/>
-                                <input id="calcProvident" type="text" class="border rounded p-1 w-1/2"
-                                       placeholder="0 (สูงสุด 15% ของรายได้ หรือ 500,000 บาท)"
-                                       readonly
-                                       title="ค่าสูงสุดที่จะนำไปคำนวณ"/>
+                                       oninput="validateCommaNumber(this)"/>
                             </td>
                         </tr>
-
-                        <!-- 4. กองทุนรวมเพื่อการเลี้ยงชีพ (RMF) (บาท) -->
                         <tr>
                             <td class="py-2">กองทุนรวมเพื่อการเลี้ยงชีพ (RMF) (บาท):</td>
-                            <td class="flex gap-2">
-                                <input id="rawRMF" type="text" class="border rounded p-1 w-1/2"
-                                       placeholder="0 (สูงสุด 30% ของรายได้ หรือ 500,000 บาท เมื่อรวมกับกองทุนสำรองเลี้ยงชีพ/กบข.)"
+                            <td>
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                       inputmode="numeric"
-                                       maxlength="15"
                                        onkeypress="return checkDecimal(this, event)"
-                                       oninput="formatNumberWithCommas(this)"
-                                       onblur="updateCalcValue(this, 500000, 'จ่ายตามจริง ไม่เกิน 30% ของรายได้ และเมื่อรวมกับกองทุนสำรองเลี้ยงชีพ/กบข. ต้องไม่เกิน 500,000 บาท')"
-                                       title="จ่ายตามจริง ไม่เกิน 30% ของรายได้ และเมื่อรวมกับกองทุนสำรองเลี้ยงชีพ/กบข. ต้องไม่เกิน 500,000 บาท"
-                                       required/>
-                                <input id="calcRMF" type="text" class="border rounded p-1 w-1/2"
-                                       placeholder="0 (สูงสุด 30% ของรายได้ หรือ 500,000 บาท เมื่อรวมกับกองทุนสำรองเลี้ยงชีพ/กบข.)"
-                                       readonly
-                                       title="ค่าสูงสุดที่จะนำไปคำนวณ"/>
+                                       oninput="validateCommaNumber(this)"/>
                             </td>
                         </tr>
-
-                        <!-- 5. กองทุน SSF (บาท) -->
                         <tr>
                             <td class="py-2">กองทุน SSF (บาท):</td>
-                            <td class="flex gap-2">
-                                <input id="rawSSF" type="text" class="border rounded p-1 w-full"
-                                       placeholder="0 (สูงสุด 30% ของรายได้; เมื่อรวมกับกองทุนสำรองเลี้ยงชีพ/กบข. ไม่เกิน 200,000 หรือรวมกับบำนาญไม่เกิน 500,000)"
+                            <td>
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                       inputmode="numeric"
-                                       maxlength="15"
                                        onkeypress="return checkDecimal(this, event)"
-                                       oninput="formatNumberWithCommas(this)"
-                                       onblur="updateCalcValue(this, 200000, 'จ่ายตามจริง ไม่เกิน 30% ของรายได้; เมื่อรวมกับกองทุนสำรองเลี้ยงชีพ/กบข. ไม่เกิน 200,000 หรือรวมกับบำนาญไม่เกิน 500,000')"
-                                       title="จ่ายตามจริง ไม่เกิน 30% ของรายได้; เมื่อรวมกับกองทุนสำรองเลี้ยงชีพ/กบข. ต้องไม่เกิน 200,000 บาท หรือรวมกับบำนาญต้องไม่เกิน 500,000 บาท"
-                                       required/>
-                                <input id="calcSSF" type="text" class="border rounded p-1 w-full"
-                                       placeholder="0 (สูงสุด 30% ของรายได้; เมื่อรวมกับกองทุนสำรองเลี้ยงชีพ/กบข. ไม่เกิน 200,000 หรือรวมกับบำนาญไม่เกิน 500,000)"
-                                       readonly
-                                       title="ค่าสูงสุดที่จะนำไปคำนวณ"/>
+                                       oninput="validateCommaNumber(this)"/>
                             </td>
                         </tr>
                     </table>
@@ -367,48 +314,34 @@
 
                 <!-- กลุ่มที่ 3 -->
                 <div id="group-3" class="hidden space-y-4 overflow-auto">
-                    <h3 class="text-lg font-bold text-[#4e342e]">
-                        กลุ่มที่ 3: ค่าลดหย่อนบางส่วน จากสินทรัพย์และมาตรการนโยบายภาครัฐ
-                    </h3>
+                    <h3 class="text-lg font-bold text-[#4e342e]">กลุ่มที่ 3: ค่าลดหย่อนบางส่วน
+                        จากสินทรัพย์และมาตรการนโยบายภาครัฐ</h3>
                     <table class="w-full text-left border-collapse">
-                        <!-- ดอกเบี้ยเงินกู้ยืม เพื่อที่อยู่อาศัย (สูงสุด 100,000 บาท) -->
                         <tr>
                             <td class="py-2">ดอกเบี้ยเงินกู้ยืม เพื่อที่อยู่อาศัย (บาท):</td>
-                            <td class="flex gap-2">
-                                <input id="rawLoanInterest" type="text" class="border rounded p-1 w-1/2"
-                                       placeholder="0 (สูงสุด 100,000)"
+                            <td>
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                       inputmode="numeric"
-                                       maxlength="15"
                                        onkeypress="return checkDecimal(this, event)"
-                                       oninput="formatNumberWithCommas(this)"
-                                       onblur="updateCalcValue(this, 100000, 'ดอกเบี้ยเงินกู้ยืมเพื่อที่อยู่อาศัยไม่เกิน 100,000 บาท')"
-                                       title="ดอกเบี้ยเงินกู้ยืมเพื่อที่อยู่อาศัยไม่เกิน 100,000 บาท"
-                                       required/>
-                                <input id="calcLoanInterest" type="text" class="border rounded p-1 w-1/2"
-                                       placeholder="0 (สูงสุด 100,000)"
-                                       readonly
-                                       title="ค่าสูงสุดที่จะนำไปคำนวณ" />
+                                       oninput="validateCommaNumber(this)"/>
                             </td>
                         </tr>
-                        <!-- เงินบริจาคพรรคการเมือง (สูงสุด 10,000 บาท) -->
                         <tr>
                             <td class="py-2">เงินบริจาคพรรคการเมือง (บาท):</td>
-                            <td class="flex gap-2">
-                                <input id="rawPoliticalDonation" type="text" class="border rounded p-1 w-1/2"
-                                       placeholder="0 (สูงสุด 10,000)"
+                            <td>
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                       inputmode="numeric"
-                                       maxlength="15"
                                        onkeypress="return checkDecimal(this, event)"
-                                       oninput="formatNumberWithCommas(this)"
-                                       onblur="updateCalcValue(this, 10000, 'เงินบริจาคพรรคการเมืองไม่เกิน 10,000 บาท')"
-                                       title="เงินบริจาคพรรคการเมืองไม่เกิน 10,000 บาท"
-                                       required/>
-                                <input id="calcPoliticalDonation" type="text" class="border rounded p-1 w-1/2"
-                                       placeholder="0 (สูงสุด 10,000)"
-                                       readonly
-                                       title="ค่าสูงสุดที่จะนำไปคำนวณ" />
+                                       oninput="validateCommaNumber(this)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2">ค่าโครงการและค่าผ่าตัดทำหมัน (บาท):</td>
+                            <td>
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
+                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                       onkeypress="return checkDecimal(this, event)"
+                                       oninput="validateCommaNumber(this)"/>
                             </td>
                         </tr>
                     </table>
@@ -416,82 +349,63 @@
 
                 <!-- กลุ่มที่ 4 -->
                 <div id="group-4" class="hidden space-y-4 overflow-auto">
-                    <h3 class="text-lg font-bold text-[#4e342e]">
-                        กลุ่มที่ 4: ช่องเพิ่มเติม (เพิ่มตามมาตรการพิเศษ)
-                    </h3>
+                    <h3 class="text-lg font-bold text-[#4e342e]">กลุ่มที่ 4: ช่องเพิ่มเติม (เพิ่มตามมาตรการพิเศษ)</h3>
                     <table class="w-full text-left border-collapse">
-                        <!-- ค่าซื้อสินค้าหรือบริการ ช้อปดีมีคืน (สูงสุด 50,000 บาท) -->
                         <tr>
                             <td class="py-2">
                                 ค่าซื้อสินค้าหรือบริการ ช้อปดีมีคืน
                                 <br/><span class="text-sm text-gray-600">(ใช้ได้ถึง 15 ก.พ. 2566)</span>
                             </td>
-                            <td class="flex gap-2">
-                                <input id="rawShopDeeMeeKoon" type="text" class="border rounded p-1 w-1/2"
-                                       placeholder="0 (สูงสุด 50,000)"
+                            <td>
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                       inputmode="numeric"
-                                       maxlength="15"
                                        onkeypress="return checkDecimal(this, event)"
-                                       oninput="formatNumberWithCommas(this)"
-                                       onblur="updateCalcValue(this, 50000, 'ค่าซื้อสินค้าหรือบริการ ช้อปดีมีคืน ไม่เกิน 50,000 บาท')"
-                                       title="ค่าซื้อสินค้าหรือบริการ ช้อปดีมีคืน ไม่เกิน 50,000 บาท"
-                                       required/>
-                                <input id="calcShopDeeMeeKoon" type="text" class="border rounded p-1 w-1/2"
-                                       placeholder="0 (สูงสุด 50,000)"
-                                       readonly
-                                       title="ค่าสูงสุดที่จะนำไปคำนวณ" />
+                                       oninput="validateCommaNumber(this)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2">ค่าซื้อสินค้าเพื่อการศึกษา/กีฬา/หนังสือ (บาท):</td>
+                            <td>
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
+                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                       onkeypress="return checkDecimal(this, event)"
+                                       oninput="validateCommaNumber(this)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2">ค่าซื้อสินค้า OTOP (บาท):</td>
+                            <td>
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
+                                       pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
+                                       onkeypress="return checkDecimal(this, event)"
+                                       oninput="validateCommaNumber(this)"/>
                             </td>
                         </tr>
                     </table>
                 </div>
 
-                <!-- กลุ่มที่ 5: เงินบริจาค -->
+                <!-- กลุ่มที่ 5 -->
                 <div id="group-5" class="hidden space-y-4 overflow-auto">
                     <h3 class="text-lg font-bold text-[#4e342e]">กลุ่มที่ 5: เงินบริจาค</h3>
                     <table class="w-full text-left border-collapse">
-                        <!-- เงินบริจาคสนับสนุนการศึกษา/สถาบันการกุศล (บาท) -->
                         <tr>
-                            <td class="py-2">
-                                เงินบริจาคสนับสนุนการศึกษา/สถาบันการกุศล (บาท):
-                            </td>
-                            <td class="flex gap-2">
-                                <!-- ช่องรับค่าจริง -->
-                                <input id="rawDonationEdu" type="text" class="border rounded p-1 w-1/2" placeholder="0"
+                            <td class="py-2">เงินบริจาคสนับสนุนการศึกษา/สถาบันการกุศล (บาท):</td>
+                            <td>
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                       inputmode="numeric"
-                                       maxlength="15"
-                                       required
                                        onkeypress="return checkDecimal(this, event)"
-                                       oninput="formatNumberWithCommas(this)"
-                                       onblur="validateDonationEdu(this)"/>
-                                <!-- ช่องแสดงผล (คูณ 2 แล้ว) -->
-                                <input id="calcDonationEdu" type="text" class="border rounded p-1 w-1/2" placeholder="0"
-                                       readonly title="ค่าบริจาคคูณ 2"/>
+                                       oninput="validateCommaNumber(this)"/>
                             </td>
                         </tr>
-
-                        <!-- เงินบริจาคทั่วไป (บาท) -->
                         <tr>
-                            <td class="py-2">
-                                เงินบริจาคทั่วไป (บาท):
-                            </td>
-                            <td class="flex gap-2">
-                                <!-- ช่องรับค่าจริง -->
-                                <input id="rawDonationGeneral" type="text" class="border rounded p-1 w-1/2" placeholder="0"
+                            <td class="py-2">เงินบริจาคอื่น ๆ (บาท):</td>
+                            <td>
+                                <input type="text" class="border rounded p-1 w-full" placeholder="0"
                                        pattern="^\d{1,3}(,\d{3})*(\.\d{0,2})?$"
-                                       inputmode="numeric"
-                                       maxlength="15"
-                                       required
                                        onkeypress="return checkDecimal(this, event)"
-                                       oninput="formatNumberWithCommas(this)"
-                                       onblur="validateDonationGeneral(this)"/>
-                                <!-- ช่องแสดงผล (คำนวณ 10% แล้ว) -->
-                                <input id="calcDonationGeneral" type="text" class="border rounded p-1 w-1/2" placeholder="0"
-                                       readonly title="ค่าบริจาคทั่วไป คำนวณ 10%"/>
+                                       oninput="validateCommaNumber(this)"/>
                             </td>
                         </tr>
-
                     </table>
                 </div>
 
@@ -531,244 +445,88 @@
     </div>
 </div>
 
-
 <!-- รวม Script -->
 <script>
-    // ฟังก์ชันเพิ่ม comma ให้กับตัวเลขเมื่อผู้ใช้กรอกข้อมูล
-    const formatNumberWithCommas = (input) => {
-        let value = input.value.replace(/,/g, '');
-        if (value === "") return;
-        const parts = value.split('.');
-        let integerPart = parts[0];
-        const decimalPart = parts.length > 1 ? '.' + parts[1] : '';
-        integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        input.value = integerPart + decimalPart;
-    };
+    // ---- เมนูมือถือ ----
+    document.getElementById("mobile-menu-button").addEventListener("click", function () {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+    // ---- เมนูเรียนรู้เพิ่มเติม (Desktop & Mobile) ----
+    document.getElementById("learn-more-btn").addEventListener("click", function () {
+        document.getElementById("learn-more-menu").classList.toggle("hidden");
+    });
+    document.getElementById("learn-more-btn-mobile").addEventListener("click", function () {
+        document.getElementById("learn-more-menu-mobile").classList.toggle("hidden");
+    });
 
-    // ฟังก์ชันตรวจสอบและปรับปรุงค่าให้ไม่เกิน max ที่กำหนด
-    const checkAndCorrect = (input, maxValue, errorMessage) => {
-        const rawValue = input.value.replace(/,/g, '');
-        const value = parseFloat(rawValue);
-        if (!isNaN(value) && value > maxValue) {
-            input.value = maxValue.toLocaleString('en-US');
-            input.setCustomValidity(errorMessage);
-        } else {
-            input.setCustomValidity('');
-        }
-    };
-
-    // ฟังก์ชันสำหรับตรวจสอบเงื่อนไขของ SSF
-    const validateSSF = (input) => {
-        const maxSSF = 500000;
-        const rawValue = input.value.replace(/,/g, '');
-        const value = parseFloat(rawValue);
-        if (!isNaN(value) && value > maxSSF) {
-            input.value = maxSSF.toLocaleString('en-US');
-            input.setCustomValidity('จ่ายตามจริง ไม่เกิน 30% ของรายได้; เมื่อรวมกับกองทุนสำรองเลี้ยงชีพ/กบข. ไม่เกิน 200,000 หรือรวมกับบำนาญไม่เกิน 500,000');
-        } else {
-            input.setCustomValidity('');
-        }
-    };
-
-    // ฟังก์ชันตรวจสอบตัวเลขและทศนิยม
-    const checkDecimal = (input, event) => {
-        const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'];
-        if (event.ctrlKey || event.metaKey || allowedKeys.includes(event.key)) {
-            return true;
-        }
-        const char = event.key;
-        if (!/[0-9.]/.test(char)) {
-            event.preventDefault();
-            return false;
-        }
-        if (char === '.' && input.value.includes('.')) {
-            event.preventDefault();
-            return false;
-        }
-        const [integerPart, decimalPart] = input.value.split('.');
-        if (decimalPart && decimalPart.length >= 2 && input.selectionStart > input.value.indexOf('.')) {
-            event.preventDefault();
-            return false;
-        }
-        return true;
-    };
-
-    // ฟังก์ชันตรวจสอบรูปแบบของค่าใน input
-    const validateCommaNumber = (input) => {
-        const value = input.value;
-        const regex = /^\d{1,3}(,\d{3})*(\.\d{0,2})?$/;
-        if (value === "" || regex.test(value)) {
-            input.setCustomValidity("");
-        } else {
-            input.setCustomValidity("รูปแบบไม่ถูกต้อง (ตัวอย่าง: 000,000,000.00)");
-        }
-    };
-
-    // ส่วนคำนวณเงินสุทธิ์และข้อมูลที่เกี่ยวข้อง
-    const getTotalIncome = () => {
-        const saved = localStorage.getItem("pageData");
-        let total = 0;
-        if (saved) {
-            const data = JSON.parse(saved);
-            if (data.income) {
-                const groups = ['salary', 'freelance', 'business', 'invest', 'inherit'];
-                groups.forEach(group => {
-                    if (data.income[group] && data.income[group].totalIncome) {
-                        total += parseFloat(data.income[group].totalIncome) || 0;
-                    }
-                });
-            }
-        }
-        return total;
-    };
-
-    const getTotalDeductions = () => {
-        let total = 0;
-        for (let i = 1; i <= 4; i++) {
-            const group = document.getElementById("group-" + i);
-            if (group) {
-                const inputs = group.querySelectorAll("input");
-                inputs.forEach(input => {
-                    total += parseFloat(input.value.replace(/,/g, '')) || 0;
-                });
-            }
-        }
-        return total;
-    };
-
-    const getNetTaxableIncome = () => {
-        const incomeTotal = getTotalIncome();
-        const deductionTotal = getTotalDeductions();
-        return incomeTotal - (deductionTotal + 100000);
-    };
-
-    const getDeductionTotal = () => getTotalDeductions();
-
-    // ตัวอย่างฟังก์ชัน validateDonationEdu
-    function validateDonationEdu(rawInput) {
-        // ดึงค่าที่กรอกและลบ comma
-        const rawValue = rawInput.value.replace(/,/g, '');
-        let donation = parseFloat(rawValue) || 0;
-        // คำนวณบริจาคที่คูณสอง
-        let donationDoubled = donation * 2;
-        // สมมติว่า getNetTaxableIncome() มีอยู่แล้วและคืนค่าเงินสุทธิ์
-        const netTaxableIncome = getNetTaxableIncome();
-        const maxAllowedAfterDouble = netTaxableIncome * 0.1;
-        if (donationDoubled > maxAllowedAfterDouble) {
-            alert("เงินบริจาคเพื่อการศึกษา/สถาบันการกุศล (คูณ 2) ไม่ควรเกิน 10% ของเงินสุทธิ ("
-                + maxAllowedAfterDouble.toLocaleString() + " บาท)");
-            donation = maxAllowedAfterDouble / 2;
-            donationDoubled = donation * 2;
-            rawInput.setCustomValidity(`ยอดเงินบริจาคเมื่อคูณ 2 แล้วไม่เกิน ${maxAllowedAfterDouble.toLocaleString()} บาท กรุณาปรับยอดลง`);
-        } else {
-            rawInput.setCustomValidity('');
-        }
-        // อัปเดตช่อง raw ให้มีการจัดรูปแบบ
-        rawInput.value = donation.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-        // อัปเดตช่อง computed
-        const calcInput = document.getElementById('calcDonationEdu');
-        if (calcInput) {
-            calcInput.value = donationDoubled.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-        }
-    }
-
-    // ตัวอย่างฟังก์ชัน validateDonationGeneral
-    function validateDonationGeneral(rawInput) {
-        // ดึงค่าที่กรอกและลบ comma
-        const rawValue = rawInput.value.replace(/,/g, '');
-        let donation = parseFloat(rawValue) || 0;
-        const netTaxableIncome = getNetTaxableIncome();
-        const maxAllowed = netTaxableIncome * 0.1;
-        // ดึงค่าบริจาคการศึกษาที่คำนวณแล้วจากช่อง computed
-        const calcEduInput = document.getElementById('calcDonationEdu');
-        let donationEduDoubled = 0;
-        if (calcEduInput) {
-            donationEduDoubled = parseFloat(calcEduInput.value.replace(/,/g, '')) || 0;
-        }
-        // สมมติว่าบริจาคทั่วไปจะนำมารวมกับบริจาคเพื่อการศึกษาได้ไม่เกิน maxAllowed
-        let generalDeduction = donation;
-        if ((donationEduDoubled + generalDeduction) > maxAllowed) {
-            generalDeduction = maxAllowed - donationEduDoubled;
-            if (generalDeduction < 0) generalDeduction = 0;
-            rawInput.setCustomValidity(`ยอดรวมบริจาค (ทั้งบริจาคเพื่อการศึกษาและทั่วไป) ห้ามเกิน 10% ของเงินสุทธิ (${maxAllowed.toLocaleString()} บาท)`);
-        } else {
-            rawInput.setCustomValidity('');
-        }
-        // อัปเดตช่อง raw ให้มีการจัดรูปแบบ
-        rawInput.value = donation.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-        // อัปเดตช่อง computed
-        const calcGeneralInput = document.getElementById('calcDonationGeneral');
-        if (calcGeneralInput) {
-            calcGeneralInput.value = generalDeduction.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-        }
-    }
-
-    // ฟังก์ชันสำหรับอัปเดตค่าใน input readonly ตามเงื่อนไข (ใช้ร่วมกับ input ที่แสดงค่าสูงสุด)
-    const updateCalcValue = (rawInput, maxValue, message) => {
-        const container = rawInput.parentNode;
-        const calcInput = container.querySelector('input[readonly]');
-        const value = rawInput.value.replace(/,/g, '');
-        const numberValue = parseFloat(value);
-        if (isNaN(numberValue)) {
-            calcInput.value = "";
-            return;
-        }
-        calcInput.value = numberValue < maxValue ? rawInput.value : formatNumberWithCommasValue(maxValue);
-    };
-
-    const formatNumberWithCommasValue = (num) => {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    };
-
-    // ส่วนของโค้ดที่เกี่ยวกับการจัดการกลุ่ม (navigation, save/load data)
+    // --------------------------------------------------
+    // จัดการการแสดงผลกลุ่ม (5 กลุ่ม)
+    // --------------------------------------------------
     const totalGroups = 5;
     let currentGroup = 1;
     const prevBtn = document.getElementById("prevBtn");
     const nextBtn = document.getElementById("nextBtn");
+    const saveButton = document.getElementById("saveButton"); // ปุ่มบันทึกเฉพาะในกลุ่มสุดท้าย
+    const saveModal = document.getElementById("saveModal");
+    const cancelSave = document.getElementById("cancelSave");
+    const confirmSave = document.getElementById("confirmSave");
 
-    const showGroup = (groupNumber) => {
+    // ฟังก์ชันแสดง/ซ่อนกลุ่ม
+    function showGroup(groupNumber) {
         for (let i = 1; i <= totalGroups; i++) {
             document.getElementById(`group-${i}`).classList.add("hidden");
         }
         document.getElementById(`group-${groupNumber}`).classList.remove("hidden");
         prevBtn.disabled = (groupNumber === 1);
-    };
+        if (groupNumber === totalGroups) {
+            nextBtn.classList.add("hidden");
+            saveButton.classList.remove("hidden");
+        } else {
+            nextBtn.classList.remove("hidden");
+            saveButton.classList.add("hidden");
+        }
+    }
 
-    const validateCurrentGroup = () => {
+    // ตรวจสอบอินพุตในกลุ่มปัจจุบัน (ตรวจสอบเฉพาะช่องที่ไม่ใช่ readonly)
+    function validateCurrentGroup() {
         const inputs = document.querySelectorAll(`#group-${currentGroup} input:not([readonly])`);
         for (let input of inputs) {
             if (input.value !== "") {
-                const value = input.value.replace(/,/g, '');
+                let value = input.value.replace(/,/g, '');
                 if (isNaN(parseFloat(value))) {
                     return false;
                 }
+                // เฉพาะกลุ่มที่ 1 สำหรับช่องจำนวนคน (input type="number")
                 if (currentGroup === 1 && input.type === "number") {
                     if (parseFloat(value) % 1 !== 0) {
-                        alert("กรุณากรอกจำนวนคนเป็นเลขจำนวนเต็ม");
+                        alert("Error: กรุณากรอกจำนวนคนเป็นเลขจำนวนเต็ม");
                         return false;
                     }
                 }
             }
         }
         return true;
-    };
+    }
 
-    const saveCurrentGroupData = () => {
-        const savedData = localStorage.getItem("taxDeductionData");
-        const deductionData = savedData ? JSON.parse(savedData) : {};
-        const groupElement = document.getElementById(`group-${currentGroup}`);
-        const inputs = groupElement.querySelectorAll('input');
-        deductionData[`group${currentGroup}`] = [];
-        inputs.forEach(input => {
-            deductionData[`group${currentGroup}`].push(input.value);
-        });
+    // ฟังก์ชันบันทึกข้อมูลทั้งหมดในหน้า (ใช้ localStorage)
+    function savePageData() {
+        let deductionData = {};
+        for (let i = 1; i <= totalGroups; i++) {
+            const groupElement = document.getElementById(`group-${i}`);
+            const inputs = groupElement.querySelectorAll('input');
+            deductionData[`group${i}`] = [];
+            inputs.forEach((input) => {
+                deductionData[`group${i}`].push(input.value);
+            });
+        }
         localStorage.setItem("taxDeductionData", JSON.stringify(deductionData));
-    };
+    }
 
-    const loadPageData = () => {
-        const saved = localStorage.getItem("taxDeductionData");
+    // ฟังก์ชันโหลดข้อมูลจาก localStorage
+    function loadPageData() {
+        let saved = localStorage.getItem("taxDeductionData");
         if (saved) {
-            const deductionData = JSON.parse(saved);
+            let deductionData = JSON.parse(saved);
             for (let i = 1; i <= totalGroups; i++) {
                 if (deductionData[`group${i}`]) {
                     const groupElement = document.getElementById(`group-${i}`);
@@ -781,37 +539,63 @@
                 }
             }
         }
-    };
+    }
 
+    // Event listener ปุ่มย้อนกลับ
     prevBtn.addEventListener("click", () => {
         if (currentGroup > 1) {
-            saveCurrentGroupData();
+            savePageData();
             currentGroup--;
             showGroup(currentGroup);
         }
     });
 
+    // Event listener ปุ่มถัดไป
     nextBtn.addEventListener("click", () => {
         if (!validateCurrentGroup()) {
             alert("กรุณากรอกเฉพาะตัวเลข (หรือเว้นว่าง) ในทุกช่องของกลุ่มนี้");
             return;
         }
-        saveCurrentGroupData();
+        savePageData();
         if (currentGroup < totalGroups) {
             currentGroup++;
             showGroup(currentGroup);
-        } else {
-            window.location.href = 'result.html';
         }
     });
 
-    document.querySelectorAll('header a[href]').forEach(link => {
-        link.addEventListener('click', () => saveCurrentGroupData());
+    // Event listener ปุ่มบันทึก (เฉพาะในกลุ่มสุดท้าย)
+    saveButton.addEventListener("click", () => {
+        if (!validateCurrentGroup()) {
+            alert("กรุณากรอกเฉพาะตัวเลข (หรือเว้นว่าง) ในทุกช่องของกลุ่มนี้");
+            return;
+        }
+        saveModal.classList.remove('hidden');
     });
 
-    document.addEventListener("DOMContentLoaded", () => {
+    // Modal: เมื่อคลิก "ยกเลิก" ใน modal
+    cancelSave.addEventListener('click', () => {
+        saveModal.classList.add('hidden');
+    });
+
+    // Modal: เมื่อคลิก "บันทึก" ใน modal ให้บันทึกข้อมูลและนำทางไปยังหน้าต่อไป
+    confirmSave.addEventListener('click', () => {
+        savePageData();
+        saveModal.classList.add('hidden');
+        window.location.href = 'result.html';
+    });
+
+    // เพิ่ม event listener ให้กับลิงก์ใน header เพื่อบันทึกข้อมูลก่อนเปลี่ยนหน้า
+    document.querySelectorAll('header a[href]').forEach(link => {
+        link.addEventListener('click', function () {
+            savePageData();
+        });
+    });
+
+    // โหลดข้อมูลที่บันทึกไว้เมื่อหน้าเพจโหลด และแสดงกลุ่มแรก
+    document.addEventListener("DOMContentLoaded", function () {
         loadPageData();
         showGroup(currentGroup);
+        // ตรวจสอบสถานะการเข้าสู่ระบบ (Session Validation)
         const token = 'Bearer ' + localStorage.getItem('jwt_token');
         fetch(window.CONFIG.BASE_PATH + '/users/is-valid', {
             method: 'GET',
@@ -837,54 +621,101 @@
             });
     });
 
-    const updateDeductionValue = (numberInput) => {
-        const count = parseInt(numberInput.value) || 0;
-        const rate = parseInt(numberInput.getAttribute('data-rate')) || 0;
-        const newValue = count * rate;
-        const container = numberInput.parentElement;
-        const textInput = container.querySelector('input[type="text"]');
-        textInput.value = newValue.toLocaleString('en-US');
-    };
-    function saveDeductionDataUnified() {
-        const unifiedData = {
-            deduction_age: document.getElementById('deduction_age').value.replace(/,/g, '') || "0",
-            deduction_parent: document.getElementById('deduction_parent').value.replace(/,/g, '') || "0",
-            deduction_child: document.getElementById('deduction_child').value.replace(/,/g, '') || "0",
-            deduction_disability: document.getElementById('deduction_disability').value.replace(/,/g, '') || "0",
-            deduction_insurance: document.getElementById('calcLife').value.replace(/,/g, '') || "0",
-            deduction_retirement_insurance: document.getElementById('calcPension').value.replace(/,/g, '') || "0",
-            deduction_pvf: document.getElementById('calcProvident').value.replace(/,/g, '') || "0",
-            deduction_rmfund: document.getElementById('calcRMF').value.replace(/,/g, '') || "0",
-            deduction_ssf: document.getElementById('calcSSF').value.replace(/,/g, '') || "0",
-            deduction_interest: document.getElementById('calcLoanInterest').value.replace(/,/g, '') || "0",
-            deduction_political: document.getElementById('calcPoliticalDonation').value.replace(/,/g, '') || "0",
-            deduction_shop: document.getElementById('rawShopDeeMeeKoon').value.replace(/,/g, '') || "0",
-            deduction_education: document.getElementById('calcDonationEdu').value.replace(/,/g, '') || "0",
-            deduction_general: document.getElementById('calcDonationGeneral').value.replace(/,/g, '') || "0"
-        };
-        // สำคัญ: ต้องใช้ JSON.stringify เพื่อบันทึกเป็น JSON ที่ถูกต้อง
-        localStorage.setItem("taxDeductionData", JSON.stringify(unifiedData));
-        console.log("Unified taxDeductionData saved:", unifiedData);
-    }
-
-    document.getElementById("confirmSave").addEventListener("click", function () {
-        // ตรวจสอบ input ว่าข้อมูลเป็นตัวเลขถูกต้อง
-        let numericInputs = document.querySelectorAll('.numericInput');
-        for (let input of numericInputs) {
-            if (input.value !== "" && isNaN(parseFloat(input.value.replace(/,/g, '')))) {
-                alert("กรุณากรอกข้อมูลเป็นตัวเลขเท่านั้น");
-                return;
+    // ฟังก์ชันตรวจสอบตัวเลขและทศนิยม
+    function checkDecimal(input, event) {
+        if (event.ctrlKey || event.metaKey || event.key === "Backspace" || event.key === "Delete" ||
+            event.key === "ArrowLeft" || event.key === "ArrowRight" || event.key === "Tab") {
+            return true;
+        }
+        const allowed = /[\d,\.]/;
+        if (!allowed.test(event.key)) {
+            event.preventDefault();
+            return false;
+        }
+        if (event.key === ".") {
+            if (input.value.indexOf(".") !== -1) {
+                event.preventDefault();
+                return false;
             }
         }
-        // บันทึกข้อมูลลดหย่อนในรูปแบบ unified
-        saveDeductionDataUnified();
-        document.getElementById("saveModal").classList.add("hidden");
-        window.location.href = "result.html";
+        if (/\d/.test(event.key) && input.value.indexOf(".") !== -1) {
+            let parts = input.value.split(".");
+            if (parts[1].length >= 2 && input.selectionStart > input.value.indexOf(".")) {
+                event.preventDefault();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function validateCommaNumber(input) {
+        let value = input.value;
+        const regex = /^\d{1,3}(,\d{3})*(\.\d{0,2})?$/;
+        if (value === "" || regex.test(value)) {
+            input.setCustomValidity("");
+        } else {
+            input.setCustomValidity("รูปแบบไม่ถูกต้อง (ตัวอย่าง: 000,000,000.00)");
+        }
+    }
+
+    // ฟังก์ชันคำนวณและอัปเดตค่าเบี้ยลดหย่อนอัตโนมัติ
+    function updateDeductionValue(numberInput) {
+        // ดึงจำนวนคนที่กรอก (ถ้าไม่ใช่ตัวเลขหรือว่าง ให้ถือเป็น 0)
+        const count = parseInt(numberInput.value) || 0;
+        // ดึงอัตราที่กำหนดไว้ใน data-rate (เช่น 30000 หรือ 60000)
+        const rate = parseInt(numberInput.getAttribute('data-rate')) || 0;
+        // คำนวณค่าเบี้ยลดหย่อน
+        const newValue = count * rate;
+        // หาตัว input ประเภท text ที่เป็นคู่ของ numberInput
+        const container = numberInput.parentElement;
+        const textInput = container.querySelector('input[type="text"]');
+        // อัปเดตค่าใน textInput โดยแปลงเป็นสตริงที่มีเครื่องหมายคั่นหลักพัน
+        textInput.value = newValue.toLocaleString('en-US');
+    }
+
+    function formatNumber(input) {
+        let value = input.value;
+        if (value === "") return;
+        // ลบ comma เก่าออก
+        value = value.replace(/,/g, '');
+        // แยกส่วนจำนวนเต็มกับทศนิยม (ถ้ามี)
+        let parts = value.split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        input.value = parts.join(".");
+    }
+
+    document.querySelectorAll('input[type="text"][pattern]').forEach(function (input) {
+        // เมื่อ focus ให้ลบ comma ออก เพื่อให้ง่ายต่อการแก้ไข
+        input.addEventListener('focus', function () {
+            input.value = input.value.replace(/,/g, '');
+        });
+        // เมื่อ blur ให้แสดงผลแบบมี comma
+        input.addEventListener('blur', function () {
+            formatNumber(input);
+        });
     });
 
+    document.addEventListener("DOMContentLoaded", function () {
+        // โค้ดสำหรับจัดรูปแบบ input ด้วย comma
+        document.querySelectorAll('input[type="text"][pattern]').forEach(function (input) {
+            input.addEventListener('focus', function () {
+                input.value = input.value.replace(/,/g, '');
+            });
+            input.addEventListener('blur', function () {
+                formatNumber(input);
+            });
+        });
+    });
+
+    function formatNumber(input) {
+        let value = input.value;
+        if (value === "") return;
+        value = value.replace(/,/g, '');
+        let parts = value.split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        input.value = parts.join(".");
+    }
 </script>
-
-
 
 </body>
 </html>
