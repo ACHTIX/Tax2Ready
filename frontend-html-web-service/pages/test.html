@@ -1,416 +1,123 @@
-
-<!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tax-result</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- เรียกใช้ jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/png" href="../assets/TD_web_icon.png" />
-    <script src="../config.js"></script>
-    <style>
-        .font-mali {
-            font-family: 'Mali', sans-serif;
-        }
-    </style>
-</head>
-<body class="flex items-center justify-center min-h-screen bg-[#c4bcac]">
-
-<!-- Header (คงเดิม) -->
-<header class="bg-[#b49c74] shadow-md w-full py-4 px-6 fixed top-0 left-0">
-    <!-- โค้ด header เดิม -->
-</header>
-
-<!-- Main Container -->
-<div id="main-container" class="w-full max-w-sm md:max-w-[1100px] p-6 gap-3 flex flex-col md:flex-row justify-center items-center text-center border border-gray-300 shadow-lg rounded-xl bg-[#ece4d4] mt-20">
-    <div class="flex flex-col md:flex-row gap-10 w-full justify-center items-start">
-        <!-- กล่องใหญ่ด้านซ้าย (ขั้นตอน + PDF) -->
-        <div class="w-full h-auto md:h-[550px] bg-white p-6 rounded-lg shadow-md flex flex-col justify-between font-mali overflow-auto">
-            <!-- หัวข้อใหญ่ -->
-            <h2 class="text-2xl md:text-3xl font-bold text-[#4e342e] text-center mb-4">แสดงผลลัพท์</h2>
-
-            <!-- แสดงขั้นตอน (คงเดิม) -->
-            <div class="flex justify-center space-x-4 mb-6">
-                <!-- STEP 1, 2, 3, 4 -->
-            </div>
-
-            <!-- โซนข้อมูลเงินได้และการคำนวณภาษี -->
-            <div class="flex flex-col gap-3 w-full justify-center items-start">
-                <!-- Container: เงินได้ทั้งหมด -->
-                <div class="w-full bg-white p-6 rounded-lg shadow-md flex flex-col font-mali">
-                    <h3 class="text-xl text-[#4e342e] font-semibold mb-4">เงินได้ทั้งหมด</h3>
-                    <div class="flex justify-between mb-2">
-                        <span>เงินได้รวม (บาท):</span>
-                        <span id="totalIncome" class="font-bold text-blue-700">0.00</span>
-                    </div>
-                    <div class="flex justify-between mb-2">
-                        <span>หักค่าใช้จ่าย (บาท):</span>
-                        <span id="totalExpenses" class="font-bold text-blue-700">100,000.00</span>
-                    </div>
-                    <div class="flex justify-between mb-2">
-                        <span>หักลดหย่อน (บาท):</span>
-                        <span id="totalDeduction" class="font-bold text-blue-700">0.00</span>
-                    </div>
-                    <div class="flex justify-between mb-2">
-                        <span>เงินได้สุทธิ (บาท):</span>
-                        <span id="netTaxableIncome" class="font-bold text-blue-700">0.00</span>
-                    </div>
-                </div>
-                <!-- Container: การคำนวณภาษี -->
-                <div class="w-full bg-white p-6 rounded-lg shadow-md flex flex-col font-mali">
-                    <h3 class="text-xl text-[#4e342e] font-semibold mb-4">การคำนวณภาษี</h3>
-                    <div class="flex justify-between mb-2">
-                        <span>ภาษีที่ต้องชำระ (บาท):</span>
-                        <span id="taxPayable" class="font-bold text-red-600">0.00</span>
-                    </div>
-                    <div class="flex justify-between mb-2">
-                        <span>ภาษีหัก ณ ที่จ่าย (บาท):</span>
-                        <span id="withheldTax" class="font-bold text-red-600">0.00</span>
-                    </div>
-                    <div class="flex justify-between mb-2">
-                        <span>ยอดสุทธิ (ชำระเพิ่ม) (บาท):</span>
-                        <span id="finalTaxDue" class="font-bold text-red-600">0.00</span>
-                    </div>
-                    <div class="flex justify-between mb-2 font-bold">
-                        <span>รวมทั้งหมด (ปัดเศษบาท):</span>
-                        <span id="finalTaxRounded" class="font-bold text-red-600">0</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ส่วนเพิ่มรายละเอียด (แสดงรายการที่กรอก) -->
-            <div class="mt-6 space-y-6">
-                <!-- รายละเอียดรายได้ตามประเภท -->
-                <div class="w-full bg-white p-6 rounded-lg shadow-md flex flex-col font-mali">
-                    <!-- หัวข้อที่สามารถคลิกได้ -->
-                    <h3 class="toggle-header text-xl text-[#4e342e] font-semibold mb-4 cursor-pointer">
-                        รายละเอียดรายได้ตามประเภท
-                    </h3>
-                    <!-- เนื้อหาที่ซ่อนได้ -->
-                    <div class="toggle-content hidden">
-                        <ul class="space-y-2">
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                1. รายได้จากเงินเดือน: <span id="income-salary">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                2. รายได้จากฟรีแลนซ์, รับจ้างทั่วไป: <span id="income-freelance">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                3. รายได้จากทรัพย์สิน, การทำธุรกิจ, อาชีพอิสระ: <span id="income-business">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                4. รายได้จากการลงทุน: <span id="income-invest">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                5. รายได้จากมรดกหรือได้รับมา: <span id="income-inherit">0.00</span> บาท
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- รายละเอียดหักลดหย่อน -->
-                <div class="w-full bg-white p-6 rounded-lg shadow-md flex flex-col font-mali">
-                    <h3 class="toggle-header text-xl text-[#4e342e] font-semibold mb-4 cursor-pointer">
-                        รายละเอียดหักลดหย่อน
-                    </h3>
-                    <div class="toggle-content hidden">
-                        <ul class="space-y-2">
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                1. ค่าลดหย่อนผู้สูงอายุ: <span id="deduction-elderly">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                2. ค่าอุปการะบิดา/มารดา: <span id="deduction-parents">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                3. ค่าเลี้ยงดูบุตร: <span id="deduction-child">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                4. อุปการะคนพิการ/ทุพพลภาพ: <span id="deduction-disabled">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                5. เบี้ยประกันชีวิต (ทั่วไป): <span id="deduction-life">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                6. เบี้ยประกันชีวิตแบบบำนาญ: <span id="deduction-pension">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                7. กองทุนสำรองเลี้ยงชีพ/กบข.: <span id="deduction-provident">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                8. กองทุนรวมเพื่อการเลี้ยงชีพ (RMF): <span id="deduction-rmf">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                9. กองทุน SSF: <span id="deduction-ssf">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                10. ดอกเบี้ยเงินกู้ยืม เพื่อที่อยู่อาศัย: <span id="deduction-loan">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                11. เงินบริจาคพรรคการเมือง: <span id="deduction-political">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                12. ค่าซื้อสินค้าหรือบริการ ช้อปดีมีคืน: <span id="deduction-shop">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                13. เงินบริจาคสนับสนุนการศึกษา/สถาบันการกุศล: <span id="deduction-education">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                14. เงินบริจาคทั่วไป: <span id="deduction-donation">0.00</span> บาท
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- รายละเอียดภาษีหัก ณ ที่จ่าย -->
-                <div class="w-full bg-white p-6 rounded-lg shadow-md flex flex-col font-mali">
-                    <h3 class="toggle-header text-xl text-[#4e342e] font-semibold mb-4 cursor-pointer">
-                        รายละเอียดภาษีหัก ณ ที่จ่าย
-                    </h3>
-                    <div class="toggle-content hidden">
-                        <ul class="space-y-2">
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                1. รายได้จากเงินเดือน: <span id="withheld-salary">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                2. รายได้จากฟรีแลนซ์, รับจ้างทั่วไป: <span id="withheld-freelance">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                3. รายได้จากทรัพย์สิน, การทำธุรกิจ, อาชีพอิสระ: <span id="withheld-business">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                4. รายได้จากการลงทุน: <span id="withheld-invest">0.00</span> บาท
-                            </li>
-                            <li class="text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline">
-                                5. รายได้จากมรดกหรือได้รับมา: <span id="withheld-inherit">0.00</span> บาท
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- โซน PDF และปุ่มบันทึก (คงเดิม) -->
-            <div class="flex flex-col w-full justify-center items-center mt-6">
-                <div class="w-full h-full flex flex-col items-center">
-                    <embed src="../assets/Form-Tax90.pdf" type="application/pdf" width="600" height="800" class="border border-gray-300 rounded-lg">
-                    <a href="../assets/Form-Tax90.pdf" download class="text-blue-500 underline mt-2">
-                        ดาวน์โหลดฟอร์มกรอกภาษี 90
-                    </a>
-                </div>
-            </div>
-            <button id="saveDataButton" class="w-full mt-4 px-4 py-2 bg-[#4e342e] text-white rounded-lg shadow">
-                บันทึกผลลัพท์
-            </button>
-        </div>
+<!-- Section: เงินได้รวม -->
+<div id="incomeHeading" class="flex justify-between mb-2 text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline cursor-pointer">
+    <span>เงินได้รวม (บาท):</span>
+    <span id="totalIncome" class="font-bold text-blue-700">0.00</span>
+</div>
+<div id="incomeDetails" class="ml-4 hidden">
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="incomeItem1">
+        <span>1. รายได้จากเงินเดือน:</span>
+        <span id="income_salary" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="incomeItem2">
+        <span>2. รายได้จากฟรีแลนซ์, รับจ้างทั่วไป:</span>
+        <span id="income_freelance" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="incomeItem3">
+        <span>3. รายได้จากทรัพย์สิน, การทำธุรกิจ, อาชีพอิสระ:</span>
+        <span id="income_business" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="incomeItem4">
+        <span>4. รายได้จากการลงทุน:</span>
+        <span id="income_invest" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="incomeItem5">
+        <span>5. รายได้จากมรดกหรือได้รับมา:</span>
+        <span id="income_inherit" class="font-bold text-blue-700">0.00</span>
     </div>
 </div>
 
-<!-- Script สำหรับการ toggle ด้วย slideToggle() -->
-<script>
-    $(document).ready(function(){
-        $(".toggle-header").click(function(){
-            $(this).next(".toggle-content").slideToggle();
-        });
-    });
+<!-- Section: หักลดหย่อน -->
+<div id="deductionHeading" class="flex justify-between mb-2 text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline cursor-pointer">
+    <span>หักลดหย่อน (บาท):</span>
+    <span id="totalDeduction" class="font-bold text-blue-700">0.00</span>
+</div>
+<div id="deductionDetails" class="ml-4 hidden">
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem0">
+        <span>0. ค่าลดหย่อนส่วนบุคคล (บาท):</span>
+        <span id="deduction_person" class="font-bold text-blue-700">60,000.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem1">
+        <span>1. ค่าลดหย่อนผู้สูงอายุ (บาท):</span>
+        <span id="deduction_age" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem2">
+        <span>2. ค่าอุปการะบิดา/มารดา (บาท):</span>
+        <span id="deduction_parent" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem3">
+        <span>3. ค่าเลี้ยงดูบุตร (บาท):</span>
+        <span id="deduction_child" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem4">
+        <span>4. อุปการะคนพิการ/ทุพพลภาพ (บาท):</span>
+        <span id="deduction_disability" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem5">
+        <span>5. เบี้ยประกันชีวิต (ทั่วไป) (บาท):</span>
+        <span id="deduction_insurance" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem6">
+        <span>6. เบี้ยประกันชีวิตแบบบำนาญ (บาท):</span>
+        <span id="deduction_retirement_insurance" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem7">
+        <span>7. กองทุนสำรองเลี้ยงชีพ/กบข. (บาท):</span>
+        <span id="deduction_pvf" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem8">
+        <span>8. กองทุนรวมเพื่อการเลี้ยงชีพ (RMF) (บาท):</span>
+        <span id="deduction_rmfund" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem9">
+        <span>9. กองทุน SSF (บาท):</span>
+        <span id="deduction_ssf" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem10">
+        <span>10. ดอกเบี้ยเงินกู้ยืม เพื่อที่อยู่อาศัย (บาท):</span>
+        <span id="deduction_interest" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem11">
+        <span>11. เงินบริจาคพรรคการเมือง (บาท):</span>
+        <span id="deduction_political" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem12">
+        <span>12. ค่าซื้อสินค้าหรือบริการ ช้อปดีมีคืน:</span>
+        <span id="deduction_shop" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem13">
+        <span>13. เงินบริจาคสนับสนุนการศึกษา/สถาบันการกุศล (บาท):</span>
+        <span id="deduction_education" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="deductionItem14">
+        <span>14. เงินบริจาคทั่วไป (บาท):</span>
+        <span id="deduction_general" class="font-bold text-blue-700">0.00</span>
+    </div>
+</div>
 
-    // ฟังก์ชันคำนวณภาษีตามอัตราแบบขั้นบันได (คงเดิม)
-    function calculatePersonalIncomeTax(netTaxableIncome) {
-        if (netTaxableIncome <= 0) return 0;
-        const brackets = [
-            {threshold: 150000, rate: 0.00},
-            {threshold: 300000, rate: 0.05},
-            {threshold: 500000, rate: 0.10},
-            {threshold: 750000, rate: 0.15},
-            {threshold: 1000000, rate: 0.20},
-            {threshold: 2000000, rate: 0.25},
-            {threshold: 5000000, rate: 0.30},
-            {threshold: Infinity, rate: 0.35}
-        ];
-        let tax = 0, start = 0;
-        for (let i = 0; i < brackets.length; i++) {
-            const {threshold, rate} = brackets[i];
-            if (netTaxableIncome <= threshold) {
-                tax += (netTaxableIncome - start) * rate;
-                break;
-            } else {
-                tax += (threshold - start) * rate;
-                start = threshold;
-            }
-        }
-        return tax;
-    }
-
-    // ฟังก์ชันสำหรับคำนวณผลลัพธ์ภาษีและอัปเดตรายละเอียดแต่ละรายการ
-    function calculateResult() {
-        // 1) ดึงข้อมูลรายได้จาก localStorage key = "pageData"
-        let savedPageData = localStorage.getItem("pageData");
-        if (!savedPageData) {
-            const samplePageData = {
-                income: {
-                    salary: {totalIncome: "0", totalTax: "0"},
-                    freelance: {totalIncome: "0", totalTax: "0"},
-                    business: {totalIncome: "0", totalTax: "0"},
-                    invest: {totalIncome: "0", totalTax: "0"},
-                    inherit: {totalIncome: "0", totalTax: "0"}
-                }
-            };
-            localStorage.setItem("pageData", JSON.stringify(samplePageData));
-            savedPageData = JSON.stringify(samplePageData);
-        }
-        let totalIncome = 0, totalWithheldTax = 0;
-        const pageData = JSON.parse(savedPageData);
-        if (pageData.income) {
-            const groups = ["salary", "freelance", "business", "invest", "inherit"];
-            groups.forEach(group => {
-                if (pageData.income[group]) {
-                    totalIncome += parseFloat(pageData.income[group].totalIncome) || 0;
-                    totalWithheldTax += parseFloat(pageData.income[group].totalTax) || 0;
-                }
-            });
-        }
-
-        // 2) ดึงข้อมูลลดหย่อนภาษีจาก localStorage key = "taxDeductionData"
-        let savedDeduction = localStorage.getItem("taxDeductionData");
-        if (!savedDeduction) {
-            const sampleDeductionData = {
-                // ในตัวอย่างนี้ยังไม่มีข้อมูลรายละเอียดแต่ละรายการ จึงตั้งค่าเริ่มต้นเป็น 0
-                elderly: "0", parents: "0", child: "0", disabled: "0", life: "0",
-                pension: "0", provident: "0", rmf: "0", ssf: "0", loan: "0",
-                political: "0", shop: "0", education: "0", donation: "0"
-            };
-            localStorage.setItem("taxDeductionData", JSON.stringify(sampleDeductionData));
-            savedDeduction = JSON.stringify(sampleDeductionData);
-        }
-        const deductionData = JSON.parse(savedDeduction);
-        // รวมลดหย่อนทั้งหมด (ตัวอย่างนี้ใช้การบวกค่าแต่ละรายการ)
-        let totalDeduction = 0;
-        Object.values(deductionData).forEach(val => {
-            totalDeduction += parseFloat(val || "0");
-        });
-
-        // 3) ค่าใช้จ่ายคงที่ 100,000 บาท
-        const totalExpenses = 100000;
-        document.getElementById("totalExpenses").textContent = totalExpenses.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-        // 4) คำนวณเงินได้สุทธิ
-        const netTaxableIncome = totalIncome - (totalDeduction + totalExpenses);
-
-        // 5) คำนวณภาษีที่ต้องชำระ
-        const taxPayable = calculatePersonalIncomeTax(netTaxableIncome > 0 ? netTaxableIncome : 0);
-
-        // 6) คำนวณยอดสุทธิที่ต้องชำระ
-        let finalTaxDue = taxPayable - totalWithheldTax;
-        if (finalTaxDue < 0) { finalTaxDue = 0; }
-
-        // 7) ปัดเศษเป็นจำนวนเต็ม (ปัดลง)
-        const finalTaxRounded = Math.floor(finalTaxDue);
-
-        // 8) แสดงผลสรุป
-        document.getElementById("totalIncome").textContent = totalIncome.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("totalDeduction").textContent = totalDeduction.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("netTaxableIncome").textContent = netTaxableIncome.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("taxPayable").textContent = taxPayable.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("withheldTax").textContent = totalWithheldTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("finalTaxDue").textContent = finalTaxDue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("finalTaxRounded").textContent = finalTaxRounded.toLocaleString('en-US');
-
-        // 9) อัปเดตรายละเอียดรายได้ตามประเภท
-        document.getElementById("income-salary").textContent = (parseFloat(pageData.income.salary.totalIncome) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("income-freelance").textContent = (parseFloat(pageData.income.freelance.totalIncome) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("income-business").textContent = (parseFloat(pageData.income.business.totalIncome) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("income-invest").textContent = (parseFloat(pageData.income.invest.totalIncome) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("income-inherit").textContent = (parseFloat(pageData.income.inherit.totalIncome) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-        // 10) อัปเดตรายละเอียดภาษีหัก ณ ที่จ่าย
-        document.getElementById("withheld-salary").textContent = (parseFloat(pageData.income.salary.totalTax) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("withheld-freelance").textContent = (parseFloat(pageData.income.freelance.totalTax) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("withheld-business").textContent = (parseFloat(pageData.income.business.totalTax) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("withheld-invest").textContent = (parseFloat(pageData.income.invest.totalTax) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("withheld-inherit").textContent = (parseFloat(pageData.income.inherit.totalTax) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-        // 11) สำหรับรายละเอียดหักลดหย่อน (ในตัวอย่างนี้ใช้ข้อมูลจาก taxDeductionData)
-        document.getElementById("deduction-elderly").textContent = (parseFloat(deductionData.elderly) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("deduction-parents").textContent = (parseFloat(deductionData.parents) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("deduction-child").textContent = (parseFloat(deductionData.child) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("deduction-disabled").textContent = (parseFloat(deductionData.disabled) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("deduction-life").textContent = (parseFloat(deductionData.life) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("deduction-pension").textContent = (parseFloat(deductionData.pension) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("deduction-provident").textContent = (parseFloat(deductionData.provident) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("deduction-rmf").textContent = (parseFloat(deductionData.rmf) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("deduction-ssf").textContent = (parseFloat(deductionData.ssf) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("deduction-loan").textContent = (parseFloat(deductionData.loan) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("deduction-political").textContent = (parseFloat(deductionData.political) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("deduction-shop").textContent = (parseFloat(deductionData.shop) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("deduction-education").textContent = (parseFloat(deductionData.education) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById("deduction-donation").textContent = (parseFloat(deductionData.donation) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    }
-
-    // เรียกคำนวณผลลัพธ์เมื่อหน้าโหลด
-    document.addEventListener("DOMContentLoaded", function() {
-        calculateResult();
-    });
-
-    // โค้ดสำหรับการคำนวณผลลัพท์และส่งข้อมูลไปยัง API (คงเดิม)
-    document.getElementById('saveDataButton').addEventListener('click', async () => {
-        const data = {
-            total_income: parseFloat(document.getElementById('totalIncome').textContent.replace(/,/g, "")) || 0,
-            total_expenses: parseFloat(document.getElementById('totalExpenses').textContent.replace(/,/g, "")) || 0,
-            total_deduction: parseFloat(document.getElementById('totalDeduction').textContent.replace(/,/g, "")) || 0,
-            net_taxable_income: parseFloat(document.getElementById('netTaxableIncome').textContent.replace(/,/g, "")) || 0,
-            tax_payable: parseFloat(document.getElementById('taxPayable').textContent.replace(/,/g, "")) || 0,
-            withheld_tax: parseFloat(document.getElementById('withheldTax').textContent.replace(/,/g, "")) || 0,
-            final_tax_due: parseFloat(document.getElementById('finalTaxDue').textContent.replace(/,/g, "")) || 0,
-            final_tax_rounded: parseFloat(document.getElementById('finalTaxRounded').textContent.replace(/,/g, "")) || 0,
-            status: 'pending',
-            description: 'บันทึกผลคำนวณภาษี',
-            date: new Date().toISOString().split('T')[0]
-        };
-
-        try {
-            const token = 'Bearer ' + localStorage.getItem('jwt_token');
-            const response = await fetch(window.CONFIG.BASE_PATH + '/tax-data/save', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': token
-                },
-                body: JSON.stringify(data)
-            });
-            const result = await response.json();
-            if (response.ok) {
-                alert('บันทึกข้อมูลสำเร็จ (Transaction ID: ' + result.transactionId + ')');
-
-                fetch(window.CONFIG.BASE_PATH + '/users/generate-pdf', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': 'Bearer ' + localStorage.getItem('jwt_token')
-                    }
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (!data.base64Pdf) {
-                            throw new Error('ไม่มีข้อมูล PDF ใน response');
-                        }
-                        const dataUrl = 'data:application/pdf;base64,' + data.base64Pdf;
-                        const downloadLink = document.createElement('a');
-                        downloadLink.href = dataUrl;
-                        downloadLink.download = 'tax_result.pdf';
-                        document.body.appendChild(downloadLink);
-                        downloadLink.click();
-                        document.body.removeChild(downloadLink);
-                    })
-                    .catch(error => {
-                        console.error('Error downloading PDF:', error);
-                        alert('เกิดข้อผิดพลาดในการดาวน์โหลด PDF');
-                    });
-            } else {
-                alert('เกิดข้อผิดพลาด: ' + result.error);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('เกิดข้อผิดพลาดในการส่งข้อมูล');
-        }
-    });
-</script>
+<!-- Section: ภาษีหัก ณ ที่จ่าย -->
+<div id="withheldTaxHeading" class="flex justify-between mb-2 text-[#4e342e] font-mali hover:text-[#b49c74] hover:underline cursor-pointer">
+    <span>ภาษีหัก ณ ที่จ่าย (บาท):</span>
+    <span id="withheldTax" class="font-bold text-red-600">0.00</span>
+</div>
+<div id="withheldTaxDetails" class="ml-4 hidden">
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="withheldItem1">
+        <span>1. รายได้จากเงินเดือน:</span>
+        <span id="withheld_salary" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="withheldItem2">
+        <span>2. รายได้จากฟรีแลนซ์, รับจ้างทั่วไป:</span>
+        <span id="withheld_freelance" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="withheldItem3">
+        <span>3. รายได้จากทรัพย์สิน, การทำธุรกิจ, อาชีพอิสระ:</span>
+        <span id="withheld_business" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="withheldItem4">
+        <span>4. รายได้จากการลงทุน:</span>
+        <span id="withheld_invest" class="font-bold text-blue-700">0.00</span>
+    </div>
+    <div class="flex justify-between mb-2 text-[#4e342e] font-mali" id="withheldItem5">
+        <span>5. รายได้จากมรดกหรือได้รับมา:</span>
+        <span id="withheld_inherit" class="font-bold text-blue-700">0.00</span>
+    </div>
+</div>
